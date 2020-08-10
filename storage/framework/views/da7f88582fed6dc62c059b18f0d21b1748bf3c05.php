@@ -1,0 +1,1 @@
+<?php echo $content; ?><?php /**PATH /home/gardoon1/domains/academybusiness.ir/next/resources/views/email/content.blade.php ENDPATH**/ ?>
