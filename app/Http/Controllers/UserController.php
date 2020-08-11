@@ -47,6 +47,9 @@ use App\User;
 use App\Models\Forum;
 use App\Models\ForumCategory;
 use App\Models\ForumComments;
+use App\Models\Chat_Chats;
+use App\Models\Chat_Messages;
+use App\Models\Chat_UsersInChat;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -3539,6 +3542,8 @@ class UserController extends Controller
 
     }
 
+    #### Controllers added to meet Tzenik needs ####
+
     ###########################
     #### Forum Controllers ####
     ###########################
@@ -3690,4 +3695,27 @@ class UserController extends Controller
         ]);
         return redirect('admin/Forum/comment/edit/'.$comment->id);
     }
+    
+    ##################
+    ###### Chat ######
+    ##################
+
+    public function chat_Index()
+    {
+        $user = auth()->user();
+        $id = $user->id;
+        //$chats = Chat_Chats::with('users_in_chat')->orderBy('id', 'DESC')->get();
+        $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
+        return view(getTemplate() . '.user.chat.index', ['chats' => $chats]);
+    }
+    public function chat_getMessages($chat_id){
+        $user = auth()->user();
+        $id = $user->id;
+        $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
+        //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'users.name')->orderBy('chat_messages.id', 'ASC')->get();
+        return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id]);
+    }
+
+    #### Here ends area of custom controllers to meet Tzenik needs ####
 }

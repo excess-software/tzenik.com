@@ -13,10 +13,10 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
@@ -92,6 +92,7 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
@@ -169,6 +170,7 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -262,7 +264,6 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
             'Aws\\' => 4,
             'Asm89\\Stack\\' => 12,
             'App\\' => 4,
-            'Anhskohbo\\NoCaptcha\\' => 20,
             'Anand\\LaravelPaytmWallet\\' => 25,
         ),
     );
@@ -429,6 +430,10 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
         ),
         'Psy\\' => 
         array (
@@ -646,10 +651,6 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
-        'Anhskohbo\\NoCaptcha\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/anhskohbo/no-captcha/src',
-        ),
         'Anand\\LaravelPaytmWallet\\' => 
         array (
             0 => __DIR__ . '/..' . '/anandsiddharth/laravel-paytm-wallet/src',
@@ -705,9 +706,6 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         'Anand\\LaravelPaytmWallet\\Providers\\RefundStatusCheckProvider' => __DIR__ . '/..' . '/anandsiddharth/laravel-paytm-wallet/src/Providers/RefundStatusCheckProvider.php',
         'Anand\\LaravelPaytmWallet\\Providers\\StatusCheckProvider' => __DIR__ . '/..' . '/anandsiddharth/laravel-paytm-wallet/src/Providers/StatusCheckProvider.php',
         'Anand\\LaravelPaytmWallet\\Traits\\HasTransactionStatus' => __DIR__ . '/..' . '/anandsiddharth/laravel-paytm-wallet/src/Traits/HasTransactionStatus.php',
-        'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
-        'Anhskohbo\\NoCaptcha\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptcha.php',
-        'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
         'App\\Classes\\JDateTime' => __DIR__ . '/../..' . '/app/Classes/JDateTime.php',
         'App\\Classes\\VideoStream' => __DIR__ . '/../..' . '/app/Classes/VideoStream.php',
         'App\\Classes\\Vimeo' => __DIR__ . '/../..' . '/app/Classes/Vimeo.php',
@@ -776,6 +774,9 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         'App\\Models\\Event' => __DIR__ . '/../..' . '/app/Models/Event.php',
         'App\\Models\\Favorite' => __DIR__ . '/../..' . '/app/Models/Favorite.php',
         'App\\Models\\Follower' => __DIR__ . '/../..' . '/app/Models/Follower.php',
+        'App\\Models\\Forum' => __DIR__ . '/../..' . '/app/Models/Forum.php',
+        'App\\Models\\ForumCategory' => __DIR__ . '/../..' . '/app/Models/ForumCategory.php',
+        'App\\Models\\ForumComments' => __DIR__ . '/../..' . '/app/Models/ForumComments.php',
         'App\\Models\\Login' => __DIR__ . '/../..' . '/app/Models/Login.php',
         'App\\Models\\MeetingDate' => __DIR__ . '/../..' . '/app/Models/MeetingDate.php',
         'App\\Models\\MeetingLink' => __DIR__ . '/../..' . '/app/Models/MeetingLink.php',
@@ -5588,6 +5589,11 @@ class ComposerStaticInit987c4b1bfa1aa84089b0f69e9c1d243a
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

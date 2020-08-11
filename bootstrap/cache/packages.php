@@ -10,17 +10,6 @@
       'PaytmWallet' => 'Anand\\LaravelPaytmWallet\\Facades\\PaytmWallet',
     ),
   ),
-  'anhskohbo/no-captcha' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'NoCaptcha' => 'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha',
-    ),
-  ),
   'barryvdh/laravel-debugbar' => 
   array (
     'providers' => 

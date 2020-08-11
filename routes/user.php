@@ -27,6 +27,8 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('deactive', 'UserController@tripModeDeActive');
             Route::post('active', 'UserController@tripModeActive');
         });
+    
+        #### Routes added to meet Tzenik needs ####
 
         ###################
         ###### Forum ######
@@ -42,6 +44,17 @@ Route::group(['prefix' => 'user'], function () {
 
             Route::post('post/comment/store', 'UserController@forum_commentstore');
         }); 
+
+        ##################
+        ###### Chat ######
+        ##################
+        Route::group(['prefix'=>'chat'], function () {
+            Route::get('', 'UserController@chat_Index');
+            Route::get('Chat/{id}', 'UserController@chat_getMessages');
+            Route::post('send_Message', 'UserController@chat_sendMessage');
+        });
+
+        #### Here ends area of custom routes to meet Tzenik needs ####
 
         #############
         #### Buy ####
