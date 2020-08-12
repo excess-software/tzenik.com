@@ -142,6 +142,10 @@
     height: 516px;
     overflow-y: auto;
     }
+    .participants_header{
+        margin: 0;
+        padding: 0;
+    }
 </style>
 
 <div class="container">
@@ -192,20 +196,48 @@
                             </div>
                         </div>
                     </div> 
+                    <br>
                 @endforeach  
-
             </div>
           <div class="type_msg">
             <div class="input_msg_write">
-              <input type="text" class="write_msg" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                <form action="../send_Message/{{{ $this_chat }}}" method="post">
+                    @csrf
+                    <input type="text" class="write_msg" placeholder="Type a message" name="message">
+                    <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </form>
             </div>
           </div>
         </div>
       </div>
-      
-      
-      <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
-      
-    </div></div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+<script>
+    /*var socket = io.connect('http://proacademydos.local:8890');
+    socket.on('sendMessage', function(data){
+        $('.msg_history').append('<p>'+data+'</p>');
+        return false;
+    });*/
+    var socket = io.connect('http://localhost:8890');
+    $(document).ready(function($){
+        $('.msg_send_btn').click(function(){
+            if($('.write_msg').val() != ''){
+                socket.emit('sendMessage', $('.write_msg').val(), {{{ $this_user }}}, {{{ $this_chat }}});
+            }
+            return false;
+        });
+        socket.on('receiveMessage', function(message, sender, chat_id){
+            $('.msg_history').append('<div class="incoming_msg">\
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+                        <div class="received_msg">\
+                            <div class="received_withd_msg">\
+                                <p>'+message+'</p>\
+                                <span class="time_date">'+sender+'</span>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    <br>');
+        })
+    });
+</script>  
 @endsection

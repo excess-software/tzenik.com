@@ -57,6 +57,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\Redis;
+use LRedis;
+
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Laravel\Socialite\Facades\Socialite;
@@ -3711,10 +3715,23 @@ class UserController extends Controller
     public function chat_getMessages($chat_id){
         $user = auth()->user();
         $id = $user->id;
+        $name = $user->name;
         $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
         //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
-        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'users.name')->orderBy('chat_messages.id', 'ASC')->get();
-        return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id]);
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+        return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $id]);
+    }
+    public function chat_sendMessage($chat_id, Request $request){
+        $user = auth()->user();
+        $data = $request->except('_token');
+        $data['sender'] = $user->id;
+        $data['chat_id'] = $chat_id;
+        //$message = $data['message'];
+        //$redis = LRedis::connection();
+        //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
+        Chat_Messages::insert($data);
+        return back();
+        
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

@@ -51,7 +51,7 @@ Route::group(['prefix' => 'user'], function () {
         Route::group(['prefix'=>'chat'], function () {
             Route::get('', 'UserController@chat_Index');
             Route::get('Chat/{id}', 'UserController@chat_getMessages');
-            Route::post('send_Message', 'UserController@chat_sendMessage');
+            Route::post('send_Message/{chat_id}', 'UserController@chat_sendMessage');
         });
 
         #### Here ends area of custom routes to meet Tzenik needs ####
