@@ -1057,7 +1057,16 @@ class UserController extends Controller
         $newContent['created_at'] = time();
         $newContent['mode'] = 'draft';
         $newContent['user_id'] = $user->id;
+
+        $newChat = ['name' => $newContent['title'], 'creator' => $user->id, 'published' => 'false'];
+        $chat_id = Chat_Chats::insertGetId($newChat);
+
+        $insert_intoChat = ['chat_id' => $chat_id, 'user_id' => $user->id];
+        Chat_UsersInChat::insert($insert_intoChat);
+
+        $newContent['chat_id'] = $chat_id;
         $content_id = Content::insertGetId($newContent);
+
         if($newContent['type'] == 'webinar' || $newContent['type'] == 'coaching'){
             return redirect('/user/content/web_coach/edit/'.$content_id);
         }else{
@@ -1106,7 +1115,7 @@ class UserController extends Controller
         $user = auth()->user();
         $request->request->add(['mode' => 'draft']);
         $content = Content::where('user_id', $user->id)->find($id);
-
+        //$chat_id = Content::where('id', $id)->first()->chat_id;
         if ($content) {
             $request = $request->all();
             print_r($request);
@@ -1114,6 +1123,10 @@ class UserController extends Controller
                 $content->filters()->sync($request['filters']);
             }
             unset($request['filters']);
+            
+            $newChatTitle = $request['title'];
+            //$chatUpdate = ['creator' => $user->id, 'name' => $newChatTitle];
+            Chat_Chats::where('id', '4')->update('name', $newChatTitle);
             $content->update($request);
             echo 'true';
         } else {
@@ -2792,7 +2805,7 @@ class UserController extends Controller
                     'exporter_id' => 0,
                     'created_at' => time()
                 ]);
-
+                Chat_UsersInChat::where('chat_id', $content->chat_id)->insert(['user_id' => $user['id'], 'chat_id' => $content->chat_id]);
                 ## Notification Center
                 $product = Content::find($transaction->content_id);
                 sendNotification(0, ['[c.title]' => $product->title], get_option('notification_template_buy_new'), 'user', $buyer->id);
@@ -3707,10 +3720,17 @@ class UserController extends Controller
     public function chat_Index()
     {
         $user = auth()->user();
+        $result = [];
         $id = $user->id;
         //$chats = Chat_Chats::with('users_in_chat')->orderBy('id', 'DESC')->get();
-        $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
-        return view(getTemplate() . '.user.chat.index', ['chats' => $chats]);
+        $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name', 'chat_chats.published')->orderBy('chat_chats.id', 'DESC')->get();
+        /*foreach($chats as $chat){
+            $result[$chat] = $chat['id'];
+            $result[$chat]['name'] = $chat['name'];
+        }*/
+        //return $result;
+        return $chats;
+        //return view(getTemplate() . '.user.chat.index', ['chats' => $chats]);
     }
     public function chat_getMessages($chat_id){
         $user = auth()->user();
@@ -3718,8 +3738,9 @@ class UserController extends Controller
         $name = $user->name;
         $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
         //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
-        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
-        return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $id]);
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+        //return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $name]);
+        return $messages;
     }
     public function chat_sendMessage($chat_id, Request $request){
         $user = auth()->user();
@@ -3729,9 +3750,28 @@ class UserController extends Controller
         //$message = $data['message'];
         //$redis = LRedis::connection();
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
-        Chat_Messages::insert($data);
-        return back();
+        $message_id = Chat_Messages::insertGetId($data);
+        return $message_id;
         
+    }
+    public function chat_getOwner($chat_id){
+        $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
+        return $chat_owner;
+    }
+
+    public function chat_getUsers($chat_id){
+        $chat_users = Chat_UsersInChat::leftjoin('users', 'users.id', '=', 'chat_users_in_chat.user_id')->select('users.id', 'users.name')->where('chat_users_in_chat.chat_id', $chat_id)->orderBy('chat_users_in_chat.id', 'ASC')->get();
+        return $chat_users;
+    }
+
+    public function chat_deleteMessage($message_id){
+        Chat_Messages::find($message_id)->delete();
+        return true;
+    }
+
+    public function chat_deleteUser($user_id, $chat_id){
+        Chat_UsersInChat::where('chat_id', $chat_id)->where('user_id', $user_id)->delete();
+        return true;
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

@@ -242,6 +242,16 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('article/delete/{id}', 'AdminController@articleDelete');
         });
 
+        ####################
+        ### Chat Section ###
+        ####################
+        Route::group(['prefix' => 'chat'], function () {
+            Route::get('messages', 'AdminController@chat_Messages');
+            Route::get('users_chat', 'AdminController@chat_UsersInChat');
+            Route::get('delete_Message/{message_id}', 'AdminController@chat_deleteMessage');
+            Route::get('delete_User/{user_id}/{chat_id}', 'AdminController@chat_deleteUser');
+        });
+
         #####################
         ## Channel Section ##
         #####################

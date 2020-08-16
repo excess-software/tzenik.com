@@ -52,6 +52,10 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('', 'UserController@chat_Index');
             Route::get('Chat/{id}', 'UserController@chat_getMessages');
             Route::post('send_Message/{chat_id}', 'UserController@chat_sendMessage');
+            Route::get('get_Owner/{chat_id}', 'UserController@chat_getOwner');
+            Route::get('get_Users/{chat_id}', 'UserController@chat_getUsers');
+            Route::get('delete_Message/{message_id}', 'UserController@chat_deleteMessage');
+            Route::get('delete_User/{user_id}/{chat_id}', 'UserController@chat_deleteUser');
         });
 
         #### Here ends area of custom routes to meet Tzenik needs ####

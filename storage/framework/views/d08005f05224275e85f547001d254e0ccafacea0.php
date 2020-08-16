@@ -201,7 +201,7 @@
             </div>
           <div class="type_msg">
             <div class="input_msg_write">
-                <form action="../send_Message/<?php echo e($this_chat); ?>" method="post">
+                <form method="post" id="sendForm">
                     <?php echo csrf_field(); ?>
                     <input type="text" class="write_msg" placeholder="Type a message" name="message">
                     <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
@@ -220,23 +220,29 @@
     });*/
     var socket = io.connect('http://localhost:8890');
     $(document).ready(function($){
+        $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
         $('.msg_send_btn').click(function(){
             if($('.write_msg').val() != ''){
-                socket.emit('sendMessage', $('.write_msg').val(), <?php echo e($this_user); ?>, <?php echo e($this_chat); ?>);
+                $.post('../send_Message/<?php echo e($this_chat); ?>', $('#sendForm').serialize());
+                socket.emit('sendMessage', $('.write_msg').val(), '<?php echo e($this_user); ?>', <?php echo e($this_chat); ?>);
+                $('.write_msg').val('');
             }
             return false;
         });
         socket.on('receiveMessage', function(message, sender, chat_id){
-            $('.msg_history').append('<div class="incoming_msg">\
-                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
-                        <div class="received_msg">\
-                            <div class="received_withd_msg">\
-                                <p>'+message+'</p>\
-                                <span class="time_date">'+sender+'</span>\
+            if(chat_id == <?php echo e($this_chat); ?>){
+                $('.msg_history').append('<div class="incoming_msg">\
+                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+                            <div class="received_msg">\
+                                <div class="received_withd_msg">\
+                                    <p>'+message+'</p>\
+                                    <span class="time_date">'+sender+'</span>\
+                                </div>\
                             </div>\
                         </div>\
-                    </div>\
-                    <br>');
+                        <br>');
+                        $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
+            }            
         })
     });
 </script>  

@@ -9,9 +9,19 @@ var io = require('socket.io')(8890);
 io.on('connection', function(socket){
     console.log('Connected');
 
-    socket.on('sendMessage', function(message, sender, chat_id){
-        console.log(message+', from: '+sender+', to chat: '+chat_id);
-        io.sockets.emit('receiveMessage', message, sender, chat_id);
+    socket.on('sendMessage', function(message, sender, chat_id, message_id){
+        console.log(message+', from: '+sender+', to chat: '+chat_id+', message: '+message_id);
+        io.sockets.emit('receiveMessage', message, sender, chat_id, message_id);
+    });
+
+    socket.on('deleteMessage', function(message_id){
+        console.log('delete message: '+message_id);
+        io.sockets.emit('messageDeleted', message_id);
+    });
+
+    socket.on('deleteUser', function(user_id, chat_id){
+        console.log('delete user: '+ user_id + 'from chat: ' + chat_id);
+        io.sockets.emit('userDeleted', user_id, chat_id);
     });
 
     socket.on('disconnect', function(socket){

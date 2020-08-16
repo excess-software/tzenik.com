@@ -8,6 +8,7 @@ class Chat_Chats extends Model
 {
     protected $table = 'chat_chats';
     public $fillable = ['id', 'creator', 'name'];
+    public $timestamps = false;
 
     public function owner(){
         return $this->belongsTo('App\User', 'user_id');

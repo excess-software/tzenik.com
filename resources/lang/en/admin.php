@@ -733,6 +733,11 @@ return [
     'preview_certificate' => 'Preview certificate',
 	'email_templates.' => 'Templates',
 	'mark' => 'Grade',
-	'active' => 'Active',
-
+    'active' => 'Active',
+    'chat' => 'Chat',
+    'chat_messages' => 'Messages',
+    'chat_users_chat' => 'Users in chat',
+    'chat_message' => 'Message',
+    'chat_title' => 'Chat Title',
+    'chat_user' => 'User',
 ];

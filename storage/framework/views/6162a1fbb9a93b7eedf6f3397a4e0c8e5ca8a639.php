@@ -21,6 +21,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/admin/css/admin-custom.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
     <style>
         .custom-switch-input:checked ~ .custom-switch-description {
             position: relative;
@@ -150,6 +152,15 @@
                                 <li><a class="nav-link" href="/admin/content/category"><?php echo e(trans('admin.categories')); ?></a></li>
                             </ul>
                         </li><?php endif; ?>
+
+                        <li class="dropdown" id="blog">
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span><?php echo e(trans('admin.chat')); ?></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/admin/chat/messages"><?php echo e(trans('admin.chat_messages')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/chat/users_chat"><?php echo e(trans('admin.chat_users_chat')); ?></a></li>
+                            </ul>
+                        </li>
+
                     <?php if(checkAccess('request')): ?>
                         <li class="dropdown" id="request">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-plus-square"></i> <span><?php echo e(trans('admin.course_requests')); ?></span></a>

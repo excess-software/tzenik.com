@@ -144,6 +144,7 @@
                                     </li>
                                 </ul>
                             </li>@endif
+
                         @if(checkAccess('balance'))
                             <li class="nav-parent {!! expandSidebarMenu('balance',$capatibility) !!}" id="balance">
                                 <a>

@@ -20,6 +20,11 @@ use App\Models\Certificate;
 use App\Models\CertificateTemplate;
 use App\Models\Channel;
 use App\Models\ChannelRequest;
+
+use App\Models\Chat_Chats;
+use App\Models\Chat_Messages;
+use App\Models\Chat_UsersInChat;
+
 use App\Models\Content;
 use App\Models\ContentCategory;
 use App\Models\ContentCategoryFilter;
@@ -1243,8 +1248,11 @@ class AdminController extends Controller
 
             ## Notification Center
             if ($request->mode == 'publish')
+                Chat_Chats::where('id', $content->chat_id)->update(['published' => 'true']);
                 sendNotification(0, ['[u.name]' => $content->user->name, '[c.title]' => $content->title], get_option('notification_template_content_publish'), 'user', $content->user->id);
+
             if ($request->mode == 'waiting')
+                Chat_Chats::where('id', $content->chat_id)->update(['published' => 'false']);
                 sendNotification(0, ['[u.name]' => $content->user->name, '[c.title]' => $content->title], get_option('notification_template_content_change'), 'user', $content->user->id);
 
 
@@ -3272,5 +3280,22 @@ class AdminController extends Controller
     {
         $certificate = Certificate::findOrFail($id);
         return response()->download($certificate->file);
+    }
+
+    public function chat_Messages(){
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->leftjoin('chat_chats', 'chat_chats.id', '=', 'chat_messages.chat_id')->select('chat_messages.message', 'chat_messages.id', 'users.name', 'chat_chats.name As Chat_Title')->orderBy('chat_messages.id', 'ASC')->get();
+        return view('admin.chat.messages', ['messages' => $messages]);
+    }
+    public function chat_deleteMessage($message_id){
+        Chat_Messages::find($message_id)->delete();
+        return true;
+    }
+    public function chat_UsersInChat(){
+        $chat_users = Chat_UsersInChat::join('users', 'users.id', '=', 'chat_users_in_chat.user_id')->leftjoin('chat_chats', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->select('users.id', 'users.name', 'chat_chats.name as Chat_Name', 'chat_chats.id as Chat_Id')->orderBy('chat_users_in_chat.chat_id', 'ASC')->get();
+        return view('admin.chat.userschat', ['chat_users' => $chat_users]);
+    }
+    public function chat_deleteUser($user_id, $chat_id){
+        Chat_UsersInChat::where('chat_id', $chat_id)->where('user_id', $user_id)->delete();
+        return true;
     }
 }
