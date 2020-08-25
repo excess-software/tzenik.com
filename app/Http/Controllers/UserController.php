@@ -50,6 +50,8 @@ use App\Models\ForumComments;
 use App\Models\Chat_Chats;
 use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
+use Illuminate\Support\Facades\Http;
+
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -1287,7 +1289,7 @@ class UserController extends Controller
                 'json' => $params
             ]);
 
-            $data = \json_decode($res->getBody(), true);
+            $data = json_decode($res->getBody(), true);
             //var_dump($data);
             $meeting = $data['id'];
 
@@ -2700,6 +2702,99 @@ class UserController extends Controller
                        <input type="hidden" name="_token" value="' . csrf_token() . '">
                     </form>';
     }
+
+    public function paycomPay(Request $request, $id)
+    {   
+        $time = $request->time;
+        $price = $request->item_price;
+        $tohash = '|'.$price.'.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
+        $hash = md5($tohash);
+        $mode = $request->method_creditDebit;
+
+        $params = [
+            'username' => "jbonillap201",
+            'type' => 'sale',
+            'key_id' => '38723344',
+            'hash' => $hash,
+            'time' => $time,
+            'transactionid' => '123456',
+            'amount' => $price.'.00',
+            'processor_id' => 'INET000',
+            'ccnumber' => $request->ccnumber,
+        ];
+
+        $client = new Client(['verify' => '../cacert.pem']);
+        $url = "https://paycom.credomatic.com/PayComBackEndWeb/common/requestPaycomService.go";
+        $send = $client->request('POST', $url, [
+            'form_params' => $params,
+        ]);
+        
+        $get_url = ltrim($send->getbody(), '?');
+        parse_str($get_url, $url_toJson);
+        
+        
+        if($url_toJson['response'] == 3){
+            $user = (auth()->check()) ? auth()->user() : false;
+            if (!$user)
+                return Redirect::to('/user?redirect=/product/' . $id);
+
+            $content = Content::with('metas')->where('mode', 'publish')->find($id);
+            if (!$content)
+                abort(404);
+
+            if ($content->private == 1)
+                $site_income = get_option('site_income_private');
+            else
+                $site_income = get_option('site_income');
+
+            ## Vendor Group Percent
+            $Vendor = User::with(['category'])->find($content->user_id);
+            if(isset($Vendor) && isset($Vendor->category->commision) && ($Vendor->category->commision > 0)){
+                $site_income = $site_income - $Vendor->category->commision;
+            }
+            ## Vendor Rate Percent
+            if($Vendor){
+                $Rates = getRate($Vendor->toArray());
+                if($Rates){
+                    $RatePercent = 0;
+                    foreach ($Rates as $rate){
+                        $RatePercent += $rate['commision'];
+                    }
+
+                    $site_income = $site_income - $RatePercent;
+                }
+            }
+
+            $meta = arrayToList($content->metas, 'option', 'value');
+
+            if ($mode == 'download')
+                $Amount = $meta['price'];
+            elseif ($mode == 'post')
+                $Amount = $meta['post_price'];
+
+            $Description = trans('admin.item_purchased') . $content->title . trans('admin.by') . $user['name']; // Required
+            $Amount_pay = pricePay($content->id, $content->category_id, $Amount)['price'];
+
+            $Transaction = Transaction::create([
+                'buyer_id' => $user['id'],
+                'user_id' => $content->user_id,
+                'content_id' => $content->id,
+                'price' => $Amount_pay,
+                'price_content' => $Amount,
+                'mode' => 'pending',
+                'created_at' => time(),
+                'bank' => 'paycom',
+                'authority' => $url_toJson['authcode'],
+                'income' => $Amount_pay - (($site_income / 100) * $Amount_pay),
+                'type' => $mode
+            ]);
+            return redirect('/bank/paycom/status/'.$content->id.'/'.$Transaction->id);
+        }else{
+            return $url_toJson;
+        }
+
+    }
+    
 
     ## Credit Section
     public function creditPay($id, $mode = 'download')

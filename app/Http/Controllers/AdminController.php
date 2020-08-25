@@ -3282,6 +3282,30 @@ class AdminController extends Controller
         return response()->download($certificate->file);
     }
 
+    ##################
+    ###### Chat ######
+    ##################
+
+    public function chat_Index()
+    {
+        $chats = Chat_Chats::get();
+
+        return $chats;
+    }
+    public function chat_getMessages($chat_id){
+        
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+
+        return $messages;
+    }
+    public function chat_getOwner($chat_id){
+        $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
+        return $chat_owner;
+    }
+    public function chat_getUsers($chat_id){
+        $chat_users = Chat_UsersInChat::leftjoin('users', 'users.id', '=', 'chat_users_in_chat.user_id')->select('users.id', 'users.name')->where('chat_users_in_chat.chat_id', $chat_id)->orderBy('chat_users_in_chat.id', 'ASC')->get();
+        return $chat_users;
+    }
     public function chat_Messages(){
         $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->leftjoin('chat_chats', 'chat_chats.id', '=', 'chat_messages.chat_id')->select('chat_messages.message', 'chat_messages.id', 'users.name', 'chat_chats.name As Chat_Title')->orderBy('chat_messages.id', 'ASC')->get();
         return view('admin.chat.messages', ['messages' => $messages]);

@@ -99,5 +99,7 @@
         </div>
     </div>
 
+    
+
 <?php $__env->stopSection(); ?>
 <?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/layout/modals.blade.php ENDPATH**/ ?>

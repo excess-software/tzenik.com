@@ -246,6 +246,10 @@ Route::group(['prefix' => 'admin'], function () {
         ### Chat Section ###
         ####################
         Route::group(['prefix' => 'chat'], function () {
+            Route::get('', 'AdminController@chat_Index');
+            Route::get('get_Owner/{chat_id}', 'AdminController@chat_getOwner');
+            Route::get('get_Users/{chat_id}', 'AdminController@chat_getUsers');
+            Route::get('Chat/{chat_id}', 'AdminController@chat_getMessages');
             Route::get('messages', 'AdminController@chat_Messages');
             Route::get('users_chat', 'AdminController@chat_UsersInChat');
             Route::get('delete_Message/{message_id}', 'AdminController@chat_deleteMessage');

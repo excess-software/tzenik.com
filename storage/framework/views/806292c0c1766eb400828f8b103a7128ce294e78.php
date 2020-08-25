@@ -354,6 +354,11 @@
                                         <label class="radio-label" for="mode-6"> Razorpay </label>
                                     </div>
                                 <?php endif; ?>
+                                    <div class="radio">
+                                        <input type="radio" class="buy-mode" id="mode-7" value="paycom" name="buyMode">
+                                        &nbsp;
+                                        <label class="radio-label" for="mode-7"> Credit/Debit Card </label>
+                                    </div>
                                 <div class="h-10"></div>
                                 <div class="table-responsive table-base-price">
                                     <table class="table table-hover table-factor-modal">
@@ -488,6 +493,70 @@
 
                     </div>
                 </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="paycomModal" tabindex="-1" role="dialog" aria-labelledby="paycomModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Credit/Debit card pay</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        <form name="CredomaticPost" method="get"
+                                action="/bank/paycom/pay/<?php echo e($product->id); ?>/" />
+                                <Input type="hidden" id='time' name="time" />
+                                <input type="hidden" id='item_price' name="item_price" value="<?php echo e($product->price); ?>">
+                                <input type="hidden" id='method_creditDebit' name="method_creditDebit">
+                                <!--<Input type="text" name="username" value="jbonillap201"/>
+                                <Input type="text" name="type" value=" auth"/>
+                                <Input type="text" name="key_id" value="38723344"/>
+                                <Input type="text" name="hash" value="6145cc70aabac5e5cad36fc2f249ad5a" >
+                                <Input type="text" name="time" value="1598045400"/>
+                                <Input type="text" name="amount" value="1.00"/>
+                                <Input type="text" name="orderid" value="123456"/>
+                                <Input type="text" name="processor_id" value="INET000"/>
+                                <Input type="text" name="ccexp" value="0425"/>
+                                <Input type="text" name="cvv" value="944"/>
+                                <Input type="text" name="avs" value="12av el bosque 2-56 zona 11 de Mixco"/>-->
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-ccnumber">CC Number</span>
+                                </div>
+                                <input type="text" value="4391242407295994" name="ccnumber" class="form-control" placeholder="0000 0000 0000 0000" aria-label="ccnumber" aria-describedby="addon-ccnumber">
+                            </div>
+                            <!--<div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-ccexp">Exp Date</span>
+                                </div>
+                                <input type="text" value="0425" name="ccexp" class="form-control" placeholder="01/20" aria-label="ccexp" aria-describedby="addon-ccexp">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-cvv">CVV</span>
+                                </div>
+                                <input type="text" value="944" name="cvv" class="form-control" placeholder="CVV" aria-label="cvv" aria-describedby="addon-cvv">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-avs">Address</span>
+                                </div>
+                                <input type="text" value="12av el bosque 2-56 zona 11 de Mixco" name="avs" class="form-control" placeholder="Address" aria-label="avs" aria-describedby="addon-avs">
+                            </div>-->
+                            <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
+                            <input type="submit" class="btn btn-primary" value="Pay">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-8 col-xs-12 video-details">
                     <video id="myDiv" controls>
                         <source src="<?php echo e(!empty($partVideo) ? $partVideo : $meta['video']); ?>" type="video/mp4"/>
@@ -1094,8 +1163,18 @@
     <script>
         $(document).ready(function () {
             $('input[type=radio][name=buyMode]').change(function () {
-                var buyLink = '/bank/' + $(this).val() + '/pay/<?php echo e($product->id); ?>/' + $('#buy_method').val();
-                $('#buyBtn').attr('href', buyLink);
+                var payment = $(this).val();
+                if(payment == 'paycom'){
+                    console.log('paycom test');
+                    $('#buyBtn').attr({'href': '#', 'data-toggle': 'modal', 'data-target': '#paycomModal', 'data-dismiss': 'modal'});
+                    var currentDate = new Date().getTime();
+                    var timetofinish = new Date(currentDate + 5*60*1000).getTime();
+                    $('#time').val(Math.round(timetofinish/1000));
+                    $('#method_creditDebit').val($('#buy_method').val());
+                }else{
+                    var buyLink = '/bank/' + payment + '/pay/<?php echo e($product->id); ?>/' + $('#buy_method').val();
+                    $('#buyBtn').attr('href', buyLink);
+                }
             })
         });
     </script>

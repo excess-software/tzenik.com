@@ -2124,4 +2124,38 @@ class WebController extends Controller
         }
     }
 
+    ## PayCom
+    public function paycomStatus($product_id, $transaction_id)
+    {
+            $user = auth()->user();
+            $Transaction = Transaction::find($transaction_id);
+            $product = Content::find($product_id);
+            $userUpdate = User::with('category')->find($Transaction->user_id);
+            if ($product->private == 1)
+                $site_income = get_option('site_income_private') - $userUpdate->category->off;
+            else
+                $site_income = get_option('site_income') - $userUpdate->category->off;
+
+            $Amount = $Transaction->price;
+
+            Sell::insert([
+                'user_id' => $Transaction->user_id,
+                'buyer_id' => $Transaction->buyer_id,
+                'content_id' => $Transaction->content_id,
+                'type' => $Transaction->type,
+                'created_at' => time(),
+                'mode' => 'pay',
+                'transaction_id' => $Transaction->id,
+                'remain_time' => $Transaction->remain_time
+            ]);
+
+            $userUpdate->update(['income' => $userUpdate->income + ((100 - $site_income) / 100) * $Amount]);
+            Transaction::find($Transaction->id)->update(['mode' => 'deliver']);
+
+            ## Notification Center
+            sendNotification(0, ['[c.title]' => $product->title], get_option('notification_template_buy_new'), 'user', $Transaction->buyer_id);
+
+            return redirect('/product/' . $Transaction->content_id);
+    }
+
 }

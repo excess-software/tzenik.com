@@ -323,6 +323,10 @@ Route::group(['middleware' => 'notification'], function () {
             Route::get('pay/{id}/{type}', 'UserController@paystackPay');
         });
 
+        Route::group(['prefix' => 'paycom'], function () {
+            Route::get('pay/{id}', 'UserController@paycomPay');
+        });
+
         Route::get('razorpay/pay/{id}/{type}','UserController@razorpayPay');
 
         Route::get('/credit/pay/{id}/{mode}', 'UserController@creditPay');

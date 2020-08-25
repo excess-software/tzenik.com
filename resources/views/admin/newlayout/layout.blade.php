@@ -28,6 +28,10 @@
             position: relative;
             top: 4px;
         }
+        .modal-backdrop {
+            /* bug fix - no overlay */    
+            display: none;    
+        }
     </style>
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
@@ -44,6 +48,7 @@
     <!-- /END GA --></head>
 
 <body>
+
 <div id="app">
     <div class="main-wrapper main-wrapper-1">
         <div class="navbar-bg"></div>
@@ -152,8 +157,7 @@
                         <li class="dropdown" id="blog">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span>{{  trans('admin.chat') }}</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="/admin/chat/messages">{{  trans('admin.chat_messages') }}</a></li>
-                                <li><a class="nav-link" href="/admin/chat/users_chat">{{  trans('admin.chat_users_chat') }}</a></li>
+                                <li><a class="nav-link" href="/admin/chat/messages">{{  trans('admin.chat') }}</a></li>
                             </ul>
                         </li>
 

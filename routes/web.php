@@ -127,6 +127,10 @@ Route::group(['middleware' => 'notification'], function () {
         Route::group(['prefix' => 'razorpay'], function () {
             Route::any('status/{id}', 'WebController@razorpayStatus');
         });
+
+        Route::group(['prefix' => 'paycom'], function () {
+            Route::any('status/{id}/{trans_id}', 'WebController@paycomStatus');
+        });
     });
 
 });
