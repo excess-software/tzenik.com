@@ -14,7 +14,7 @@
                             <h2><?php echo e(!empty($quiz) ? trans('main.edit_quizzes') : trans('main.create_new_quizzes')); ?></h2>
                             <i class="mdi mdi-chevron-down"></i>
                         </div>
-                        <ul class="submenu" style="display: block;">
+                        <ul class="submenu submenud">
                             <div class="h-10"></div>
                             <form action="/user/quizzes/<?php echo e(!empty($quiz) ? 'update/'.$quiz->id : 'store'); ?>" method="post" class="form">
                                 <?php echo e(csrf_field()); ?>
@@ -113,7 +113,7 @@ unset($__errorArgs, $__bag); ?></div>
                                     <div class="col-md-6 pull-left">
                                         <div class="form-group">
                                             <label class="control-label tab-con"><?php echo e(trans('main.certificate')); ?></label>
-                                            <div class="switch switch-sm switch-primary" style="width: 100%">
+                                            <div class="switch switch-sm switch-primary swch">
                                                 <input type="hidden" value="0" name="certificate">
                                                 <input type="checkbox" name="certificate" value="1" data-plugin-ios-switch <?php echo e((!empty($quiz) and $quiz->certificate) ? 'checked' : ''); ?> />
                                             </div>
@@ -134,7 +134,7 @@ unset($__errorArgs, $__bag); ?></div>
 
                                     <div class="col-md-6 pull-left">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-custom" style="margin-top: 20px">
+                                            <button type="submit" class="btn btn-custom mrt20">
                                                 <span><?php echo e(trans('main.save_changes')); ?></span>
                                             </button>
                                         </div>
@@ -179,7 +179,7 @@ unset($__errorArgs, $__bag); ?></div>
                                                     <td class="text-center">
                                                         <?php echo e($quiz->name); ?>
 
-                                                        <small style="display: block">(<?php echo e($quiz->content->title); ?>)</small>
+                                                        <small class="dblock">(<?php echo e($quiz->content->title); ?>)</small>
                                                     </td>
                                                     <td class="text-center"><?php echo e(count($quiz->QuizResults)); ?></td>
                                                     <td class="text-center"><?php echo e(count($quiz->questions)); ?></td>
@@ -218,7 +218,7 @@ unset($__errorArgs, $__bag); ?></div>
     <?php else: ?>
         <div class="row">
             <div class="h-20"></div>
-            <div class="off-filters-li" style="padding: 15px">
+            <div class="off-filters-li p-15">
                 <div class="table-responsive">
                     <table class="table ucp-table" id="request-table">
                         <thead class="thead-s">
@@ -271,13 +271,13 @@ unset($__errorArgs, $__bag); ?></div>
     <?php endif; ?>
 
     <div id="quizzesDelete" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="z-index: 1050">
+        <div class="modal-dialog zinun">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h3><?php echo e(trans('main.delete')); ?></h3>
                 </div>
-                <div class="modal-body" style="max-height: 550px;overflow-y: scroll">
+                <div class="modal-body modst">
                     <p><?php echo e(trans('main.quiz_delete_alert')); ?></p>
                     <div>
                         <a href="" class=" btn btn-danger delete">
@@ -294,6 +294,7 @@ unset($__errorArgs, $__bag); ?></div>
 
 <?php $__env->startSection('script'); ?>
     <script>
+        "use strict";
         $('body').on('click', '.btn-delete-quiz', function (e) {
             e.preventDefault();
             var quiz_id = $(this).attr('data-id');

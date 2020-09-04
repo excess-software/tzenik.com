@@ -5,11 +5,11 @@
 @section('page')
     <section class="card card-collapsed">
         <div class="card-body">
-            <p>{{ trans('admin.student') }} : [user] </p>
+            <p>{{ trans('admin.student') }} : [student] </p>
             <hr>
             <p>{{ trans('admin.course') }} : [course] </p>
             <hr>
-            <p>{{ trans('admin.mark') }} : [grade] </p>
+            <p>{{ trans('admin.mark') }} : [mark] </p>
         </div>
     </section>
 
@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="input-group " style="display: flex;margin-bottom: 24px;padding: 0 15px">
+                <div class="input-group ingr">
                     <button id="lfm_image" data-input="image" data-preview="holder" class="btn btn-primary">
                         Choose
                     </button>
@@ -85,7 +85,7 @@
                 <div class="form-group ">
                     <label class="col-md-4 control-label" for="inputDefault">Message body</label>
                     <div class="col-md-12">
-                        <textarea class="form-control text-left  @error('body') is-invalid @enderror" dir="ltr" rows="6" name="body" style="height: auto!important; ">{{ (!empty($template)) ? $template->body :'' }}</textarea>
+                        <textarea class="form-control hauto text-left  @error('body') is-invalid @enderror" dir="ltr" rows="6" name="body">{{ (!empty($template)) ? $template->body :'' }}</textarea>
                         <div class="invalid-feedback">@error('body') {{ $message }} @enderror</div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                             <input type="hidden" name="status" value="draft">
                             <input type="checkbox" name="status" value="publish" {{ (!empty($template) and $template->status == 'publish') ? 'checked="checked"' : '' }} class="custom-switch-input"/>
                             <span class="custom-switch-indicator"></span>
-                            <label class="custom-switch-description" for="inputDefault">{{ trans('admin.active') }}</label>
+                            <label class="custom-switch-description" for="inputDefault">{{ trans('admin.status') }}</label>
                         </label>
                     </div>
                     <div class="h-15"></div>
@@ -117,9 +117,10 @@
 @section('script')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script>
+        "use strict";
         $('#lfm_image').filemanager('image');
         var form = $('#templateForm');
-        $('#preview').click(function (e) {
+        $('#preview').on('click',function (e) {
             e.preventDefault();
 
             form.attr('target', '_blank');
@@ -128,7 +129,7 @@
             form.submit();
         });
 
-        $('#submiter').click(function (e) {
+        $('#submiter').on('click',function (e) {
             e.preventDefault();
             form.removeAttr('target');
             form.attr('action', '/admin/certificates/templates/store');

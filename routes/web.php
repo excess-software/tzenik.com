@@ -50,6 +50,7 @@ Route::group(['middleware' => 'notification'], function () {
     ### Product Section ###
     Route::group(['prefix' => 'product'], function () {
         Route::get('{id}', 'WebController@product');
+        Route::get('{id}/{card}', 'WebController@productcard');
         Route::get('part/{id}/{pid}', 'WebController@productPart');
         ## Comment & Support
         Route::post('comment/store/{id}', 'WebController@productCommentStore');

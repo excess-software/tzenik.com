@@ -53,7 +53,7 @@
                                             @if ($question->type == 'multiple' and count($question->questionsAnswers))
                                                 <div class="answer-items">
                                                     @foreach ($question->questionsAnswers as $answer)
-                                                        @if (!empty($answer->title))
+                                                        @if(empty($answer->image))
                                                             <div class="form-radio">
                                                                 <input id="asw{{ $answer->id }}" type="radio" name="question[{{ $question->id }}][answer]" value="{{ $answer->id }}">
                                                                 <label class="answer-label" for="asw{{ $answer->id }}">
@@ -64,6 +64,7 @@
                                                             <div class="form-radio">
                                                                 <input id="asw{{ $answer->id }}" type="radio" name="question[{{ $question->id }}][answer]" value="{{ $answer->id }}">
                                                                 <label for="asw{{ $answer->id }}">
+                                                                    <b><h2>{{$answer->title}}</h2></b>
                                                                     <div class="image-container">
                                                                         <img src="{{ $answer->image }}" class="fit-image" alt="">
                                                                     </div>
@@ -96,12 +97,12 @@
     </div>
 
     <div id="finishModal" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="z-index: 1050">
+        <div class="modal-dialog zinun">
             <!-- Modal content-->
             <div class="modal-content modal-sm">
-                <div class="modal-body" style="padding: 32px;text-align: center">
+                <div class="modal-body modst2">
                     <p>{{ trans('main.finish_quiz_alert') }}</p>
-                    <div class="d-flex align-items-center" style="margin-top: 24px ;justify-content: space-around">
+                    <div class="d-flex align-items-center qalrt">
                         <button id="SubmitResult" class=" btn btn-custom">
                             {{ trans('main.yes_sure') }}
                         </button>
@@ -116,7 +117,7 @@
 @section('script')
     <script type="application/javascript" src="/assets/default/clock-counter/jquery.flipTimer.js"></script>
     <script>
-
+        "use strict";
         $(document).ready(function () {
                 @if(isset($quiz->time))
             var currentTime = new Date();
@@ -136,7 +137,7 @@
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
 
-            $(".next").click(function () {
+            $(".next").on('click',function () {
 
                 current_fs = $(this).parent().parent();
                 next_fs = $(this).parent().parent().next();
@@ -157,7 +158,7 @@
 
             });
 
-            $(".previous").click(function () {
+            $(".previous").on('click',function () {
 
                 current_fs = $(this).parent().parent();
                 previous_fs = $(this).parent().parent().prev();

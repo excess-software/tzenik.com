@@ -886,7 +886,7 @@ function listByKey($array = null, $key = null)
 function userAddress($userId)
 {
     if (userMeta($userId, 'address', '') == '') {
-        return '<b style="color: red">Your address not found!</b>';
+        return '<b class="redd">Your address not found!</b>';
     }
     return userMeta($userId, 'state', trans('admin.not_defined')) . ' - ' . userMeta($userId, 'city', trans('admin.not_defined')) . ' - ' . userMeta($userId, 'address', trans('admin.not_defined')) . ' - Zip Code ' . userMeta($userId, 'postalcode', trans('admin.not_defined'));
 }
@@ -1404,5 +1404,9 @@ function languages(){
         'za' => 'Zhuang, Chuang',
         'zu' => 'Zulu'
     ];
+}
+
+function checkQuiz(){
+    return true;
 }
 

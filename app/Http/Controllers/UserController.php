@@ -2707,20 +2707,26 @@ class UserController extends Controller
     {   
         $time = $request->time;
         $price = $request->item_price;
-        $tohash = '|'.$price.'.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
+        $tohash = 'Prueba001|1.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
+        //$tohash = '|'.$price.'.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
         $hash = md5($tohash);
         $mode = $request->method_creditDebit;
 
         $params = [
             'username' => "jbonillap201",
-            'type' => 'sale',
+            'type' => 'auth',
             'key_id' => '38723344',
             'hash' => $hash,
             'time' => $time,
-            'transactionid' => '123456',
-            'amount' => $price.'.00',
-            'processor_id' => 'INET000',
+            //'transactionid' => '1234567',
+            //'amount' => $price.'.00',
+            'amount' => '1.00',
+            'orderid' => 'Prueba001',
+            'processor_id' => 'RPGT0728',
             'ccnumber' => $request->ccnumber,
+            'ccexp' => '0425',
+            'cvv' => '944',
+            'avs' => '12av el bosque 2-56 zona 11 de Mixco, lo de fuentes',
         ];
 
         $client = new Client(['verify' => '../cacert.pem']);
@@ -2732,8 +2738,8 @@ class UserController extends Controller
         $get_url = ltrim($send->getbody(), '?');
         parse_str($get_url, $url_toJson);
         
-        
-        if($url_toJson['response'] == 3){
+        //return $url_toJson;
+        if($url_toJson['response'] == 1){
             $user = (auth()->check()) ? auth()->user() : false;
             if (!$user)
                 return Redirect::to('/user?redirect=/product/' . $id);
@@ -2790,7 +2796,7 @@ class UserController extends Controller
             ]);
             return redirect('/bank/paycom/status/'.$content->id.'/'.$Transaction->id);
         }else{
-            return $url_toJson;
+            return back()->with('msg', trans('Hubo un problema con tu tarjeta, verifica los datos.'));
         }
 
     }

@@ -13,12 +13,31 @@
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label class="control-label col-md-1 tab-con">{{ trans('main.realname') }}</label>
-                                    <div class="col-md-4 tab-con">
+                                    <div class="col-md-3 tab-con">
                                         <input type="text" name="name" value="{{ !empty($user['name']) ? $user['name'] : '' }}" class="form-control">
                                     </div>
                                     <label class="control-label col-md-1 tab-con">{{ trans('main.email') }}</label>
-                                    <div class="col-md-4 tab-con">
+                                    <div class="col-md-2 tab-con">
                                         <input type="text" value="{{ !empty($user['email']) ? $user['email'] : '' }}" class="form-control text-left disabled" disabled>
+                                    </div>
+                                    <label class="control-label col-md-1 tab-con">{{ trans('main.fontsize') }}</label>
+                                    <div class="col-md-2 tab-con">
+                                        <select name="fontsize" class="form-control">
+                                            @if($user['fontsize'] == 40)
+                                                <option disabled selected>{{ trans('main.biggest') }}</option>
+                                            @elseif($user['fontsize'] == 32)
+                                                <option disabled selected>{{ trans('main.bigger') }}</option>
+                                            @elseif($user['fontsize'] == 24)
+                                                <option disabled selected>{{ trans('main.big') }}</option>
+                                            @elseif(!$user['fontsize'])
+                                                <option disabled selected>{{ trans('main.normal') }}</option>
+                                            @endif
+                                            <option value="40" style="font-size: 40px">Biggest</option>
+                                            <option value="32" style="font-size: 32px">Bigger</option>
+                                            <option value="24" style="font-size: 24px">Big</option>
+                                            <option value="" style="">Normal</option>
+                                            
+                                        </select>
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" value="Save" class="btn btn-orange pull-left">

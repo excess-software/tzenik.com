@@ -53,7 +53,7 @@
                             <td>{{ $result->student->name }}</td>
                             <td>
                                 @if ($result->status == 'waiting')
-                                    <span style="color: orange;font-size: 28px">-</span>
+                                    <span class="waits">-</span>
                                 @else
                                     {{ $result->user_grade }}
                                 @endif
@@ -82,13 +82,13 @@
     </div>
 
     <div id="resultReview" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="z-index: 1050">
+        <div class="modal-dialog zinun">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>{{ trans('main.review_needs') }}</h3>
                 </div>
-                <div class="modal-body" style="max-height: 550px;overflow-y: scroll">
+                <div class="modal-body modst">
                     <form action="/user/quizzes/results/reviewed" method="post" id="resultReviewForm">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="result_id" class="js_result_id" value="">
@@ -105,6 +105,7 @@
 
 @section('script')
     <script>
+        "use strict";
         $('body').on('click', '.review-need', function (e) {
             e.preventDefault();
             var $loading = '<div class="text-center"><img src="/assets/default/images/loading.gif"/></div>';
@@ -161,15 +162,6 @@
             e.preventDefault();
             var form = $('#resultReviewForm');
             var submit = true;
-            /*form.find('.grade-input').each(function (index, input) {
-                if ($(input).val() == '' || $(input).val() == null) {
-                    $(input).next().text('this field is required');
-                    submit = false;
-                } else {
-                    $(input).next().text('')
-                }
-            })*/
-
             if (submit) {
                 form.submit();
             }

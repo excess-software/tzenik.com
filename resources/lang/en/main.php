@@ -572,4 +572,9 @@ return [
     'time_webinar_coach' => 'Time',
     'meeting_date' => 'Date',
     'webinar_coach_mail' => 'Zoom Email',
+    'fontsize' => 'Font',
+    'biggest' => 'Biggest',
+    'bigger' => 'Bigger',
+    'big' => 'Big',
+    'normal' => 'Normal',
 ];

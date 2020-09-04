@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-xs-12 tab-con">
             <div class="ucp-section-box">
-                <div class="header back-red" style="display: flex;align-items: center;justify-content: space-between">
+                <div class="header back-red headst">
                     <div>
                         <h3>{{ $quiz->name }}</h3>
                         <span>({{ $quiz->content->title }})</span>
@@ -53,13 +53,13 @@
     </div>
 
     <div id="multipleChoice" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="z-index: 1050">
+        <div class="modal-dialog zinun">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>{{ trans('main.multiple_choice') }}</h3>
                 </div>
-                <div class="modal-body" style="max-height: 550px;overflow-y: scroll">
+                <div class="modal-body modst">
                     @include(getTemplate() .'.user.quizzes.multiple_question_form')
                 </div>
                 <div class="modal-footer">
@@ -70,13 +70,13 @@
     </div>
 
     <div id="descriptiveQuestion" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="z-index: 1050">
+        <div class="modal-dialog zinun">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>{{ trans('main.descriptive_choice') }}</h3>
                 </div>
-                <div class="modal-body" style="max-height: 550px;overflow-y: scroll">
+                <div class="modal-body mosdst">
                     @include(getTemplate() .'.user.quizzes.descriptive_question_form')
                 </div>
                 <div class="modal-footer">
@@ -87,7 +87,7 @@
     </div>
 
     <div id="questionDelete" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="z-index: 1050">
+        <div class="modal-dialog zinun">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -109,13 +109,14 @@
 @section('script')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script>
+        "use strict";
         $('body .lfm-btn').filemanager('file', {prefix: '/user/laravel-filemanager'});
 
-        $('#multipleAnswerSubmit').click(function () {
+        $('#multipleAnswerSubmit').on('click',function () {
             $('#multipleAnswer').submit();
         });
 
-        $('#descriptiveAnswerSubmit').click(function () {
+        $('#descriptiveAnswerSubmit').on('click',function () {
             $('#descriptiveQuestionForm').submit();
         });
 

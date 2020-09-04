@@ -938,6 +938,184 @@ class WebController extends Controller
         }
     }
 
+    public function productcard($id, $card)
+    {
+        error_reporting(0);
+        $user = (auth()->check()) ? auth()->user() : null;
+
+        $content = Content::where('id', $id)->where('mode', 'publish')->first();
+        if (empty($content)) {
+            return back();
+        }
+
+        $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
+
+        $product = $content->withCount(['comments' => function ($q) {
+            $q->where('mode', 'publish');
+        }])->with(['meetings','discount', 'category' => function ($c) use ($content, $id) {
+            $c->with(['discount' => function ($dc) use ($id, $content) {
+                $dc->where('off_id', $content->category->id);
+            }]);
+        }, 'rates', 'user' => function ($u) {
+            $u->with(['usermetas', 'point', 'contents' => function ($cQuery) {
+                $cQuery->where('mode', 'publish')->limit(3);
+            }]);
+        }, 'metas', 'parts' => function ($query) {
+            $query->where('mode', 'publish')->orderBy('sort');
+        }, 'favorite' => function ($fquery) use ($user) {
+            $fquery->where('user_id', $user->id);
+        }, 'comments' => function ($ccquery) use ($id) {
+            $ccquery->where('mode', 'publish')->with(['user' => function ($uquery) use ($id) {
+                $uquery->with(['category', 'usermetas'])->withCount(['buys' => function ($buysq) use ($id) {
+                    $buysq->where('content_id', $id);
+                }, 'contents' => function ($contentq) use ($id) {
+                    $contentq->where('id', $id);
+                }]);
+            }, 'childs' => function ($cccquery) use ($id) {
+                $cccquery->where('mode', 'publish')->with(['user' => function ($cuquery) use ($id) {
+                    $cuquery->with(['category', 'usermetas'])->withCount(['buys' => function ($buysq) use ($id) {
+                        $buysq->where('content_id', $id);
+                    }, 'contents' => function ($contentq) use ($id) {
+                        $contentq->where('id', $id);
+                    }]);
+                }]);
+            }]);
+        }, 'supports' => function ($q) use ($user) {
+            $q->with(['user.usermetas', 'supporter.usermetas', 'sender.usermetas'])->where('sender_id', $user->id)->where('mode', 'publish')->orderBy('id', 'DESC');
+        }, 'quizzes' => function ($q) {
+            $q->where('status', 'active');
+        }
+        ])->find($id);
+
+        $hasCertificate = false;
+        $canDownloadCertificate = false;
+
+        if ($user) {
+            $quizzes = $product->quizzes;
+            foreach ($quizzes as $quiz) {
+                $canTryAgainQuiz = false;
+                $userQuizDone = QuizResult::where('quiz_id', $quiz->id)
+                    ->where('student_id', $user->id)
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                if (count($userQuizDone)) {
+                    $quiz->user_grade = $userQuizDone->first()->user_grade;
+                    $quiz->result_status = $userQuizDone->first()->status;
+                    $quiz->result = $userQuizDone->first();
+                    if ($quiz->result_status == 'pass') {
+                        $canDownloadCertificate = true;
+                    }
+                }
+
+                if (!isset($quiz->attempt) or (count($userQuizDone) < $quiz->attempt and $quiz->result_status !== 'pass')) {
+                    $canTryAgainQuiz = true;
+                }
+
+                $quiz->can_try = $canTryAgainQuiz;
+
+                if ($quiz->certificate) {
+                    $hasCertificate = true;
+                }
+            }
+        }
+
+        if (!$product)
+            return abort(404);
+
+        ## Update View
+        $product->increment('view');
+
+        if ($product->price == 0 and $user)
+            $buy = 1;
+
+        $subscribe = false;
+        if (isset($buy->tupe) and $buy->type == 'subscribe' and $buy->remain_time - time()) {
+            $buy = 0;
+            $subscribe = true;
+        }
+
+        if (!$product)
+            return abort(404);
+
+        $meta = arrayToList($product->metas, 'option', 'value');
+        $parts = $product->parts->toArray();
+        $meeting = $parts[0]['zoom_meeting'];
+        $meeting_date = date('d-m-Y', strtotime($parts[0]['date'])).' '.$parts[0]['time'];
+        if(isset($product->user))
+            $rates = getRate($product->user->toArray());
+        else
+            $rates = [];
+
+
+        ## Get Related Content ##
+        $relatedCat = $product->category_id;
+        $relatedContent = Content::with(['metas'])
+            ->where('category_id', $relatedCat)
+            ->where('id', '<>', $product->id)
+            ->where('mode', 'publish')
+            ->limit(3)
+            ->inRandomOrder()
+            ->get();
+
+
+        ## Get PreCourse Content ##
+        $preCourseIDs = [];
+        $preCousreContent = null;
+        if (isset($meta['precourse'])) {
+            $preCourseIDs = explode(',', rtrim($meta['precourse'], ','));
+            $preCousreContent = Content::where('mode', 'publish')
+                ->whereIn('id', $preCourseIDs)
+                ->get();
+        }
+
+        if (!cookie('cv' . $id)) {
+            $product->increment('view');
+            setcookie('cv' . $id, '1');
+        }
+
+        $Duration = 0;
+        $MB = 0;
+
+        foreach ($parts as $part) {
+            $Duration = $Duration + $part['duration'];
+            $MB = $MB + $part['size'];
+        }
+
+        ## Live video ##
+        if($buy || (isset($user) && $user->id == $product->user_id)){
+            $live = MeetingDate::where('mode','active')->where('content_id', $id)->where('time_start','<', time())->where('time_end','>', time())->orderBy('id','DESC')->first();
+        }else{
+            $live = false;
+        }
+
+        $data = [
+            'product'               => $product,
+            'hasCertificate'        => $hasCertificate,
+            'canDownloadCertificate'=> $canDownloadCertificate,
+            'meta'                  => $meta,
+            'parts'                 => $parts,
+            'rates'                 => $rates,
+            'buy'                   => $buy,
+            'related'               => $relatedContent,
+            'precourse'             => $preCousreContent,
+            'subscribe'             => $subscribe,
+            'Duration'              => $Duration,
+            'MB'                    => $MB,
+            'live'                  => $live,
+            'meeting'               => $meeting,
+            'meeting_date'          => $meeting_date,
+            'card'                  => $card
+        ];
+        if($product->type == 'webinar'){
+            return view(getTemplate() . '.view.product.productWeb', $data);
+        }elseif($product->type == 'coaching'){
+            return view(getTemplate() . '.view.product.productCoach', $data);
+        }else{
+            return view(getTemplate() . '.view.product.product', $data);
+        }
+    }
+
     public function productPart($id, $pid)
     {
         error_reporting(0);

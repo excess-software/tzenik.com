@@ -21,9 +21,9 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <div style="display: flex;align-items: center;margin-bottom: 24px">
+            <div class="ansalrt">
                 <p>{{ trans('main.answer_alert') }}</p>
-                <button type="button" class="btn add-btn btn-info" style="margin-left: 16px"><i class="mdi mdi-plus"></i></button>
+                <button type="button" class="btn add-btn btn-info marl-16"><i class="mdi mdi-plus"></i></button>
             </div>
 
             @if (!empty($question_edit))
