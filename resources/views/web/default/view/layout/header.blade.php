@@ -74,10 +74,10 @@
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Perfil</a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user"><span class="headericon mdi mdi-settings"></span>
-                                        <p>{{ trans('main.settings') }}</p>
+                                <li><a href="/user">
+                                        <p>dashboard</p>
                                     </a></li>
-                                <li><a href="/logout"><span class="headericon mdi mdi-power"></span>
+                                <li><a href="/logout">
                                         <p>{{ trans('main.exit') }}</p>
                                     </a></li>
                             </ul>
