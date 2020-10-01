@@ -66,7 +66,7 @@
 
     window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), 'guest' => !auth()->check()]); ?>;
 </script>
-@if(!is_null($user['invert']))
+<!-- @if(!is_null($user['invert']))
 <script>
     $(document).ready(function (){
         $('body').css({"filter": "invert(100%)"});
@@ -121,7 +121,7 @@
         }
     });
 </script>
-@endif
+@endif -->
 
 <script type="application/javascript" src="/assets/default/vendor/jquery-ui/js/jquery-1.10.2.js"></script>
 <script type="application/javascript" src="/assets/default/vendor/bootstrap/js/bootstrap.min.js"></script>
