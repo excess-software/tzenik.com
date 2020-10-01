@@ -22,17 +22,19 @@
     <link rel="stylesheet" href="/assets/default/vendor/jquery-te/jquery-te-1.4.0.css" />
     <link rel="stylesheet" href="/assets/default/stylesheets/vendor/mdi/css/materialdesignicons.min.css" />
     <?php if(get_option('site_rtl','0') == 1): ?>
-        <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom-rtl.css"/>-->
+    <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom-rtl.css"/>-->
     <?php else: ?>
-        <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom.css?time=<?php echo time(); ?>"/>-->
+    <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom.css?time=<?php echo time(); ?>"/>-->
     <?php endif; ?>
     <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">
-    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css"/>
+    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
     <?php if(get_option('main_css')!=''): ?>
-        <style>
-            <?php echo get_option('main_css'); ?>
+    <style>
+        {
+             ! ! get_option('main_css') ! !
+        }
 
-        </style>
+    </style>
     <?php endif; ?>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <title><?php echo $__env->yieldContent('title'); ?><?php echo $title ?? ''; ?></title>
@@ -72,11 +74,12 @@
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Perfil</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="/user"><span class="headericon mdi mdi-settings"></span>
+                                        <p><?php echo e(trans('main.settings')); ?></p>
+                                    </a></li>
+                                <li><a href="/logout"><span class="headericon mdi mdi-power"></span>
+                                        <p><?php echo e(trans('main.exit')); ?></p>
+                                    </a></li>
                             </ul>
                         </li>
                     </ul>
@@ -96,5 +99,4 @@
                 <!--/.nav-collapse -->
             </div>
         </div>
-        
 <?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/view/layout/header.blade.php ENDPATH**/ ?>

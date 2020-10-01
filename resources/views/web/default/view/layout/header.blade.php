@@ -22,16 +22,19 @@
     <link rel="stylesheet" href="/assets/default/vendor/jquery-te/jquery-te-1.4.0.css" />
     <link rel="stylesheet" href="/assets/default/stylesheets/vendor/mdi/css/materialdesignicons.min.css" />
     @if(get_option('site_rtl','0') == 1)
-        <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom-rtl.css"/>-->
+    <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom-rtl.css"/>-->
     @else
-        <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom.css?time={!! time() !!}"/>-->
+    <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom.css?time={!! time() !!}"/>-->
     @endif
     <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">
-    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css"/>
+    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
     @if(get_option('main_css')!='')
-        <style>
-            {!! get_option('main_css') !!}
-        </style>
+    <style>
+        {
+             ! ! get_option('main_css') ! !
+        }
+
+    </style>
     @endif
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <title>@yield('title'){!! $title ?? '' !!}</title>
@@ -71,11 +74,12 @@
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Perfil</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="/user"><span class="headericon mdi mdi-settings"></span>
+                                        <p>{{ trans('main.settings') }}</p>
+                                    </a></li>
+                                <li><a href="/logout"><span class="headericon mdi mdi-power"></span>
+                                        <p>{{ trans('main.exit') }}</p>
+                                    </a></li>
                             </ul>
                         </li>
                     </ul>
@@ -95,4 +99,3 @@
                 <!--/.nav-collapse -->
             </div>
         </div>
-        
