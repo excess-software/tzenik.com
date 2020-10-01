@@ -577,4 +577,6 @@ return [
     'bigger' => 'Bigger',
     'big' => 'Big',
     'normal' => 'Normal',
+    'invert' => 'Colors',
+    'inverted' => 'Inverted',
 ];

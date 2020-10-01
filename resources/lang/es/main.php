@@ -557,5 +557,12 @@ return [
 	'descriptive_choice'=>'Pregunta Descriptiva',
 	'live_class'=>'Clase en Vivo',
 	'live_class_info'=>'Información de la clase en vivo',
-	'enter_live_class'=>'Enter',
+    'enter_live_class'=>'Enter',
+    'fontsize' => 'Fuente',
+    'biggest' => 'Muy grande',
+    'bigger' => 'Bastante grande',
+    'big' => 'Grande',
+    'normal' => 'Normal',
+    'invert' => 'Colores',
+    'inverted' => 'Invertidos',
 ];

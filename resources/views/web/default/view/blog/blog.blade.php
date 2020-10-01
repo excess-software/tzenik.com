@@ -1,46 +1,67 @@
 @extends(getTemplate().'.view.layout.layout')
 @section('title')
-    {{ !empty($setting['site']['site_title']) ? $setting['site']['site_title'] : '' }}
-    {{ trans('main.blog') }} -
+{{ !empty($setting['site']['site_title']) ? $setting['site']['site_title'] : '' }}
+{{ trans('main.blog') }} -
 @endsection
-
-@section('page')
-
+@section('content')
+<ul class="nav nav-tabs nav-justified">
+    <li role="presentation"><a class="nav-home" href="#">Home</a></li>
+    <li role="presentation"><a class="nav-home" href="#">Categoria 1</a></li>
+    <li role="presentation"><a class="nav-home" href="#">Categoria 2</a></li>
+    <li role="presentation"><a class="nav-home" href="#">Categoria 3</a></li>
+    <li role="presentation"><a class="nav-home" href="#">Webinars</a></li>
+    <li role="presentation"><a class="nav-home" href="#">Contacto</a></li>
+    <li role="presentation" class="active"><a class="nav-home" href="#">Blog</a></li>
+</ul>
+<br>
+<div class="row">
     <div class="container-fluid">
-        <div class="container">
-
-            <div class="blog-section">
-                @foreach($posts as $post)
-                    <div class="row blog-post-box">
-                        <div class="col-md-3 col-xs-12">
-                            <img src="{{ $post->image }}" class="img-responsive">
-                        </div>
-                        <div class="col-md-9 col-xs-12 text-section">
-                            <a href="/blog/post/{{ $post->id }}"><h3>{{ $post->title }}</h3></a>
-                            {!!   $post->pre_content !!}
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div class="h-10"></div>
-            <div class="pagi text-center center-block col-xs-12"></div>
+        <div class="col titulo-blog">
+            <span>
+                <h2><b>Blog</b></h2>
+            </span>
         </div>
     </div>
-@endsection
-@section('script')
-    <script>
-        $(function () {
-            pagination('.blog-section',{{ !empty($setting['site']['blog_post_count']) ? $setting['site']['blog_post_count'] : 4 }}, 0);
-            $('.pagi').pagination({
-                items: {!! count($posts) !!},
-                itemsOnPage:{{ !empty($setting['site']['blog_post_count']) ? $setting['site']['blog_post_count'] : 4 }},
-                cssStyle: 'light-theme',
-                prevText: 'Pre.',
-                nextText: 'Next',
-                onPageClick: function (pageNumber, event) {
-                    pagination('.blog-section',{{ !empty($setting['site']['blog_post_count']) ? $setting['site']['blog_post_count'] : 4 }}, pageNumber - 1);
-                }
-            });
-        });
-    </script>
+</div>
+<br>
+<div class="row">
+    <div class="container-fluid ultimos-blogs">
+        @foreach($posts as $post)
+        <a href="/blog/post/{{ $post->id }}">
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img class="img-responsive img-ultimos-blogs center-block" src="{{ $post->image }}" alt="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-description vertical-center">
+                                    <div class="row ultimos-blogs-titulo">
+                                        <h2><b>{{ $post->title }}</b></h2>
+                                    </div>
+                                    <div class="row ultimos-blogs-contenido">
+                                        <div class="col">
+                                            <span class="ultimos-blogs-contenido-interno">
+                                                {!! Str::limit($post->pre_content, 100) !!}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-ultimos-blogs btn-block">
+                            <h4><b>Leer m&aacute;s</b></h4>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </a>
+        @endforeach
+    </div>
+</div>
 @endsection

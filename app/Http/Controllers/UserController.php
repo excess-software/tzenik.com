@@ -2794,6 +2794,9 @@ class UserController extends Controller
                 'income' => $Amount_pay - (($site_income / 100) * $Amount_pay),
                 'type' => $mode
             ]);
+
+            Chat_UsersInChat::where('chat_id', $content->chat_id)->insert(['user_id' => $user['id'], 'chat_id' => $content->chat_id]);
+
             return redirect('/bank/paycom/status/'.$content->id.'/'.$Transaction->id);
         }else{
             return back()->with('msg', trans('Hubo un problema con tu tarjeta, verifica los datos.'));
@@ -3232,7 +3235,7 @@ class UserController extends Controller
                         'created_at' => time()
                     ]);
 
-                    return redirect('/user/quizzes/results/' . $quiz_result->id);
+                    return redirect('/user/quizzes');
                 }
             }
         }

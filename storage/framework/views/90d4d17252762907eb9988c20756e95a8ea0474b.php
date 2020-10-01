@@ -1,49 +1,20 @@
-<div class="container-fluid" id="footer">
-    <div class="container">
-        <div class="col-md-3 col-xs-12 tab-con login-container">
-            <h4><?php echo e(get_option('footer_col1_title')); ?></h4>
-            <p><?php echo get_option('footer_col1_content'); ?></p>
+<div class="footer">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive pull-right" alt="Brand" src="<?php echo e(get_option('site_logo')); ?>" alt="<?php echo e(get_option('site_title')); ?>"/>
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive pull-left" alt="Brand" src="<?php echo e(get_option('site_logo_type')); ?>" alt="<?php echo e(get_option('site_title')); ?>"/>
+            </div>
         </div>
-        <div class="col-md-3 col-xs-12 tab-con">
-            <h4><?php echo e(get_option('footer_col2_title')); ?></h4>
-            <p><?php echo get_option('footer_col2_content'); ?></p>
+        <div class="row footer-tzenik">
+            <div class="col text-center">
+                <span>Tzenik.com 2020</span>
+            </div>
         </div>
-        <div class="col-md-3 col-xs-6 tab-con">
-            <h4><?php echo e(get_option('footer_col3_title')); ?></h4>
-            <p><?php echo get_option('footer_col3_content'); ?></p>
-        </div>
-        <div class="col-md-3 col-xs-6 ab-con">
-            <h4><?php echo e(get_option('footer_col4_title')); ?></h4>
-            <p><?php echo get_option('footer_col4_content'); ?></p>
-        </div>
+      </div>
     </div>
-</div>
-<div class="container-fluid footer-blow">
-    <div class="col-md-3 col-xs-12 text-center">
-        <span class="social-text"><?php echo e(trans('main.social_footer')); ?></span>
-        <ul>
-            <?php if(!empty($socials)): ?>
-                <?php $__currentLoopData = $socials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <li>
-                        <a href="<?php echo e($social->link); ?>" target="_blank" title="<?php echo e($social->title); ?>">
-                            <img src="<?php echo e($social->icon); ?>" alt="<?php echo e($social->title); ?>"/>
-                        </a>
-                    </li>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            <?php endif; ?>
-        </ul>
-    </div>
-    <div class="col-md-9 col-xs-12">
-        <span class="copyright">
-            <?php echo e(trans('main.copyright')); ?>
-
-        </span>
-        <span class="copyright">
-             <?php echo e(trans('main.copyright2')); ?>
-
-        </span>
-    </div>
-</div>
 <div class="modal fade" id="uploader-modal" role="dialog">
     <div class="modal-dialog modal-dialog-s">
         <div class="modal-content">
@@ -96,6 +67,13 @@
 
     window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), 'guest' => !auth()->check()]); ?>;
 </script>
+<?php if(!is_null($user['invert'])): ?>
+<script>
+    $(document).ready(function (){
+        $('body').css({"filter": "invert(100%)"});
+    });
+</script>
+<?php endif; ?>
 <?php if(!is_null($user['fontsize'])): ?>
 <script>
     $(document).ready(function (){

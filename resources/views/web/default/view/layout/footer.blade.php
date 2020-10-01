@@ -1,47 +1,20 @@
-<div class="container-fluid" id="footer">
-    <div class="container">
-        <div class="col-md-3 col-xs-12 tab-con login-container">
-            <h4>{{ get_option('footer_col1_title') }}</h4>
-            <p>{!! get_option('footer_col1_content') !!}</p>
+<div class="footer">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive pull-right" alt="Brand" src="{{ get_option('site_logo') }}" alt="{{ get_option('site_title') }}"/>
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive pull-left" alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}"/>
+            </div>
         </div>
-        <div class="col-md-3 col-xs-12 tab-con">
-            <h4>{{ get_option('footer_col2_title') }}</h4>
-            <p>{!! get_option('footer_col2_content') !!}</p>
+        <div class="row footer-tzenik">
+            <div class="col text-center">
+                <span>Tzenik.com 2020</span>
+            </div>
         </div>
-        <div class="col-md-3 col-xs-6 tab-con">
-            <h4>{{ get_option('footer_col3_title') }}</h4>
-            <p>{!! get_option('footer_col3_content') !!}</p>
-        </div>
-        <div class="col-md-3 col-xs-6 ab-con">
-            <h4>{{ get_option('footer_col4_title') }}</h4>
-            <p>{!! get_option('footer_col4_content') !!}</p>
-        </div>
+      </div>
     </div>
-</div>
-<div class="container-fluid footer-blow">
-    <div class="col-md-3 col-xs-12 text-center">
-        <span class="social-text">{{ trans('main.social_footer') }}</span>
-        <ul>
-            @if(!empty($socials))
-                @foreach($socials as $social)
-                    <li>
-                        <a href="{{ $social->link }}" target="_blank" title="{{ $social->title }}">
-                            <img src="{{ $social->icon }}" alt="{{ $social->title }}"/>
-                        </a>
-                    </li>
-                @endforeach
-            @endif
-        </ul>
-    </div>
-    <div class="col-md-9 col-xs-12">
-        <span class="copyright">
-            {{ trans('main.copyright') }}
-        </span>
-        <span class="copyright">
-             {{ trans('main.copyright2') }}
-        </span>
-    </div>
-</div>
 <div class="modal fade" id="uploader-modal" role="dialog">
     <div class="modal-dialog modal-dialog-s">
         <div class="modal-content">
@@ -93,6 +66,13 @@
 
     window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), 'guest' => !auth()->check()]); ?>;
 </script>
+@if(!is_null($user['invert']))
+<script>
+    $(document).ready(function (){
+        $('body').css({"filter": "invert(100%)"});
+    });
+</script>
+@endif
 @if(!is_null($user['fontsize']))
 <script>
     $(document).ready(function (){

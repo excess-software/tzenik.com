@@ -912,12 +912,17 @@ class WebController extends Controller
             $live = false;
         }
 
+        //$partDesc = ContentPart::where('id', $pid)->select('title', 'description')->get();
+        $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
+        $partDesc = ContentPart::find($producto_id, ['title', 'description']);
+
         $data = [
             'product'               => $product,
             'hasCertificate'        => $hasCertificate,
             'canDownloadCertificate'=> $canDownloadCertificate,
             'meta'                  => $meta,
             'parts'                 => $parts,
+            'partDesc'              => $partDesc,
             'rates'                 => $rates,
             'buy'                   => $buy,
             'related'               => $relatedContent,
@@ -1217,6 +1222,13 @@ class WebController extends Controller
             $MB = $MB + $part['size'];
         }
 
+        //$partDesc = ContentPart::where('id', $pid)->select('title', 'description')->get();
+        /*$producto_id = '';
+        if(!$pid){
+            $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
+        }*/
+        $partDesc = ContentPart::find($pid, ['title', 'description']);
+
         $data = [
             'product' => $product,
             'meta' => $meta,
@@ -1226,6 +1238,7 @@ class WebController extends Controller
             'related' => $relatedContent,
             'precourse' => $preCousreContent,
             'partVideo' => '/video/stream/' . $pid,
+            'partDesc' => $partDesc,
             'Duration' => $Duration,
             'MB' => $MB
         ];
