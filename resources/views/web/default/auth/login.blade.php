@@ -141,5 +141,4 @@
             }
         })
     </script>
-    {!! NoCaptcha::renderJs() !!}
 @endsection
