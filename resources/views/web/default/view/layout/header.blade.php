@@ -70,6 +70,7 @@
                                 <li><a href="#">Separated link</a></li>
                             </ul>
                         </li>
+                        @if(isset($user))
                         <li class="dropdown navbar-perfil">
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Perfil</a>
@@ -82,6 +83,11 @@
                                     </a></li>
                             </ul>
                         </li>
+                        @else
+                        <li class="navbar-perfil">
+                            <a href="/user?redirect={{ Request::path() }}">Login</a>
+                        </li>
+                        @endif
                     </ul>
 
                     <form class="navbar-form">
