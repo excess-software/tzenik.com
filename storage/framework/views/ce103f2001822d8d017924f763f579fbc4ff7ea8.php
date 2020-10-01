@@ -4,6 +4,7 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('pages'); ?>
+<?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <div class="container-fluid">
         <div class="row ucp-top-panel">
             <div class="container no-padding-xs">

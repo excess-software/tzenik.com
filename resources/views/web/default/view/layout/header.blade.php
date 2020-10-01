@@ -74,8 +74,8 @@
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Perfil</a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user">
-                                        <p>dashboard</p>
+                                <li><a href="/user/video/buy">
+                                        <p>Dashboard</p>
                                     </a></li>
                                 <li><a href="/logout">
                                         <p>{{ trans('main.exit') }}</p>

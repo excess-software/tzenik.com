@@ -10,6 +10,17 @@
         </div>
         <div class="row footer-tzenik">
             <div class="col text-center">
+                <span>Sponsored by:</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <img src="/bin/admin/lavelle_logo.png" class="img-responsive center-block" width="150px" height="150px" alt="">
+            </div>
+        </div>
+        <div class="row footer-tzenik">
+            <div class="col text-center">
                 <span>Tzenik.com 2020</span>
             </div>
         </div>

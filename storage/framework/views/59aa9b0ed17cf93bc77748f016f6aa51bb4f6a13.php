@@ -3,17 +3,7 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<ul class="nav nav-tabs nav-justified">
-    <li role="presentation"><a class="nav-home" href="#">Home</a></li>
-    <?php $__currentLoopData = $setting['category']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainCategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <?php if($mainCategory->title == 'Forum' || $mainCategory->title == 'forum'): ?>
-    <li role="presentation" class="active"><a class="nav-home" href="/user/forum"><?php echo e($mainCategory->title); ?></a></li>
-    <?php else: ?>
-    <li role="presentation" class="active"><a class="nav-home" href="/category/<?php echo e($mainCategory->title); ?>"><?php echo e($mainCategory->title); ?></a></li>
-    <?php endif; ?>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-</ul>
-<br>
+<?php echo $__env->make(getTemplate() . '.view.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <div class="row">
     <div class="container-fluid">
         <div class="col titulo-cursos-destacados">

@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-
+@include(getTemplate() . '.view.parts.navigation')
 <div class="row">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 volver-atras-blog">
                 <br>
                 <div class="row">
-                    <h4><i class="fa fa-arrow-left"> </i><span> Blogs</span></h4>
+                    <a href="javascript:history.back()"><h4><i class="fa fa-arrow-left"> </i><span> Blogs</span></h4></a>
                 </div>
                 <br>
             </div>

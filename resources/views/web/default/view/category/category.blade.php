@@ -3,17 +3,7 @@
 {{ get_option('site_title','') }} - {{ !empty($category->title) ? $category->title : 'Categories' }}
 @endsection
 @section('content')
-<ul class="nav nav-tabs nav-justified">
-    <li role="presentation"><a class="nav-home" href="#">Home</a></li>
-    @foreach($setting['category'] as $mainCategory)
-    @if($mainCategory->title == 'Forum' || $mainCategory->title == 'forum')
-    <li role="presentation" class="active"><a class="nav-home" href="/user/forum">{{  $mainCategory->title }}</a></li>
-    @else
-    <li role="presentation" class="active"><a class="nav-home" href="/category/{{  $mainCategory->title }}">{{  $mainCategory->title }}</a></li>
-    @endif
-    @endforeach
-</ul>
-<br>
+@include(getTemplate() . '.view.parts.navigation')
 <div class="row">
     <div class="container-fluid">
         <div class="col titulo-cursos-destacados">

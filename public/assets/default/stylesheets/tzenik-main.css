@@ -229,6 +229,10 @@ hr {
     margin-right: auto;
     color: white;
 }
+.volver-atras-media a{
+    color: white;
+    text-decoration: none;
+}
 .media-cursos{
     width: 100%;
     height: auto;
@@ -302,6 +306,10 @@ hr {
     margin-right: auto;
     color: black;
 }
+.volver-atras-blog a{
+    color: black;
+    text-decoration: none;
+}
 .media-blog{
     width: 100%;
     height: auto;
@@ -321,6 +329,11 @@ hr {
 /** Tests CSS **/
 .btn-cerrar-test{
     margin-left: 5%;
+    color: white;
+}
+.btn-cerrar-test a{
+    color: black;
+    text-decoration: none;
 }
 .titulo-test{
     background-color: black;
@@ -1003,4 +1016,9 @@ hr {
     visibility: visible;
     opacity: 1;
     transform: translate(0px, 0px);
+}
+
+/** Dash User **/
+.dash-content-user a{
+    color: black;
 }

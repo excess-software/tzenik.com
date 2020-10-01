@@ -11,20 +11,20 @@
             <div class="col-md-10 volver-atras-media">
                 <br>
                 <div class="row">
-                    <h4><i class="fa fa-arrow-left"> </i><span> Cursos</span></h4>
+                    <a href="javascript:history.back()"><h4><i class="fa fa-arrow-left"> </i><span> Cursos</span></h4></a>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-8">
                         <h2><b><?php echo e($product->title); ?></b></h2>
                     </div>
-                    <div class="col-md-4">
+                    <!--<div class="col-md-4">
                         <?php if($product->support == 1): ?>
                         <button class="btn btn-next-media pull-right">
                             <h5><b>Soporte</b></h5>
                         </button>
                         <?php endif; ?>
-                    </div>
+                    </div>-->
                 </div>
                 <br>
                 <div class="row">
@@ -32,12 +32,12 @@
                         <source src="<?php echo e(!empty($partVideo) ? $partVideo : $meta['video']); ?>" type="video/mp4" />
                     </video>
                 </div>
-                <br>
+                <!-- <br>
                 <div class="row">
                     <button class="btn btn-next-media pull-right">
                         <h4>Siguiente <i class="fa fa-arrow-right"></i></h4>
                     </button>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

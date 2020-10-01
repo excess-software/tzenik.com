@@ -241,14 +241,7 @@ unset($__errorArgs, $__bag); ?></div>
 </div>
 <?php else: ?>-->
 <div class="container-full">
-    <ul class="nav nav-tabs nav-justified">
-        <li role="presentation"><a class="nav-home" href="#"><i class="fa fa-home"></i> Tablero</a></li>
-        <li role="presentation" class="active"><a class="nav-home" href="#"><i class="fa fa-book"></i> Cursos</a>
-        </li>
-        <li role="presentation"><a class="nav-home" href="#"><i class="fa fa-calendar"></i> Calendario</a></li>
-    </ul>
-
-    <br>
+<?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <div class="row contenido-cursos-dash">
         <div class="container-fluid">

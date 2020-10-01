@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="btn-cerrar-test">
-                    <i class="fa fa-times-circle-o fa-4x"></i>
+                    <a href="javascript:history.back()"><i class="fa fa-times-circle-o fa-4x"></i></a>
                 </div>
             </div>
         </div>

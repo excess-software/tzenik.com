@@ -4,16 +4,7 @@
 {{ trans('main.blog') }} -
 @endsection
 @section('content')
-<ul class="nav nav-tabs nav-justified">
-    <li role="presentation"><a class="nav-home" href="#">Home</a></li>
-    <li role="presentation"><a class="nav-home" href="#">Categoria 1</a></li>
-    <li role="presentation"><a class="nav-home" href="#">Categoria 2</a></li>
-    <li role="presentation"><a class="nav-home" href="#">Categoria 3</a></li>
-    <li role="presentation"><a class="nav-home" href="#">Webinars</a></li>
-    <li role="presentation"><a class="nav-home" href="#">Contacto</a></li>
-    <li role="presentation" class="active"><a class="nav-home" href="#">Blog</a></li>
-</ul>
-<br>
+@include(getTemplate() . '.view.parts.navigation')
 <div class="row">
     <div class="container-fluid">
         <div class="col titulo-blog">

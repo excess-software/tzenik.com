@@ -4,6 +4,7 @@
     {{ trans('main.user_panel') }}
 @endsection
 @section('pages')
+@include(getTemplate() . '.user.parts.navigation')
     <div class="container-fluid">
         <div class="row ucp-top-panel">
             <div class="container no-padding-xs">
