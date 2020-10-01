@@ -50,7 +50,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <img alt="Brand" src="{{ get_option('site_logo') }}" alt="{{ get_option('site_title') }}" />
                         <img alt="Brand" src="{{ get_option('site_logo_type') }}"
                             alt="{{ get_option('site_title') }}" />

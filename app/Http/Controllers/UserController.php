@@ -201,6 +201,10 @@ class UserController extends Controller
         return view(getTemplate() . '.user.dashboard', $data);
     }
 
+    public function calendar(){
+        return view(getTemplate(). '.user.calendar');
+    }
+
     public function passwordChange(Request $request)
     {
         $password = $request->get('password');

@@ -8,7 +8,7 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::get('dashboard', 'UserController@dashboard');
         Route::post('security/change', 'UserController@passwordChange');
-
+        Route::get('calendar', 'UserController@calendar');
         #################
         #### Profile ####
         #################
