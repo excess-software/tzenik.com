@@ -51,6 +51,7 @@
                 location.reload();
             })
         }
+
     </script>
 </head>
 
@@ -73,56 +74,55 @@
                 <div class="navbar-collapse collapse" id="searchbar">
 
                     <ul class="nav navbar-nav navbar-right">
+                        @if(isset($user))
                         <li class="dropdown navbar-accesibilidad">
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Men&uacute; de Accesibilidad</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    @if(isset($user))
-                                        <form method="post" id="invertform">
-                                            @csrf
-                                            <label
-                                                class="control-label col-md-1 tab-con">{{ trans('main.invert') }}</label>
-                                            <select name="invert" class="form-control" onChange="changeColor();">
-                                                @if($user['invert'] == 1)
-                                                <option disabled selected>{{ trans('main.inverted') }}</option>
-                                                @elseif(!$user['invert'])
-                                                <option disabled selected>{{ trans('main.normal') }}</option>
-                                                @endif
-                                                <option value="1">Invertir</option>
-                                                <option value="" style="">Normal</option>
+                                    <form method="post" id="invertform">
+                                        @csrf
+                                        <label class="control-label col-md-1 tab-con">{{ trans('main.invert') }}</label>
+                                        <select name="invert" class="form-control" onChange="changeColor();">
+                                            @if($user['invert'] == 1)
+                                            <option disabled selected>{{ trans('main.inverted') }}</option>
+                                            @elseif(!$user['invert'])
+                                            <option disabled selected>{{ trans('main.normal') }}</option>
+                                            @endif
+                                            <option value="1">Invertir</option>
+                                            <option value="" style="">Normal</option>
 
-                                            </select>
-                                        </form>
-                                    @endif
+                                        </select>
+                                    </form>
                                 </li>
                                 <li>
-                                    @if(isset($user))
-                                        <form method="post" id="userform">
-                                            @csrf
-                                            <label
-                                                class="control-label col-md-1 tab-con">{{ trans('main.fontsize') }}</label>
-                                            <select name="fontsize" class="form-control" onChange="changeFont();">
-                                                @if($user['fontsize'] == 40)
-                                                <option disabled selected>{{ trans('main.biggest') }}</option>
-                                                @elseif($user['fontsize'] == 32)
-                                                <option disabled selected>{{ trans('main.bigger') }}</option>
-                                                @elseif($user['fontsize'] == 24)
-                                                <option disabled selected>{{ trans('main.big') }}</option>
-                                                @elseif(!$user['fontsize'])
-                                                <option disabled selected>{{ trans('main.normal') }}</option>
-                                                @endif
-                                                <option value="40" style="font-size: 40px">Biggest</option>
-                                                <option value="32" style="font-size: 32px">Bigger</option>
-                                                <option value="24" style="font-size: 24px">Big</option>
-                                                <option value="" style="">Normal</option>
 
-                                            </select>
-                                        </form>
-                                    @endif
+                                    <form method="post" id="userform">
+                                        @csrf
+                                        <label
+                                            class="control-label col-md-1 tab-con">{{ trans('main.fontsize') }}</label>
+                                        <select name="fontsize" class="form-control" onChange="changeFont();">
+                                            @if($user['fontsize'] == 40)
+                                            <option disabled selected>{{ trans('main.biggest') }}</option>
+                                            @elseif($user['fontsize'] == 32)
+                                            <option disabled selected>{{ trans('main.bigger') }}</option>
+                                            @elseif($user['fontsize'] == 24)
+                                            <option disabled selected>{{ trans('main.big') }}</option>
+                                            @elseif(!$user['fontsize'])
+                                            <option disabled selected>{{ trans('main.normal') }}</option>
+                                            @endif
+                                            <option value="40" style="font-size: 40px">Biggest</option>
+                                            <option value="32" style="font-size: 32px">Bigger</option>
+                                            <option value="24" style="font-size: 24px">Big</option>
+                                            <option value="" style="">Normal</option>
+
+                                        </select>
+                                    </form>
+
                                 </li>
                             </ul>
                         </li>
+                        @endif
                         @if(isset($user))
                         <li class="dropdown navbar-perfil">
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
