@@ -1,6 +1,20 @@
 /* Body CSS */
 .container-full{
     overflow: hidden;
+    background-color: white;
+}
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
+    border: 3px solid black;tant;
+    border-bottom: 3px solid transparent;
+}
+.nav-tabs {
+   border-bottom: 3px solid black !important;
+}
+.navbar-inverse{
+    background-color: black !important;
+}
+.open{
+    color: black !important;
 }
 /* Navbar CSS */
 .navbar-brand {
@@ -16,6 +30,7 @@
 
 .container-fluid{
     padding-right: 0;
+    /* background-color: white; */
 }
 
 .navbar-accesibilidad {
@@ -538,7 +553,7 @@ hr {
 }
 
 .quiz-form .form-card .form-radio input[type=radio]:checked + label {
-    background: #343871;
+    background: #FEBF36;
     color: #fff;
 }
 
@@ -606,7 +621,7 @@ hr {
 }
 /** Footer CSS */
 .footer{
-    background-color: #222222;
+    background-color: black;
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -763,19 +778,7 @@ hr {
 }
 
 .formBox .regTag {
-    line-height: 105px;
-    box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.45);
-    border-radius: 50%;
-    background-color: #13ce9c;
-    color: #fff;
-    font-size: 58px;
-    text-align: center;
-    width: 100px;
-    height: 100px;
     position: absolute;
-    right: -52px;
-    top: 50px;
-    z-index: 2;
 }
 
 .formBox .regTag svg {
@@ -937,7 +940,12 @@ hr {
     transform-origin: center top;
     transform: translate(0px, -9px) scale(0.97);
 }
-
+.login-box{
+    margin-bottom: 7%;
+}
+.fos-s{
+    color: white;
+}
 .formBox.level-reg h2 {
     border-left-color: #fff;
     color: #fff;

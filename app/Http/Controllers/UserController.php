@@ -198,7 +198,8 @@ class UserController extends Controller
             'incomeDay' => $incomeDay
         ];
 
-        return view(getTemplate() . '.user.dashboard', $data);
+        //return view(getTemplate() . '.user.dashboard', $data);
+        return redirect('/user/video/buy');
     }
 
     public function calendar(){

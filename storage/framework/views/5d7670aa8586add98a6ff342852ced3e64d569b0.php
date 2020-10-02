@@ -22,8 +22,6 @@
 <?php $__env->startSection('content'); ?>
 <?php echo $__env->make(getTemplate() . '.view.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-<hr>
-
 <div class="banner-tzenik">
     <div class="row">
         <div class="col">

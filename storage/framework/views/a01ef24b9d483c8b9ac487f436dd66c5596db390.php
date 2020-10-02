@@ -8,6 +8,7 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <meta name="description" content="<?php echo get_option('site_description',''); ?>">
     <link rel="stylesheet" href="/assets/default/vendor/bootstrap/css/bootstrap.min.css" />
@@ -38,12 +39,25 @@
     <?php endif; ?>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <title><?php echo $__env->yieldContent('title'); ?><?php echo $title ?? ''; ?></title>
+    <script>
+        function changeFont() {
+            $.post('/user/profile/store', $('#userform').serialize(), function (data) {
+                location.reload();
+            })
+        }
+
+        function changeColor() {
+            $.post('/user/profile/store', $('#invertform').serialize(), function (data) {
+                location.reload();
+            })
+        }
+    </script>
 </head>
 
 <body>
     <div class="container-full">
         <div class="navbar navbar-inverse">
-            <div class="container-fluid">
+            <div class="container-fluid nav-container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -63,11 +77,50 @@
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Men&uacute; de Accesibilidad</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li>
+                                    <?php if(isset($user)): ?>
+                                        <form method="post" id="invertform">
+                                            <?php echo csrf_field(); ?>
+                                            <label
+                                                class="control-label col-md-1 tab-con"><?php echo e(trans('main.invert')); ?></label>
+                                            <select name="invert" class="form-control" onChange="changeColor();">
+                                                <?php if($user['invert'] == 1): ?>
+                                                <option disabled selected><?php echo e(trans('main.inverted')); ?></option>
+                                                <?php elseif(!$user['invert']): ?>
+                                                <option disabled selected><?php echo e(trans('main.normal')); ?></option>
+                                                <?php endif; ?>
+                                                <option value="1">Invertir</option>
+                                                <option value="" style="">Normal</option>
+
+                                            </select>
+                                        </form>
+                                    <?php endif; ?>
+                                </li>
+                                <li>
+                                    <?php if(isset($user)): ?>
+                                        <form method="post" id="userform">
+                                            <?php echo csrf_field(); ?>
+                                            <label
+                                                class="control-label col-md-1 tab-con"><?php echo e(trans('main.fontsize')); ?></label>
+                                            <select name="fontsize" class="form-control" onChange="changeFont();">
+                                                <?php if($user['fontsize'] == 40): ?>
+                                                <option disabled selected><?php echo e(trans('main.biggest')); ?></option>
+                                                <?php elseif($user['fontsize'] == 32): ?>
+                                                <option disabled selected><?php echo e(trans('main.bigger')); ?></option>
+                                                <?php elseif($user['fontsize'] == 24): ?>
+                                                <option disabled selected><?php echo e(trans('main.big')); ?></option>
+                                                <?php elseif(!$user['fontsize']): ?>
+                                                <option disabled selected><?php echo e(trans('main.normal')); ?></option>
+                                                <?php endif; ?>
+                                                <option value="40" style="font-size: 40px">Biggest</option>
+                                                <option value="32" style="font-size: 32px">Bigger</option>
+                                                <option value="24" style="font-size: 24px">Big</option>
+                                                <option value="" style="">Normal</option>
+
+                                            </select>
+                                        </form>
+                                    <?php endif; ?>
+                                </li>
                             </ul>
                         </li>
                         <?php if(isset($user)): ?>

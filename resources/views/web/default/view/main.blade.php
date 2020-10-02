@@ -22,8 +22,6 @@
 @section('content')
 @include(getTemplate() . '.view.parts.navigation')
 
-<hr>
-
 <div class="banner-tzenik">
     <div class="row">
         <div class="col">

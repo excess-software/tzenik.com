@@ -75,6 +75,15 @@
                     </div>
                     @endif
                     @endforeach
+                    @if(!$list)
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1><b>Aún no has comprado cursos</b></h1>
+                        </div>
+                    </div>
+                    <br>
+                    @endif
                 </div>
             </div>
         </div>

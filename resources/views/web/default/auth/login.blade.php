@@ -83,6 +83,10 @@
     <div class="h-25"></div>
     <div class="h-25"></div>
     <div class="container text-center login-box">
+    <a href="#" class="regTag">
+                <h3><strong class="fos-s">Registrarse</strong></h3>
+            </a>
+            <br>
         <div class="formBox level-login" dir="ltr">
             <div class="box boxShaddow"></div>
             <div class="box loginBox">
@@ -185,9 +189,6 @@
                         class="btn btn-custom pull-left btn-register-user btn-register-user-r">{{ trans('main.register') }}</button>
                 </form>
             </div>
-            <a href="#" class="regTag icon-add">
-                <h3><strong class="fos-s">{{ trans('main.register') }}</strong></h3>
-            </a>
         </div>
     </div>
 </div>
@@ -223,13 +224,10 @@
 </script>
 <script>
     $('.regTag').click(function () {
-        if ($('.regTag strong').text() == 'Register') {
-            $('.regTag strong').text('Login');
-            $('.regTag strong').css('position', 'static');
+        if ($('.regTag strong').text() == 'Registrarse') {
+            $('.regTag strong').text('Iniciar Sesión');
         } else {
-            $('.regTag strong').text('Register');
-            $('.regTag strong').css('position', 'relative');
-            $('.regTag strong').css('top', '-8px');
+            $('.regTag strong').text('Registrarse');
         }
     })
 

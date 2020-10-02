@@ -39,12 +39,25 @@
     @endif
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <title>@yield('title'){!! $title ?? '' !!}</title>
+    <script>
+        function changeFont() {
+            $.post('/user/profile/store', $('#userform').serialize(), function (data) {
+                location.reload();
+            })
+        }
+
+        function changeColor() {
+            $.post('/user/profile/store', $('#invertform').serialize(), function (data) {
+                location.reload();
+            })
+        }
+    </script>
 </head>
 
 <body>
     <div class="container-full">
         <div class="navbar navbar-inverse">
-            <div class="container-fluid">
+            <div class="container-fluid nav-container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -64,11 +77,50 @@
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Men&uacute; de Accesibilidad</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li>
+                                    @if(isset($user))
+                                        <form method="post" id="invertform">
+                                            @csrf
+                                            <label
+                                                class="control-label col-md-1 tab-con">{{ trans('main.invert') }}</label>
+                                            <select name="invert" class="form-control" onChange="changeColor();">
+                                                @if($user['invert'] == 1)
+                                                <option disabled selected>{{ trans('main.inverted') }}</option>
+                                                @elseif(!$user['invert'])
+                                                <option disabled selected>{{ trans('main.normal') }}</option>
+                                                @endif
+                                                <option value="1">Invertir</option>
+                                                <option value="" style="">Normal</option>
+
+                                            </select>
+                                        </form>
+                                    @endif
+                                </li>
+                                <li>
+                                    @if(isset($user))
+                                        <form method="post" id="userform">
+                                            @csrf
+                                            <label
+                                                class="control-label col-md-1 tab-con">{{ trans('main.fontsize') }}</label>
+                                            <select name="fontsize" class="form-control" onChange="changeFont();">
+                                                @if($user['fontsize'] == 40)
+                                                <option disabled selected>{{ trans('main.biggest') }}</option>
+                                                @elseif($user['fontsize'] == 32)
+                                                <option disabled selected>{{ trans('main.bigger') }}</option>
+                                                @elseif($user['fontsize'] == 24)
+                                                <option disabled selected>{{ trans('main.big') }}</option>
+                                                @elseif(!$user['fontsize'])
+                                                <option disabled selected>{{ trans('main.normal') }}</option>
+                                                @endif
+                                                <option value="40" style="font-size: 40px">Biggest</option>
+                                                <option value="32" style="font-size: 32px">Bigger</option>
+                                                <option value="24" style="font-size: 24px">Big</option>
+                                                <option value="" style="">Normal</option>
+
+                                            </select>
+                                        </form>
+                                    @endif
+                                </li>
                             </ul>
                         </li>
                         @if(isset($user))
