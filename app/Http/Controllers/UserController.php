@@ -43,7 +43,9 @@ use App\Models\TransactionCharge;
 use App\Models\Usermeta;
 use App\Models\UserRate;
 use App\User;
+use Carbon\Carbon;
 
+use App\Models\CalendarEvents;
 use App\Models\Forum;
 use App\Models\ForumCategory;
 use App\Models\ForumComments;
@@ -203,7 +205,34 @@ class UserController extends Controller
     }
 
     public function calendar(){
-        return view(getTemplate(). '.user.calendar');
+        $user = auth()->user();
+        $eventos = CalendarEvents::where('user_id', $user->id)->select(['content as title', 'date', 'product_id as url'])->get();
+        $nuevos_eventos = array();
+        foreach($eventos as $evento){
+            $evento->url = '/product/'.$evento->url;
+        }
+        $json_eventos = json_encode($nuevos_eventos);
+        //$json_eventos = json_encode($nuevos_eventos, JSON_PRETTY_PRINT);
+        return view(getTemplate(). '.user.calendar', ['Eventos' => $eventos]);
+    }
+    public function inscribirse($product_id){
+        $user = auth()->user();
+        $content = Content::with('metas')->where('mode', 'publish')->find($product_id);        
+
+        $inscrito = CalendarEvents::where('product_id', $product_id)->where('user_id', $user->id)->get();
+
+        if($inscrito->isEmpty()){
+            if($content->type == 'coaching' || $content->type == 'webinar'){
+                $part_date = ContentPart::where('content_id', $content->id)->first();
+                $date = Carbon::createFromFormat('d/m/Y', $part_date->date)->toDateString();
+                CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id, 
+                'date' => $date, 'type' => $content->type, 'content' => 'Horario: '.$part_date->time]);
+            }
+            return back()->with('msg', trans('¡Inscrito exitosamente!'));
+        }else{
+            return back()->with('msg', trans('Usted ya se encuentra inscrito.'));
+        }
+
     }
 
     public function passwordChange(Request $request)
@@ -2712,7 +2741,7 @@ class UserController extends Controller
     {   
         $time = $request->time;
         $price = $request->item_price;
-        $tohash = 'Prueba001|1.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
+        $tohash = 'Prueba006|1.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
         //$tohash = '|'.$price.'.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
         $hash = md5($tohash);
         $mode = $request->method_creditDebit;
@@ -2726,7 +2755,7 @@ class UserController extends Controller
             //'transactionid' => '1234567',
             //'amount' => $price.'.00',
             'amount' => '1.00',
-            'orderid' => 'Prueba001',
+            'orderid' => 'Prueba006',
             'processor_id' => 'RPGT0728',
             'ccnumber' => $request->ccnumber,
             'ccexp' => '0425',
@@ -2800,7 +2829,13 @@ class UserController extends Controller
                 'type' => $mode
             ]);
 
-            Chat_UsersInChat::where('chat_id', $content->chat_id)->insert(['user_id' => $user['id'], 'chat_id' => $content->chat_id]);
+            //Chat_UsersInChat::where('chat_id', $content->chat_id)->insert(['user_id' => $user['id'], 'chat_id' => $content->chat_id]);
+
+            if($content->type == 'coaching' || $content->type == 'webinar'){
+                $part_date = ContentPart::where('content_id', $content->id)->first();
+                CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id, 
+                'date' => $part_date->date, 'type' => $content->type, 'content' => 'Horario: '.$part_date->time]);
+            }
 
             return redirect('/bank/paycom/status/'.$content->id.'/'.$Transaction->id);
         }else{
@@ -3694,7 +3729,7 @@ class UserController extends Controller
     }
 
     public function forum_postCategory($id){
-        $postList = Forum::with('comments', 'user')->where('category_id', $id)->orderBy('id', 'DESC')->get();
+        $postList = Forum::with('comments', 'user')->where('category_id', $id)->where('mode', 'publish')->orderBy('id', 'DESC')->get();
         return view('web.default.user.forum.listbycategory', array('posts' => $postList));
     }
 

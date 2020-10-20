@@ -49,8 +49,8 @@
 <hr>
 
 <div class="row">
-    <div class="container-fluid">
-        <div class="col titulo-cursos-destacados">
+    <div class="container">
+        <div class="col-md-12 titulo-cursos-destacados">
             <span>
                 <h2><b>Cursos Destacados</b></h2>
             </span>
@@ -60,8 +60,8 @@
 <br>
 
 <div class="row">
-    <div class="container-fluid">
-        <div class="col-md-9 cursos-destacados">
+    <div class="container">
+        <div class="col-md-12 cursos-destacados">
             <?php
             $contador_cursos_nuevos = 1;
             ?>
@@ -120,8 +120,8 @@
 </div>
 <br>
 <div class="row">
-    <div class="container-fluid">
-        <div class="col titulo-proximos-webinars">
+    <div class="container">
+        <div class="col-md-12 titulo-proximos-webinars">
             <span>
                 <h2><b>Pr&oacute;ximos Webinars</b></h2>
             </span>
@@ -131,8 +131,8 @@
 <br>
 
 <div class="row">
-    <div class="container-fluid">
-        <div class="col-md-9 proximos-webinars">
+    <div class="container">
+        <div class="col-md-12 proximos-webinars">
         <?php
             $contador_webinars = 1;
             ?>
@@ -191,8 +191,8 @@
 </div>
 <br>
 <div class="row">
-    <div class="container-fluid">
-        <div class="col titulo-ultimos-blogs">
+    <div class="container">
+        <div class="col-md-12 titulo-ultimos-blogs">
             <span>
                 <h2><b>&Uacute;ltimos Blogs</b></h2>
             </span>
@@ -202,7 +202,7 @@
 <br>
 
 <div class="row">
-    <div class="container-fluid ultimos-blogs">
+    <div class="container ultimos-blogs">
     <?php
             $contador_blog = 1;
             ?>
@@ -210,7 +210,7 @@
             <?php $meta = arrayToList($post->metas, 'option', 'value'); ?>
             <?php if($contador_blog <= 2): ?>
             <a href="/blog/post/<?php echo e($post->id); ?>">
-            <div class="col-md-5">
+            <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
@@ -223,12 +223,12 @@
                         <div class="col-md-12">
                             <div class="panel-description vertical-center">
                                 <div class="row ultimos-blogs-titulo">
-                                    <h2><b><?php echo e($post->title); ?></b></h2>
+                                    <h2><b><?php echo Str::limit($post->title, 25); ?></b></h2>
                                 </div>
                                 <div class="row ultimos-blogs-contenido">
                                     <div class="col">
                                         <span class="ultimos-blogs-contenido-interno">
-                                        <?php echo Str::limit($post->pre_content, 100); ?>
+                                        <?php echo Str::limit($post->pre_content, 75); ?>
 
                                         </span>
                                     </div>

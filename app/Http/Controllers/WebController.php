@@ -34,6 +34,10 @@ use App\Models\Sell;
 use App\Models\Transaction;
 use App\Models\TransactionCharge;
 use App\Models\Usage;
+
+use App\Models\ProgresoAlumno;
+use Carbon\Carbon;
+
 use App\User;
 use App\Models\Usercategories;
 use Illuminate\Http\Request;
@@ -826,6 +830,7 @@ class WebController extends Controller
                     $quiz->user_grade = $userQuizDone->first()->user_grade;
                     $quiz->result_status = $userQuizDone->first()->status;
                     $quiz->result = $userQuizDone->first();
+                    $quiz->student_id = $userQuizDone->first()->student_id;
                     if ($quiz->result_status == 'pass') {
                         $canDownloadCertificate = true;
                     }
@@ -862,6 +867,26 @@ class WebController extends Controller
             return abort(404);
 
         $meta = arrayToList($product->metas, 'option', 'value');
+
+        if($user){
+            if($buy){
+                foreach($product->parts as $part){
+                    $progreso_alumno = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $id)->where('part_id', $part->id)->get();
+                    if($progreso_alumno->isEmpty()){
+                        $part->status = 'pending';
+                    }else{
+                        $part->status = 'finished';
+                    }
+
+                    if($part->limit_date){
+                        if(Carbon::now()->format('Y-m-d') > $part->limit_date && $part->status == 'pending'){
+                            $part->status = 'late';
+                        }
+                    }
+                }
+            }
+        }
+
         $parts = $product->parts->toArray();
         $meeting = $parts[0]['zoom_meeting'];
         $meeting_date = date('d-m-Y', strtotime($parts[0]['date'])).' '.$parts[0]['time'];
@@ -914,7 +939,9 @@ class WebController extends Controller
 
         //$partDesc = ContentPart::where('id', $pid)->select('title', 'description')->get();
         $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
-        $partDesc = ContentPart::find($producto_id, ['title', 'description']);
+        $partDesc = ContentPart::find($producto_id, ['title', 'description', 'initial_date', 'limit_date']);
+
+        $product_material = '/bin/contenido-cursos/'.$id.'/1/materiales.zip';
 
         $data = [
             'product'               => $product,
@@ -933,13 +960,32 @@ class WebController extends Controller
             'live'                  => $live,
             'meeting'               => $meeting,
             'meeting_date'          => $meeting_date,
+            'product_material'      => $product_material,
         ];
-        if($product->type == 'webinar'){
-            return view(getTemplate() . '.view.product.productWeb', $data);
-        }elseif($product->type == 'coaching'){
-            return view(getTemplate() . '.view.product.productCoach', $data);
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        if($product->content_type == 'Fundal' || $product->content_type == 'fundal'){
+            if($user->category_id == $fundal_category[0]->id){
+                $product->price = 0;
+                if($product->type == 'webinar'){
+                    return view(getTemplate() . '.view.product.productWeb', $data);
+                }elseif($product->type == 'coaching'){
+                    return view(getTemplate() . '.view.product.productCoach', $data);
+                }else{
+                    return view(getTemplate() . '.view.product.product', $data);
+                }
+            }else{
+                return view(getTemplate() . '.view.error.403');
+            }
         }else{
-            return view(getTemplate() . '.view.product.product', $data);
+            if($product->type == 'webinar'){
+                return view(getTemplate() . '.view.product.productWeb', $data);
+            }elseif($product->type == 'coaching'){
+                return view(getTemplate() . '.view.product.productCoach', $data);
+            }else{
+                return view(getTemplate() . '.view.product.product', $data);
+            }
         }
     }
 
@@ -1183,6 +1229,31 @@ class WebController extends Controller
         if (!$product)
             return abort(404);
 
+        if($user){
+            if($buy){
+                
+                $progreso_parte = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $id)->where('part_id', $pid)->get();
+                if($progreso_parte->isEmpty()){
+                    $registrar_progreso = ProgresoAlumno::create(['user_id' => $user->id, 'content_id' => $id, 'part_id' => $pid, 'date' => Carbon::now()->format('Y-m-d'), 'time' => Carbon::now()->format('H:i')]);
+                }
+
+                foreach($product->parts as $part){
+                    $progreso_alumno = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $id)->where('part_id', $part->id)->get();
+                    if($progreso_alumno->isEmpty()){
+                        $part->status = 'pending';
+                    }else{
+                        $part->status = 'finished';
+                    }
+
+                    if($part->limit_date){
+                        if(Carbon::now()->format('Y-m-d') > $part->limit_date && $part->status == 'pending'){
+                            $part->status = 'late';
+                        }
+                    }
+                }
+            }
+        }
+
         $meta = arrayToList($product->metas, 'option', 'value');
         $parts = $product->parts->toArray();
         $rates = getRate($product->user->toArray());
@@ -1227,7 +1298,8 @@ class WebController extends Controller
         if(!$pid){
             $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
         }*/
-        $partDesc = ContentPart::find($pid, ['title', 'description']);
+        $partDesc = ContentPart::find($pid, ['title', 'description', 'initial_date', 'limit_date']);
+        $product_material = '/bin/contenido-cursos/'.$id.'/'.$pid.'/materiales.zip';
 
         $data = [
             'product' => $product,
@@ -1240,10 +1312,41 @@ class WebController extends Controller
             'partVideo' => '/video/stream/' . $pid,
             'partDesc' => $partDesc,
             'Duration' => $Duration,
-            'MB' => $MB
+            'MB' => $MB,
+            'product_material'      => $product_material,
         ];
 
-        return view(getTemplate() . '.view.product.product', $data);
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        if($product->content_type == 'Fundal' || $product->content_type == 'fundal'){
+            if($user->category_id == $fundal_category[0]->id){
+                $product->price = 0;
+                if($product->type == 'webinar'){
+                    return view(getTemplate() . '.view.product.productWeb', $data);
+                }elseif($product->type == 'coaching'){
+                    return view(getTemplate() . '.view.product.productCoach', $data);
+                }else{
+                    return view(getTemplate() . '.view.product.product', $data);
+                }
+            }else{
+                return abort(404);
+            }
+        }else{
+            if($product->type == 'webinar'){
+                return view(getTemplate() . '.view.product.productWeb', $data);
+            }elseif($product->type == 'coaching'){
+                return view(getTemplate() . '.view.product.productCoach', $data);
+            }else{
+                return view(getTemplate() . '.view.product.product', $data);
+            }
+        }
+    }
+
+    public function productMaterial($id, $pid){
+        $user = (auth()->check()) ? auth()->user() : null;
+        if (!$user) {
+            return redirect('/product/' . $id)->with('msg', trans('Inicie sesión para descargar el material'));
+        }
     }
 
     public function productFavorite($id)

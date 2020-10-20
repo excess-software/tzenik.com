@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin'], function () {
         ################
         Route::group(['prefix' => 'user'], function () {
             Route::get('lists', 'AdminController@usersLists');
+            Route::get('private', 'AdminController@privateUsersLists');
             Route::get('item/{id}', 'AdminController@userShow');
             Route::post('edit/{id}', 'AdminController@userEdit');
             Route::get('password/{id}','AdminController@userPassword');
@@ -136,6 +137,10 @@ Route::group(['prefix' => 'admin'], function () {
         Route::group(['prefix' => 'content'], function () {
 
             Route::get('list', 'AdminController@contentLists');
+            Route::get('private', 'AdminController@privateContentLists');
+            Route::get('private/asignar', 'AdminController@asignarPrivate');
+            Route::post('asignar', 'AdminController@asignarCurso');
+            Route::get('private/getUsers/{curso}', 'AdminController@getUsersPrivate');
             Route::get('waiting', 'AdminController@contentWaitingList');
             Route::get('draft', 'AdminController@contentDraftList');
             Route::get('user/{id}', 'AdminController@contentUserContent');
@@ -192,6 +197,24 @@ Route::group(['prefix' => 'admin'], function () {
                 });
             });
 
+        });
+
+        #####################
+        ### Forum Section ###
+        #####################
+        Route::group(['prefix'=>'forum'], function () {
+            Route::get('posts', 'AdminController@forumposts');
+            Route::get('post/new', 'AdminController@forumnewpost');
+            Route::get('post/edit/{id}','AdminController@forumeditPost');
+            Route::get('post/delete/{id}','AdminController@forumpostDelete');
+            Route::post('post/store', 'AdminController@forumstore');
+            
+            Route::get('category', 'AdminController@forumcategorys');
+            Route::get('category/edit/{id}','AdminController@forumcategoryEdit');
+            Route::get('category/delete/{id}','AdminController@forumcategoryDelete');
+            Route::post('category/store','AdminController@forumcategoryStore');
+            Route::get('comments','AdminController@forumcomments');
+            Route::get('comment/delete/{id}','AdminController@forumcommentDelete');
         });
 
         #######################

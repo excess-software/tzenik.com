@@ -52,6 +52,7 @@ Route::group(['middleware' => 'notification'], function () {
         Route::get('{id}', 'WebController@product');
         Route::get('{id}/{card}', 'WebController@productcard');
         Route::get('part/{id}/{pid}', 'WebController@productPart');
+        Route::get('part/material/{id}/{pid}', 'WebController@productMaterial');
         ## Comment & Support
         Route::post('comment/store/{id}', 'WebController@productCommentStore');
         Route::post('support/store', 'WebController@productSupportStore');
@@ -100,7 +101,7 @@ Route::group(['middleware' => 'notification'], function () {
     Route::get('usage/{product}/{user}', 'WebController@usageTrack');
 
     Route::any('payment/wallet/status', 'WebController@walletStatus');
-
+    Route::get('inscribirse/product/{product_id}', 'UserController@inscribirse');
 
     ### Bank Section ###
     Route::group(['prefix' => 'bank'], function () {

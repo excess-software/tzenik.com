@@ -117,6 +117,7 @@
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i> <span><?php echo e(trans('admin.users')); ?></span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/user/lists"><?php echo e(trans('admin.list')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/user/private">Usuarios Fundal</a></li>
                                 <li><a class="nav-link" href="/admin/user/vendor"><?php echo e(trans('admin.vendor')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/user/category"><?php echo e(trans('admin.user_groups')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/user/rate"><?php echo e(trans('admin.users_badges')); ?></a></li>
@@ -150,6 +151,8 @@
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i> <span><?php echo e(trans('admin.courses')); ?></span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/content/list"><?php echo e(trans('admin.list')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/content/private">Contenido privado</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/asignar">Asignar contenido privado</a></li>
                                 <li><a class="nav-link <?php if(isset($alert['content_waiting']) and $alert['content_waiting'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/content/waiting"><?php echo e(trans('admin.pending_courses')); ?></a></li>
                                 <li><a class="nav-link <?php if(isset($alert['content_draft']) and $alert['content_draft'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/content/draft"><?php echo e(trans('admin.unpublished_courses')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/content/comment"><?php echo e(trans('admin.corse_comments')); ?></a></li>
@@ -184,6 +187,16 @@
                                 <li><a class="nav-link" href="/admin/blog/article"><?php echo e(trans('admin.articles')); ?></a></li>
                             </ul>
                         </li><?php endif; ?>
+
+                        <li class="dropdown" id="forum">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span>Forum</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="/admin/forum/posts">Posts</a></li>
+                            <li><a class="nav-link" href="/admin/forum/category">Categories</a></li>
+                            <li><a class="nav-link" href="/admin/forum/comments">Comments</a></li>
+                        </ul>
+                    </li>
+                    
                     <?php if(checkAccess('channel')): ?>
                         <li class="dropdown" id="channel">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-eye"></i> <span><?php echo e(trans('admin.channels')); ?></span></a>

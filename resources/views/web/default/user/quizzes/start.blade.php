@@ -163,8 +163,8 @@
     </div>
 </div>
 
-<div id="finishModal" class="modal fade" role="dialog">
-    <div class="modal-dialog zinun">
+<div id="finishModal" class="modal fade modal-quiz" role="dialog">
+    <div class="modal-dialog zinun modal-quiz-dialog">
         <!-- Modal content-->
         <div class="modal-content modal-sm">
             <div class="modal-body modst2">

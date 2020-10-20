@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <meta name="description" content="<?php echo get_option('site_description',''); ?>">
     <link rel="stylesheet" href="/assets/default/vendor/bootstrap/css/bootstrap.min.css" />
@@ -27,7 +27,29 @@
     <?php else: ?>
     <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom.css?time=<?php echo time(); ?>"/>-->
     <?php endif; ?>
+    <?php if(isset($user)): ?>
+    <?php if(is_null($user['invert'])): ?>
     <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">
+    <?php elseif($user['invert'] == 'yellow'): ?>
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">
+    <?php elseif($user['invert'] == 'white'): ?>
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">
+    <?php endif; ?>
+    <?php else: ?>
+    <script>
+        if(localStorage.getItem("color")){
+            if(localStorage.getItem("color") == 'yellow'){
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">';
+            }else if(localStorage.getItem("color") == 'white'){
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">';
+            }else{
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
+            }
+        }else{
+            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
+        }
+    </script>
+    <?php endif; ?>
     <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
     <?php if(get_option('main_css')!=''): ?>
     <style>
@@ -40,17 +62,45 @@
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <title><?php echo $__env->yieldContent('title'); ?><?php echo $title ?? ''; ?></title>
     <script>
-        function changeFont() {
-            $.post('/user/profile/store', $('#userform').serialize(), function (data) {
-                location.reload();
-            })
+        function changeFont(font) {
+            $.ajax({
+                type: 'POST',
+                url: "/user/profile/store",
+                data: {
+                    "_token": "<?php echo e(csrf_token()); ?>",
+                    "fontsize": font
+                },
+                dataType: "text",
+                success: function (data) {
+                    location.reload();
+                }
+            });
         }
 
-        function changeColor() {
-            $.post('/user/profile/store', $('#invertform').serialize(), function (data) {
-                location.reload();
-            })
+        function changeColor(color) {
+            if(color == 'default'){
+                color = ''
+            }
+            <?php if(isset($user)): ?>
+            $.ajax({
+                type: 'POST',
+                url: "/user/profile/store",
+                data: {
+                    "_token": "<?php echo e(csrf_token()); ?>",
+                    "invert": color
+                },
+                dataType: "text",
+                success: function (data) {
+                    location.reload();
+                }
+            });
+            <?php else: ?>
+            localStorage.setItem("color", color);
+            console.log(localStorage.getItem("color"));
+            location.reload();
+            <?php endif; ?>
         }
+
     </script>
 </head>
 
@@ -76,50 +126,68 @@
                         <li class="dropdown navbar-accesibilidad">
                             <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Men&uacute; de Accesibilidad</a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu accesibilidad-menu">
                                 <li>
-                                    <?php if(isset($user)): ?>
-                                        <form method="post" id="invertform">
-                                            <?php echo csrf_field(); ?>
-                                            <label
-                                                class="control-label col-md-1 tab-con"><?php echo e(trans('main.invert')); ?></label>
-                                            <select name="invert" class="form-control" onChange="changeColor();">
-                                                <?php if($user['invert'] == 1): ?>
-                                                <option disabled selected><?php echo e(trans('main.inverted')); ?></option>
-                                                <?php elseif(!$user['invert']): ?>
-                                                <option disabled selected><?php echo e(trans('main.normal')); ?></option>
-                                                <?php endif; ?>
-                                                <option value="1">Invertir</option>
-                                                <option value="" style="">Normal</option>
-
-                                            </select>
-                                        </form>
-                                    <?php endif; ?>
+                                    <div class="container" style="width: 100%;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3><b>Text Size:</b></h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 text-center">
+                                                <button class="btn btn-primary btn-block" onclick="changeFont(24)">
+                                                    <b>A</b>
+                                                    <br>
+                                                    <b>Smaller</b>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <button class="btn btn-primary btn-block" onclick="changeFont(32)">
+                                                    <b>A</b>
+                                                    <br>
+                                                    <b>Larger</b>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li>
-                                    <?php if(isset($user)): ?>
-                                        <form method="post" id="userform">
-                                            <?php echo csrf_field(); ?>
-                                            <label
-                                                class="control-label col-md-1 tab-con"><?php echo e(trans('main.fontsize')); ?></label>
-                                            <select name="fontsize" class="form-control" onChange="changeFont();">
-                                                <?php if($user['fontsize'] == 40): ?>
-                                                <option disabled selected><?php echo e(trans('main.biggest')); ?></option>
-                                                <?php elseif($user['fontsize'] == 32): ?>
-                                                <option disabled selected><?php echo e(trans('main.bigger')); ?></option>
-                                                <?php elseif($user['fontsize'] == 24): ?>
-                                                <option disabled selected><?php echo e(trans('main.big')); ?></option>
-                                                <?php elseif(!$user['fontsize']): ?>
-                                                <option disabled selected><?php echo e(trans('main.normal')); ?></option>
-                                                <?php endif; ?>
-                                                <option value="40" style="font-size: 40px">Biggest</option>
-                                                <option value="32" style="font-size: 32px">Bigger</option>
-                                                <option value="24" style="font-size: 24px">Big</option>
-                                                <option value="" style="">Normal</option>
-
-                                            </select>
-                                        </form>
-                                    <?php endif; ?>
+                                    <div class="container" style="width: 100%;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3><b>Contrast:</b></h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-whiteTxtBlack btn-block" onclick="changeColor('white')">
+                                                    <b>White Text</b>
+                                                    <br>
+                                                    <b>Black</b>
+                                                    <br>
+                                                    <b>Background</b>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="btn btn-yellowTxtBlack btn-block" onclick="changeColor('yellow')">
+                                                    <b>Yellow Text</b>
+                                                    <br>
+                                                    <b>Black</b>
+                                                    <br>
+                                                    <b>Background</b>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-block" onclick="changeColor('default')">
+                                                    <b>Default</b>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </li>
@@ -130,10 +198,16 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/user/video/buy">
                                         <p>Dashboard</p>
-                                    </a></li>
+                                    </a>
+                                </li>
+                                <li><a href="/user/profile">
+                                        <p>Configuraci&oacute;n</p>
+                                    </a>
+                                </li>
                                 <li><a href="/logout">
                                         <p><?php echo e(trans('main.exit')); ?></p>
-                                    </a></li>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <?php else: ?>

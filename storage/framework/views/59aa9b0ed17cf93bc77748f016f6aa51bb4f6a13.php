@@ -5,7 +5,7 @@
 <?php $__env->startSection('content'); ?>
 <?php echo $__env->make(getTemplate() . '.view.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <div class="row">
-    <div class="container-fluid">
+    <div class="container">
         <div class="col titulo-cursos-destacados">
             <span>
                 <h2><img src="<?php echo e($category->icon); ?>" width="30px" height="30px" /><b> <?php echo e($category->title); ?></b></h2>
@@ -14,9 +14,11 @@
     </div>
 </div>
 <br>
+<div class="container">
 <div class="row ultimos-blogs">
+
     <?php $__currentLoopData = $contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <a href="/product/<?php echo e($content['id']); ?>" title="<?php echo e($content['title']); ?>" class="enlace-tabs">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -70,7 +72,7 @@
         </a>
     </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
+</div>
 </div>
 <?php $__env->stopSection(); ?>
 

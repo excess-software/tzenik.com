@@ -1,0 +1,1083 @@
+/* Body CSS */
+body, a, span, b, .btn, .panel, hr{
+    color: black !important;
+}
+.btn, .panel, .list-group-item, .dropdown-menu{
+    color: black !important;
+    border: 3px solid black !important; 
+    background-color: white !important;
+}
+.navbar-brand{
+    background-color: black !important;
+}
+.container-full{
+    overflow: hidden;
+    background-color: white;
+}
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
+    border: 3px solid black;
+    border-bottom: 3px solid transparent;
+}
+.nav-tabs {
+   border-bottom: 3px solid black !important;
+}
+.navbar-inverse{
+    background-color: black !important;
+}
+.open{
+    color: black !important;
+}
+.accesibilidad-menu{
+    width: 300px;
+}
+.btn-whiteTxtBlack{
+    background-color: black;
+    color: white;
+    text-align: left;
+}
+.btn-yellowTxtBlack{
+    background-color: black;
+    color: yellow;
+    text-align: left;
+}
+/* Navbar CSS */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.collapse .navbar-form {
+    margin-top: 20px;
+}
+
+.container-fluid{
+    padding-right: 0;
+    /* background-color: white; */
+}
+
+.navbar-accesibilidad {
+    background-color: black !important;
+    border: 1px solid white;
+    color: white !important;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+    color: black;
+}
+
+.navbar-perfil {
+    background-color: black !important;
+    border: 1px solid white;
+    color: white !important;
+}
+
+.navbar-accesibilidad:hover {
+    background-color: #f72770;
+    color: #f2f2f2;
+}
+
+.navbar-perfil:hover {
+    background-color: #fcc654;
+    color: #f2f2f2;
+}
+
+ul.nav.navbar-nav li a:link {
+    padding-top: 20px;
+    line-height: 35px; 
+}
+
+.navbar-center
+{   
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-form .input-group>.form-control {
+    width:95%
+}
+
+/* Home CSS */
+.pills-home {
+    margin-top: 1%;
+}
+.banner-tzenik{
+    margin-top: 125px;
+    margin-bottom: 125px;
+}
+.banner-descripcion{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+    border-style: solid none;
+    border-width: 3px 0;
+    margin: 18px 0;
+  }
+.nav-tabs{
+    border-bottom: 2px solid black;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    border: 2px solid black;
+    border-bottom: 0px solid transparent;
+}
+.nav-home{
+    color: black;
+}
+.nav-home:hover{
+    color: black;
+}
+.container-full {
+    margin: 0 auto;
+    width: 100%;
+    overflow:hidden
+  }
+.titulo-cursos-destacados{
+    
+}
+.titulo-cursos-destacados span h2 b:after {
+    content: ""; /* This is necessary for the pseudo element to work. */ 
+    display: block; /* This will put the pseudo element on its own line. */
+    width: 10%; /* Change this to whatever width you want. */
+    border-bottom: 5px solid #E90A59; 
+}
+.panel-default{
+    border: 3px solid black;
+}
+.panel-footer{
+    padding: 0;
+    padding-bottom: 0;
+}
+.cursos-destacados{
+    
+}
+.cursos-destacados h3{
+    text-decoration: none;
+}
+.curso-destacado-titulo{
+    margin-left: 5%;
+}
+.curso-destacado-contenido{
+    margin-left: 5%;
+}
+.btn-cursos-destacados{
+    color: #FFFFFF;
+    background-color: #E90A59;
+    border-color: #E90A59;
+}
+
+.titulo-proximos-webinars{
+}
+.titulo-proximos-webinars span h2 b:after {
+    content: ""; /* This is necessary for the pseudo element to work. */ 
+    display: block; /* This will put the pseudo element on its own line. */
+    width: 10%; /* Change this to whatever width you want. */
+    border-bottom: 5px solid #FEBF36; 
+}
+.proximos-webinars{
+}
+.proximos-webinars-titulo{
+    margin-left: 5%;
+}
+.proximos-webinars-contenido{
+    margin-left: 5%;
+}
+.img-proximos-webinars{
+    border-radius: 40%;
+    width: 60%;
+    height: 60%;
+}
+.btn-proximos-webinars{
+    color: #FFFFFF;
+    background-color: #FEBF36;
+    border-color: #FEBF36;
+}
+
+.titulo-ultimos-blogs{
+}
+.titulo-ultimos-blogs span h2 b:after {
+    content: ""; /* This is necessary for the pseudo element to work. */ 
+    display: block; /* This will put the pseudo element on its own line. */
+    width: 10%; /* Change this to whatever width you want. */
+    border-bottom: 5px solid #3ED2B8; 
+}
+.ultimos-blogs{
+}
+.ultimos-blogs-titulo{
+    margin-left: 5%;
+}
+.ultimos-blogs-contenido{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.img-ultimos-blogs{
+    max-height: 400px;
+    width: auto;
+    min-height: 400px;
+}
+.btn-ultimos-blogs{
+    color: #FFFFFF;
+    background-color: #3ED2B8;
+    border-color: #3ED2B8;
+}
+.black-text{
+    color: black;
+}
+
+/** Categorias CSS */
+
+.label-tag-cursos{
+    background-color: #FFFFFF;
+    color: black;
+    border-radius: 20px;
+    border: 3px solid black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.circle-tag-cursos{
+    border-radius: 50%;
+    background-color: black !important;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+.btn-cursos-listado{
+    color: white;
+    background-color: black;
+    border-color: black;
+}
+
+/* Media CSS */
+.visualizador-media{
+    background-color: black;
+    margin: 0;
+    margin-top: -20px;
+    padding-bottom: 5%;
+}
+.volver-atras-media{
+    margin-right: auto;
+    color: white;
+}
+.volver-atras-media a{
+    color: white;
+    text-decoration: none;
+}
+.media-cursos{
+    width: 100%;
+    height: auto;
+}
+.btn-next-media{
+    color: black;
+}
+.content-media-curso{
+    
+}
+.text-content-media-curso{
+
+}
+.text-content-media-curso img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.btn-media-descargar-leccion{
+    background-color: #e90a59;
+    border-color: #e90a59;
+    color: white;
+    margin-bottom: 15px;
+}
+.btn-media-descargar-curso{
+    background-color: white;
+    border-color: #e90a59;
+    color: #e90a59;
+    margin-bottom: 15px;
+}
+.label-tag-media-categoria{
+    background-color: #FFFFFF;
+    color: black;
+    border: 3px solid black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.circle-tag-media-categoria{
+    border-radius: 50%;
+    background-color: black !important;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+.list-content-media{
+    border: 2px solid black;
+}
+.list-active{
+    color: white;
+    background-color: black;
+}
+.partes-curso a{
+    text-decoration: none;
+    color: black;
+}
+#radio-2{
+    display: none;
+}
+#giftCard{
+    display: none;
+}
+.table-post-price{
+    display: none;
+}
+/* BLog CSS */
+.titulo-blog{
+}
+.titulo-blog span h2 b:after {
+    content: ""; /* This is necessary for the pseudo element to work. */ 
+    display: block; /* This will put the pseudo element on its own line. */
+    width: 5%; /* Change this to whatever width you want. */
+    border-bottom: 5px solid #3ED2B8; 
+}
+
+.volver-atras-blog{
+    margin-right: auto;
+    color: black;
+}
+.volver-atras-blog a{
+    color: black;
+    text-decoration: none;
+}
+.media-blog{
+    width: 100%;
+    height: auto;
+    border: 3px solid black;
+}
+.content-blog{
+    margin-right: auto;
+}
+.text-content-media-blog{
+    padding-right: 5%;
+}
+.hr-blog{
+    border: 2px solid black;
+}
+
+/** Tests CSS **/
+.btn-cerrar-test{
+    margin-left: 5%;
+    color: white;
+}
+.btn-cerrar-test a{
+    color: black;
+    text-decoration: none;
+}
+.titulo-test{
+    background-color: black;
+    color: white;
+    margin-left: 5%;
+    border-radius: 10px;
+}
+.pregunta-test{
+    margin-left: 5%;
+}
+.respuestas-test{
+    margin-left: 5%;
+}
+.imagen-respuesta-test{
+    border: 3px solid black;
+    border-radius: 10px;
+}
+.textarea-respuestas-test{
+    border: 3px solid black;
+}
+.resultado-quiz{
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+}
+.flipTimer {
+    font-size: 32px !important;
+    font-weight: bold;
+    line-height: 38px !important;
+    height: 40px !important;
+    color: #c62504 !important;
+}
+
+.flipTimer .digit-set {
+    width: 38px !important;
+}
+
+.flipTimer .digit > div.shadow-top {
+    width: 38px !important;
+}
+
+.flipTimer .digit > div.shadow-bottom {
+    width: 26px !important;
+}
+
+.flipTimer .digit > div.digit-top, .flipTimer .digit > div.digit-bottom {
+    background-color: #ffffff !important;
+}
+
+.flipTimer .digit > div.digit-top:before, .flipTimer .digit > div.shadow-top:before, .flipTimer .digit > div.digit-bottom:before, .flipTimer .digit > div.shadow-bottom:before {
+    box-shadow: none !important;
+}
+
+.flipTimer .digit > div.digit-top, .flipTimer .digit > div.shadow-top {
+    border-bottom: 1px solid #ccc !important;
+}
+
+
+.flipTimer .digit-set {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid #ccc !important;
+}
+.quiz-form .form-card .form-radio {
+    display: inline-flex;
+}
+
+.quiz-form .form-card .form-radio input[type=radio] {
+    visibility: hidden;
+    display: none;
+}
+
+.quiz-form .form-card .form-radio label {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border: solid 1px rgba(112, 112, 112, 0.34);
+    background-color: #ffffff;
+    cursor: pointer;
+    color: #6b6b6b;
+}
+
+.quiz-form .form-card .form-radio label:hover {
+    background-color: #f5f5f5;
+}
+
+.quiz-form .form-card .form-radio label .answer-title {
+    padding: 32px;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+.quiz-form fieldset {
+    position: relative;
+    background: transparent;
+    border: 0 none;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+}
+
+.quiz-form fieldset:not(:first-of-type) {
+    display: none
+}
+
+.quiz-form fieldset .form-card {
+    text-align: center;
+    color: #9E9E9E;
+    padding: 32px 48px;
+}
+
+.quiz-form fieldset .form-card .question-title {
+    margin-bottom: 16px;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.19;
+    text-align: center;
+    color: black;
+}
+
+.quiz-form .form-card .descriptive-input {
+
+}
+
+.quiz-form .form-card .form-radio {
+    display: inline-flex;
+}
+
+.quiz-form .form-card .form-radio input[type=radio] {
+    visibility: hidden;
+    display: none
+}
+
+.quiz-form .form-card .form-radio label {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border: solid 1px rgba(112, 112, 112, 0.34);
+    background-color: #ffffff;
+    cursor: pointer;
+    color: #6b6b6b;
+}
+
+.quiz-form .form-card .form-radio label:hover {
+    background-color: #f5f5f5;
+}
+
+.quiz-form .form-card .form-radio label .answer-title {
+    padding: 32px;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.quiz-form .form-card .image-container {
+    position: relative;
+    cursor: pointer;
+    height: 172px;
+    border-radius: 10px;
+}
+
+.quiz-form .form-card .image-container img {
+    border-radius: 10px;
+}
+
+.quiz-form .form-card .image-container:hover:after {
+    opacity: 1;
+}
+
+.quiz-form .form-card .image-container:after {
+    display: block;
+    opacity: 0;
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(59, 59, 59, .5);
+    border-radius: 10px;
+}
+
+.quiz-form .form-card .image-container:before {
+    display: block;
+    opacity: 0;
+    content: '\f058';
+    font-family: FontAwesome;
+    position: absolute;
+    z-index: 5;
+    color: white;
+    font-size: 40px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.quiz-form .form-card .form-radio input[type=radio]:checked + label .image-container:before, .quiz-form .form-card .form-radio input[type=radio]:checked + label .image-container:after {
+    opacity: 1;
+}
+
+.quiz-form .form-card .form-radio input[type=radio]:checked + label {
+    background: #FEBF36;
+    color: #fff;
+}
+
+.quiz-form .form-card .answer-items {
+    padding: 0 48px;
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+}
+.badge-success{
+    background-color: green;
+}
+.badge-danger{
+    background-color: red;
+}
+.badge-warning{
+    background-color: orange;
+}
+.btn-custom{
+    background-color: black;
+    color: white;
+    padding: 15px;
+}
+.btn-custom:hover{
+    text-decoration: none;
+    color: white;
+}
+.btn-danger-custom{
+    background-color: red;
+    color: white;
+    padding: 15px;
+}
+.btn-danger-custom:hover{
+    text-decoration: none;
+    color: white;
+}
+  .modal-quiz{
+    text-align: center;
+    padding: 0!important;
+  }
+  
+  .modal-quiz:before{
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+  }
+  
+  .modal-quiz-dialog{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+/** Dashboard CSS **/
+.contenido-cursos-dash{
+    margin-left: 5%;
+}
+.col-cursos-dash{
+        padding-left: 0;
+        padding-right: 0;
+}
+.table-dark{
+    background-color: black;
+    color: white;
+}
+.table td {
+    text-align: center;
+}
+.table th {
+   text-align: center;
+}
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+.contenido-calendario-dash{
+    margin-left: 5%;
+}
+.accordion{
+    list-style-type: none;
+}
+/** Footer CSS */
+.footer{
+    background-color: black;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.footer-tzenik{
+    color: white;
+    margin-top: 50px;
+}
+
+/** Login CSS **/
+.login-s{
+    background-color: black;
+}
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: white;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.formBox {
+    width: 460px;
+    max-width: 100%;
+    height: 552px;
+    margin-left: -4px;
+    margin-top: 00px;
+    margin-bottom: 40px;
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.formBox .box {
+    text-align: left;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 60px 0px 40px 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 2px 11px -2px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s cubic-bezier(0.35, 0.33, 0.75, 0.9);
+}
+
+.formBox h2 {
+    border-left: 6px solid #13ce9c;
+    color: #13ce9c;
+    padding: 0px 25px;
+    font-size: 32px;
+    line-height: 45px;
+    height: 45px;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    position: relative;
+    left: 0;
+    text-align: left;
+}
+
+.formBox p {
+    font-size: 18px;
+    line-height: 27px;
+    margin-bottom: 30px;
+    color: #696969;
+}
+
+.formBox form {
+    text-align: right;
+    display: block;
+    padding: 0px 50px;
+    position: relative;
+}
+
+.formBox .f_row {
+    position: relative;
+    margin-bottom: 25px;
+    height: 52px;
+}
+
+.formBox .f_row.shake {
+    animation: shake 0.4s linear;
+}
+
+.formBox .f_row.last {
+    margin-bottom: 53px;
+}
+
+.formBox .f_row label {
+    color: #3f3f3f;
+    font-size: 25px;
+    font-weight: normal;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(1, -0.33, 0, 1.15);
+    transform: translate(0px, 0px) scale(1);
+    transform-origin: left top;
+}
+
+.formBox .f_row input {
+    background-color: transparent;
+    border: none;
+    color: #3f3f3f;
+    font-size: 25px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    outline: 0;
+}
+
+.formBox .f_row u {
+    background-color: #e1e1e1;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.formBox .f_row u:before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0;
+    background-color: #13ce9c;
+    transition: all 0.35s cubic-bezier(0.35, 0.33, 0.84, 0.85);
+}
+
+.formBox .f_row.focus label {
+    opacity: 0.5;
+    transform: translate(0px, -30px) scale(0.8);
+}
+
+.formBox .f_row.focus u:before {
+    width: 100%;
+}
+
+.formBox .reg_bg {
+    border-radius: 50%;
+    background-color: #13ce9c;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    right: -115px;
+    top: -190px;
+    transform-origin: 100% 40%;
+    transform: scale(0);
+}
+
+.formBox .regTag {
+    position: absolute;
+}
+
+.formBox .regTag svg {
+    fill: #fff;
+    width: 38px;
+    height: 38px;
+}
+
+.formBox .registerBox {
+    border-radius: 8px;
+    background-color: #fff;
+    right: 0;
+    overflow: hidden;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    backface-visibility: visible;
+    z-index: 1;
+}
+
+.formBox .registerBox .f_row label,
+.formBox .registerBox .f_row input {
+    color: #fff;
+    text-align: left;
+}
+
+.formBox .registerBox .f_row u {
+    background-color: #13ce9c;
+}
+
+.formBox .registerBox .f_row u:before {
+    background-color: #fff;
+}
+
+.formBox .registerBox .f_row.last {
+    margin-bottom: 40px;
+}
+
+.formBox .registerBox h2 {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translateX(-20px);
+}
+
+.formBox .registerBox .form > div {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translateX(20px);
+}
+
+.formBox .registerBox .form > div:nth-child(1) {
+    transition-delay: 0.15s;
+}
+
+.formBox .registerBox .form > div:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.formBox .registerBox .form > div:nth-child(3) {
+    transition-delay: 0.25s;
+}
+
+.formBox .registerBox .btn-large {
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translateX(20px);
+    transition-delay: 0.3s;
+}
+
+.formBox .forgetbox {
+    background-color: #343871;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0px, 9px) scale(1.03);
+}
+
+.formBox .forgetbox .back {
+    position: absolute;
+    top: 13px;
+    right: 26px;
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    animation: back 0.8s linear;
+    animation-iteration-count: infinite;
+}
+
+.formBox .forgetbox .back svg {
+    fill: #fff;
+    width: 20px;
+    height: 20px;
+}
+
+.formBox .forgetbox .f_row label,
+.formBox .forgetbox .f_row input {
+    color: #fff;
+}
+
+.formBox .forgetbox .f_row u {
+    background-color: #13ce9c;
+}
+
+.formBox .forgetbox .f_row u:before {
+    background-color: #fff;
+}
+
+.formBox .forgetbox .f_row.last {
+    margin-bottom: 40px;
+}
+
+.formBox .forgetbox .btn {
+    border-radius: 25px;
+    border-color: #13ce9c;
+    background-color: #13ce9c;
+}
+
+.formBox .forgetbox .btn u {
+    background-color: #13ce9c;
+}
+
+.formBox .forgetbox h2 {
+    color: #fff;
+    border-left-color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translate(-20px, 0px);
+}
+
+.formBox .forgetbox .form > div {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translate(0px, 20px);
+    transition-delay: 0.15s;
+}
+
+.formBox .forgetbox p {
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translate(0px, 20px);
+    transition-delay: 0.2s;
+}
+
+.formBox .forgetbox .btn {
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
+    transform: translate(0px, 20px);
+    transition-delay: 0.25s;
+}
+
+.formBox.level-login .boxShaddow {
+    opacity: 0.7;
+    transform-origin: center top;
+    transform: translate(0px, -9px) scale(0.97);
+}
+.login-box{
+    margin-bottom: 7%;
+}
+.fos-s{
+    color: white;
+}
+.formBox.level-reg h2 {
+    border-left-color: #fff;
+    color: #fff;
+}
+
+.formBox.level-reg .boxShaddow {
+    opacity: 0.7;
+    transform-origin: center top;
+    transform: translate(0px, -18px) scale(0.94);
+}
+
+.formBox.level-reg .loginBox {
+    opacity: 0.7;
+    transform-origin: center top;
+    transform: translate(0px, -9px) scale(0.97);
+}
+
+.formBox.level-reg .registerBox {
+    opacity: 1;
+    visibility: visible;
+}
+
+.formBox.level-reg .regTag {
+    animation: regTag 0.3s cubic-bezier(2.48, 2.55, 2.73, 2.78), regTag2 0.3s cubic-bezier(3.48, 3.55, 3.73, 3.78);
+    animation-fill-mode: forwards;
+}
+
+.formBox.level-reg .reg_bg {
+    animation: regMask 0.3s cubic-bezier(0.48, 0.55, 0.73, 0.78);
+    animation-fill-mode: forwards;
+}
+
+.formBox.level-reg .form > div,
+.formBox.level-reg .btn-large,
+.formBox.level-reg h2 {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.formBox.level-reg-revers .regTag {
+    animation: regTagR 0.3s cubic-bezier(0.48, 0.55, 0.73, 0.78), regTag2R 0.3s cubic-bezier(0.48, 0.55, 0.73, 0.78);
+    animation-fill-mode: forwards;
+    line-height: 88px;
+}
+
+.formBox.level-reg-revers .reg_bg {
+    animation: regMaskR 0.3s cubic-bezier(0.48, 0.55, 0.73, 0.78);
+    animation-fill-mode: forwards;
+}
+
+.formBox.level-forget .boxShaddow {
+    opacity: 0.7;
+    transform-origin: center top;
+    transform: translate(0px, -18px) scale(0.94);
+}
+
+.formBox.level-forget .loginBox {
+    text-align: right;
+    opacity: 0.7;
+    transform-origin: center top;
+    transform: translate(0px, -9px) scale(0.97);
+}
+
+.formBox.level-forget .forgetbox {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.formBox.level-forget .forgetbox p,
+.formBox.level-forget .forgetbox form > div,
+.formBox.level-forget .forgetbox .btn,
+.formBox.level-forget .forgetbox h2 {
+    text-align: left;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0px, 0px);
+}
+
+/** Dash User **/
+.dash-content-user a{
+    color: black;
+}

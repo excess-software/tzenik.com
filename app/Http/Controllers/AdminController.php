@@ -25,6 +25,10 @@ use App\Models\Chat_Chats;
 use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
 
+use App\Models\Forum;
+use App\Models\ForumCategory;
+use App\Models\ForumComments;
+
 use App\Models\Content;
 use App\Models\ContentCategory;
 use App\Models\ContentCategoryFilter;
@@ -263,9 +267,68 @@ class AdminController extends Controller
     {
         $fdate = strtotime($request->get('fsdate', null));
         $ldate = strtotime($request->get('lsdate', null));
+
         $userList = User::with('category')
             ->withCount('contents', 'sells', 'buys')
             ->where('admin', '0');
+
+        if ($fdate > 12601) {
+            $userList->where('created_at', '>', $fdate);
+        }
+        if ($ldate > 12601) {
+            $userList->where('created_at', '<', $ldate);
+        }
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $userList->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $userList->orderBy('sells_count', 'DESC');
+                    break;
+                case 'buya':
+                    $userList->orderBy('buys_count');
+                    break;
+                case 'buyd':
+                    $userList->orderBy('buys_count', 'DESC');
+                    break;
+                case 'contenta':
+                    $userList->orderBy('contents_count');
+                    break;
+                case 'contentd':
+                    $userList->orderBy('contents_count', 'DESC');
+                    break;
+                case 'datea':
+                    $userList->orderBy('created_at');
+                    break;
+                case 'seller':
+                    $userList->has('sells', '>', 0)->with(['sells', 'usermetas' => function ($q) {
+                        $q->pluck('value', 'option');
+                    }]);
+                    break;
+                case 'disabled':
+                    $userList->where('mode', '!=', 'active');
+                    break;
+            }
+        } else {
+            $userList->orderBy('id', 'DESC');
+        }
+
+        $userList = $userList->paginate(15);
+        return view('admin.user.list', array('users' => $userList));
+    }
+
+    public function privateUsersLists(Request $request)
+    {
+        $fdate = strtotime($request->get('fsdate', null));
+        $ldate = strtotime($request->get('lsdate', null));
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $userList = User::with('category')
+            ->withCount('contents', 'sells', 'buys')
+            ->where('admin', '0')->where('category_id', $fundal_category[0]->id);
 
         if ($fdate > 12601) {
             $userList->where('created_at', '>', $fdate);
@@ -950,6 +1013,234 @@ class AdminController extends Controller
         ];
 
         return view('admin.content.list', $data);
+    }
+
+    public function privateContentLists(Request $request)
+    {
+        $fdate = strtotime($request->get('fdate', null)) + 12600;
+        $ldate = strtotime($request->get('ldate', null)) + 12600;
+
+        $users = User::all();
+        $category = ContentCategory::get();
+        $lists = Content::with(['category', 'user', 'metas' => function ($qm) {
+            $qm->get()->pluck('option', 'value');
+        }, 'transactions' => function ($q) {
+            $q->where('mode', 'deliver');
+        }])->withCount('sells', 'partsactive')->where(function ($w) {
+            $w->where('mode', 'publish');
+        })->where('content_type', 'Fundal');
+
+
+        if ($fdate > 12601)
+            $lists->where('created_at', '>', $fdate);
+        if ($ldate > 12601)
+            $lists->where('created_at', '<', $ldate);
+        if ($request->get('user', null) !== null)
+            $lists->where('user_id', $request->get('user', null));
+        if ($request->get('cat', null) !== null)
+            $lists->where('category_id', $request->get('cat', null));
+        if ($request->get('id', null) !== null)
+            $lists->where('id', $request->get('id', null));
+        if ($request->get('title', null) !== null)
+            $lists->where('title', 'like', '%' . $request->get('title', null) . '%');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $lists->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $lists->orderBy('sells_count', 'DESC');
+                    break;
+                case 'viewa':
+                    $lists->orderBy('view');
+                    break;
+                case 'viewd':
+                    $lists->orderBy('view', 'DESC');
+                    break;
+                case 'datea':
+                    $lists->orderBy('id');
+                    break;
+
+            }
+        } else
+            $lists->orderBy('id', 'DESC');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'priced':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'pricea':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'suma':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+                case 'sumd':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+            }
+        }
+
+        $lists = $lists->paginate(10);
+
+        $data = [
+            'lists' => $lists,
+            'users' => $users,
+            'category' => $category
+        ];
+
+        return view('admin.content.list', $data);
+    }
+
+    public function asignarPrivate(Request $request){
+        $fdate = strtotime($request->get('fdate', null)) + 12600;
+        $ldate = strtotime($request->get('ldate', null)) + 12600;
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $users = User::where('category_id', $fundal_category[0]->id)->get();
+        $category = ContentCategory::get();
+        $lists = Content::with(['category', 'user', 'metas' => function ($qm) {
+            $qm->get()->pluck('option', 'value');
+        }, 'transactions' => function ($q) {
+            $q->where('mode', 'deliver');
+        }])->withCount('sells', 'partsactive')->where(function ($w) {
+            $w->where('mode', 'publish');
+        })->where('content_type', 'Fundal');
+
+
+        if ($fdate > 12601)
+            $lists->where('created_at', '>', $fdate);
+        if ($ldate > 12601)
+            $lists->where('created_at', '<', $ldate);
+        if ($request->get('user', null) !== null)
+            $lists->where('user_id', $request->get('user', null));
+        if ($request->get('cat', null) !== null)
+            $lists->where('category_id', $request->get('cat', null));
+        if ($request->get('id', null) !== null)
+            $lists->where('id', $request->get('id', null));
+        if ($request->get('title', null) !== null)
+            $lists->where('title', 'like', '%' . $request->get('title', null) . '%');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $lists->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $lists->orderBy('sells_count', 'DESC');
+                    break;
+                case 'viewa':
+                    $lists->orderBy('view');
+                    break;
+                case 'viewd':
+                    $lists->orderBy('view', 'DESC');
+                    break;
+                case 'datea':
+                    $lists->orderBy('id');
+                    break;
+
+            }
+        } else
+            $lists->orderBy('id', 'DESC');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'priced':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'pricea':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'suma':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+                case 'sumd':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+            }
+        }
+
+        $lists = $lists->paginate(10);
+
+        $usuarios_cursos = array();
+
+        foreach($lists as $item){
+            $sell = Sell::where('content_id', $item->id)->get();
+            if(!$sell->isEmpty()){
+                foreach($sell as $venta){
+                    array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id));   
+                }
+            }
+        }
+
+        $data = [
+            'lists' => $lists,
+            'users' => $users,
+            'category' => $category,
+            'asignados' => $usuarios_cursos
+        ];
+
+        return view('admin.content.asignprivate', $data);
+    }
+    
+    public function asignarCurso(Request $request){
+        $curso = $request->curso;
+        $getCurso = Content::find($curso);
+
+        foreach($request->usuarios as $usuario){
+            Sell::insert([
+                'user_id' => $getCurso->user_id,
+                'buyer_id' => $usuario,
+                'content_id' => $getCurso->id,
+                'type' => 'download',
+                'created_at' => time(),
+                'mode' => 'pay',
+                'transaction_id' => '0',
+                'remain_time' => NULL
+            ]);
+        }
+        return back();
+    }
+
+    public function getUsersPrivate($curso){
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $userList = User::where('category_id', $fundal_category[0]->id)->get();
+
+        $array_disponibles = array();
+
+        foreach($userList as $usuario){
+            $asignados = Sell::where('buyer_id', $usuario->id)->where('content_id', $curso)->get();
+            if($asignados->isEmpty()){
+                $array_curso = array($usuario->id, $usuario->name, $usuario->username);
+                array_push($array_disponibles, $array_curso);
+            }
+        }
+        echo json_encode($array_disponibles);
     }
 
     public function contentWaitingList(Request $request)
@@ -3321,5 +3612,147 @@ class AdminController extends Controller
     public function chat_deleteUser($user_id, $chat_id){
         Chat_UsersInChat::where('chat_id', $chat_id)->where('user_id', $user_id)->delete();
         return true;
+    }
+
+    ##################
+    ###### Forum #####
+    ##################
+
+    public function forumposts(){
+        $postList = Forum::with('comments','user')->orderBy('id','DESC')->get();
+        return view('admin.forum.list',array('posts'=>$postList));
+    }
+    public function forumpost(){
+        $category = ForumCategory::all();
+        $postList = Forum::with('comments','user')->orderBy('id','DESC')->get();
+        $categorylist = ForumCategory::withCount('posts')->get();
+        return view('user.forum.list',array('posts'=>$postList, 'lists'=>$categorylist));
+    }
+    public function forumcategorys()
+    {
+        $list = ForumCategory::withCount('posts')->get();
+        return view('admin.forum.categroy',array('lists'=>$list));
+    }
+    public function forumnewPosts(){
+        $category = BlogCategory::all();
+        return view('user.forum.new',['category'=>$category]);
+    }
+    public function forumnewPost(){
+        $category = BlogCategory::all();
+        return view('admin.blog.new',['category'=>$category]);
+    }
+    public function forumpostDelete($id)
+    {
+        Forum::find($id)->delete();
+        return back();
+    }
+    public function forumstore(Request $request){
+        global $admin;
+        //$request->request->add(['user_id'=>$admin['id']]);
+        if($request->id){
+            $request->request->add(['update_at'=>time()]);
+            if(isset($request->comment))
+                $request->request->set('comment','enable');
+            else
+                $request->request->set('comment','disable');
+            Forum::where('id',$request->id)->update($request->except(['_token', 'files']));
+            return back();
+        }else{
+            $request->request->add(['create_at'=>time()]);
+            if(isset($request->comment))
+                $request->request->set('comment','enable');
+            else
+                $request->request->set('comment','disable');
+            $post = Forum::create($request->except(['_token', 'files']));
+            return redirect('/admin/forum/post/edit/'.$post->id);
+        }
+    }
+    public function forumeditPost($id){
+        $category = ForumCategory::all();
+        $item = Forum::find($id);
+        return view('admin.forum.edit',['category'=>$category,'item'=>$item]);
+    }
+
+
+    public function forumcategory()
+    {
+        $list = ForumCategory::withCount('posts')->get();
+        return view('admin.forum.categroy',array('lists'=>$list));
+    }
+    public function categoryEdit($id)
+    {
+        $list = ForumCategory::all();
+        $item = ForumCategory::find($id);
+        return view('admin.forum.categroyedit',array('lists'=>$list,'item'=>$item));
+    }
+    public function forumcategoryStore(Request $request)
+    {
+
+        if($request->edit != '') {
+            $category = ForumCategory::find($request->edit);
+            $category->title = $request->title;
+            $category->desc = $request->desc;
+            $category->save();
+        }
+        else {
+            $category = new ForumCategory;
+            $category->title = $request->title;
+            $category->desc = $request->desc;
+            $category->save();
+        }
+        return redirect('/admin/forum/category');
+    }
+    public function forumcategoryDelete($id)
+    {
+        ForumCategory::find($id)->delete();
+        return back();
+    }
+
+
+    public function forumcomments()
+    {
+        $comments = ForumComments::with('user','post')->orderBy('id','DESC')->get();
+        return view('admin.forum.comments',['comments'=>$comments]);
+    }
+    public function forumcommentDelete($id)
+    {
+        ForumComments::find($id)->delete();
+        return back();
+    }
+    public function forumcommentEdit($id)
+    {
+        $item = BlogComments::find($id);
+        return view('admin.blog.commentedit',['item'=>$item]);
+    }
+    public function forumcommentStore(Request $request)
+    {
+        $comment = BlogComments::find($request->id);
+        $comment->comment = $request->comment;
+        $comment->save();
+        return back();
+    }
+    public function forumcommentView($action,$id)
+    {
+        $comment = BlogComments::find($id);
+        $comment->mode = $action;
+        $comment->save();
+        return back();
+    }
+    public function forumcommentReply($id){
+        $item = BlogComments::find($id);
+        return view('admin.blog.reply',['item'=>$item]);
+    }
+    public function forumcommentReplyStore(Request $request){
+        global $admin;
+        $comment = BlogComments::create([
+            'comment'=>$request->comment,
+            'user_id'=>$admin['id'],
+            'create_at'=>time(),
+            'name'=>$admin['name'],
+            'post_id'=>$request->post_id,
+            'parent'=>$request->parent,
+            'mode'=>'publish'
+        ]);
+        return redirect('admin/blog/comment/edit/'.$comment->id);
     }
 }

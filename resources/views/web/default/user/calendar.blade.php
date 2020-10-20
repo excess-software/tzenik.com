@@ -33,29 +33,7 @@
             var crearCalendario = new FullCalendar.Calendar(calendario, {
                 initialView: 'dayGridMonth',
                 locale: 'es',
-                eventSources: [{
-                    events: [{
-                        title: 'test',
-                        start: '2020-10-01T12:30:00',
-                        allDay: false,
-                        url: 'https://www.google.com/'
-                    }, {
-                        title: 'event1',
-                        start: '2020-10-02',
-                        url: 'test.com'
-                    }, ],
-                    color: 'blue',
-                    textColor: 'white'
-                }, {
-                    events: [{
-                        title: 'test',
-                        start: '2020-10-01T12:30:00',
-                        allDay: false,
-                        url: 'https://www.google.com/'
-                    }],
-                    color: 'red',
-                    textColor: 'yellow'
-                }]
+                events: {!! $Eventos !!}
             });
 
             crearCalendario.render();

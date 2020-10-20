@@ -1,5 +1,9 @@
-@extends(getTemplate() . '.user.layout.layout')
-@section('pages')
+@extends(getTemplate().'.view.layout.layout')
+
+@section('title')
+{{ get_option('site_title','') }} - {{ !empty($category->title) ? $category->title : 'Categories' }}
+@endsection
+@section('content')
     <div class="h-20"></div>
     <div class="container-fluid">
         <div class="container">

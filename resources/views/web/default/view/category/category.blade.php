@@ -5,7 +5,7 @@
 @section('content')
 @include(getTemplate() . '.view.parts.navigation')
 <div class="row">
-    <div class="container-fluid">
+    <div class="container">
         <div class="col titulo-cursos-destacados">
             <span>
                 <h2><img src="{{ $category->icon }}" width="30px" height="30px" /><b> {{ $category->title }}</b></h2>
@@ -14,9 +14,11 @@
     </div>
 </div>
 <br>
+<div class="container">
 <div class="row ultimos-blogs">
+
     @foreach($contents as $content)
-    <div class="col-md-5">
+    <div class="col-md-6">
         <a href="/product/{{ $content['id'] }}" title="{{ $content['title'] }}" class="enlace-tabs">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -70,6 +72,6 @@
         </a>
     </div>
     @endforeach
-
+</div>
 </div>
 @endsection

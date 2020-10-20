@@ -1,7 +1,6 @@
 /* Body CSS */
 .container-full{
     overflow: hidden;
-    background-color: white;
 }
 .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
     border: 3px solid black;tant;
@@ -15,6 +14,19 @@
 }
 .open{
     color: black !important;
+}
+.accesibilidad-menu{
+    width: 300px;
+}
+.btn-whiteTxtBlack{
+    background-color: black;
+    color: white;
+    text-align: left;
+}
+.btn-yellowTxtBlack{
+    background-color: black;
+    color: yellow;
+    text-align: left;
 }
 /* Navbar CSS */
 .navbar-brand {
@@ -113,7 +125,7 @@ hr {
     overflow:hidden
   }
 .titulo-cursos-destacados{
-    margin-left: 10%;
+    
 }
 .titulo-cursos-destacados span h2 b:after {
     content: ""; /* This is necessary for the pseudo element to work. */ 
@@ -129,7 +141,7 @@ hr {
     padding-bottom: 0;
 }
 .cursos-destacados{
-    margin-left: 9%;
+    
 }
 .cursos-destacados h3{
     text-decoration: none;
@@ -147,7 +159,6 @@ hr {
 }
 
 .titulo-proximos-webinars{
-    margin-left: 10%;
 }
 .titulo-proximos-webinars span h2 b:after {
     content: ""; /* This is necessary for the pseudo element to work. */ 
@@ -156,7 +167,6 @@ hr {
     border-bottom: 5px solid #FEBF36; 
 }
 .proximos-webinars{
-    margin-left: 9%;
 }
 .proximos-webinars-titulo{
     margin-left: 5%;
@@ -176,7 +186,6 @@ hr {
 }
 
 .titulo-ultimos-blogs{
-    margin-left: 10%;
 }
 .titulo-ultimos-blogs span h2 b:after {
     content: ""; /* This is necessary for the pseudo element to work. */ 
@@ -185,7 +194,6 @@ hr {
     border-bottom: 5px solid #3ED2B8; 
 }
 .ultimos-blogs{
-    margin-left: 9%;
 }
 .ultimos-blogs-titulo{
     margin-left: 5%;
@@ -197,6 +205,7 @@ hr {
 .img-ultimos-blogs{
     max-height: 400px;
     width: auto;
+    min-height: 400px;
 }
 .btn-ultimos-blogs{
     color: #FFFFFF;
@@ -240,7 +249,6 @@ hr {
     padding-bottom: 5%;
 }
 .volver-atras-media{
-    margin-left: 5%;
     margin-right: auto;
     color: white;
 }
@@ -256,11 +264,10 @@ hr {
     color: black;
 }
 .content-media-curso{
-    margin-left: 13%;
-    margin-right: auto;
+    
 }
 .text-content-media-curso{
-    padding-right: 5%;
+
 }
 .text-content-media-curso img{
     max-width: 100%;
@@ -305,9 +312,25 @@ hr {
     text-decoration: none;
     color: black;
 }
+#radio-2{
+    display: none;
+}
+#giftCard{
+    display: none;
+}
+.table-post-price{
+    display: none;
+}
+.dark-back-list{
+    background-color: black !important;
+    color: white !important;
+}
+.red-back-list{
+    background-color: red !important;
+    color: white !important;
+}
 /* BLog CSS */
 .titulo-blog{
-    margin-left: 10%;
 }
 .titulo-blog span h2 b:after {
     content: ""; /* This is necessary for the pseudo element to work. */ 
@@ -317,7 +340,6 @@ hr {
 }
 
 .volver-atras-blog{
-    margin-left: 5%;
     margin-right: auto;
     color: black;
 }
@@ -331,7 +353,6 @@ hr {
     border: 3px solid black;
 }
 .content-blog{
-    margin-left: 20%;
     margin-right: auto;
 }
 .text-content-media-blog{
@@ -595,6 +616,25 @@ hr {
     text-decoration: none;
     color: white;
 }
+  .modal-quiz{
+    text-align: center;
+    padding: 0!important;
+  }
+  
+  .modal-quiz:before{
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+  }
+  
+  .modal-quiz-dialog{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
 /** Dashboard CSS **/
 .contenido-cursos-dash{
     margin-left: 5%;
@@ -618,6 +658,9 @@ hr {
 }
 .contenido-calendario-dash{
     margin-left: 5%;
+}
+.accordion{
+    list-style-type: none;
 }
 /** Footer CSS */
 .footer{

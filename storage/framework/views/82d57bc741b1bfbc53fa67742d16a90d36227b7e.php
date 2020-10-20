@@ -1,4 +1,8 @@
-<?php $__env->startSection('pages'); ?>
+<?php $__env->startSection('title'); ?>
+<?php echo e(get_option('site_title','')); ?> - <?php echo e(!empty($category->title) ? $category->title : 'Categories'); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
     <div class="h-20"></div>
     <div class="container-fluid">
         <div class="container">
@@ -310,4 +314,4 @@
     <script>$('#profile-hover').addClass('item-box-active');</script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make(getTemplate() . '.user.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/pages/profile.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(getTemplate().'.view.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/pages/profile.blade.php ENDPATH**/ ?>

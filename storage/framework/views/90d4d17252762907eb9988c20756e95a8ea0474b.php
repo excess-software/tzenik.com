@@ -9,18 +9,18 @@
             </div>
         </div>
         <div class="row footer-tzenik">
-            <div class="col text-center">
+            <div class="col-md-12 text-center">
                 <span>Sponsored by:</span>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col">
+            <div class="col-md-12">
                 <img src="/bin/admin/lavelle_logo.png" class="img-responsive center-block" width="150px" height="150px" alt="">
             </div>
         </div>
         <div class="row footer-tzenik">
-            <div class="col text-center">
+            <div class="col-md-12 text-center">
                 <span>Tzenik.com 2020</span>
             </div>
         </div>
@@ -105,13 +105,7 @@
 </script>
 <script type="application/javascript" src="/assets/default/javascripts/view-custom.js"></script>
 <?php if(isset($user)): ?>
-<?php if(!is_null($user['invert'])): ?>
-<script>
-    $(document).ready(function (){
-        $('body').css({"filter": "invert(100%)"});
-    });
-</script>
-<?php endif; ?>
+
 <?php if(!is_null($user['fontsize'])): ?>
 <script>
     $(document).ready(function (){
@@ -130,20 +124,6 @@
             $('a').css('font-size', '' + 32 + 'px');
             $('input[type=\'text\']').css('font-size', '', + 32 + 'px');
         }else if(<?php echo e($user['fontsize']); ?> == 32){
-            $('h1').css('font-size', '' + 36 + 'px');
-            $('h2').css('font-size', '' + 28 + 'px');
-            $('h3').css('font-size', '' + 24 + 'px');
-            $('h4').css('font-size', '' + 19 + 'px');
-            $('h5').css('font-size', '' + 17 + 'px');
-            $('h6').css('font-size', '' + 14 + 'px');
-            $('.no-child').css('font-size', '' + 28 + 'px');
-            $('.has-child').css('font-size', '' + 28 + 'px');
-            $('label').css('font-size', '' + 28 + 'px');
-            $('span').css('font-size', '' + 28 + 'px');
-            $('p').css('font-size', '' + 28 + 'px');
-            $('a').css('font-size', '' + 28 + 'px');
-            $('input[type=\'text\']').css('font-size', '', + 28 + 'px');
-        }else if(<?php echo e($user['fontsize']); ?> == 24){
             $('h1').css('font-size', '' + 30 + 'px');
             $('h2').css('font-size', '' + 24 + 'px');
             $('h3').css('font-size', '' + 20 + 'px');
@@ -157,6 +137,8 @@
             $('p').css('font-size', '' + 24 + 'px');
             $('a').css('font-size', '' + 24 + 'px');
             $('input[type=\'text\']').css('font-size', '', + 24 + 'px');
+        }else if(<?php echo e($user['fontsize']); ?> == 24){
+            
         }
     });
 </script>
