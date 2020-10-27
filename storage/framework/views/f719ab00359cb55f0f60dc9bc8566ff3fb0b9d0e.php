@@ -24,8 +24,11 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-12">
+                                        <?php
+                                        $meta = arrayToList($item->content['metas'], 'option', 'value')
+                                        ?>
                                             <img class="img-responsive img-ultimos-blogs"
-                                                src="<?php echo e($item->content['metas']); ?>"
+                                                src="<?php echo e($meta['thumbnail']); ?>"
                                                 alt="">
                                         </div>
                                     </div>

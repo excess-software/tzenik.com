@@ -37,6 +37,7 @@ use App\Models\Usage;
 
 use App\Models\ProgresoAlumno;
 use Carbon\Carbon;
+use App\Models\CalendarEvents;
 
 use App\User;
 use App\Models\Usercategories;
@@ -886,6 +887,7 @@ class WebController extends Controller
                 }
             }
         }
+        $inscrito = CalendarEvents::where('user_id', $user->id)->where('product_id', $id)->get();
 
         $parts = $product->parts->toArray();
         $meeting = $parts[0]['zoom_meeting'];
@@ -943,6 +945,16 @@ class WebController extends Controller
 
         $product_material = '/bin/contenido-cursos/'.$id.'/1/materiales.zip';
 
+        $enabled = 1;
+        if($product->type == 'webinar' || $product->type == 'coaching'){
+            if($product->subs_limit){
+                $sells = CalendarEvents::where('product_id', $id)->count();
+                if($product->subs_limit < $sells){
+                    $enabled = 0;
+                }
+            }
+        }
+
         $data = [
             'product'               => $product,
             'hasCertificate'        => $hasCertificate,
@@ -969,7 +981,11 @@ class WebController extends Controller
             if($user->category_id == $fundal_category[0]->id){
                 $product->price = 0;
                 if($product->type == 'webinar'){
-                    return view(getTemplate() . '.view.product.productWeb', $data);
+                    if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
+                        return view(getTemplate() . '.view.product.productWeb', $data);   
+                    }else{
+                        return view(getTemplate() . '.view.error.limit');
+                    }
                 }elseif($product->type == 'coaching'){
                     return view(getTemplate() . '.view.product.productCoach', $data);
                 }else{
@@ -980,7 +996,11 @@ class WebController extends Controller
             }
         }else{
             if($product->type == 'webinar'){
-                return view(getTemplate() . '.view.product.productWeb', $data);
+                if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
+                    return view(getTemplate() . '.view.product.productWeb', $data);   
+                }else{
+                    return view(getTemplate() . '.view.error.limit');
+                }
             }elseif($product->type == 'coaching'){
                 return view(getTemplate() . '.view.product.productCoach', $data);
             }else{

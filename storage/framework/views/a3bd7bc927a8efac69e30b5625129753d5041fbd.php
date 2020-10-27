@@ -1,19 +1,13 @@
 
 
 <?php $__env->startSection('pages'); ?>
-    <div class="h-30"></div>
-    <div class="conteiner-fluid">
-        <div class="container cont-10">
-            <div class="h-30"></div>
-            <div class="multi-steps">
-                <div class="row">
-                    <div class="col-md-6"><a href="/user/content/new_course"><button class="btn btn-primary btn-lg btn-block"><?php echo e(trans('main.select_course')); ?></button></a></div>
-                    <div class="col-md-6"><a href="/user/content/new_webinar"><button class="btn btn-primary btn-lg btn-block"><?php echo e(trans('main.select_webinar_or_coaching')); ?></button></a></div>
-                </div>
-            </div>
-            <div class="h-30"></div>
-        </div>
+
+<div class="container" style="padding-top: 25%; padding-bottom: 25%;">
+    <div class="row white-rounded-back">
+        <div class="col-md-6"><a href="/user/content/new_course"><button class="btn btn-primary btn-lg btn-block"><?php echo e(trans('main.select_course')); ?></button></a></div>
+        <div class="col-md-6"><a href="/user/content/new_webinar"><button class="btn btn-primary btn-lg btn-block"><?php echo e(trans('main.select_webinar_or_coaching')); ?></button></a></div>
     </div>
+</div>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>

@@ -51,6 +51,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('lists', 'AdminController@usersLists');
             Route::get('private', 'AdminController@privateUsersLists');
+            Route::get('crear', 'AdminController@crearUsuario');
+            Route::post('guardar', 'AdminController@guardarUsuario');
             Route::get('item/{id}', 'AdminController@userShow');
             Route::post('edit/{id}', 'AdminController@userEdit');
             Route::get('password/{id}','AdminController@userPassword');
@@ -139,8 +141,12 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('list', 'AdminController@contentLists');
             Route::get('private', 'AdminController@privateContentLists');
             Route::get('private/asignar', 'AdminController@asignarPrivate');
+            Route::get('private/desasignar', 'AdminController@desasignarPrivate');
+            Route::get('private/progresoFundal', 'AdminController@progresoAlumnosFundal');
             Route::post('asignar', 'AdminController@asignarCurso');
+            Route::post('desasignar', 'AdminController@desasignarCurso');
             Route::get('private/getUsers/{curso}', 'AdminController@getUsersPrivate');
+            Route::get('private/unasign/getUsers/{curso}', 'AdminController@getAsignedUsersPrivate');
             Route::get('waiting', 'AdminController@contentWaitingList');
             Route::get('draft', 'AdminController@contentDraftList');
             Route::get('user/{id}', 'AdminController@contentUserContent');

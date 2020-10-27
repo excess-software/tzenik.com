@@ -37,17 +37,20 @@
     @endif
     @else
     <script>
-        if(localStorage.getItem("color")){
-            if(localStorage.getItem("color") == 'yellow'){
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">';
-            }else if(localStorage.getItem("color") == 'white'){
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">';
-            }else{
+        if (localStorage.getItem("color")) {
+            if (localStorage.getItem("color") == 'yellow') {
+                document.head.innerHTML +=
+                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">';
+            } else if (localStorage.getItem("color") == 'white') {
+                document.head.innerHTML +=
+                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">';
+            } else {
                 document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
             }
-        }else{
+        } else {
             document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
         }
+
     </script>
     @endif
     <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
@@ -78,7 +81,7 @@
         }
 
         function changeColor(color) {
-            if(color == 'default'){
+            if (color == 'default') {
                 color = ''
             }
             @if(isset($user))
@@ -161,7 +164,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button class="btn btn-whiteTxtBlack btn-block" onclick="changeColor('white')">
+                                                <button class="btn btn-whiteTxtBlack btn-block"
+                                                    onclick="changeColor('white')">
                                                     <b>White Text</b>
                                                     <br>
                                                     <b>Black</b>
@@ -170,7 +174,8 @@
                                                 </button>
                                             </div>
                                             <div class="col-md-6">
-                                                <button class="btn btn-yellowTxtBlack btn-block" onclick="changeColor('yellow')">
+                                                <button class="btn btn-yellowTxtBlack btn-block"
+                                                    onclick="changeColor('yellow')">
                                                     <b>Yellow Text</b>
                                                     <br>
                                                     <b>Black</b>
@@ -182,7 +187,8 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-md-12 text-center">
-                                                <button class="btn btn-primary btn-block" onclick="changeColor('default')">
+                                                <button class="btn btn-primary btn-block"
+                                                    onclick="changeColor('default')">
                                                     <b>Default</b>
                                                 </button>
                                             </div>
@@ -200,6 +206,12 @@
                                         <p>Dashboard</p>
                                     </a>
                                 </li>
+                                @if(isset($user) && isset($user['vendor']) && $user['vendor'] == 1)
+                                <li><a href="/user/content/new">
+                                        <p>Nuevo curso</p>
+                                    </a>
+                                </li>
+                                @endif
                                 <li><a href="/user/profile">
                                         <p>Configuraci&oacute;n</p>
                                     </a>

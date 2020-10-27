@@ -171,7 +171,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::post('new/store', 'UserController@contentStore');
             Route::get('edit/{id}', 'UserController@contentEdit');
             Route::post('edit/store/{id}', 'UserController@contentUpdate');
-            Route::post('edit/store/request/{id}', 'UserController@contentUpdateRequest');
+            Route::get('edit/store/request/{id}', 'UserController@contentUpdateRequest');
             Route::post('edit/meta/store/{id}', 'UserController@contentMetaStore');
 
             Route::get('part/list/{id}', 'UserController@contentPartList');

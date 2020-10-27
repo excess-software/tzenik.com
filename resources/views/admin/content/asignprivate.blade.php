@@ -45,8 +45,10 @@
         </form>
     </div>
 </section>
-<hr>
 <section class="card">
+    <header class="card-header">
+        <h2 class="card-title">Usuarios asignados a cursos</h2>
+    </header>
     <div class="card-body">
         <table id="tabla" class="display" style="width:100%">
             <thead>
@@ -59,14 +61,14 @@
                 @foreach($asignados as $asignado)
                 <tr>
                     @foreach($lists as $item)
-                        @if($item->id == $asignado[0])
-                            <td>{{$item->title}}</td>
-                        @endif
+                    @if($item->id == $asignado[0])
+                    <td>{{$item->title}}</td>
+                    @endif
                     @endforeach
                     @foreach($users as $user)
-                        @if($user->id == $asignado[1])
-                            <td>{{$user->username.' - '.$user->name}}</td>
-                        @endif
+                    @if($user->id == $asignado[1])
+                    <td>{{$user->username.' - '.$user->name}}</td>
+                    @endif
                     @endforeach
                 </tr>
                 @endforeach

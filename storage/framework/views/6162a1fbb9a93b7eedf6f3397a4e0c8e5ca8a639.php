@@ -101,6 +101,7 @@
                                 <li><a class="nav-link" href="/admin/report/user"><?php echo e(trans('admin.users_report')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/report/content"><?php echo e(trans('admin.products_report')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/report/balance"><?php echo e(trans('admin.financial_report')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Progreso Alumnos Fundal</a></li>
                             </ul>
                         </li><?php endif; ?>
                     <li class="menu-header">CRM</li>
@@ -118,6 +119,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/user/lists"><?php echo e(trans('admin.list')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/user/private">Usuarios Fundal</a></li>
+                                <li><a class="nav-link" href="/admin/user/crear">Crear nuevo usuario</a></li>
                                 <li><a class="nav-link" href="/admin/user/vendor"><?php echo e(trans('admin.vendor')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/user/category"><?php echo e(trans('admin.user_groups')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/user/rate"><?php echo e(trans('admin.users_badges')); ?></a></li>
@@ -153,6 +155,7 @@
                                 <li><a class="nav-link" href="/admin/content/list"><?php echo e(trans('admin.list')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/content/private">Contenido privado</a></li>
                                 <li><a class="nav-link" href="/admin/content/private/asignar">Asignar contenido privado</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/desasignar">Desasignar contenido privado</a></li>
                                 <li><a class="nav-link <?php if(isset($alert['content_waiting']) and $alert['content_waiting'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/content/waiting"><?php echo e(trans('admin.pending_courses')); ?></a></li>
                                 <li><a class="nav-link <?php if(isset($alert['content_draft']) and $alert['content_draft'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/content/draft"><?php echo e(trans('admin.unpublished_courses')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/content/comment"><?php echo e(trans('admin.corse_comments')); ?></a></li>
