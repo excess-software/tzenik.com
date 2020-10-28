@@ -1123,7 +1123,7 @@ class ApiController extends Controller
         $User = User::where(function ($w) use($username){
             $w->where('username',$username)->orWhere('email',$username);
         })->where('admin','0')->first();
-        if($User && decrypt($User->password) == $password){
+        if($User && Hash::check($User->password, $password)){
 
             if($User->mode != 'active') {
                 if (userMeta($User->id, 'blockDate', time()) < time()) {
