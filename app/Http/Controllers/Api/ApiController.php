@@ -211,7 +211,8 @@ class ApiController extends Controller
             $data['content']['new'][] = [
                 'id'        => $newContent->id,
                 'title'     => $newContent->title,
-                'thumbnail' => $meta['thumbnail'] ? $meta['thumbnail'] : '',
+                //'thumbnail' => $meta['thumbnail'] ? $meta['thumbnail'] : '',
+                'thumbnail' => '',
                 'price'     => isset($meta['price'])?$meta['price']:0,
                 'currency'  => currencySign(),
                 'duration'  => isset($meta['duration'])?convertToHoursMins($meta['duration']):0
