@@ -43,6 +43,7 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Unicodeveloper\Paystack\Facades\Paystack;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Hash;
 
 
 class ApiController extends Controller
