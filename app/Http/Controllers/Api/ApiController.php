@@ -44,6 +44,7 @@ use PayPal\Rest\ApiContext;
 use Unicodeveloper\Paystack\Facades\Paystack;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 class ApiController extends Controller
@@ -71,7 +72,7 @@ class ApiController extends Controller
         $month  = strtotime(date('Y-m-01 00:00:00'));
         $day    = strtotime(date('Y-m-d 00:00:00'));
         if($user->token == null || $user->token == ''){
-            $user->update(['token'=>str_random(24)]);
+            $user->update(['token'=>Str::random(24)]);
             $user->refresh();
         }
 
@@ -1086,12 +1087,12 @@ class ApiController extends Controller
             'name'          => $request->name,
             'username'      => $request->username,
             'email'         => $request->email,
-            'password'      => encrypt($request->password),
+            'password'      => Hash::make($request->password),
             'created_at'     => time(),
             'admin'         => 0,
             'mode'          => get_option('user_register_mode','active'),
             'category_id'   => get_option('user_default_category',0),
-            'token'         => str_random(24)
+            'token'         => str::random(24)
         ];
         $newUser = User::create($newUser);
 
@@ -1107,7 +1108,7 @@ class ApiController extends Controller
             return $this->response(['description'=>trans('main.active_account_alert')]);
     }
     public function userRemember(Request $request){
-        $str = str_random();
+        $str = str::random();
         $update = User::where('email',$request->email)->update(['token'=>$str]);
         if($update) {
             sendMail(['template'=>get_option('user_register_reset_email'),'recipent'=>[$request->email]]);
