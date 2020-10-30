@@ -29,30 +29,30 @@
     <?php endif; ?>
     <?php if(isset($user)): ?>
     <?php if(is_null($user['invert'])): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">
     <?php elseif($user['invert'] == 'yellow'): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=1">
     <?php elseif($user['invert'] == 'white'): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=1">
     <?php elseif($user['invert'] == 'black'): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=1">
     <?php endif; ?>
     <?php else: ?>
     <script>
         if (localStorage.getItem("color")) {
             if (localStorage.getItem("color") == 'yellow') {
                 document.head.innerHTML +=
-                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">';
+                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=1">';
             } else if (localStorage.getItem("color") == 'white') {
                 document.head.innerHTML +=
-                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">';
+                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=1">';
             } else if (localStorage.getItem("color") == 'black') {
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css">';
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=1">';
             } else {
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">';
             }
         } else {
-            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
+            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">';
         }
 
     </script>
