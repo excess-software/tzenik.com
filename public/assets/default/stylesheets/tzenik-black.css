@@ -26,10 +26,10 @@ body, a, span, b, .btn, .panel, hr{
 
 .nav-tabs > li > a{
     border: 0px solid transparent !important;
-    border-bottom: 1px solid white !important;
+    border-bottom: 3px solid white !important;
 }
 .nav-tabs > li > a:hover{
-    border: 1px solid white !important;
+    border: 3px solid white !important;
     background-color: black !important;
 }
 .navbar-inverse{

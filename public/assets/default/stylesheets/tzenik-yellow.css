@@ -19,13 +19,13 @@ body, a, span, b, .btn, .panel, hr{
     border-color: 3px solid yellow !important;
 }
 .nav-tabs.nav-justified > li > a{
-    border-bottom: 1px solid yellow !important;
+    border-bottom: 3px solid yellow !important;
 }
 .nav-tabs > li > a{
     border: 0px solid transparent !important;
 }
 .nav-tabs > li > a:hover{
-    border: 1px solid yellow !important;
+    border: 3px solid yellow !important;
 }
 .nav-tabs {
    border-bottom: 3px solid black !important;
