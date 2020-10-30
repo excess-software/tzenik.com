@@ -100,6 +100,8 @@
                         <label class="col-md-2 control-label tab-con"
                             for="inputDefault">{{{ trans('main.category') }}}</label>
                         <div class="col-md-10 tab-con">
+                        <input type="hidden" name="title" placeholder="Course Title..." class="form-control"
+                                value="{{{ $item->title ?? '' }}}" required>
                             <select name="category_id" id="category_id" class="form-control font-s" required>
                                 @if($item->type == 'webinar')
                                 <option value="35" selected>{{{ trans('main.webinar') }}}</option>
