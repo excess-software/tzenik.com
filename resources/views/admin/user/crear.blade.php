@@ -14,14 +14,14 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.real_name') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="name" value="" class="form-control" >
+                                    <input type="text" name="name" value="" class="form-control" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.username') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control">
+                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control" required>
                                     <small id="UserAbout" class="form-text" style="color: red;"></small>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.email') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" value="" id="Mail" name="email" id="inputReadOnly" onChange="verifyMail()" class="form-control text-left" dir="ltr">
+                                    <input type="text" value="" id="Mail" name="email" id="inputReadOnly" onChange="verifyMail()" class="form-control text-left" dir="ltr" required>
                                     <small id="MailAbout" class="form-text" style="color: red;"></small>
                                 </div>
                             </div>
