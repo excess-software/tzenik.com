@@ -52,6 +52,9 @@
                     <div class="col-md-6">
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
+                                @if($product->content_type == 'Fundal' || $product->content_type == 'fundal')
+                                
+                                @else
                                 @if(isset($meta['price']) && $product->price != 0)
                                 <h2>Precio:
                                     {{ currencySign() }}{{ price($product->id,$product->category_id,$meta['price'])['price']  }}
@@ -59,46 +62,51 @@
                                 @else
                                 <h2>{{ trans('main.free') }}</h2>
                                 @endif
+                                @endif
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 @if (isset($meta['price']))
-                                <form>
-                                    {{ csrf_field() }}
-                                    @if(isset($user) && $product->user_id == $user['id'])
-                                    <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/edit/{{ $product->id }}">{{ trans('main.edit_course') }}</a>
-                                    <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/part/list/{{ $product->id }}">{{ trans('main.add_video') }}</a>
-                                    @elseif(!$buy)
-                                    @if(!empty($product->price) and $product->price != 0)
-                                    <div class="radio">
-                                        <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
-                                            value="{{ price($product->id,$product->category_id,$meta['price'])['price'] }}"
-                                            checked>
-                                    </div>
-                                    @endif
+                                    <form>
+                                        {{ csrf_field() }}
+                                        @if(isset($user) && $product->user_id == $user['id'])
+                                        <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
+                                            href="/user/content/edit/{{ $product->id }}">{{ trans('main.edit_course') }}</a>
+                                        <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
+                                            href="/user/content/part/list/{{ $product->id }}">{{ trans('main.add_video') }}</a>
+                                        @elseif(!$buy)
+                                        @if(!empty($product->price) and $product->price != 0)
+                                        <div class="radio">
+                                            <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
+                                                value="{{ price($product->id,$product->category_id,$meta['price'])['price'] }}"
+                                                checked>
+                                        </div>
+                                        @endif
 
-                                    @if(!empty($product->price) and $product->price != 0)
-                                    <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
-                                        href="">{{ trans('main.pay') }}</a>
-                                    @endif
-                                    @else
-                                    @if(!empty($product->price) and $product->price != 0)
-                                    <a class="btn btn-success"
-                                        href="javascript:void(0);">{{ trans('main.purchased_item') }}</a>
-                                    @endif
-                                    @endif
-                                </form>
-                            </div>
-                            @endif
+                                        @if(!empty($product->price) and $product->price != 0)
+                                        <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
+                                            href="">{{ trans('main.pay') }}</a>
+                                        @endif
+                                        @else
+                                        @if(!empty($product->price) and $product->price != 0)
+                                        <a class="btn btn-success"
+                                            href="javascript:void(0);">{{ trans('main.purchased_item') }}</a>
+                                        @endif
+                                        @endif
+                                    </form>
+                                </div>
+                                @endif
                         </div>
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
                                 <h2>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h2>
-                                <h4><b>Fecha de inicio:</b> {{date('d/m/Y', strtotime(!empty($partDesc->initial_date) ? $partDesc->initial_date : $partDesc[0]->initial_date))}}</h4>
-                                <h4><b>Fecha de finalización: </b>{{date('d/m/Y', strtotime(!empty($partDesc->limit_date) ? $partDesc->limit_date : $partDesc[0]->limit_date))}}</h4>
+                                <h4><b>Fecha de inicio:</b>
+                                    {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
+                                </h4>
+                                <h4><b>Fecha de finalización:
+                                    </b>{{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
+                                </h4>
                                 <br>
                                 <span>{!! !empty($partDesc->description) ? $partDesc->description :
                                     $partDesc[0]->description !!}</span>
@@ -141,12 +149,12 @@
                         </div>
                         <br>
                         <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Comparte en tus redes sociales:</h2>
-                                    <br>
-                                    <div class="addthis_inline_share_toolbox"></div>
-                                </div>
+                            <div class="col-md-12">
+                                <h2>Comparte en tus redes sociales:</h2>
+                                <br>
+                                <div class="addthis_inline_share_toolbox"></div>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <h2>Etiquetas</h2>
@@ -228,7 +236,8 @@
                                 </div>
                             </li>
                             @endforeach-->
-                                @foreach($parts as $part) 
+                                @if($buy)
+                                @foreach($parts as $part)
                                 <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
                                     @if($part['status'] == 'finished')
                                     <li class="list-group-item list-content-media">
@@ -238,7 +247,9 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date']) {{date('d/m/Y', strtotime($part['limit_date'])) }} @else {{ 'Sin fecha límite' }} @endif
+                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                            {{ 'Sin fecha límite' }} @endif
                                         </b>
                                     </li>
                                     @elseif($part['status'] == 'pending')
@@ -249,7 +260,9 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date']) {{date('d/m/Y', strtotime($part['limit_date'])) }} @else {{ 'Sin fecha límite' }} @endif
+                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                            {{ 'Sin fecha límite' }} @endif
                                         </b>
                                     </li>
                                     @elseif($part['status'] == 'late')
@@ -260,13 +273,35 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date']) {{date('d/m/Y', strtotime($part['limit_date'])) }} @else {{ 'Sin fecha límite' }} @endif
+                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                            {{ 'Sin fecha límite' }} @endif
                                         </b><i class="fa fa-clock-o"></i>
                                     </li>
                                     @endif
                                 </a>
                                 <br>
                                 @endforeach
+                                @else
+                                @foreach($parts as $part)
+                                <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
+                                    <li class="list-group-item list-content-media">
+                                        @if($buy or $part['free'] == 1)
+                                        <span class="playicon mdi mdi-play-circle"></span>
+                                        @else
+                                        <span class="playicon mdi mdi-lock"></span>
+                                        @endif
+                                        <b>
+                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                            {{ 'Sin fecha límite' }} @endif
+                                        </b>
+                                    </li>
+                                </a>
+                                <br>
+                                @endforeach
+                                @endif
+
                                 @if($buy)
                                 @if (!empty($product->quizzes) and !$product->quizzes->isEmpty())
                                 @foreach ($product->quizzes as $quiz)
@@ -367,11 +402,9 @@
                             <div class="col-md-12">
                                 <input type="hidden" id="buy_method" value="download">
                                 <div class="radio">
-                                    <input type="radio" class="buy-mode" id="mode-1" value="credit"
-                                        name="buyMode">
+                                    <input type="radio" class="buy-mode" id="mode-1" value="credit" name="buyMode">
                                     &nbsp;
-                                    <label class="radio-label"
-                                        for="mode-1">{{ trans('main.account_charge') }}&nbsp;<b
+                                    <label class="radio-label" for="mode-1">{{ trans('main.account_charge') }}&nbsp;<b
                                             id="credit-remain-modal">({{ currencySign() }}{{ $user['credit'] }})</b></label>
                                 </div>
                                 @if(get_option('gateway_paypal') == 1)
@@ -506,21 +539,21 @@
         </div>
     </div>
     <div class="modal fade" id="paycomModal" tabindex="-1" role="dialog" aria-labelledby="paycomModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Credit/Debit card pay</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form name="CredomaticPost" method="get" action="/bank/paycom/pay/{{$product->id}}/" />
-                            <Input type="hidden" id='time' name="time" />
-                            <input type="hidden" id='item_price' name="item_price" value="{{$product->price}}">
-                            <input type="hidden" id='method_creditDebit' name="method_creditDebit">
-                            <!--<Input type="text" name="username" value="jbonillap201"/>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Credit/Debit card pay</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="CredomaticPost" method="get" action="/bank/paycom/pay/{{$product->id}}/" />
+                    <Input type="hidden" id='time' name="time" />
+                    <input type="hidden" id='item_price' name="item_price" value="{{$product->price}}">
+                    <input type="hidden" id='method_creditDebit' name="method_creditDebit">
+                    <!--<Input type="text" name="username" value="jbonillap201"/>
                                 <Input type="text" name="type" value=" auth"/>
                                 <Input type="text" name="key_id" value="38723344"/>
                                 <Input type="text" name="hash" value="6145cc70aabac5e5cad36fc2f249ad5a" >
@@ -531,33 +564,35 @@
                                 <Input type="text" name="ccexp" value="0425"/>
                                 <Input type="text" name="cvv" value="944"/>
                                 <Input type="text" name="avs" value="12av el bosque 2-56 zona 11 de Mixco"/>-->
-                            <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="ccnumber">Card Number</label>
-                                    <input type="ccnumber" class="form-control" id="ccnumber"
-                                        aria-describedby="ccnumberHelp" placeholder="0000 0000 0000 0000" name="ccnumber">
-                                    <small id="ccnumberHelp" class="form-text text-muted">Enter your card number.</small>
-                                </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="ccnumber">Card Number</label>
+                            <input type="ccnumber" class="form-control" id="ccnumber" aria-describedby="ccnumberHelp"
+                                placeholder="0000 0000 0000 0000" name="ccnumber">
+                            <small id="ccnumberHelp" class="form-text text-muted">Enter your card number.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ccexp">Exp date</label>
+                                <input type="ccexp" class="form-control" id="ccexp" aria-describedby="ccexpHelp"
+                                    placeholder="01/20" name="ccexp">
+                                <small id="ccexpHelp" class="form-text text-muted">Enter the expiration date of your
+                                    card</small>
                             </div>
-                            <div class="form-row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="ccexp">Exp date</label>
-                                        <input type="ccexp" class="form-control" id="ccexp"
-                                            aria-describedby="ccexpHelp" placeholder="01/20" name="ccexp">
-                                        <small id="ccexpHelp" class="form-text text-muted">Enter the expiration date of your card</small>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="ccccv">CVV</label>
-                                        <input type="ccccv" class="form-control" id="ccccv"
-                                            aria-describedby="ccccvHelp" placeholder="000" name="ccccv">
-                                        <small id="ccccvHelp" class="form-text text-muted">Enter the code that is below of your card.</small>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ccccv">CVV</label>
+                                <input type="ccccv" class="form-control" id="ccccv" aria-describedby="ccccvHelp"
+                                    placeholder="000" name="ccccv">
+                                <small id="ccccvHelp" class="form-text text-muted">Enter the code that is below of your
+                                    card.</small>
                             </div>
-                            <!--<div class="input-group mb-3">
+                        </div>
+                    </div>
+                    <!--<div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-ccexp">Exp Date</span>
                                 </div>
@@ -575,38 +610,40 @@
                                 </div>
                                 <input type="text" value="12av el bosque 2-56 zona 11 de Mixco" name="avs" class="form-control" placeholder="Address" aria-label="avs" aria-describedby="addon-avs">
                             </div>-->
-                            <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
-                            <input type="submit" class="btn btn-primary" value="Pay">
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
+                    <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
+                    <input type="submit" class="btn btn-primary" value="Pay">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
+    </div>
     <script>
-    $(document).ready(function () {
-        $('input[type=radio][name=buyMode]').change(function () {
-            var payment = $(this).val();
-            if (payment == 'paycom') {
-                console.log('paycom test');
-                $('#buyBtn').attr({
-                    'href': '#',
-                    'data-toggle': 'modal',
-                    'data-target': '#paycomModal',
-                    'data-dismiss': 'modal'
-                });
-                var currentDate = new Date().getTime();
-                var timetofinish = new Date(currentDate + 5 * 60 * 1000).getTime();
-                $('#time').val(Math.round(timetofinish / 1000));
-                $('#method_creditDebit').val($('#buy_method').val());
-            } else {
-                var buyLink = '/bank/' + payment + '/pay/{{ $product->id }}/' + $('#buy_method').val();
-                $('#buyBtn').attr('href', buyLink);
-            }
-        })
-    });
+        $(document).ready(function () {
+            $('input[type=radio][name=buyMode]').change(function () {
+                var payment = $(this).val();
+                if (payment == 'paycom') {
+                    console.log('paycom test');
+                    $('#buyBtn').attr({
+                        'href': '#',
+                        'data-toggle': 'modal',
+                        'data-target': '#paycomModal',
+                        'data-dismiss': 'modal'
+                    });
+                    var currentDate = new Date().getTime();
+                    var timetofinish = new Date(currentDate + 5 * 60 * 1000).getTime();
+                    $('#time').val(Math.round(timetofinish / 1000));
+                    $('#method_creditDebit').val($('#buy_method').val());
+                } else {
+                    var buyLink = '/bank/' + payment + '/pay/{{ $product->id }}/' + $('#buy_method')
+                        .val();
+                    $('#buyBtn').attr('href', buyLink);
+                }
+            })
+        });
+
     </script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f88eadd1f615a3d"></script>
     @endsection

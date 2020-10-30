@@ -81,23 +81,15 @@
                                 <div class="row curso-destacado-contenido">
                                     <div class="col">
                                         <span class="curso-destacado-contenido-interno black-text">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-                                            laoreet
-                                            ante, ut iaculis
-                                            purus. Donec nec eleifend ligula, id sollicitudin sem. Phasellus
-                                            pharetra
-                                            tellus at auctor
-                                            faucibus. Cras posuere nec sem a consequat. Phasellus pharetra
-                                            tellus at
-                                            auctor faucibus. Cras
-                                            posuere nec sem a consequat.
+                                            <?php echo Str::limit($popular->content, 400); ?>
+
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <img class="img-responsive" src="<?php echo e(!empty($meta['thumbnail']) ? $meta['thumbnail'] : ''); ?>"
+                            <img class="img-responsive" style="max-height: 300px !important; width: auto;" src="<?php echo e(!empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://lh3.googleusercontent.com/proxy/B3YLoeUpRbRJ_a4gj2dofw56ghWYCGt3AIrxOTfEs3RE1OeU-zMPnI1iZqhwT-y1s3Tegf_H2U_gzGzi4wy9XJ4onB1cp8zerW-aHwJB6FYJ6ZzYlD0YFiJdR6HEs2QKuw'); ?>"
                                 alt="">
                         </div>
                     </div>
@@ -146,7 +138,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <img class="img-responsive center-block img-proximos-webinars"
-                                src="<?php echo e(!empty($meta['thumbnail']) ? $meta['thumbnail'] : ''); ?>" alt="">
+                                src="<?php echo e(!empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://lh3.googleusercontent.com/proxy/Vlp244ol_CC2a6EFHHpcn4FzhuD2eCm77VKjcBRATcBxe9lvIaAqV5aAyLRs2BPoJUXdMx0bKk5JGCK1kF7lu0jUvsxhhphoOezBD7UEFhSqK5bNTW_ksrGKZ2-A5ZM-gb0J'); ?>" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="panel-description vertical-center">
@@ -156,16 +148,8 @@
                                 <div class="row proximos-webinars-contenido">
                                     <div class="col">
                                         <span class="proximos-webinars-contenido-interno">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-                                            laoreet
-                                            ante, ut iaculis
-                                            purus. Donec nec eleifend ligula, id sollicitudin sem. Phasellus
-                                            pharetra
-                                            tellus at auctor
-                                            faucibus. Cras posuere nec sem a consequat. Phasellus pharetra
-                                            tellus at
-                                            auctor faucibus. Cras
-                                            posuere nec sem a consequat.
+                                            <?php echo Str::limit($new->content, 75); ?>
+
                                         </span>
                                     </div>
                                 </div>

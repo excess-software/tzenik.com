@@ -53,6 +53,9 @@
                     <div class="col-md-6">
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
+                                <?php if($product->content_type == 'Fundal' || $product->content_type == 'fundal'): ?>
+                                
+                                <?php else: ?>
                                 <?php if(isset($meta['price']) && $product->price != 0): ?>
                                 <h2>Precio:
                                     <?php echo e(currencySign()); ?><?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>
@@ -61,47 +64,54 @@
                                 <?php else: ?>
                                 <h2><?php echo e(trans('main.free')); ?></h2>
                                 <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <?php if(isset($meta['price'])): ?>
-                                <form>
-                                    <?php echo e(csrf_field()); ?>
+                                    <form>
+                                        <?php echo e(csrf_field()); ?>
 
-                                    <?php if(isset($user) && $product->user_id == $user['id']): ?>
-                                    <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/edit/<?php echo e($product->id); ?>"><?php echo e(trans('main.edit_course')); ?></a>
-                                    <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/part/list/<?php echo e($product->id); ?>"><?php echo e(trans('main.add_video')); ?></a>
-                                    <?php elseif(!$buy): ?>
-                                    <?php if(!empty($product->price) and $product->price != 0): ?>
-                                    <div class="radio">
-                                        <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
-                                            value="<?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>"
-                                            checked>
-                                    </div>
-                                    <?php endif; ?>
+                                        <?php if(isset($user) && $product->user_id == $user['id']): ?>
+                                        <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
+                                            href="/user/content/edit/<?php echo e($product->id); ?>"><?php echo e(trans('main.edit_course')); ?></a>
+                                        <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
+                                            href="/user/content/part/list/<?php echo e($product->id); ?>"><?php echo e(trans('main.add_video')); ?></a>
+                                        <?php elseif(!$buy): ?>
+                                        <?php if(!empty($product->price) and $product->price != 0): ?>
+                                        <div class="radio">
+                                            <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
+                                                value="<?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>"
+                                                checked>
+                                        </div>
+                                        <?php endif; ?>
 
-                                    <?php if(!empty($product->price) and $product->price != 0): ?>
-                                    <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
-                                        href=""><?php echo e(trans('main.pay')); ?></a>
-                                    <?php endif; ?>
-                                    <?php else: ?>
-                                    <?php if(!empty($product->price) and $product->price != 0): ?>
-                                    <a class="btn btn-success"
-                                        href="javascript:void(0);"><?php echo e(trans('main.purchased_item')); ?></a>
-                                    <?php endif; ?>
-                                    <?php endif; ?>
-                                </form>
-                            </div>
-                            <?php endif; ?>
+                                        <?php if(!empty($product->price) and $product->price != 0): ?>
+                                        <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
+                                            href=""><?php echo e(trans('main.pay')); ?></a>
+                                        <?php endif; ?>
+                                        <?php else: ?>
+                                        <?php if(!empty($product->price) and $product->price != 0): ?>
+                                        <a class="btn btn-success"
+                                            href="javascript:void(0);"><?php echo e(trans('main.purchased_item')); ?></a>
+                                        <?php endif; ?>
+                                        <?php endif; ?>
+                                    </form>
+                                </div>
+                                <?php endif; ?>
                         </div>
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
                                 <h2><?php echo e(!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title); ?></h2>
-                                <h4><b>Fecha de inicio:</b> <?php echo e(date('d/m/Y', strtotime(!empty($partDesc->initial_date) ? $partDesc->initial_date : $partDesc[0]->initial_date))); ?></h4>
-                                <h4><b>Fecha de finalización: </b><?php echo e(date('d/m/Y', strtotime(!empty($partDesc->limit_date) ? $partDesc->limit_date : $partDesc[0]->limit_date))); ?></h4>
+                                <h4><b>Fecha de inicio:</b>
+                                    <?php echo e(!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
+
+                                </h4>
+                                <h4><b>Fecha de finalización:
+                                    </b><?php echo e(!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
+
+                                </h4>
                                 <br>
                                 <span><?php echo !empty($partDesc->description) ? $partDesc->description :
                                     $partDesc[0]->description; ?></span>
@@ -144,12 +154,12 @@
                         </div>
                         <br>
                         <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Comparte en tus redes sociales:</h2>
-                                    <br>
-                                    <div class="addthis_inline_share_toolbox"></div>
-                                </div>
+                            <div class="col-md-12">
+                                <h2>Comparte en tus redes sociales:</h2>
+                                <br>
+                                <div class="addthis_inline_share_toolbox"></div>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <h2>Etiquetas</h2>
@@ -232,7 +242,8 @@
                                 </div>
                             </li>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>-->
-                                <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                <?php if($buy): ?>
+                                <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
                                     <?php if($part['status'] == 'finished'): ?>
                                     <li class="list-group-item list-content-media">
@@ -242,7 +253,9 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?> <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?> <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
                                     </li>
                                     <?php elseif($part['status'] == 'pending'): ?>
@@ -253,7 +266,9 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?> <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?> <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
                                     </li>
                                     <?php elseif($part['status'] == 'late'): ?>
@@ -264,13 +279,35 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?> <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?> <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b><i class="fa fa-clock-o"></i>
                                     </li>
                                     <?php endif; ?>
                                 </a>
                                 <br>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
+                                    <li class="list-group-item list-content-media">
+                                        <?php if($buy or $part['free'] == 1): ?>
+                                        <span class="playicon mdi mdi-play-circle"></span>
+                                        <?php else: ?>
+                                        <span class="playicon mdi mdi-lock"></span>
+                                        <?php endif; ?>
+                                        <b>
+                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                        </b>
+                                    </li>
+                                </a>
+                                <br>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+
                                 <?php if($buy): ?>
                                 <?php if(!empty($product->quizzes) and !$product->quizzes->isEmpty()): ?>
                                 <?php $__currentLoopData = $product->quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -371,11 +408,9 @@
                             <div class="col-md-12">
                                 <input type="hidden" id="buy_method" value="download">
                                 <div class="radio">
-                                    <input type="radio" class="buy-mode" id="mode-1" value="credit"
-                                        name="buyMode">
+                                    <input type="radio" class="buy-mode" id="mode-1" value="credit" name="buyMode">
                                     &nbsp;
-                                    <label class="radio-label"
-                                        for="mode-1"><?php echo e(trans('main.account_charge')); ?>&nbsp;<b
+                                    <label class="radio-label" for="mode-1"><?php echo e(trans('main.account_charge')); ?>&nbsp;<b
                                             id="credit-remain-modal">(<?php echo e(currencySign()); ?><?php echo e($user['credit']); ?>)</b></label>
                                 </div>
                                 <?php if(get_option('gateway_paypal') == 1): ?>
@@ -515,21 +550,21 @@
         </div>
     </div>
     <div class="modal fade" id="paycomModal" tabindex="-1" role="dialog" aria-labelledby="paycomModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Credit/Debit card pay</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form name="CredomaticPost" method="get" action="/bank/paycom/pay/<?php echo e($product->id); ?>/" />
-                            <Input type="hidden" id='time' name="time" />
-                            <input type="hidden" id='item_price' name="item_price" value="<?php echo e($product->price); ?>">
-                            <input type="hidden" id='method_creditDebit' name="method_creditDebit">
-                            <!--<Input type="text" name="username" value="jbonillap201"/>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Credit/Debit card pay</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="CredomaticPost" method="get" action="/bank/paycom/pay/<?php echo e($product->id); ?>/" />
+                    <Input type="hidden" id='time' name="time" />
+                    <input type="hidden" id='item_price' name="item_price" value="<?php echo e($product->price); ?>">
+                    <input type="hidden" id='method_creditDebit' name="method_creditDebit">
+                    <!--<Input type="text" name="username" value="jbonillap201"/>
                                 <Input type="text" name="type" value=" auth"/>
                                 <Input type="text" name="key_id" value="38723344"/>
                                 <Input type="text" name="hash" value="6145cc70aabac5e5cad36fc2f249ad5a" >
@@ -540,33 +575,35 @@
                                 <Input type="text" name="ccexp" value="0425"/>
                                 <Input type="text" name="cvv" value="944"/>
                                 <Input type="text" name="avs" value="12av el bosque 2-56 zona 11 de Mixco"/>-->
-                            <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="ccnumber">Card Number</label>
-                                    <input type="ccnumber" class="form-control" id="ccnumber"
-                                        aria-describedby="ccnumberHelp" placeholder="0000 0000 0000 0000" name="ccnumber">
-                                    <small id="ccnumberHelp" class="form-text text-muted">Enter your card number.</small>
-                                </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="ccnumber">Card Number</label>
+                            <input type="ccnumber" class="form-control" id="ccnumber" aria-describedby="ccnumberHelp"
+                                placeholder="0000 0000 0000 0000" name="ccnumber">
+                            <small id="ccnumberHelp" class="form-text text-muted">Enter your card number.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ccexp">Exp date</label>
+                                <input type="ccexp" class="form-control" id="ccexp" aria-describedby="ccexpHelp"
+                                    placeholder="01/20" name="ccexp">
+                                <small id="ccexpHelp" class="form-text text-muted">Enter the expiration date of your
+                                    card</small>
                             </div>
-                            <div class="form-row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="ccexp">Exp date</label>
-                                        <input type="ccexp" class="form-control" id="ccexp"
-                                            aria-describedby="ccexpHelp" placeholder="01/20" name="ccexp">
-                                        <small id="ccexpHelp" class="form-text text-muted">Enter the expiration date of your card</small>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="ccccv">CVV</label>
-                                        <input type="ccccv" class="form-control" id="ccccv"
-                                            aria-describedby="ccccvHelp" placeholder="000" name="ccccv">
-                                        <small id="ccccvHelp" class="form-text text-muted">Enter the code that is below of your card.</small>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ccccv">CVV</label>
+                                <input type="ccccv" class="form-control" id="ccccv" aria-describedby="ccccvHelp"
+                                    placeholder="000" name="ccccv">
+                                <small id="ccccvHelp" class="form-text text-muted">Enter the code that is below of your
+                                    card.</small>
                             </div>
-                            <!--<div class="input-group mb-3">
+                        </div>
+                    </div>
+                    <!--<div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-ccexp">Exp Date</span>
                                 </div>
@@ -584,38 +621,40 @@
                                 </div>
                                 <input type="text" value="12av el bosque 2-56 zona 11 de Mixco" name="avs" class="form-control" placeholder="Address" aria-label="avs" aria-describedby="addon-avs">
                             </div>-->
-                            <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
-                            <input type="submit" class="btn btn-primary" value="Pay">
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
+                    <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
+                    <input type="submit" class="btn btn-primary" value="Pay">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
+    </div>
     <script>
-    $(document).ready(function () {
-        $('input[type=radio][name=buyMode]').change(function () {
-            var payment = $(this).val();
-            if (payment == 'paycom') {
-                console.log('paycom test');
-                $('#buyBtn').attr({
-                    'href': '#',
-                    'data-toggle': 'modal',
-                    'data-target': '#paycomModal',
-                    'data-dismiss': 'modal'
-                });
-                var currentDate = new Date().getTime();
-                var timetofinish = new Date(currentDate + 5 * 60 * 1000).getTime();
-                $('#time').val(Math.round(timetofinish / 1000));
-                $('#method_creditDebit').val($('#buy_method').val());
-            } else {
-                var buyLink = '/bank/' + payment + '/pay/<?php echo e($product->id); ?>/' + $('#buy_method').val();
-                $('#buyBtn').attr('href', buyLink);
-            }
-        })
-    });
+        $(document).ready(function () {
+            $('input[type=radio][name=buyMode]').change(function () {
+                var payment = $(this).val();
+                if (payment == 'paycom') {
+                    console.log('paycom test');
+                    $('#buyBtn').attr({
+                        'href': '#',
+                        'data-toggle': 'modal',
+                        'data-target': '#paycomModal',
+                        'data-dismiss': 'modal'
+                    });
+                    var currentDate = new Date().getTime();
+                    var timetofinish = new Date(currentDate + 5 * 60 * 1000).getTime();
+                    $('#time').val(Math.round(timetofinish / 1000));
+                    $('#method_creditDebit').val($('#buy_method').val());
+                } else {
+                    var buyLink = '/bank/' + payment + '/pay/<?php echo e($product->id); ?>/' + $('#buy_method')
+                        .val();
+                    $('#buyBtn').attr('href', buyLink);
+                }
+            })
+        });
+
     </script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f88eadd1f615a3d"></script>
     <?php $__env->stopSection(); ?>
