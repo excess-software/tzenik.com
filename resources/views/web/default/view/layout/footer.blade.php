@@ -144,6 +144,46 @@
     });
 </script>
 @endif
+@else
+<script>
+if (localStorage.getItem("font")) {
+            if (localStorage.getItem("font") == 40) {
+                    $('h1').css('font-size', '' + 40 + 'px');
+                    $('h2').css('font-size', '' + 32 + 'px');
+                    $('h3').css('font-size', '' + 24 + 'px');
+                    $('h4').css('font-size', '' + 19.78 + 'px');
+                    $('h5').css('font-size', '' + 18 + 'px');
+                    $('h6').css('font-size', '' + 15.28 + 'px');
+                    $('.no-child').css('font-size', '' + 32 + 'px');
+                    $('.has-child').css('font-size', '' + 32 + 'px');
+                    $('label').css('font-size', '' + 32 + 'px');
+                    $('span').css('font-size', '' + 32 + 'px');
+                    $('p').css('font-size', '' + 32 + 'px');
+                    $('a').css('font-size', '' + 32 + 'px');
+                    $('.at-label').css('font-size', '' + 24 + 'px');
+                    $('input[type=\'text\']').css('font-size', '', + 32 + 'px');
+            } else if (localStorage.getItem("font") == 32) {
+                $('h1').css('font-size', '' + 32 + 'px');
+                $('h2').css('font-size', '' + 28 + 'px');
+                $('h3').css('font-size', '' + 24 + 'px');
+                $('h4').css('font-size', '' + 22 + 'px');
+                $('h5').css('font-size', '' + 18 + 'px');
+                $('h6').css('font-size', '' + 15 + 'px');
+                $('.no-child').css('font-size', '' + 24 + 'px');
+                $('.has-child').css('font-size', '' + 24 + 'px');
+                $('label').css('font-size', '' + 24 + 'px');
+                $('span').css('font-size', '' + 24 + 'px');
+                $('p').css('font-size', '' + 24 + 'px');
+                $('a').css('font-size', '' + 24 + 'px');
+                $('.at-label').css('font-size', '' + 24 + 'px');
+                $('input[type=\'text\']').css('font-size', '', + 24 + 'px');
+            } else {
+               
+            }
+        } else {
+            
+        }
+</script>
 @endif
 
 

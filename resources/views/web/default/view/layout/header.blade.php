@@ -70,6 +70,7 @@
     <title>@yield('title'){!! $title ?? '' !!}</title>
     <script>
         function changeFont(font) {
+            @if(isset($user))
             $.ajax({
                 type: 'POST',
                 url: "/user/profile/store",
@@ -82,6 +83,11 @@
                     location.reload();
                 }
             });
+            @else
+            localStorage.setItem("font", font);
+            console.log(localStorage.getItem("font"));
+            location.reload();
+            @endif
         }
 
         function changeColor(color) {
