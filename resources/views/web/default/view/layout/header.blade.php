@@ -29,30 +29,30 @@
     @endif
     @if(isset($user))
     @if(is_null($user['invert']))
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v={{time()}}">
     @elseif($user['invert'] == 'yellow')
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v={{time()}}">
     @elseif($user['invert'] == 'white')
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v={{time()}}">
     @elseif($user['invert'] == 'black')
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v={{time()}}">
     @endif
     @else
     <script>
         if (localStorage.getItem("color")) {
             if (localStorage.getItem("color") == 'yellow') {
                 document.head.innerHTML +=
-                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=1">';
+                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v={{time()}}">';
             } else if (localStorage.getItem("color") == 'white') {
                 document.head.innerHTML +=
-                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=1">';
+                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v={{time()}}">';
             } else if (localStorage.getItem("color") == 'black') {
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=1">';
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v={{time()}}">';
             } else {
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">';
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v={{time()}}">';
             }
         } else {
-            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">';
+            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v={{time()}}">';
         }
 
     </script>

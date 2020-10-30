@@ -29,30 +29,30 @@
     <?php endif; ?>
     <?php if(isset($user)): ?>
     <?php if(is_null($user['invert'])): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=<?php echo e(time()); ?>">
     <?php elseif($user['invert'] == 'yellow'): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=<?php echo e(time()); ?>">
     <?php elseif($user['invert'] == 'white'): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=<?php echo e(time()); ?>">
     <?php elseif($user['invert'] == 'black'): ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=1">
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=<?php echo e(time()); ?>">
     <?php endif; ?>
     <?php else: ?>
     <script>
         if (localStorage.getItem("color")) {
             if (localStorage.getItem("color") == 'yellow') {
                 document.head.innerHTML +=
-                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=1">';
+                    '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css?v=<?php echo e(time()); ?>">';
             } else if (localStorage.getItem("color") == 'white') {
                 document.head.innerHTML +=
-                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=1">';
+                '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css?v=<?php echo e(time()); ?>">';
             } else if (localStorage.getItem("color") == 'black') {
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=1">';
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css?v=<?php echo e(time()); ?>">';
             } else {
-                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">';
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=<?php echo e(time()); ?>">';
             }
         } else {
-            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=1">';
+            document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v=<?php echo e(time()); ?>">';
         }
 
     </script>
