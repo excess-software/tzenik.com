@@ -49,6 +49,14 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2 tab-con"
+                            for="inputDefault">Suscritos</label>
+                        <div class="col-md-2 tab-con">
+                            <input type="text" name="subs_limit" class="form-control"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 tab-con"
                             for="inputDefault"><?php echo e(trans('main.course_title')); ?></label>
                         <div class="col-md-10 tab-con">
                             <input type="text" name="title" placeholder="30-60 Characters" class="form-control"

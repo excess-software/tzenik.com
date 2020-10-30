@@ -760,7 +760,7 @@
         $.post('/user/content/edit/meta/store/' + id, $('#step-3-form-meta').serialize());
         $.post('/user/content/edit/meta/store/' + id, $('#step-3-form-precourse').serialize());
         $.post('/user/content/edit/meta/store/' + id, $('#step-4-form-meta').serialize());
-        $.post('/user/content/edit/store/request/' + id, $('#step-1-form').serialize());
+        $.get('/user/content/edit/store/request/' + id, $('#step-1-form').serialize());
 
         /* Notify */
         $.notify({

@@ -13,9 +13,9 @@
     background-color: black !important;
 }
 
-.open{
+/*.open{
     color: white !important;
-}
+}*/
 .navbar-inverse .navbar-nav > .open > a{
     color: white !important;
 }

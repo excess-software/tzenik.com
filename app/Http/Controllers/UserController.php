@@ -1163,11 +1163,8 @@ class UserController extends Controller
                 $content->filters()->sync($request['filters']);
             }
             unset($request['filters']);
-            
-            $newChatTitle = $content->title;
-            //$chatUpdate = ['creator' => $user->id, 'name' => $newChatTitle];
-            Chat_Chats::where('id', '4')->update('name', $newChatTitle);
-            $content->update($request->all());
+            Chat_Chats::where('id', '4')->update(['name' => $content->title]);
+            $content->update($request);
             echo 'true';
         } else {
             echo 'false';
