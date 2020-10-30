@@ -4027,4 +4027,22 @@ class AdminController extends Controller
         ]);
         return redirect('admin/blog/comment/edit/'.$comment->id);
     }
+
+    /* Verificaciones */
+    public function verificarMail($mail){
+        $mail_find = User::where('email', $mail)->get();
+        if($mail_find->isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function verificarUsuario($user){
+        $user_find = User::where('username', $user)->get();
+        if($user_find->isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

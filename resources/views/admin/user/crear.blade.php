@@ -21,14 +21,16 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.username') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" value="" name="username" id="inputReadOnly" class="form-control">
+                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control">
+                                    <small id="UserAbout" class="form-text" style="color: red;"></small>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.email') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" value="" name="email" id="inputReadOnly" class="form-control text-left" dir="ltr">
+                                    <input type="text" value="" id="Mail" name="email" id="inputReadOnly" onChange="verifyMail()" class="form-control text-left" dir="ltr">
+                                    <small id="MailAbout" class="form-text" style="color: red;"></small>
                                 </div>
                             </div>
 
@@ -56,7 +58,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary" type="submit">{{ trans('admin.save_changes') }}</button>
+                                    <button class="btn btn-primary" id="btn-register" type="submit">{{ trans('admin.save_changes') }}</button>
                                 </div>
                             </div>
 
@@ -66,4 +68,56 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="UserVerify">
+    <input type="hidden" id="MailVerify">
+    <script>
+    function verifyUser() {
+        var user = $('#User').val();
+        $.ajax({
+            type: "GET",
+            url: "/admin/user/verificar/user/" + user,
+            success: function (response) {
+                if (response != true) {
+                    $('#UserAbout').html('Este usuario ya se encuentra en uso');
+                    $('#UserVerify').val('false');
+                    verify();
+                } else {
+                    $('#UserAbout').html('');
+                    $('#UserVerify').val('true');
+                    verify();
+                }
+            }
+        });
+    }
+
+    function verifyMail() {
+        var mail = $('#Mail').val();
+        $.ajax({
+            type: "GET",
+            url: "/admin/user/verificar/mail/" + mail,
+            success: function (response) {
+                if (response != true) {
+                    $('#MailAbout').html('Este Mail ya se encuentra en uso');
+                    $('#MailVerify').val('false');
+                    verify();
+                } else {
+                    $('#MailAbout').html('');
+                    $('#MailVerify').val('true');
+                    verify();
+                }
+            }
+        });
+    }
+
+    function verify() {
+        var PassVerify = $('#UserVerify').val();
+        var MailVerify = $('#MailVerify').val();
+        if (PassVerify == 'true' && MailVerify == 'true') {
+            $('#btn-register').attr('disabled', false);
+        } else {
+            $('#btn-register').attr('disabled', true);
+        }
+    }
+
+</script>
 @endsection

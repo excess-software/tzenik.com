@@ -62,6 +62,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('ratesection/delete/{id}', 'AdminController@userRateSectionDelete');
             Route::get('vendor', 'AdminController@userVendors');
             Route::get('event/{id}', 'AdminController@userEvent');
+            Route::get('verificar/user/{user}', 'AdminController@verificarUsuario');
+            Route::get('verificar/mail/{mail}', 'AdminController@verificarMail');
 
             ## Seller & Apply
             Route::get('seller', 'AdminController@sellerUsers');
