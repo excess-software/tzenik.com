@@ -12,8 +12,20 @@ body, a, span, b, .btn, .panel, hr{
     background-color: black;
 }
 .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
-    border: 3px solid black;tant;
-    border-bottom: 3px solid transparent;
+    border: 3px solid yellow !important;
+    border-bottom: 3px solid transparent !important;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    border-color: 3px solid yellow !important;
+}
+.nav-tabs.nav-justified > li > a{
+    border-bottom: 1px solid yellow !important;
+}
+.nav-tabs > li > a{
+    border: 0px solid transparent !important;
+}
+.nav-tabs > li > a:hover{
+    border: 1px solid yellow !important;
 }
 .nav-tabs {
    border-bottom: 3px solid black !important;

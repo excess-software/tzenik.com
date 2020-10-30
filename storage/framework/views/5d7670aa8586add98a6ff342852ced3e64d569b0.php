@@ -81,7 +81,7 @@
                                 <div class="row curso-destacado-contenido">
                                     <div class="col">
                                         <span class="curso-destacado-contenido-interno black-text">
-                                            <?php echo Str::limit($popular->content, 400); ?>
+                                            <?php echo Str::limit($popular->content, 250); ?>
 
                                         </span>
                                     </div>
