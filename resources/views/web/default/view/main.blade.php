@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <img class="img-responsive" style="max-height: 300px !important; width: auto;" src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://lh3.googleusercontent.com/proxy/B3YLoeUpRbRJ_a4gj2dofw56ghWYCGt3AIrxOTfEs3RE1OeU-zMPnI1iZqhwT-y1s3Tegf_H2U_gzGzi4wy9XJ4onB1cp8zerW-aHwJB6FYJ6ZzYlD0YFiJdR6HEs2QKuw' }}"
+                            <img class="img-responsive" style="max-height: 300px !important; width: auto;" src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/1/8/6/0/230681-6-eng-GB/IB3-Limited-SIC-Pharma-April-20142_news_large.jpg' }}"
                                 alt="">
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <img class="img-responsive center-block img-proximos-webinars"
-                                src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://lh3.googleusercontent.com/proxy/Vlp244ol_CC2a6EFHHpcn4FzhuD2eCm77VKjcBRATcBxe9lvIaAqV5aAyLRs2BPoJUXdMx0bKk5JGCK1kF7lu0jUvsxhhphoOezBD7UEFhSqK5bNTW_ksrGKZ2-A5ZM-gb0J' }}" alt="">
+                                src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/1/8/6/0/230681-6-eng-GB/IB3-Limited-SIC-Pharma-April-20142_news_large.jpg' }}" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="panel-description vertical-center">
