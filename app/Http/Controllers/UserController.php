@@ -1167,7 +1167,7 @@ class UserController extends Controller
             $newChatTitle = $content->title;
             //$chatUpdate = ['creator' => $user->id, 'name' => $newChatTitle];
             Chat_Chats::where('id', '4')->update('name', $newChatTitle);
-            $content->update($request);
+            $content->update($request->all());
             echo 'true';
         } else {
             echo 'false';
