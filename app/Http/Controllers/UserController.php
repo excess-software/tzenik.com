@@ -1164,7 +1164,7 @@ class UserController extends Controller
             }
             unset($request['filters']);
             
-            $newChatTitle = $request['title'];
+            // -- CHAT -- $newChatTitle = $request['title'];
             //$chatUpdate = ['creator' => $user->id, 'name' => $newChatTitle];
             Chat_Chats::where('id', '4')->update('name', $newChatTitle);
             $content->update($request);
