@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-yellow.css">
     @elseif($user['invert'] == 'white')
     <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">
+    @elseif($user['invert'] == 'black')
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css">
     @endif
     @else
     <script>
@@ -44,6 +46,8 @@
             } else if (localStorage.getItem("color") == 'white') {
                 document.head.innerHTML +=
                 '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-white.css">';
+            } else if (localStorage.getItem("color") == 'black') {
+                document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-black.css">';
             } else {
                 document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css">';
             }
@@ -139,14 +143,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 text-center">
-                                                <button class="btn btn-primary btn-block" onclick="changeFont(24)">
+                                                <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)">
                                                     <b>A</b>
                                                     <br>
                                                     <b>Smaller</b>
                                                 </button>
                                             </div>
                                             <div class="col-md-6 text-center">
-                                                <button class="btn btn-primary btn-block" onclick="changeFont(32)">
+                                                <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)">
                                                     <b>A</b>
                                                     <br>
                                                     <b>Larger</b>
@@ -166,9 +170,9 @@
                                             <div class="col-md-6">
                                                 <button class="btn btn-whiteTxtBlack btn-block"
                                                     onclick="changeColor('white')">
-                                                    <b>White Text</b>
+                                                    <b>Black Text</b>
                                                     <br>
-                                                    <b>Black</b>
+                                                    <b>White</b>
                                                     <br>
                                                     <b>Background</b>
                                                 </button>
@@ -186,10 +190,23 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <div class="col-md-12 text-center">
-                                                <button class="btn btn-primary btn-block"
+                                        <div class="col-md-6">
+                                                <button class="btn btn-blackTxtWhite btn-block"
+                                                    onclick="changeColor('black')">
+                                                    <b>White Text</b>
+                                                    <br>
+                                                    <b>Black</b>
+                                                    <br>
+                                                    <b>Background</b>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="btn btn-menu-accesibilidad btn-block"
                                                     onclick="changeColor('default')">
+                                                    <br>
                                                     <b>Default</b>
+                                                    <br>
+                                                    <br>
                                                 </button>
                                             </div>
                                         </div>

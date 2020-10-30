@@ -116,7 +116,7 @@
                     <div class="h-10"></div>
                     <div class="f_link">
                         <a href="" class="resetTag restag pull-right"
-                            style="color: #242424 !important;"><?php echo e(trans('main.forget_password')); ?></a>
+                            ><?php echo e(trans('main.forget_password')); ?></a>
                         <!-- <a href="/user/sociliate/google" class="btn btn-custom btn-check-form pull-left"><i class="fa fa-google-plus icon-rs"></i><span><?php echo e(trans('main.sign_in_google')); ?></span></a> -->
                     </div>
                 </form>

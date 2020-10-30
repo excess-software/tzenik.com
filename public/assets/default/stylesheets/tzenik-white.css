@@ -24,6 +24,9 @@ body, a, span, b, .btn, .panel, hr{
 .navbar-inverse{
     background-color: black !important;
 }
+.navbar-item-title{
+    color: white !important;
+}
 .open{
     color: black !important;
 }
@@ -31,14 +34,25 @@ body, a, span, b, .btn, .panel, hr{
     width: 300px;
 }
 .btn-whiteTxtBlack{
-    background-color: black;
-    color: white;
+    background-color: white !important;
+    color: black !important;
     text-align: left;
 }
 .btn-yellowTxtBlack{
-    background-color: black;
-    color: yellow;
+    background-color: black !important;
+    color: yellow !important;
     text-align: left;
+}
+.btn-yellowTxtBlack b{
+    color: yellow !important;
+}
+.btn-blackTxtWhite{
+    background-color: black !important;
+    color: white !important;
+    text-align: left;
+}
+.btn-blackTxtWhite b{
+    color: white !important;
 }
 /* Navbar CSS */
 .navbar-brand {
@@ -70,6 +84,9 @@ body, a, span, b, .btn, .panel, hr{
 .navbar-perfil {
     background-color: black !important;
     border: 1px solid white;
+    color: white !important;
+}
+.navbar-perfil a{
     color: white !important;
 }
 
@@ -259,7 +276,7 @@ hr {
 
 /* Media CSS */
 .visualizador-media{
-    background-color: black;
+    background-color: white;
     margin: 0;
     margin-top: -20px;
     padding-bottom: 5%;
@@ -284,6 +301,10 @@ hr {
 }
 .text-content-media-curso{
 
+}
+.input-group-addon{
+    background-color: white;
+    color: black;
 }
 .text-content-media-curso img{
     max-width: 100%;
@@ -683,7 +704,7 @@ hr {
 
 /** Login CSS **/
 .login-s{
-    background-color: black;
+    background-color: white !important;
 }
 .login-form {
     width: 340px;
@@ -724,8 +745,8 @@ hr {
 }
 
 .formBox h2 {
-    border-left: 6px solid #13ce9c;
-    color: #13ce9c;
+    border-left: 6px solid black;
+    color: black;
     padding: 0px 25px;
     font-size: 32px;
     line-height: 45px;

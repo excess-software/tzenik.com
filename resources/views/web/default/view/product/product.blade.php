@@ -10,7 +10,7 @@
             <div class="col-md-12 volver-atras-media">
                 <br>
                 <div class="row">
-                    <a href="javascript:history.back()">
+                    <a href="javascript: history.go(-1)">
                         <h4><i class="fa fa-arrow-left"> </i><span> Cursos</span></h4>
                     </a>
                 </div>

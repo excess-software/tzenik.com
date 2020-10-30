@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
-    border: 3px solid black;tant;
+    border: 3px solid black;;
     border-bottom: 3px solid transparent;
 }
 .nav-tabs {
@@ -12,21 +12,45 @@
 .navbar-inverse{
     background-color: black !important;
 }
+
 .open{
-    color: black !important;
+    color: white !important;
+}
+.navbar-inverse .navbar-nav > .open > a{
+    color: white !important;
 }
 .accesibilidad-menu{
     width: 300px;
+    color: black;
 }
 .btn-whiteTxtBlack{
-    background-color: black;
-    color: white;
+    background-color: white !important;
+    color: black !important;
     text-align: left;
+    border-color: black !important;
+}
+.btn-whiteTxtBlack b{
+    color: black !important;
 }
 .btn-yellowTxtBlack{
-    background-color: black;
-    color: yellow;
+    background-color: black !important;
+    color: yellow !important;
     text-align: left;
+}
+.btn-yellowTxtBlack b{
+    color: yellow !important;
+}
+.btn-blackTxtWhite{
+    background-color: black !important;
+    color: white !important;
+    text-align: left;
+}
+.btn-blackTxtWhite b{
+    color: white !important;
+}
+.btn-menu-accesibilidad{
+    background-color: #3ED2B8;
+    color: white;
 }
 /* Navbar CSS */
 .navbar-brand {
@@ -268,6 +292,10 @@ hr {
 }
 .text-content-media-curso{
 
+}
+.input-group-addon{
+    background-color: black !important;
+    color: white !important;
 }
 .text-content-media-curso img{
     max-width: 100%;
