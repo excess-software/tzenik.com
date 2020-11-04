@@ -46,6 +46,9 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use App\Models\CalendarEvents;
+use App\Models\QuizResult;
+
 
 class ApiController extends Controller
 {
@@ -418,6 +421,10 @@ class ApiController extends Controller
             $parts[] = [
                 'id'        => $part->id,
                 'title'     => $part->title,
+                'description' => $part->description, 
+                'initial_date' => $part->initial_date,
+                'limit_date' => $part->limit_date,
+                'part_material' => url('/').'/bin/contenido-cursos/'.$id.'/'.$part->id.'/materiales.zip',
                 'duration'  => convertToHoursMins($part->duration),
                 'free'      => $part->free,
             ];
@@ -442,6 +449,7 @@ class ApiController extends Controller
             'comments'      => $comments,
             'content'       => $content->content,
             'title'         => $content->title,
+            'material'      => url('/').'/bin/contenido-cursos/'.$id.'/materiales.zip',
             'category'      => ['id'=>$content->category->id,'title'=>$content->category->title],
             'sample'        => isset($meta['video'])?$meta['video']:'',
             'duration'      => isset($meta['duration'])?convertToHoursMins($meta['duration']):0,
@@ -1122,9 +1130,11 @@ class ApiController extends Controller
         $username = $request->username;
         $password = $request->password;
 
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
         $User = User::where(function ($w) use($username){
             $w->where('username',$username)->orWhere('email',$username);
-        })->where('admin','0')->first();
+        })->where('admin','0')->where('category_id', $fundal_category[0]->id)->first();
         if($User && Hash::check($password, $User->password)){
 
             if($User->mode != 'active') {
@@ -1761,5 +1771,116 @@ class ApiController extends Controller
         return view(getTemplate() . '.app.wallet',['mode'=>'failed']);
     }
 
+    /** Funciones añadidas para Tzenik */
+
+    public function userCalendar(Request $request){
+        //$user = $this->checkUserToken($request);
+        //if(!$user){
+        //    return $this->error(-1, trans('main.user_not_found'));
+        //}
+        $events = CalendarEvents::where('user_id', '100004')->get();
+        foreach($events as $event){
+            $product = Content::find($event->product_id);
+            $event->product_name = $product->title;
+        }
+        return $this->response($events);
+    }
+    public function addToCalendar(Request $request){
+        $user = $this->checkUserToken($request);
+        if(!$user){
+            return $this->error(-1, trans('main.user_not_found'));
+        }
+        CalendarEvents::create([
+            'user_id' => $user['id'],
+            'product_id' => $request->product_id,
+            'date' => $request->date,
+            'type' => $request->type,
+            'content' => $request->content,
+        ]);
+
+        return $this->response(['event_status' => 'saved']);
+    }
+    public function quizzesResults(Request $request){
+        $user = $this->checkUserToken($request);
+        if(!$user){
+            return $this->error(-1, trans('main.user_not_found'));
+        }
+        $results = QuizResult::where('student_id', $user['id'])->get();
+
+        return $this->response($results);
+    }
+    public function quizResult(Request $request){
+        $user = $this->checkUserToken($request);
+        if(!$user){
+            return $this->error(-1, trans('main.user_not_found'));
+        }
+        $results = QuizResult::where('student_id', $user['id'])->where('quiz_id', $request->quiz)->get();
+
+        return $this->response($results);
+    }
+    public function QuizzesStoreResult(Request $request)
+    {
+        $user = $this->checkUserToken($request);
+        $quiz = Quiz::where('id', $request->quiz_id)->first();
+        if ($quiz) {
+            $results = $request->get('question');
+            $quiz_result_id = $request->get('quiz_result_id');
+
+            if (!empty($quiz_result_id)) {
+                $quiz_result = QuizResult::where('id', $quiz_result_id)
+                    ->where('student_id', $user['id'])
+                    ->first();
+
+                if (!empty($quiz_result)) {
+                    $pass_mark = $quiz->pass_mark;
+                    $total_mark = 0;
+                    $status = '';
+
+                    foreach ($results as $question_id => $result) {
+                        if (!is_array($result)) {
+                            unset($results[$question_id]);
+                        } else {
+                            $question = QuizzesQuestion::where('id', $question_id)
+                                ->where('quiz_id', $quiz->id)
+                                ->first();
+                            if ($question and !empty($result['answer'])) {
+                                $answer = QuizzesQuestionsAnswer::where('id', $result['answer'])
+                                    ->where('question_id', $question->id)
+                                    ->where('user_id', $quiz->user_id)
+                                    ->first();
+
+                                $results[$question_id]['status'] = false;
+                                $results[$question_id]['grade'] = $question->grade;
+
+                                if ($answer and $answer->correct) {
+                                    $results[$question_id]['status'] = true;
+                                    $total_mark += (int)$question->grade;
+                                }
+
+                                if ($question->type == 'descriptive') {
+                                    $status = 'waiting';
+                                    //$total_mark += (int)$question->grade;
+                                }
+                            }
+                        }
+                    }
+
+                    if (empty($status)) {
+                        $status = ($total_mark >= $pass_mark) ? 'pass' : 'fail';
+                    }
+
+                    $quiz_result->update([
+                        'results' => json_encode($results),
+                        'user_grade' => $total_mark,
+                        'status' => $status,
+                        'created_at' => time()
+                    ]);
+
+                    return $this->response(['result_status' => 'saved']);
+                }
+            }
+        }
+        return $this->error(-1, trans('El contenido no existe.'));
+    }
 
 }

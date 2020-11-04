@@ -57,6 +57,18 @@ Route::group(['prefix'=>'v1'], function (){
         Route::any('profile/unfollow','Api\ApiController@userProfileUnFollow');
         Route::any('setting','Api\ApiController@userSetting');
 
+        ## Calendar
+        Route::group(['prefix'=>'calendar'], function (){
+            Route::any('','Api\ApiController@userCalendar');
+            Route::any('add','Api\ApiController@addToCalendar');
+        });
+
+        ## Quizzes
+        Route::group(['prefix'=>'quizzes'], function (){
+            Route::any('results','Api\ApiController@quizzesResults');
+            Route::any('result', 'Api\ApiController@quizResult');
+        });
+
         ## Support
         Route::group(['prefix'=>'support'], function (){
             Route::post('list','Api\ApiController@supportList');

@@ -203,7 +203,7 @@
                         <div class="col-md-8 tab-con">
                             <div class="input-group">
                                 <input type="number" name="price" onkeypress="validate(event)"
-                                    value="<?php echo e($meta['price']); ?>" class="form-control text-center numtostr"
+                                    value="<?php echo e($meta['price'] ?? ''); ?>" class="form-control text-center numtostr"
                                     <?php if($item->price === 0): ?> disabled <?php endif; ?>>
                                 <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
                             </div>

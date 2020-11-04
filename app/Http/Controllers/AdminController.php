@@ -1404,13 +1404,13 @@ class AdminController extends Controller
             $sell = Sell::where('content_id', $item->id)->get();
             if(!$sell->isEmpty()){
                 foreach($sell as $venta){
-                    $parts = ContentPart::where('content_id', $venta->content_id)->get();
+                    $parts = ContentPart::where('content_id', $item->id)->get();
                     foreach($parts as $part){
-                        $parts_done = ProgresoAlumno::where('content_id', $venta->content_id)->where('part_id', $part->id)->where('user_id', $venta->buyer_id)->get();
+                        $parts_done = ProgresoAlumno::where('content_id', $item->id)->where('part_id', $part->id)->where('user_id', $venta->buyer_id)->get();
                         if(!$parts_done->isEmpty()){
                             $duration_done = $duration_done + $part->duration;
                         }
-                        $duration = $duration + $part->duration;
+                        $duration += $part->duration;
                     }
 
                     $progress = (100 * $duration_done) / $duration;
@@ -1475,6 +1475,7 @@ class AdminController extends Controller
 
         foreach($request->usuarios as $usuario){
             Sell::where('buyer_id', $usuario)->where('content_id', $curso)->delete();
+            ProgresoAlumno::where('content_id', $curso)->where('user_id', $usuario)->delete();
         }
         return back();
     }

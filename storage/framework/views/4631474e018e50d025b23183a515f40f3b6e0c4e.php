@@ -89,12 +89,19 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <?php if($product->content_type == 'Fundal' || $product->content_type == 'fundal'): ?>
+                                
+                                <?php else: ?>
                                 <?php if(isset($meta['price']) && $product->price != 0): ?>
-                                <h2>Precio: <?php echo e(currencySign()); ?><?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?></h2>
+                                <h2>Precio:
+                                    <?php echo e(currencySign()); ?><?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>
+
+                                </h2>
                                 <?php else: ?>
                                 <h2><?php echo e(trans('main.free')); ?></h2>
                                 <br>
                                 <a class="btn btn-success" href="/inscribirse/product/<?php echo e($product->id); ?>">Inscribirse</a>
+                                <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -102,16 +109,17 @@
                             <div class="col-md-12">
                                 <h2>Enlace de Zoom:</h2>
                                 <br>
-                                <span><a href="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
+                                <span><a
+                                        href="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
                             </div>
                         </div>
                         <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Comparte en tus redes sociales:</h2>
-                                    <br>
-                                    <div class="addthis_inline_share_toolbox"></div>
-                                </div>
+                            <div class="col-md-12">
+                                <h2>Comparte en tus redes sociales:</h2>
+                                <br>
+                                <div class="addthis_inline_share_toolbox"></div>
                             </div>
+                        </div>
                         <br>
                         <div class="row">
                             <div class="col-md-12">

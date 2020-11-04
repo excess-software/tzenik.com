@@ -1333,7 +1333,7 @@ class WebController extends Controller
             'partDesc' => $partDesc,
             'Duration' => $Duration,
             'MB' => $MB,
-            'product_material'      => $product_material,
+            'product_material' => $product_material,
         ];
 
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
