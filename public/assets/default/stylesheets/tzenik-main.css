@@ -371,6 +371,10 @@ hr {
     background-color: red !important;
     color: white !important;
 }
+.gray-back-list{
+    background-color: gray !important;
+    color: white !important;
+}
 /* BLog CSS */
 .titulo-blog{
 }

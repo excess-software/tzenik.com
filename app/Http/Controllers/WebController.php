@@ -1268,6 +1268,8 @@ class WebController extends Controller
                     if($part->limit_date){
                         if(Carbon::now()->format('Y-m-d') > $part->limit_date && $part->status == 'pending'){
                             $part->status = 'late';
+                        }else if(Carbon::now()->format('Y-m-d') < $part->initial_date && $part->status == 'pending'){
+                            $part->status = 'early';
                         }
                     }
                 }

@@ -1476,7 +1476,7 @@ class ApiController extends Controller
         foreach ($purchases as $item){
             if(isset($item->content)) {
                 $meta = arrayToList($item->content->metas, 'option', 'value');
-                $data['purchases'][] = [
+                $data['asignados'][] = [
                     'id'        => $item->content->id,
                     'title'     => $item->content->title,
                     'thumbnail' => checkUrl($meta['thumbnail']),

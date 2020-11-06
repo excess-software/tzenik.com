@@ -278,6 +278,19 @@
                                             {{ 'Sin fecha límite' }} @endif
                                         </b><i class="fa fa-clock-o"></i>
                                     </li>
+                                    @elseif($part['status'] == 'early')
+                                    <li class="list-group-item list-content-media gray-back-list">
+                                        @if($buy or $part['free'] == 1)
+                                        <span class="playicon mdi mdi-play-circle"></span>
+                                        @else
+                                        <span class="playicon mdi mdi-lock"></span>
+                                        @endif
+                                        <b>
+                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                            {{ 'Sin fecha límite' }} @endif
+                                        </b>
+                                    </li>
                                     @endif
                                 </a>
                                 <br>
