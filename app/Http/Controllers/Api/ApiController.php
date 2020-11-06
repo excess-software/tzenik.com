@@ -1481,7 +1481,7 @@ class ApiController extends Controller
                     'title'     => $item->content->title,
                     'thumbnail' => checkUrl($meta['thumbnail']),
                     'price'     => isset($meta['price']) ? $meta['price'] : 'free',
-                    'amount'    => $item->transaction->price,
+                    'amount'    => isset($meta['price']) ? $meta['price'] : 'free',
                     'currency'  => $currency,
                     'date'      => date('Y F d | H:i', $item->created_at)
                 ];
