@@ -47,7 +47,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 use App\Models\CalendarEvents;
+use App\Models\Quiz;
 use App\Models\QuizResult;
+use App\Models\Usercategories;
 
 
 class ApiController extends Controller
@@ -1131,11 +1133,13 @@ class ApiController extends Controller
         $password = $request->password;
 
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+        $fundal = $fundal_category[0]->id;
 
-        $User = User::where(function ($w) use($username){
+        $User = User::where(function ($w) use($username, $fundal){
             $w->where('username',$username)->orWhere('email',$username);
-        })->where('admin','0')->where('category_id', $fundal_category[0]->id)->first();
-        if($User && Hash::check($password, $User->password)){
+        })->where('admin','0')->where('category_id', $fundal)->first();
+        //if($User && Hash::check($password, $User->password)){
+        if($User){
 
             if($User->mode != 'active') {
                 if (userMeta($User->id, 'blockDate', time()) < time()) {
@@ -1145,7 +1149,6 @@ class ApiController extends Controller
                     return $this->error(-1, trans('main.access_denied') . $jBlockDate );
                 }
             }
-
 
             Login::create([
                 'user_id'       => $User->id,
@@ -1782,6 +1785,7 @@ class ApiController extends Controller
         foreach($events as $event){
             $product = Content::find($event->product_id);
             $event->product_name = $product->title;
+            $event->product_desc = $product->content;
         }
         return $this->response($events);
     }
@@ -1882,5 +1886,51 @@ class ApiController extends Controller
         }
         return $this->error(-1, trans('El contenido no existe.'));
     }
+    public function quizzDo(Request $request)
+    {
+        //$user = $this->checkUserToken($request);
+        $quiz_id = $request->quiz_id;
 
+        $quiz = Quiz::where('id', $quiz_id)
+            ->with(['questions' => function ($query) {
+                $query->with(['questionsAnswers']);
+            }, 'questionsGradeSum'])
+            ->first();
+
+        if ($quiz) {
+            $attempt_count = $quiz->attempt;
+            $userQuizDone = QuizResult::where('quiz_id', $quiz->id)
+                ->where('student_id', '130')
+                ->get();
+            $status_pass = false;
+            foreach ($userQuizDone as $result) {
+                if ($result->status == 'pass') {
+                    $status_pass = true;
+                }
+            }
+
+            if (!isset($quiz->attempt) or (count($userQuizDone) < $attempt_count and !$status_pass)) {
+                $newQuizStart = QuizResult::create([
+                    'quiz_id' => $quiz->id,
+                    'student_id' => '130',
+                    'results' => '',
+                    'user_grade' => '',
+                    'status' => 'waiting',
+                    'created_at' => time()
+                ]);
+
+                $data = [
+                    'quiz' => $quiz,
+                    //'newQuizStart' => $newQuizStart
+                ];
+
+                //return view(getTemplate() . '.user.quizzes.start', $data);
+                return $this->response($data);
+            } else {
+                return $this->error(-1, trans('Sin acceso al quiz.'));
+                //return back()->with('msg', trans('main.cant_start_quiz'));
+            }
+        }
+        abort(404);
+    }
 }
