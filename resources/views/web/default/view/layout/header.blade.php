@@ -252,7 +252,7 @@
                         @endif
                     </ul>
 
-                    <form class="navbar-form" action="/search" method="post">
+                    <form class="navbar-form" action="/search" method="get">
                         {{ csrf_field() }}
                         <div class="form-group" style="display:inline;">
                             <div class="input-group" style="display:table;">

@@ -252,7 +252,7 @@
                         <?php endif; ?>
                     </ul>
 
-                    <form class="navbar-form" action="/search" method="post">
+                    <form class="navbar-form" action="/search" method="get">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="form-group" style="display:inline;">

@@ -2,7 +2,7 @@
 @section('title')
     {{ get_option('site_title','') }} Search - {{ !empty(request()->get('q')) ? request()->get('q') : '' }}
 @endsection
-@section('page')
+@section('content')
 <h1>test</h1>
     <div class="container-fluid">
         <div class="row cat-search-section">
@@ -69,8 +69,8 @@
                                 @if($contents)
                                     @foreach($contents as $content)
                                         <div class="col-md-2 col-sm-3 col-xs-6 pagi-content">
-                                            <a href="/prfile/{{ $content['id'] }}" title="{{ $content['name'] }}" class="user-box pagi-content-box">
-                                                <img src="{{ $content['metas']['avatar'] }}"/>
+                                            <a href="/profile/{{ $content['id'] }}" title="{{ $content['name'] }}" class="user-box pagi-content-box">
+                                                <img src="{{ $content['metas']['avatar'] ? $content['metas']['avatar'] : '' }}"/>
                                                 <h3>{!! $content['name'] !!}</h3>
                                             </a>
                                         </div>

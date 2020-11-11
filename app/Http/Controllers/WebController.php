@@ -475,11 +475,11 @@ class WebController extends Controller
 
         $contentQuery = Content::with('metas')->where('mode', 'publish');
 
-        //if (!isset($type) or $type == 'content_title') {
+        if (!isset($type) or $type == 'content_title') {
             $search_type_title = trans('admin.search_title');
             $content = $contentQuery->where('title', 'LIKE', '%' . $q . '%');
-        //}
-        /*if (isset($type) and $type == 'content_code') {
+        }
+        if (isset($type) and $type == 'content_code') {
             $search_type_title = trans('admin.search_id');
             $content = $contentQuery->where('id', $q);
         }
@@ -498,7 +498,12 @@ class WebController extends Controller
 
             $content = $contentQuery->whereIn('id', $content_ids);
         }
-        */
+
+        if (isset($type) and $type == 'category') {
+            $search_type_title = trans('Buscar por categoría');
+            $category = ContentCategory::where('title', 'LIKE', '%'.$q.'%')->first();
+            $content = $contentQuery->where('category_id', $category);
+        }
         $users = User::where('username', 'LIKE', '%' . $q . '%')
             ->with(['usermetas'])
             ->get();
@@ -529,10 +534,8 @@ class WebController extends Controller
         }
 
         $searchTypes = [
-            'content_title' => trans('main.course_title'),
-            'content_code' => trans('main.item_no'),
-            'content_filter' => trans('main.filters'),
-            'user_name' => trans('main.username')
+            'content_title' => 'content_title',
+            'category' => 'category'
         ];
 
         $data = [

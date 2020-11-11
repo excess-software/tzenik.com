@@ -1809,7 +1809,7 @@ class ApiController extends Controller
         if(!$user){
             return $this->error(-1, trans('main.user_not_found'));
         }
-        $results = QuizResult::where('student_id', $user['id'])->get();
+        $results = QuizResult::where('student_id', $user['id'])->with('quiz')->get();
 
         return $this->response($results);
     }
