@@ -53,6 +53,7 @@ use App\Models\Chat_Chats;
 use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
 use Illuminate\Support\Facades\Http;
+use App\Models\ProgresoAlumno;
 
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -244,7 +245,8 @@ class UserController extends Controller
             $user = auth()->user();
             $new_password = Hash::make($password);
             User::find($user->id)->update([
-                'password' => $new_password
+                'password' => $new_password,
+                'first_login' => 'true'
             ]);
             $request->session()->flash('msg', 'success');
             return back();
@@ -346,6 +348,86 @@ class UserController extends Controller
         }
 
         return view(getTemplate() . '.user.sell.buy', ['list' => $buyList]);
+    }
+
+    public function allCourses(){
+        $user = auth()->user();
+        $buyListQuery = Sell::where('buyer_id', $user->id)->orderBy('id', 'DESC');
+
+        if ($user->vendor == 1) {
+            $buyList = $buyListQuery->with(['content' => function ($q) {
+                $q->with(['metas', 'category', 'user']);
+            }, 'transaction.balance', 'rate' => function ($r) use ($user) {
+                $r->where('user_id', $user->id)->first();
+            }])->get();
+
+        } else {
+            $buyList = $buyListQuery->with(['content' => function ($q) {
+                $q->with(['metas', 'category', 'user']);
+            }, 'transaction.balance', 'rate' => function ($r) use ($user) {
+                $r->where('user_id', $user->id)->first();
+            }])->where('type', '<>', 'subscribe')
+                ->get();
+
+        }
+
+        return view(getTemplate() . '.user.dashboard.all', ['list' => $buyList]);
+    }
+
+    public function inProcessCourses(){
+        $user = auth()->user();
+        $buyListQuery = Sell::where('buyer_id', $user->id)->orderBy('id', 'DESC')->get();
+
+        $listadoCursos = array();
+
+        foreach($buyListQuery as $curso){
+            $progreso = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $curso->content_id)->get();
+
+            $contar_progreso = $progreso->count();
+
+            $partes = ContentPart::where('content_id', $curso->content_id)->count();
+
+            if(!$progreso->isEmpty() && $contar_progreso != $partes){
+                $cursos = Sell::where('buyer_id', $user->id)->where('content_id', $curso->content_id)->orderBy('id', 'DESC');
+
+                $buyList = $cursos->with(['content' => function ($q) {
+                    $q->with(['metas', 'category', 'user']);
+                }, 'transaction.balance', 'rate' => function ($r) use ($user) {
+                    $r->where('user_id', $user->id)->first();
+                }])->where('type', '<>', 'subscribe')->get();
+
+                array_push($listadoCursos, $buyList);
+            }
+        }
+
+        return view(getTemplate() . '.user.dashboard.process', ['list' => $listadoCursos]);
+    }
+
+    public function finishedCourses(){
+        $user = auth()->user();
+        $buyListQuery = Sell::where('buyer_id', $user->id)->orderBy('id', 'DESC')->get();
+
+        $listadoCursos = array();
+
+        foreach($buyListQuery as $curso){
+            $progreso = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $curso->content_id)->count();
+
+            $partes = ContentPart::where('content_id', $curso->content_id)->count();
+
+            if($progreso > 0 && $partes > 0 && $progreso == $partes){
+                $cursos = Sell::where('buyer_id', $user->id)->where('content_id', $curso->content_id)->orderBy('id', 'DESC');
+
+                $buyList = $cursos->with(['content' => function ($q) {
+                    $q->with(['metas', 'category', 'user']);
+                }, 'transaction.balance', 'rate' => function ($r) use ($user) {
+                    $r->where('user_id', $user->id)->first();
+                }])->where('type', '<>', 'subscribe')->get();
+
+                array_push($listadoCursos, $buyList);
+            }
+        }
+
+        return view(getTemplate() . '.user.dashboard.finished', ['list' => $listadoCursos]);
     }
 
     public function userBuyPrint($id)
@@ -1106,6 +1188,8 @@ class UserController extends Controller
 
         $newContent['chat_id'] = $chat_id;
         $content_id = Content::insertGetId($newContent);
+
+        $forum_category = ForumCategory::create(['product_id' => $content_id, 'title' => $newContent['title'], 'desc' => 'Un foro para el curso '.$newContent['title'], 'published' => 'false', 'type' => $newContent['private'] == 2 ? 'private' : 'public']);
 
         if($newContent['type'] == 'webinar' || $newContent['type'] == 'coaching'){
             return redirect('/user/content/web_coach/edit/'.$content_id);
@@ -3713,10 +3797,20 @@ class UserController extends Controller
     public function forum_posts(){
         $user = auth()->user();
         $id = $user->id;
-        $category = ForumCategory::all();
-        $postList = Forum::with('comments','user')->orderBy('id','DESC')->get();
-        $categorylist = ForumCategory::withCount('posts')->get();
-        return view('web.default.user.forum.list',array('posts'=>$postList, 'lists'=>$categorylist, 'user_id' =>$id));
+        $category = ForumCategory::where('published', 'true')->where('type', 'public')->withCount('posts')->get();
+
+        $private_categories = ForumCategory::where('published', 'true')->where('type', 'private')->get();
+        $list_private_categories = array();
+
+        foreach($private_categories as $private){
+            $user_purchase = Sell::where('buyer_id', $user->id)->where('content_id', $private->product_id)->get();
+            $content_vendor = Content::where('user_id', $user->id)->where('id', $private->product_id)->get();
+            if(!$user_purchase->isEmpty() || !$content_vendor->isEmpty()){
+                array_push($list_private_categories, array('id' => $private->id, 'title' => $private->title, 'desc' => $private->desc));
+            }
+        }
+
+        return view('web.default.user.forum.list',array('lists'=>$category, 'user_id' =>$id, 'private' => $list_private_categories));
     }
 
     public function forum_postread($id)
@@ -3730,13 +3824,44 @@ class UserController extends Controller
     }
 
     public function forum_postCategory($id){
-        $postList = Forum::with('comments', 'user')->where('category_id', $id)->where('mode', 'publish')->orderBy('id', 'DESC')->get();
-        return view('web.default.user.forum.listbycategory', array('posts' => $postList));
+
+        $user = auth()->user();
+
+        $category = ForumCategory::find($id);
+
+        if($category->type == 'private'){
+            $sell = Sell::where('content_id', $category->product_id)->where('buyer_id', $user->id)->get();
+            $content_vendor = Content::where('user_id', $user->id)->where('id', $category->product_id)->get();
+            if((!$sell->isEmpty() || !$content_vendor->isEmpty()) && $category->published == 'true'){
+                $postList = Forum::with('comments', 'user')->where('category_id', $id)->where('mode', 'publish')->orderBy('id', 'DESC')->get();
+                return view('web.default.user.forum.listbycategory', array('posts' => $postList));
+            }else{
+                return view(getTemplate() . '.view.error.403');
+            }
+        }else{
+            $postList = Forum::with('comments', 'user')->where('category_id', $id)->where('mode', 'publish')->orderBy('id', 'DESC')->get();
+            return view('web.default.user.forum.listbycategory', array('posts' => $postList));
+        }
     }
 
     public function forum_newPost(){
-        $category = ForumCategory::all();
-        return view('web.default.user.forum.new',['category'=>$category]);
+
+        $user = auth()->user();
+
+        $category = ForumCategory::where('published', 'true')->where('type', 'public')->get();
+
+        $private_categories = ForumCategory::where('published', 'true')->where('type', 'private')->get();
+        $list_private_categories = array();
+
+        foreach($private_categories as $private){
+            $user_purchase = Sell::where('buyer_id', $user->id)->where('content_id', $private->product_id)->get();
+            $content_vendor = Content::where('user_id', $user->id)->where('id', $private->product_id)->get();
+            if(!$user_purchase->isEmpty() || !$content_vendor->isEmpty()){
+                array_push($list_private_categories, array('id' => $private->id, 'title' => $private->title, 'desc' => $private->desc));
+            }
+        }
+
+        return view('web.default.user.forum.new',['category'=>$category, 'private' => $list_private_categories]);
     }
     public function forum_postDelete($id)
     {
@@ -3753,7 +3878,7 @@ class UserController extends Controller
                 $data['comment'] = 'enable';
             else
                 $data['comment'] = 'disable';
-            Forum::where('id',$data['id'])->update($data);
+            $post = Forum::where('id',$data['id'])->update($data);
             return back();
         }else{
             $data['create_at'] = time();
@@ -3763,6 +3888,19 @@ class UserController extends Controller
                 $data['comment'] = 'disable';
             $post = Forum::create($data);
             return redirect('/user/forum');
+        }
+
+        $post_category = ForumCategory::find($post->category_id);
+        if($post_category->product_id){
+            $product = Content::find($post_category->product_id);
+            $owner_id = $product->user_id;
+
+            $owner = User::find($owner_id);
+
+            sendMail([
+                'template'=>get_option('user_register_wellcome_email'),
+                'recipent'=>[$owner->email]
+            ]);
         }
     }
     public function forum_editPost($id){

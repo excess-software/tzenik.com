@@ -85,6 +85,12 @@ class WebController extends Controller
             'channels' => $this->getChannels(),
             'user' => $user
         ];
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+        if($user){
+            if($user->category_id == $fundal_category[0]->id){
+                return redirect('/user/video/buy');
+            }
+        }
 
         return view(getTemplate() . '.view.main', $data);
     }
@@ -469,11 +475,11 @@ class WebController extends Controller
 
         $contentQuery = Content::with('metas')->where('mode', 'publish');
 
-        if (!isset($type) or $type == 'content_title') {
+        //if (!isset($type) or $type == 'content_title') {
             $search_type_title = trans('admin.search_title');
             $content = $contentQuery->where('title', 'LIKE', '%' . $q . '%');
-        }
-        if (isset($type) and $type == 'content_code') {
+        //}
+        /*if (isset($type) and $type == 'content_code') {
             $search_type_title = trans('admin.search_id');
             $content = $contentQuery->where('id', $q);
         }
@@ -492,7 +498,7 @@ class WebController extends Controller
 
             $content = $contentQuery->whereIn('id', $content_ids);
         }
-
+        */
         $users = User::where('username', 'LIKE', '%' . $q . '%')
             ->with(['usermetas'])
             ->get();
@@ -535,7 +541,7 @@ class WebController extends Controller
             'search_title' => $search_type_title,
             'searchTypes' => $searchTypes
         ];
-
+        //return $data;
         return view(getTemplate() . '.view.search.search', $data);
     }
 
@@ -1268,13 +1274,17 @@ class WebController extends Controller
                     if($part->limit_date){
                         if(Carbon::now()->format('Y-m-d') > $part->limit_date && $part->status == 'pending'){
                             $part->status = 'late';
-                        }else if(Carbon::now()->format('Y-m-d') < $part->initial_date && $part->status == 'pending'){
+                        }
+                    }elseif($part->initial_date){
+                        if(Carbon::now()->format('Y-m-d') < $part->initial_date && $part->status == 'pending'){
                             $part->status = 'early';
                         }
                     }
                 }
             }
         }
+
+        //return $product->parts;
 
         $meta = arrayToList($product->metas, 'option', 'value');
         $parts = $product->parts->toArray();

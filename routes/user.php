@@ -20,6 +20,15 @@ Route::group(['prefix' => 'user'], function () {
             Route::post('image', 'UserController@userProfileImageChange');
         });
 
+        #################
+        ### Dashboard ###
+        #################
+        Route::group(['prefix' => 'dashboard'], function () {
+            Route::get('all', 'UserController@allCourses');
+            Route::get('inProcess', 'UserController@inProcessCourses');
+            Route::get('finished', 'UserController@finishedCourses');
+        });
+
         ###################
         #### Trip Mode ####
         ###################

@@ -32,6 +32,25 @@
                 </tbody>
             </table>
         </div>
+        @if($private)
+        <div class="card-body">
+            <h1>Private</h1>
+            <table class="table table-borderes table-striped mb-none" id="datatable-details">
+                <thead>
+                    <tr>
+                        <th>{{{ trans('main.forum_category_title') }}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($private as $list)
+                        <tr>
+                            <td><p><a style="text-decoration: none;" href="/user/forum/post/category/{{{ $list['id'] }}}" class="text-primary">{{{ $list['title'] }}}</a></p><p clasS="text-secondary">{{{ $list['desc'] }}}</p></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
     </section>
 
 @endsection

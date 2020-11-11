@@ -238,6 +238,7 @@
                             @endforeach-->
                                 @if($buy)
                                 @foreach($parts as $part)
+                                @if($part['status'] != 'early')
                                 <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
                                     @if($part['status'] == 'finished')
                                     <li class="list-group-item list-content-media">
@@ -247,7 +248,7 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{ $part['title'].' | '}} {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}} - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
                                         </b>
@@ -260,7 +261,7 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{ $part['title'].' | '}} {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}} - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
                                         </b>
@@ -273,12 +274,14 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{ $part['title'].' | '}} {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}} - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
                                         </b><i class="fa fa-clock-o"></i>
                                     </li>
-                                    @elseif($part['status'] == 'early')
+                                    @endif
+                                </a>
+                                @else
                                     <li class="list-group-item list-content-media gray-back-list">
                                         @if($buy or $part['free'] == 1)
                                         <span class="playicon mdi mdi-play-circle"></span>
@@ -286,13 +289,12 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
                                         <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date'])
+                                            {{ $part['title'].' | '}} {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}} - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
                                         </b>
                                     </li>
-                                    @endif
-                                </a>
+                                @endif
                                 <br>
                                 @endforeach
                                 @else

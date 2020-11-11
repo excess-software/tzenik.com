@@ -241,7 +241,7 @@ unset($__errorArgs, $__bag); ?></div>
 </div>
 <?php else: ?>-->
 <div class="container-full">
-<?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <div class="row contenido-cursos-dash">
         <div class="container-fluid">
@@ -250,13 +250,21 @@ unset($__errorArgs, $__bag); ?></div>
                     <div class="col-md-3">
                         <h2><b>Filtros</b></h2>
                         <ul class="list-group">
-                            <li class="list-group-item list-content-media"><b>Todos los cursos</b></li>
+                            <a href="/user/dashboard/all" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media"><b>Todos los cursos</b></li>
+                            </a>
                             <br>
-                            <li class="list-group-item list-content-media"><b>Cursos en proceso</b></li>
+                            <a href="/user/dashboard/inProcess" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media"><b>Cursos en proceso</b></li>
+                            </a>
                             <br>
-                            <li class="list-group-item list-content-media"><b>Cursos terminados</b></li>
+                            <a href="/user/dashboard/finished" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media"><b>Cursos terminados</b></li>
+                            </a>
                             <br>
-                            <li class="list-group-item list-content-media list-active"><b>Calificaciones</b></li>
+                            <a href="/user/user/quizzes" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media list-active"><b>Calificaciones</b></li>
+                            </a>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -279,39 +287,44 @@ unset($__errorArgs, $__bag); ?></div>
                                 <?php $__currentLoopData = $quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td>
-                                        <a href="/product/<?php echo e($quiz->content->id); ?>"><h4><?php echo e($quiz->content->title); ?></h4></a>
+                                        <a href="/product/<?php echo e($quiz->content->id); ?>">
+                                            <h4><?php echo e($quiz->content->title); ?></h4>
+                                        </a>
                                     </td>
                                     <td>
-                                        <h4><?php echo e((!empty($quiz->result) and isset($quiz->result)) ? $quiz->result->user_grade : 'No grade'); ?></h4>
+                                        <h4><?php echo e((!empty($quiz->result) and isset($quiz->result)) ? $quiz->result->user_grade : 'No grade'); ?>
+
+                                        </h4>
                                         <?php if(!empty($quiz->result) and isset($quiz->result)): ?>
-                                            <?php if($quiz->result->status == 'pass'): ?>
-                                            <span class="badge badge-success"><?php echo e(trans('main.passed')); ?></span>
-                                            <?php elseif($quiz->result->status == 'fail'): ?>
-                                            <span class="badge badge-danger"><?php echo e(trans('main.failed')); ?></span>
-                                            <?php else: ?>
-                                            <span class="badge badge-warning"><?php echo e(trans('main.waiting')); ?></span>
-                                            <?php endif; ?>
+                                        <?php if($quiz->result->status == 'pass'): ?>
+                                        <span class="badge badge-success"><?php echo e(trans('main.passed')); ?></span>
+                                        <?php elseif($quiz->result->status == 'fail'): ?>
+                                        <span class="badge badge-danger"><?php echo e(trans('main.failed')); ?></span>
+                                        <?php else: ?>
+                                        <span class="badge badge-warning"><?php echo e(trans('main.waiting')); ?></span>
+                                        <?php endif; ?>
                                         <?php else: ?>
                                         <span class="badge badge-warning"><?php echo e(trans('main.no_term')); ?></span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php if(!empty($quiz->result) and isset($quiz->result)): ?>
-                                            <?php if($quiz->result->status == 'pass'): ?>
-                                                <a class="btn btn-ultimos-blogs btn-block" href="certificates/<?php echo e($quiz->result->id); ?>/download">
-                                                    <button class="btn btn-ultimos-blogs btn-block">
-                                                        <h4><b>Certificado</b></h4>
-                                                    </button>
-                                                </a>
-                                            <?php else: ?>
-                                                <button class="btn btn-ultimos-blogs btn-block" disabled>
-                                                    <h4><b>Certificado</b></h4>
-                                                </button>
-                                            <?php endif; ?>
-                                        <?php else: ?>
-                                            <button class="btn btn-ultimos-blogs btn-block" disabled>
+                                        <?php if($quiz->result->status == 'pass'): ?>
+                                        <a class="btn btn-ultimos-blogs btn-block"
+                                            href="certificates/<?php echo e($quiz->result->id); ?>/download">
+                                            <button class="btn btn-ultimos-blogs btn-block">
                                                 <h4><b>Certificado</b></h4>
                                             </button>
+                                        </a>
+                                        <?php else: ?>
+                                        <button class="btn btn-ultimos-blogs btn-block" disabled>
+                                            <h4><b>Certificado</b></h4>
+                                        </button>
+                                        <?php endif; ?>
+                                        <?php else: ?>
+                                        <button class="btn btn-ultimos-blogs btn-block" disabled>
+                                            <h4><b>Certificado</b></h4>
+                                        </button>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

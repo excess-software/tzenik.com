@@ -252,12 +252,13 @@
                         @endif
                     </ul>
 
-                    <form class="navbar-form">
+                    <form class="navbar-form" action="/search" method="post">
+                        {{ csrf_field() }}
                         <div class="form-group" style="display:inline;">
                             <div class="input-group" style="display:table;">
                                 <span class="input-group-addon" style="width:1%;"><span
                                         class="glyphicon glyphicon-search"></span> Buscar </span>
-                                <input class="form-control" name="search" placeholder="Buscar..." autocomplete="off"
+                                <input class="form-control col-md-11" name="q" placeholder="Buscar..." autocomplete="off"
                                     autofocus="autofocus" type="text">
                             </div>
                         </div>

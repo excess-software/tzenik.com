@@ -1442,13 +1442,19 @@ class AdminController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make('fundal2020'),
+            'password' => Hash::make(str_random(8)),
             'created_at' => time(),
             'admin' => false,
             'mode' => $request->mode,
             'category_id' => $request->category_id,
             'token' => Str::random(15)
         ]);
+
+        sendMail([
+            'template'=>get_option('user_register_wellcome_email'),
+            'recipent'=>[$request->email]
+        ]);
+
         return back()->with('msg', trans('Creado exitosamente.'));
     }
     
@@ -1811,14 +1817,15 @@ class AdminController extends Controller
             $content = Content::with('user')->find($id);
 
             ## Notification Center
-            if ($request->mode == 'publish')
+            if ($request->mode == 'publish'){
                 Chat_Chats::where('id', $content->chat_id)->update(['published' => 'true']);
+                ForumCategory::where('product_id', $content->id)->update(['published' => 'true']);
                 sendNotification(0, ['[u.name]' => $content->user->name, '[c.title]' => $content->title], get_option('notification_template_content_publish'), 'user', $content->user->id);
-
-            if ($request->mode == 'waiting')
+            } else {
                 Chat_Chats::where('id', $content->chat_id)->update(['published' => 'false']);
+                ForumCategory::where('product_id', $content->id)->update(['published' => 'false']);
                 sendNotification(0, ['[u.name]' => $content->user->name, '[c.title]' => $content->title], get_option('notification_template_content_change'), 'user', $content->user->id);
-
+            }
 
             $content->update($request->except('files'));
             return Redirect::to(URL::previous() . '#main');

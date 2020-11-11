@@ -33,6 +33,25 @@
                 </tbody>
             </table>
         </div>
+        <?php if($private): ?>
+        <div class="card-body">
+            <h1>Private</h1>
+            <table class="table table-borderes table-striped mb-none" id="datatable-details">
+                <thead>
+                    <tr>
+                        <th><?php echo e(trans('main.forum_category_title')); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $__currentLoopData = $private; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $list): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><p><a style="text-decoration: none;" href="/user/forum/post/category/<?php echo e($list['id']); ?>" class="text-primary"><?php echo e($list['title']); ?></a></p><p clasS="text-secondary"><?php echo e($list['desc']); ?></p></td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
+        </div>
+        <?php endif; ?>
     </section>
 
 <?php $__env->stopSection(); ?>

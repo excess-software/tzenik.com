@@ -130,9 +130,18 @@ class LoginController extends Controller
             return redirect('/admin');
         } else {
             if ($request->session()->has('redirect')) {
-                return redirect($request->session()->has('redirect'));
+                if($user->first_login == 'false'){
+                    return redirect('/user/profile')->with('msg', 'Cambie su contraseña para continuar.');
+                }else{
+                    return redirect($request->session()->has('redirect'));
+                }
             } else {
-                return redirect('/user/dashboard');
+                if($user->first_login == 'false'){
+                    return redirect('/user/profile')->with('msg', 'Cambie su contraseña para continuar.');
+                }else{
+                    return redirect('/user/dashboard');
+                }
+                
             }
         }
     }

@@ -28,10 +28,16 @@
                     <label class="col-md-2 control-label" for="inputDefault" style="float: left;"><?php echo e(trans('admin.category')); ?></label>
                     <div class="col-md-10">
                         <select id="category_id" name="category_id" class="form-control">
-                            <option value=""></option>
+                            <option>-- Seleccione --</option>
                             <?php $__currentLoopData = $category; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->title); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($private): ?>
+                                <option disabled><b> -- Categor&iacute;as privadas --</b></option>
+                                <?php $__currentLoopData = $private; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($cat['id']); ?>"><?php echo e($cat['title']); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
                         </select>
                     </div>
                 </div>

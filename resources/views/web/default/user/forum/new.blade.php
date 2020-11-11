@@ -27,10 +27,16 @@
                     <label class="col-md-2 control-label" for="inputDefault" style="float: left;">{{{ trans('admin.category') }}}</label>
                     <div class="col-md-10">
                         <select id="category_id" name="category_id" class="form-control">
-                            <option value=""></option>
+                            <option>-- Seleccione --</option>
                             @foreach($category as $cat)
                                 <option value="{{{ $cat->id }}}">{{{ $cat->title }}}</option>
                             @endforeach
+                            @if($private)
+                                <option disabled><b> -- Categor&iacute;as privadas --</b></option>
+                                @foreach($private as $cat)
+                                <option value="{{{ $cat['id'] }}}">{{{ $cat['title'] }}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>

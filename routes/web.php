@@ -19,7 +19,7 @@ Route::group(['middleware' => 'notification'], function () {
     Route::get('category/{id}', 'WebController@category');
     Route::get('category', 'WebController@category');
 
-    Route::get('search', 'WebController@search');
+    Route::post('search', 'WebController@search');
     Route::get('jsonsearch', 'WebController@jsonSearch');
 
     ## Blog Section ##

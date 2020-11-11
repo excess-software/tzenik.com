@@ -367,7 +367,7 @@ class ApiController extends Controller
             $related[] = [
                 'id'        => $rc->id,
                 'title'     => $rc->title,
-                'thumbnail' => $meta['thumbnail'],
+                'thumbnail' => $meta['thumbnail'] ? $meta['thumbnail'] : '',
                 'price'     => isset($meta['price'])?$meta['price']:0,
                 'currency'  => currencySign(),
                 'duration'  => isset($meta['duration'])?convertToHoursMins($meta['duration']):0

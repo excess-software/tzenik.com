@@ -130,7 +130,7 @@
                                     </button>
                                 </a>
                                 <?php else: ?>
-                                <a href="/product/part/material/<?php echo e($product->id); ?>/1">
+                                <a href="/product/part/material/<?php echo e($product->id); ?>/materiales.zip">
                                     <button class="btn btn-media-descargar-leccion">
                                         <h4>Descargar Materiales de Lecci&oacute;n</h4>
                                     </button>
@@ -244,6 +244,7 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>-->
                                 <?php if($buy): ?>
                                 <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($part['status'] != 'early'): ?>
                                 <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
                                     <?php if($part['status'] == 'finished'): ?>
                                     <li class="list-group-item list-content-media">
@@ -253,7 +254,7 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
                                             <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
@@ -266,7 +267,7 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
                                             <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
@@ -279,13 +280,27 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
                                             <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b><i class="fa fa-clock-o"></i>
                                     </li>
                                     <?php endif; ?>
                                 </a>
+                                <?php else: ?>
+                                    <li class="list-group-item list-content-media gray-back-list">
+                                        <?php if($buy or $part['free'] == 1): ?>
+                                        <span class="playicon mdi mdi-play-circle"></span>
+                                        <?php else: ?>
+                                        <span class="playicon mdi mdi-lock"></span>
+                                        <?php endif; ?>
+                                        <b>
+                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
+                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                        </b>
+                                    </li>
+                                <?php endif; ?>
                                 <br>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>

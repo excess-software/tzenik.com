@@ -1,4 +1,3 @@
-
 @extends(getTemplate().'.view.layout.layout')
 
 @section('title')
@@ -198,7 +197,7 @@
 </div>
 @else-->
 <div class="container-full">
-@include(getTemplate() . '.user.parts.navigation')
+    @include(getTemplate() . '.user.parts.navigation')
 
     <div class="row contenido-cursos-dash">
         <div class="container-fluid">
@@ -207,13 +206,21 @@
                     <div class="col-md-3">
                         <h2><b>Filtros</b></h2>
                         <ul class="list-group">
-                            <li class="list-group-item list-content-media"><b>Todos los cursos</b></li>
+                            <a href="/user/dashboard/all" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media"><b>Todos los cursos</b></li>
+                            </a>
                             <br>
-                            <li class="list-group-item list-content-media"><b>Cursos en proceso</b></li>
+                            <a href="/user/dashboard/inProcess" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media"><b>Cursos en proceso</b></li>
+                            </a>
                             <br>
-                            <li class="list-group-item list-content-media"><b>Cursos terminados</b></li>
+                            <a href="/user/dashboard/finished" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media"><b>Cursos terminados</b></li>
+                            </a>
                             <br>
-                            <li class="list-group-item list-content-media list-active"><b>Calificaciones</b></li>
+                            <a href="/user/user/quizzes" style="text-decoration: none;">
+                                <li class="list-group-item list-content-media list-active"><b>Calificaciones</b></li>
+                            </a>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -236,39 +243,43 @@
                                 @foreach ($quizzes as $quiz)
                                 <tr>
                                     <td>
-                                        <a href="/product/{{$quiz->content->id}}"><h4>{{ $quiz->content->title }}</h4></a>
+                                        <a href="/product/{{$quiz->content->id}}">
+                                            <h4>{{ $quiz->content->title }}</h4>
+                                        </a>
                                     </td>
                                     <td>
-                                        <h4>{{ (!empty($quiz->result) and isset($quiz->result)) ? $quiz->result->user_grade : 'No grade' }}</h4>
+                                        <h4>{{ (!empty($quiz->result) and isset($quiz->result)) ? $quiz->result->user_grade : 'No grade' }}
+                                        </h4>
                                         @if (!empty($quiz->result) and isset($quiz->result))
-                                            @if ($quiz->result->status == 'pass')
-                                            <span class="badge badge-success">{{ trans('main.passed') }}</span>
-                                            @elseif ($quiz->result->status == 'fail')
-                                            <span class="badge badge-danger">{{ trans('main.failed') }}</span>
-                                            @else
-                                            <span class="badge badge-warning">{{ trans('main.waiting') }}</span>
-                                            @endif
+                                        @if ($quiz->result->status == 'pass')
+                                        <span class="badge badge-success">{{ trans('main.passed') }}</span>
+                                        @elseif ($quiz->result->status == 'fail')
+                                        <span class="badge badge-danger">{{ trans('main.failed') }}</span>
+                                        @else
+                                        <span class="badge badge-warning">{{ trans('main.waiting') }}</span>
+                                        @endif
                                         @else
                                         <span class="badge badge-warning">{{ trans('main.no_term') }}</span>
                                         @endif
                                     </td>
                                     <td>
                                         @if(!empty($quiz->result) and isset($quiz->result))
-                                            @if($quiz->result->status == 'pass')
-                                                <a class="btn btn-ultimos-blogs btn-block" href="certificates/{{$quiz->result->id}}/download">
-                                                    <button class="btn btn-ultimos-blogs btn-block">
-                                                        <h4><b>Certificado</b></h4>
-                                                    </button>
-                                                </a>
-                                            @else
-                                                <button class="btn btn-ultimos-blogs btn-block" disabled>
-                                                    <h4><b>Certificado</b></h4>
-                                                </button>
-                                            @endif
-                                        @else
-                                            <button class="btn btn-ultimos-blogs btn-block" disabled>
+                                        @if($quiz->result->status == 'pass')
+                                        <a class="btn btn-ultimos-blogs btn-block"
+                                            href="certificates/{{$quiz->result->id}}/download">
+                                            <button class="btn btn-ultimos-blogs btn-block">
                                                 <h4><b>Certificado</b></h4>
                                             </button>
+                                        </a>
+                                        @else
+                                        <button class="btn btn-ultimos-blogs btn-block" disabled>
+                                            <h4><b>Certificado</b></h4>
+                                        </button>
+                                        @endif
+                                        @else
+                                        <button class="btn btn-ultimos-blogs btn-block" disabled>
+                                            <h4><b>Certificado</b></h4>
+                                        </button>
                                         @endif
                                     </td>
                                 </tr>
