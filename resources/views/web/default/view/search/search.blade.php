@@ -3,6 +3,14 @@
 {{ get_option('site_title','') }} Search - {{ !empty(request()->get('q')) ? request()->get('q') : '' }}
 @endsection
 @section('content')
+<style>
+    .bottom-column {
+        float: none;
+        display: table-cell;
+        vertical-align: bottom;
+    }
+
+</style>
 <div class="container">
     <div class="row cat-search-section">
         <div class="container">
@@ -49,6 +57,11 @@
                                             </span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row curso-destacado-contenido .bottom-column">
+                                    <h4><span class="label label-tag-media-categoria"> <span
+                                                class="circle-tag-media-categoria"></span>
+                                            {{ $content->category->title ? $content->category->title : '' }}</span></h4>
                                 </div>
                             </div>
                             <div class="col-md-6">

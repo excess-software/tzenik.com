@@ -1811,6 +1811,11 @@ class ApiController extends Controller
         }
         $results = QuizResult::where('student_id', $user['id'])->with('quiz')->get();
 
+        foreach($results as $result){
+            $content = Content::find($result->quiz->content_id);
+            $result->quiz->content_name = $content->title;
+        }
+
         return $this->response($results);
     }
     public function quizResult(Request $request){

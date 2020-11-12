@@ -473,7 +473,7 @@ class WebController extends Controller
         $q = $request->get('q', null);
         $type = $request->get('type', null);
 
-        $contentQuery = Content::with('metas')->where('mode', 'publish');
+        $contentQuery = Content::with(['metas', 'category'])->where('mode', 'publish');
 
         if (!isset($type) or $type == 'content_title') {
             $search_type_title = trans('admin.search_title');
