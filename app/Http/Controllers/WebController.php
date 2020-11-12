@@ -880,6 +880,7 @@ class WebController extends Controller
 
         if($user){
             if($buy){
+
                 foreach($product->parts as $part){
                     $progreso_alumno = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $id)->where('part_id', $part->id)->get();
                     if($progreso_alumno->isEmpty()){
@@ -892,10 +893,15 @@ class WebController extends Controller
                         if(Carbon::now()->format('Y-m-d') > $part->limit_date && $part->status == 'pending'){
                             $part->status = 'late';
                         }
+                    }elseif($part->initial_date){
+                        if(Carbon::now()->format('Y-m-d') < $part->initial_date && $part->status == 'pending'){
+                            $part->status = 'early';
+                        }
                     }
                 }
             }
         }
+
         $inscrito = CalendarEvents::where('user_id', $user->id)->where('product_id', $id)->get();
 
         $parts = $product->parts->toArray();

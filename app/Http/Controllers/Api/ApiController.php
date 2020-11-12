@@ -50,7 +50,8 @@ use App\Models\CalendarEvents;
 use App\Models\Quiz;
 use App\Models\QuizResult;
 use App\Models\Usercategories;
-
+use App\Models\ProgresoAlumno;
+use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -419,7 +420,43 @@ class ApiController extends Controller
 
         ## Parts
         $parts = [];
+
         foreach ($content->parts as $part){
+
+            $progreso_alumno = ProgresoAlumno::where('user_id', $User['id'])->where('content_id', $id)->where('part_id', $part->id)->get();
+
+            $partStatus = '';
+
+            if($progreso_alumno->isEmpty()){
+
+                $primeraParte = ContentPart::where('content_id', $id)->orderBy('id', 'asc')->first();
+
+                if($part->id == $primeraParte->id){
+                    $partStatus = 'actual';
+                }else{
+                    $partStatus = 'pending';
+                }
+            }else{
+
+                $progreso_alumno = ProgresoAlumno::where('user_id', $User['id'])->where('content_id', $id)->orderBy('part_id', 'desc')->first();
+
+                if($part->id == $progreso_alumno->part_id){
+                    $partStatus = 'actual';
+                }else{
+                    $partStatus = 'finished';
+                }
+            }
+
+            if($part->limit_date){
+                if(Carbon::now()->format('Y-m-d') > $part->limit_date && $partStatus == 'pending'){
+                    $partStatus = 'late';
+                }
+            }elseif($part->initial_date){
+                if(Carbon::now()->format('Y-m-d') < $part->initial_date && $partStatus == 'pending'){
+                    $partStatus = 'early';
+                }
+            }
+
             $parts[] = [
                 'id'        => $part->id,
                 'title'     => $part->title,
@@ -427,8 +464,7 @@ class ApiController extends Controller
                 'initial_date' => $part->initial_date,
                 'limit_date' => $part->limit_date,
                 'part_material' => url('/').'/bin/contenido-cursos/'.$id.'/'.$part->id.'/materiales.zip',
-                'duration'  => convertToHoursMins($part->duration),
-                'free'      => $part->free,
+                'status' => $partStatus
             ];
         }
 
@@ -447,30 +483,14 @@ class ApiController extends Controller
 
         $data    = [
             'id'            => $content->id,
-            'user'          => $user,
-            'comments'      => $comments,
             'content'       => $content->content,
             'title'         => $content->title,
             'material'      => url('/').'/bin/contenido-cursos/'.$id.'/materiales.zip',
             'category'      => ['id'=>$content->category->id,'title'=>$content->category->title],
-            'sample'        => isset($meta['video'])?$meta['video']:'',
-            'duration'      => isset($meta['duration'])?convertToHoursMins($meta['duration']):0,
-            'document'      => isset($meta['document'])?$meta['document']:'',
-            'price'         => isset($meta['price'])?$meta['price']:0,
-            'post_price'    => isset($meta['post_price'])?$meta['post_price']:0,
             'cover'         => isset($meta['cover'])?checkUrl($meta['cover']):'',
             'thumbnail'     => isset($meta['thumbnail'])?checkUrl($meta['thumbnail']):'',
-            'currency'      => currencySign(),
-            'support'       => $content->support,
-            'supports'      => $support,
-            'free'          => $content->price == 1?0:1,
-            'size'          => isset($MB)?$MB:0,
             'date'          => date('Y-m-d', $content->created_at),
-            'parts'         => $parts,
-            'prerequisites' => $preRequisites,
-            'related'       => $related,
-            'buy'           => $buy,
-            'rates'         => is_numeric($content->rates->avg('rate'))?$content->rates->avg('rate'):0
+            'parts'         => $parts
         ];
 
         return $this->response(['product'=>$data]);
