@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Admin Panel - @yield('title', '')</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="/assets/admin/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/admin/modules/fontawesome/css/all.min.css">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="/assets/admin/modules/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="/assets/admin/modules/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/admin/modules/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="/assets/admin/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <link rel="stylesheet" href="/assets/admin/css/components.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/admin/css/admin-custom.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+    <style>
+        .custom-switch-input:checked ~ .custom-switch-description {
+            position: relative;
+            top: 4px;
+        }
+        .modal-backdrop {
+            /* bug fix - no overlay */    
+            display: none;    
+        }
+    </style>
+    <!-- Start GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-94034622-3');
+    </script>
+    <!-- /END GA --></head>
+
+<body>
+
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <form class="form-inline mr-auto">
+                {{ csrf_field() }}
+                <ul class="navbar-nav mr-3">
+                    <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                    <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+                </ul>
+            </form>
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                        <img alt="image" src="/assets/admin/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                        <div class="d-sm-none d-lg-inline-block">Hi, {!! $Admin['username'] ?? '' !!}</div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/admin/profile" class="dropdown-item has-icon">
+                            <i class="fas fa-user"></i> {!! trans('admin.profile') !!}
+                        </a>
+                        <a href="/admin/setting/main" class="dropdown-item has-icon">
+                            <i class="fas fa-cog"></i> {!! trans('admin.settings') !!}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/admin/logout" class="dropdown-item has-icon text-danger">
+                            <i class="fas fa-sign-out-alt"></i> {!! trans('admin.exit') !!}
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="main-sidebar sidebar-style-2">
+            <aside id="sidebar-wrapper">
+                <div class="sidebar-brand">
+                    <a href="/admin">Admin Panel</a>
+                </div>
+                <div class="sidebar-brand sidebar-brand-sm">
+                    <a href="/admin">AP</a>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="menu-header">Content</li>
+                    @if(checkAccess('content'))
+                        <li class="dropdown" id="content">
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i> <span>{{  trans('admin.courses') }}</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/admin/content/list">{{  trans('admin.list') }}</a></li>
+                                <li><a class="nav-link" href="/admin/content/private">Contenido privado</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/asignar">Asignar contenido privado</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/desasignar">Desasignar contenido privado</a></li>
+                                <li><a class="nav-link @if(isset($alert['content_waiting']) and $alert['content_waiting'] > 0) beep beep-sidebar @endif" href="/admin/content/waiting">{{  trans('admin.pending_courses') }}</a></li>
+                                <li><a class="nav-link @if(isset($alert['content_draft']) and $alert['content_draft'] > 0) beep beep-sidebar @endif" href="/admin/content/draft">{{  trans('admin.unpublished_courses') }}</a></li>
+                                <li><a class="nav-link" href="/admin/content/comment">{{  trans('admin.corse_comments') }}</a></li>
+                                <li><a class="nav-link" href="/admin/content/support">{{  trans('admin.support_tickets') }}</a></li>
+                                <li><a class="nav-link" href="/admin/content/category">{{  trans('admin.categories') }}</a></li>
+                            </ul>
+                        </li>@endif
+
+                        <li class="dropdown" id="forum">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span>Forum</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="/admin/forum/posts">Posts</a></li>
+                            <li><a class="nav-link" href="/admin/forum/category">Categories</a></li>
+                            <li><a class="nav-link" href="/admin/forum/comments">Comments</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-header">Financial</li>
+                    @if(checkAccess('buysell'))
+                        <li id="buysell">
+                            <a href="/admin/buysell/list" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>{{  trans('admin.sales') }}</span></a>
+                        </li>@endif
+                    @if(checkAccess('balance'))
+                        <li class="dropdown" id="balance">
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-pie"></i> <span>{{  trans('admin.financial') }}</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/admin/balance/list">{{  trans('admin.financial_documents') }}</a></li>
+                                <li><a class="nav-link @if(isset($alert['withdraw']) and $alert['withdraw'] > 0) beep beep-sidebar @endif" href="/admin/balance/withdraw">{{  trans('admin.withdrawal_list') }}</a></li>
+                                <li><a class="nav-link" href="/admin/balance/new">{{  trans('admin.new_balance') }}</a></li>
+                                <li><a class="nav-link" href="/admin/balance/analyzer">{{  trans('admin.financial_analyser') }}</a></li>
+                                <li><a class="nav-link" href="/admin/balance/transaction">{{  trans('admin.transactions_report') }}</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                </ul>
+            </aside>
+        </div>
+        <div class="main-content">
+            <div class="section">
+                <div class="section-header">
+                    <h1>@yield('title', '')</h1>
+                    @if(isset($breadcom) and count($breadcom))
+                        <div class="section-header-breadcrumb">
+                            @foreach($breadcom as $bread)
+                                <div class="breadcrumb-item">{!! $bread !!}</div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="section-body">
+                    @yield('page')
+                </div>
+            </div>
+        </div>
+        @include('admin.newlayout.modals')
+        @yield('modals')
+    </div>
+</div>
+<!-- General JS Scripts -->
+<script src="/assets/admin/modules/jquery.min.js"></script>
+<script src="/assets/admin/modules/popper.js"></script>
+<script src="/assets/admin/modules/tooltip.js"></script>
+<script src="/assets/admin/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/admin/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/admin/modules/moment.min.js"></script>
+<script src="/assets/admin/js/stisla.js"></script>
+<script src="/assets/admin/modules/cleave-js/dist/cleave.min.js"></script>
+<script src="/assets/admin/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
+<script src="/assets/admin/modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+<script src="/assets/admin/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/assets/admin/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="/assets/admin/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="/assets/admin/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<script src="/assets/admin/modules/select2/dist/js/select2.full.min.js"></script>
+<script src="/assets/admin/modules/jquery-selectric/jquery.selectric.min.js"></script>
+<script src="/assets/admin/modules/jquery.sparkline.min.js"></script>
+<script src="/assets/admin/modules/chart.min.js"></script>
+<script src="/assets/admin/modules/jqvmap/dist/jquery.vmap.min.js"></script>
+<script src="/assets/admin/modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/assets/admin/modules/jqvmap/dist/maps/jquery.vmap.indonesia.js"></script>
+<script src="/assets/admin/modules/datatables/datatables.min.js"></script>
+<script src="/assets/admin/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/admin/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+<script src="/assets/admin/modules/jquery-ui/jquery-ui.min.js"></script>
+<script src="/assets/admin/modules/summernote/summernote.min.js"></script>
+<script src="/assets/admin/modules/jquery-selectric/jquery.selectric.min.js"></script>
+<script src="/assets/admin/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+<script src="/assets/admin/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<script src="/assets/admin/modules/select2/dist/js/select2.full.min.js"></script>
+<script src="/assets/admin/modules/jquery-selectric/jquery.selectric.min.js"></script>
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+
+<script src="/assets/admin/js/scripts.js"></script>
+<script src="/assets/admin/js/custom.js"></script>
+<script>
+    $('.lfm_image').filemanager('file',{prefix: '/admin/laravel-filemanager'});
+    @if(isset($menu))
+    $(function () {
+        $('#{!! $menu !!}').addClass('active');
+    });
+    @endif
+    @if(isset($url))
+    $(function () {
+        $('.nav-link').each(function () {
+            if ('{!! url('/') !!}' + $(this).attr('href') == '{!! $url !!}') {
+                $(this).parent().addClass('active');
+            }
+        })
+    });
+    @endif
+</script>
+@yield('script')
+</body>
+</html>

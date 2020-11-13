@@ -460,6 +460,7 @@ class ApiController extends Controller
             $parts[] = [
                 'id'        => $part->id,
                 'title'     => $part->title,
+                'video' => $part->upload_video,
                 'description' => $part->description, 
                 'initial_date' => $part->initial_date,
                 'limit_date' => $part->limit_date,
