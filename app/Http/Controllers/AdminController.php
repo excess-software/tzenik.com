@@ -1186,7 +1186,7 @@ class AdminController extends Controller
             }
         }
 
-        $lists = $lists->paginate(10);
+        $lists = $lists->get();
 
         $usuarios_cursos = array();
 
