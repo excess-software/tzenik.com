@@ -1438,11 +1438,12 @@ class AdminController extends Controller
     }
 
     public function guardarUsuario(Request $request){
+        $password = Str::random(8);
         User::create([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make(str_random(8)),
+            'password' => Hash::make($password),
             'created_at' => time(),
             'admin' => false,
             'mode' => $request->mode,
@@ -1452,7 +1453,8 @@ class AdminController extends Controller
 
         sendMail([
             'template'=>get_option('user_register_wellcome_email'),
-            'recipent'=>[$request->email]
+            'recipent'=>[$request->email],
+            'subject'=> 'Password: '.$password
         ]);
 
         return back()->with('msg', trans('Creado exitosamente.'));
