@@ -335,7 +335,44 @@ class ApiController extends Controller
     public function product($id,Request $request){
         $data = [];
         $User   = $this->checkUserToken($request);
-        $content = Content::with(['metas','category','parts','rates','user.usermetas','comments.user'])->find($id);
+        $content = Content::with(['metas','category','parts','rates','user.usermetas','comments.user'])->with(['quizzes' => function ($q) {
+            $q->where('status', 'active');
+        }])->find($id);
+        
+        $hasCertificate = false;
+        $canDownloadCertificate = false;
+
+        if ($User) {
+            $quizzes = $content->quizzes;
+            foreach ($quizzes as $quiz) {
+                $canTryAgainQuiz = false;
+                $userQuizDone = QuizResult::where('quiz_id', $quiz->id)
+                    ->where('student_id', $User['id'])
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                if (count($userQuizDone)) {
+                    $quiz->user_grade = $userQuizDone->first()->user_grade;
+                    $quiz->result_status = $userQuizDone->first()->status;
+                    $quiz->result = $userQuizDone->first();
+                    $quiz->student_id = $userQuizDone->first()->student_id;
+                    if ($quiz->result_status == 'pass') {
+                        $canDownloadCertificate = true;
+                    }
+                }
+
+                if (!isset($quiz->attempt) or (count($userQuizDone) < $quiz->attempt and $quiz->result_status !== 'pass')) {
+                    $canTryAgainQuiz = true;
+                }
+
+                $quiz->can_try = $canTryAgainQuiz;
+
+                if ($quiz->certificate) {
+                    $hasCertificate = true;
+                }
+            }
+        }
+
         $meta    = arrayToList($content->metas, 'option','value');
 
         $MB = 0;
@@ -493,7 +530,8 @@ class ApiController extends Controller
             'cover'         => isset($meta['cover'])?checkUrl($meta['cover']):'',
             'thumbnail'     => isset($meta['thumbnail'])?checkUrl($meta['thumbnail']):'',
             'date'          => date('Y-m-d', $content->created_at),
-            'parts'         => $parts
+            'parts'         => $parts,
+            'quizzes'       => $content->quizzes
         ];
 
         return $this->response(['product'=>$data]);
