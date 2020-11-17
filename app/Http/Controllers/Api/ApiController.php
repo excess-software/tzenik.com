@@ -52,6 +52,8 @@ use App\Models\QuizResult;
 use App\Models\Usercategories;
 use App\Models\ProgresoAlumno;
 use Carbon\Carbon;
+use App\Models\QuizzesQuestion;
+use App\Models\QuizzesQuestionsAnswer;
 
 class ApiController extends Controller
 {
@@ -1968,7 +1970,7 @@ class ApiController extends Controller
 
                 $data = [
                     'quiz' => $quiz,
-                    //'newQuizStart' => $newQuizStart
+                    'newQuizStart' => $newQuizStart
                 ];
 
                 //return view(getTemplate() . '.user.quizzes.start', $data);

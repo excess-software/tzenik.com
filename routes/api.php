@@ -69,6 +69,7 @@ Route::group(['prefix'=>'v1'], function (){
             Route::any('results','Api\ApiController@quizzesResults');
             Route::any('result', 'Api\ApiController@quizResult');
             Route::any('do', 'Api\ApiController@quizzDo');
+            Route::any('store', 'Api\ApiController@QuizzesStoreResult');
         });
 
         ## Support
