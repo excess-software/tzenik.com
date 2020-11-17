@@ -1797,12 +1797,33 @@ class ApiController extends Controller
 
     /** Funciones añadidas para Tzenik */
 
+    public function updateUserProgress(Request $request){
+        $user = $this->checkUserToken($request);
+        $content_id = $request->product;
+        $part_id = $request->part;
+        if(!$user){
+            return $this->error(-1, trans('main.user_not_found'));
+        }
+
+        if(!isset($content_id) || !isset($part_id)){
+            return $this->error(-1, trans('Ingrese los datos correctamente'));
+        }else{
+            $progreso_parte = ProgresoAlumno::where('user_id', $user['id'])->where('content_id', $content_id)->where('part_id', $part_id)->get();
+            if($progreso_parte->isEmpty()){
+                $registrar_progreso = ProgresoAlumno::create(['user_id' => $user['id'], 'content_id' => $content_id, 'part_id' => $part_id, 'date' => Carbon::now()->format('Y-m-d'), 'time' => Carbon::now()->format('H:i')]);
+                return $this->response(['estatus' => 'Progreso actualizado correctamente.']);
+            }else{
+                return $this->error(-1, trans('Este registro ya existe.'));
+            }
+        }
+    }
+
     public function userCalendar(Request $request){
-        //$user = $this->checkUserToken($request);
-        //if(!$user){
-        //    return $this->error(-1, trans('main.user_not_found'));
-        //}
-        $events = CalendarEvents::where('user_id', '100004')->get();
+        $user = $this->checkUserToken($request);
+        if(!$user){
+            return $this->error(-1, trans('main.user_not_found'));
+        }
+        $events = CalendarEvents::where('user_id', $user['id'])->get();
         foreach($events as $event){
             $product = Content::find($event->product_id);
             $event->product_name = $product->title;
@@ -1914,7 +1935,7 @@ class ApiController extends Controller
     }
     public function quizzDo(Request $request)
     {
-        //$user = $this->checkUserToken($request);
+        $user = $this->checkUserToken($request);
         $quiz_id = $request->quiz_id;
 
         $quiz = Quiz::where('id', $quiz_id)
@@ -1926,7 +1947,7 @@ class ApiController extends Controller
         if ($quiz) {
             $attempt_count = $quiz->attempt;
             $userQuizDone = QuizResult::where('quiz_id', $quiz->id)
-                ->where('student_id', '130')
+                ->where('student_id', $user['id'])
                 ->get();
             $status_pass = false;
             foreach ($userQuizDone as $result) {
@@ -1938,7 +1959,7 @@ class ApiController extends Controller
             if (!isset($quiz->attempt) or (count($userQuizDone) < $attempt_count and !$status_pass)) {
                 $newQuizStart = QuizResult::create([
                     'quiz_id' => $quiz->id,
-                    'student_id' => '130',
+                    'student_id' => $user['id'],
                     'results' => '',
                     'user_grade' => '',
                     'status' => 'waiting',

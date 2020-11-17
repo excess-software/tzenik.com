@@ -54,7 +54,7 @@ use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
 use Illuminate\Support\Facades\Http;
 use App\Models\ProgresoAlumno;
-
+use App\Models\Usercategories;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -4055,6 +4055,254 @@ class UserController extends Controller
     public function chat_deleteUser($user_id, $chat_id){
         Chat_UsersInChat::where('chat_id', $chat_id)->where('user_id', $user_id)->delete();
         return true;
+    }
+
+    ##################
+    ##### Vendor #####
+    ##################
+
+    public function vendor(){
+        return view('web.default.user.vendor.content.main');
+    }
+
+    public function vendorcontentLists(Request $request){
+        $user = auth()->user();
+
+        $fdate = strtotime($request->get('fdate', null)) + 12600;
+        $ldate = strtotime($request->get('ldate', null)) + 12600;
+
+        $users = User::all();
+        $category = ContentCategory::get();
+        $lists = Content::with(['category', 'user', 'metas' => function ($qm) {
+            $qm->get()->pluck('option', 'value');
+        }, 'transactions' => function ($q) {
+            $q->where('mode', 'deliver');
+        }])->withCount('sells', 'partsactive')->where(function ($w) {
+            $w->where('mode', 'publish');
+        })->where('user_id', $user->id);
+
+
+        if ($fdate > 12601)
+            $lists->where('created_at', '>', $fdate);
+        if ($ldate > 12601)
+            $lists->where('created_at', '<', $ldate);
+        if ($request->get('user', null) !== null)
+            $lists->where('user_id', $request->get('user', null));
+        if ($request->get('cat', null) !== null)
+            $lists->where('category_id', $request->get('cat', null));
+        if ($request->get('id', null) !== null)
+            $lists->where('id', $request->get('id', null));
+        if ($request->get('title', null) !== null)
+            $lists->where('title', 'like', '%' . $request->get('title', null) . '%');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $lists->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $lists->orderBy('sells_count', 'DESC');
+                    break;
+                case 'viewa':
+                    $lists->orderBy('view');
+                    break;
+                case 'viewd':
+                    $lists->orderBy('view', 'DESC');
+                    break;
+                case 'datea':
+                    $lists->orderBy('id');
+                    break;
+
+            }
+        } else
+            $lists->orderBy('id', 'DESC');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'priced':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'pricea':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'suma':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+                case 'sumd':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+            }
+        }
+
+        $lists = $lists->paginate(10);
+
+        $data = [
+            'lists' => $lists,
+            'users' => $users,
+            'category' => $category
+        ];
+
+        return view('web.default.user.vendor.content.contentlist', $data);
+    }
+
+    public function vendorUinCPrivate(Request $request){
+        $fdate = strtotime($request->get('fdate', null)) + 12600;
+        $ldate = strtotime($request->get('ldate', null)) + 12600;
+
+        $user = auth()->user();
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $users = User::where('category_id', $fundal_category[0]->id)->get();
+        $category = ContentCategory::get();
+        $lists = Content::with(['category', 'user', 'metas' => function ($qm) {
+            $qm->get()->pluck('option', 'value');
+        }, 'transactions' => function ($q) {
+            $q->where('mode', 'deliver');
+        }])->withCount('sells', 'partsactive')->where(function ($w) {
+            $w->where('mode', 'publish');
+        })->where('content_type', 'Fundal')->where('user_id', $user->id);
+
+
+        if ($fdate > 12601)
+            $lists->where('created_at', '>', $fdate);
+        if ($ldate > 12601)
+            $lists->where('created_at', '<', $ldate);
+        if ($request->get('user', null) !== null)
+            $lists->where('user_id', $request->get('user', null));
+        if ($request->get('cat', null) !== null)
+            $lists->where('category_id', $request->get('cat', null));
+        if ($request->get('id', null) !== null)
+            $lists->where('id', $request->get('id', null));
+        if ($request->get('title', null) !== null)
+            $lists->where('title', 'like', '%' . $request->get('title', null) . '%');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $lists->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $lists->orderBy('sells_count', 'DESC');
+                    break;
+                case 'viewa':
+                    $lists->orderBy('view');
+                    break;
+                case 'viewd':
+                    $lists->orderBy('view', 'DESC');
+                    break;
+                case 'datea':
+                    $lists->orderBy('id');
+                    break;
+
+            }
+        } else
+            $lists->orderBy('id', 'DESC');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'priced':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'pricea':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'suma':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+                case 'sumd':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+            }
+        }
+
+        $lists = $lists->get();
+
+        $usuarios_cursos = array();
+
+        foreach($lists as $item){
+
+            $sell = Sell::where('content_id', $item->id)->where('user_id', $user->id)->get();
+            if(!$sell->isEmpty()){
+                foreach($sell as $venta){
+                    array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id));   
+                }
+            }
+        }
+
+        $data = [
+            'lists' => $lists,
+            'users' => $users,
+            'category' => $category,
+            'asignados' => $usuarios_cursos
+        ];
+
+        return view('web.default.user.vendor.content.usuariosEnCursos', $data);
+    }
+
+    public function vendorforumposts(){
+
+        $user = auth()->user();
+
+        $content = Content::where('user_id', $user->id)->select('id')->get()->toArray();
+
+        $categories = ForumCategory::whereIn('product_id', $content)->select('id')->get()->toArray();
+
+        $postList = Forum::with('comments','user')->orderBy('id','DESC')->whereIn('category_id', $categories)->get();
+        return view('web.default.user.vendor.content.forumlist',array('posts'=>$postList));
+    }
+
+    public function vendorforumeditPost($id){
+        $user = auth()->user();
+
+        $content = Content::where('user_id', $user->id)->select('id')->get()->toArray();
+
+        $category = ForumCategory::whereIn('product_id', $content)->get();
+
+        $item = Forum::find($id);
+        return view('web.default.user.vendor.content.forumedit',['category'=>$category,'item'=>$item]);
+    }
+
+    public function vendorforumstore(Request $request){
+        global $admin;
+        //$request->request->add(['user_id'=>$admin['id']]);
+        if($request->id){
+            $request->request->add(['update_at'=>time()]);
+            if(isset($request->comment))
+                $request->request->set('comment','enable');
+            else
+                $request->request->set('comment','disable');
+            Forum::where('id',$request->id)->update($request->except(['_token', 'files']));
+            return back();
+        }else{
+            $request->request->add(['create_at'=>time()]);
+            if(isset($request->comment))
+                $request->request->set('comment','enable');
+            else
+                $request->request->set('comment','disable');
+            $post = Forum::create($request->except(['_token', 'files']));
+            return redirect('/user/vendor/forum/post/edit/'.$post->id);
+        }
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

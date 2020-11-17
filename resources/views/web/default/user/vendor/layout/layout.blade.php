@@ -66,15 +66,8 @@
                         <div class="d-sm-none d-lg-inline-block">Hi, {!! $Admin['username'] ?? '' !!}</div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="/admin/profile" class="dropdown-item has-icon">
-                            <i class="fas fa-user"></i> {!! trans('admin.profile') !!}
-                        </a>
-                        <a href="/admin/setting/main" class="dropdown-item has-icon">
-                            <i class="fas fa-cog"></i> {!! trans('admin.settings') !!}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="/admin/logout" class="dropdown-item has-icon text-danger">
-                            <i class="fas fa-sign-out-alt"></i> {!! trans('admin.exit') !!}
+                        <a href="/" class="dropdown-item has-icon">
+                            <i class="fas fa-user"></i> Volver
                         </a>
                     </div>
                 </li>
@@ -83,10 +76,10 @@
         <div class="main-sidebar sidebar-style-2">
             <aside id="sidebar-wrapper">
                 <div class="sidebar-brand">
-                    <a href="/admin">Admin Panel</a>
+                    <a href="/vendor">Admin Panel</a>
                 </div>
                 <div class="sidebar-brand sidebar-brand-sm">
-                    <a href="/admin">AP</a>
+                    <a href="/vendor">AP</a>
                 </div>
                 <ul class="sidebar-menu">
                     <li class="menu-header">Content</li>
@@ -94,44 +87,18 @@
                         <li class="dropdown" id="content">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i> <span>{{  trans('admin.courses') }}</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="/admin/content/list">{{  trans('admin.list') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/private">Contenido privado</a></li>
-                                <li><a class="nav-link" href="/admin/content/private/asignar">Asignar contenido privado</a></li>
-                                <li><a class="nav-link" href="/admin/content/private/desasignar">Desasignar contenido privado</a></li>
-                                <li><a class="nav-link @if(isset($alert['content_waiting']) and $alert['content_waiting'] > 0) beep beep-sidebar @endif" href="/admin/content/waiting">{{  trans('admin.pending_courses') }}</a></li>
-                                <li><a class="nav-link @if(isset($alert['content_draft']) and $alert['content_draft'] > 0) beep beep-sidebar @endif" href="/admin/content/draft">{{  trans('admin.unpublished_courses') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/comment">{{  trans('admin.corse_comments') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/support">{{  trans('admin.support_tickets') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/category">{{  trans('admin.categories') }}</a></li>
+                                <li><a class="nav-link" href="/user/vendor/content/list">{{  trans('admin.list') }}</a></li>
+                                <li><a class="nav-link" href="/user/vendor/content/private/asignar">Usuarios en tus cursos</a></li>
+                                <li><a class="nav-link" href="/user/content/new">Crear nuevo curso</a></li>
                             </ul>
                         </li>@endif
 
                         <li class="dropdown" id="forum">
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span>Forum</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="/admin/forum/posts">Posts</a></li>
-                            <li><a class="nav-link" href="/admin/forum/category">Categories</a></li>
-                            <li><a class="nav-link" href="/admin/forum/comments">Comments</a></li>
+                            <li><a class="nav-link" href="/user/vendor/forum/posts">Posts</a></li>
                         </ul>
                     </li>
-
-                    <li class="menu-header">Financial</li>
-                    @if(checkAccess('buysell'))
-                        <li id="buysell">
-                            <a href="/admin/buysell/list" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>{{  trans('admin.sales') }}</span></a>
-                        </li>@endif
-                    @if(checkAccess('balance'))
-                        <li class="dropdown" id="balance">
-                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-pie"></i> <span>{{  trans('admin.financial') }}</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="/admin/balance/list">{{  trans('admin.financial_documents') }}</a></li>
-                                <li><a class="nav-link @if(isset($alert['withdraw']) and $alert['withdraw'] > 0) beep beep-sidebar @endif" href="/admin/balance/withdraw">{{  trans('admin.withdrawal_list') }}</a></li>
-                                <li><a class="nav-link" href="/admin/balance/new">{{  trans('admin.new_balance') }}</a></li>
-                                <li><a class="nav-link" href="/admin/balance/analyzer">{{  trans('admin.financial_analyser') }}</a></li>
-                                <li><a class="nav-link" href="/admin/balance/transaction">{{  trans('admin.transactions_report') }}</a></li>
-                            </ul>
-                        </li>
-                    @endif
                 </ul>
             </aside>
         </div>

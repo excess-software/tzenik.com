@@ -247,7 +247,7 @@
                                 <?php if($part['status'] != 'early'): ?>
                                 <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
                                     <?php if($part['status'] == 'finished'): ?>
-                                    <li class="list-group-item list-content-media">
+                                    <li class="list-group-item list-content-media dark-back-list">
                                         <?php if($buy or $part['free'] == 1): ?>
                                         <span class="playicon mdi mdi-play-circle"></span>
                                         <?php else: ?>
@@ -260,7 +260,7 @@
                                         </b>
                                     </li>
                                     <?php elseif($part['status'] == 'pending'): ?>
-                                    <li class="list-group-item list-content-media dark-back-list">
+                                    <li class="list-group-item list-content-media">
                                         <?php if($buy or $part['free'] == 1): ?>
                                         <span class="playicon mdi mdi-play-circle"></span>
                                         <?php else: ?>

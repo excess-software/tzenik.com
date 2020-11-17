@@ -241,7 +241,7 @@
                                 @if($part['status'] != 'early')
                                 <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
                                     @if($part['status'] == 'finished')
-                                    <li class="list-group-item list-content-media">
+                                    <li class="list-group-item list-content-media dark-back-list">
                                         @if($buy or $part['free'] == 1)
                                         <span class="playicon mdi mdi-play-circle"></span>
                                         @else
@@ -254,7 +254,7 @@
                                         </b>
                                     </li>
                                     @elseif($part['status'] == 'pending')
-                                    <li class="list-group-item list-content-media dark-back-list">
+                                    <li class="list-group-item list-content-media">
                                         @if($buy or $part['free'] == 1)
                                         <span class="playicon mdi mdi-play-circle"></span>
                                         @else

@@ -54,6 +54,53 @@ Route::group(['prefix' => 'user'], function () {
             Route::post('post/comment/store', 'UserController@forum_commentstore');
         }); 
 
+        Route::group(['prefix'=>'vendor'], function () {
+
+            Route::get('', 'UserController@vendor');
+            
+            #####################
+            ### Vendor Forum  ###
+            #####################
+            Route::group(['prefix'=>'forum'], function () {
+                Route::get('posts', 'UserController@vendorforumposts');
+                Route::get('post/new', 'UserController@forumnewpost');
+                Route::get('post/edit/{id}','UserController@vendorforumeditPost');
+                Route::get('post/delete/{id}','UserController@forumpostDelete');
+                Route::post('post/store', 'UserController@vendorforumstore');
+                
+                Route::get('category', 'UserController@forumcategorys');
+                Route::get('category/edit/{id}','UserController@forumcategoryEdit');
+                Route::get('category/delete/{id}','UserController@forumcategoryDelete');
+                Route::post('category/store','UserController@forumcategoryStore');
+                Route::get('comments','UserController@forumcomments');
+                Route::get('comment/delete/{id}','UserController@forumcommentDelete');
+            });
+
+            #######################
+            #### Vendor Content ###
+            #######################
+            Route::group(['prefix' => 'content'], function () {
+
+                Route::get('list', 'UserController@vendorcontentLists');
+                Route::get('private/asignar', 'UserController@vendorUinCPrivate');
+                Route::get('private/desasignar', 'UserController@desasignarPrivate');
+                Route::get('private/progresoFundal', 'UserController@progresoAlumnosFundal');
+                Route::post('asignar', 'UserController@asignarCurso');
+                Route::post('desasignar', 'UserController@desasignarCurso');
+                Route::get('private/getUsers/{curso}', 'UserController@getUsersPrivate');
+                Route::get('private/unasign/getUsers/{curso}', 'UserController@getAsignedUsersPrivate');
+                Route::get('waiting', 'UserController@contentWaitingList');
+                Route::get('draft', 'UserController@contentDraftList');
+                Route::get('user/{id}', 'UserController@contentUserContent');
+                Route::get('edit/{id}', 'UserController@contentEdit');
+                Route::get('delete/{id}', 'UserController@contentDelete');
+                Route::post('store/{id}/{mode}', 'UserController@contentStore');
+                Route::get('list/excel', 'UserController@contentListExcel');
+
+            });
+
+        }); 
+
         ##################
         ###### Chat ######
         ##################

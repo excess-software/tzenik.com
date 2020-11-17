@@ -230,8 +230,8 @@
                                     </a>
                                 </li>
                                 @if(isset($user) && isset($user['vendor']) && $user['vendor'] == 1)
-                                <li><a href="/user/content/new">
-                                        <p>Nuevo curso</p>
+                                <li><a href="/user/vendor">
+                                        <p>Panel de instructor</p>
                                     </a>
                                 </li>
                                 @endif

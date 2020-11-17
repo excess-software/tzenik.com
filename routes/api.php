@@ -56,6 +56,7 @@ Route::group(['prefix'=>'v1'], function (){
         Route::any('profile/follow','Api\ApiController@userProfileFollow');
         Route::any('profile/unfollow','Api\ApiController@userProfileUnFollow');
         Route::any('setting','Api\ApiController@userSetting');
+        Route::any('actualizarProgreso', 'Api\ApiController@updateUserProgress');
 
         ## Calendar
         Route::group(['prefix'=>'calendar'], function (){
