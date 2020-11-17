@@ -241,6 +241,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($quizzes as $quiz)
+                                @if($quiz->comprado == true)
                                 <tr>
                                     <td>
                                         <a href="/product/{{$quiz->content->id}}">
@@ -283,6 +284,7 @@
                                         @endif
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>

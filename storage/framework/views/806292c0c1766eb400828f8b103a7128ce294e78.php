@@ -54,7 +54,7 @@
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
                                 <?php if($product->content_type == 'Fundal' || $product->content_type == 'fundal'): ?>
-                                
+
                                 <?php else: ?>
                                 <?php if(isset($meta['price']) && $product->price != 0): ?>
                                 <h2>Precio:
@@ -70,36 +70,36 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <?php if(isset($meta['price'])): ?>
-                                    <form>
-                                        <?php echo e(csrf_field()); ?>
+                                <form>
+                                    <?php echo e(csrf_field()); ?>
 
-                                        <?php if(isset($user) && $product->user_id == $user['id']): ?>
-                                        <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
-                                            href="/user/content/edit/<?php echo e($product->id); ?>"><?php echo e(trans('main.edit_course')); ?></a>
-                                        <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
-                                            href="/user/content/part/list/<?php echo e($product->id); ?>"><?php echo e(trans('main.add_video')); ?></a>
-                                        <?php elseif(!$buy): ?>
-                                        <?php if(!empty($product->price) and $product->price != 0): ?>
-                                        <div class="radio">
-                                            <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
-                                                value="<?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>"
-                                                checked>
-                                        </div>
-                                        <?php endif; ?>
+                                    <?php if(isset($user) && $product->user_id == $user['id']): ?>
+                                    <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
+                                        href="/user/content/edit/<?php echo e($product->id); ?>"><?php echo e(trans('main.edit_course')); ?></a>
+                                    <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
+                                        href="/user/content/part/list/<?php echo e($product->id); ?>"><?php echo e(trans('main.add_video')); ?></a>
+                                    <?php elseif(!$buy): ?>
+                                    <?php if(!empty($product->price) and $product->price != 0): ?>
+                                    <div class="radio">
+                                        <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
+                                            value="<?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>"
+                                            checked>
+                                    </div>
+                                    <?php endif; ?>
 
-                                        <?php if(!empty($product->price) and $product->price != 0): ?>
-                                        <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
-                                            href=""><?php echo e(trans('main.pay')); ?></a>
-                                        <?php endif; ?>
-                                        <?php else: ?>
-                                        <?php if(!empty($product->price) and $product->price != 0): ?>
-                                        <a class="btn btn-success"
-                                            href="javascript:void(0);"><?php echo e(trans('main.purchased_item')); ?></a>
-                                        <?php endif; ?>
-                                        <?php endif; ?>
-                                    </form>
-                                </div>
-                                <?php endif; ?>
+                                    <?php if(!empty($product->price) and $product->price != 0): ?>
+                                    <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
+                                        href=""><?php echo e(trans('main.pay')); ?></a>
+                                    <?php endif; ?>
+                                    <?php else: ?>
+                                    <?php if(!empty($product->price) and $product->price != 0): ?>
+                                    <a class="btn btn-success"
+                                        href="javascript:void(0);"><?php echo e(trans('main.purchased_item')); ?></a>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                </form>
+                            </div>
+                            <?php endif; ?>
                         </div>
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
@@ -254,7 +254,11 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
+                                            <?php echo e($part['title'].' | '); ?>
+
+                                            <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                            - <?php if($part['limit_date']): ?>
                                             <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
@@ -267,7 +271,11 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
+                                            <?php echo e($part['title'].' | '); ?>
+
+                                            <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                            - <?php if($part['limit_date']): ?>
                                             <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
@@ -280,7 +288,11 @@
                                         <span class="playicon mdi mdi-lock"></span>
                                         <?php endif; ?>
                                         <b>
-                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
+                                            <?php echo e($part['title'].' | '); ?>
+
+                                            <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                            - <?php if($part['limit_date']): ?>
                                             <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b><i class="fa fa-clock-o"></i>
@@ -288,18 +300,22 @@
                                     <?php endif; ?>
                                 </a>
                                 <?php else: ?>
-                                    <li class="list-group-item list-content-media gray-back-list">
-                                        <?php if($buy or $part['free'] == 1): ?>
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        <?php else: ?>
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        <?php endif; ?>
-                                        <b>
-                                            <?php echo e($part['title'].' | '); ?> <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?> - <?php if($part['limit_date']): ?>
-                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
-                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
-                                        </b>
-                                    </li>
+                                <li class="list-group-item list-content-media gray-back-list">
+                                    <?php if($buy or $part['free'] == 1): ?>
+                                    <span class="playicon mdi mdi-play-circle"></span>
+                                    <?php else: ?>
+                                    <span class="playicon mdi mdi-lock"></span>
+                                    <?php endif; ?>
+                                    <b>
+                                        <?php echo e($part['title'].' | '); ?>
+
+                                        <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                        - <?php if($part['limit_date']): ?>
+                                        <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                        <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                    </b>
+                                </li>
                                 <?php endif; ?>
                                 <br>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -413,95 +429,108 @@
                     <h4 class="modal-title"><?php echo e(trans('main.purchase')); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
+                    <div class="">
                         <div class="row">
                             <div class="col-md-12">
                                 <p><?php echo e(trans('main.select_payment_method')); ?></p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="hidden" id="buy_method" value="download">
-                                <div class="radio">
-                                    <input type="radio" class="buy-mode" id="mode-1" value="credit" name="buyMode">
-                                    &nbsp;
-                                    <label class="radio-label" for="mode-1"><?php echo e(trans('main.account_charge')); ?>&nbsp;<b
-                                            id="credit-remain-modal">(<?php echo e(currencySign()); ?><?php echo e($user['credit']); ?>)</b></label>
-                                </div>
-                                <?php if(get_option('gateway_paypal') == 1): ?>
-                                <div class="radio">
-                                    <input type="radio" class="buy-mode" id="mode-2" value="paypal" name="buyMode">
-                                    &nbsp;
-                                    <label class="radio-label" for="mode-2"> Paypal </label>
-                                </div>
-                                <?php endif; ?>
-                                <div class="radio">
-                                    <input type="radio" class="buy-mode" id="mode-7" value="paycom" name="buyMode">
-                                    &nbsp;
-                                    <label class="radio-label" for="mode-7"> Credit/Debit Card </label>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="buy_method" value="download">
+                                    <div class="radio">
+                                        <input type="radio" class="buy-mode" id="mode-1" value="credit" name="buyMode">
+                                        &nbsp;
+                                        <label class="radio-label"
+                                            for="mode-1"><?php echo e(trans('main.account_charge')); ?>&nbsp;<b
+                                                id="credit-remain-modal">(<?php echo e(currencySign()); ?><?php echo e($user['credit']); ?>)</b></label>
+                                    </div>
+                                    <?php if(get_option('gateway_paypal') == 1): ?>
+                                    <div class="radio">
+                                        <input type="radio" class="buy-mode" id="mode-2" value="paypal" name="buyMode">
+                                        &nbsp;
+                                        <label class="radio-label" for="mode-2"> Paypal </label>
+                                    </div>
+                                    <?php endif; ?>
+                                    <div class="radio">
+                                        <input type="radio" class="buy-mode" id="mode-7" value="paycom" name="buyMode">
+                                        &nbsp;
+                                        <label class="radio-label" for="mode-7"> Credit/Debit Card </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <hr>
-                        <div class="table-responsive table-base-price">
-                            <table class="table table-hover table-factor-modal">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"><?php echo e(trans('main.amount')); ?></th>
-                                        <th class="text-center"><?php echo e(trans('main.discount')); ?></th>
-                                        <th class="text-center"><?php echo e(trans('main.tax')); ?></th>
-                                        <th class="text-center"><?php echo e(trans('main.total_amount')); ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center"><?php echo e($meta['price']); ?></td>
-                                        <?php if(isset($meta['price']) && $meta['price'] > 0 && price($product->id,
-                                        $product->category->id, $meta['price']) > 0): ?>
-                                        <td class="text-center">
-                                            <?php echo e(round((($meta['price'] - price($product->id, $product->category->id, $meta['price'])['price']) * 100) / $meta['price'])); ?>
+                        <div class="">
+                            <div class="">
+                                <div class="">
+                                    <div class="table-responsive table-base-price">
+                                        <table class="table table-hover table-factor-modal">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"><?php echo e(trans('main.amount')); ?></th>
+                                                    <th class="text-center"><?php echo e(trans('main.discount')); ?></th>
+                                                    <th class="text-center"><?php echo e(trans('main.tax')); ?></th>
+                                                    <th class="text-center"><?php echo e(trans('main.total_amount')); ?></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center"><?php echo e($meta['price']); ?></td>
+                                                    <?php if(isset($meta['price']) && $meta['price'] > 0 &&
+                                                    price($product->id,
+                                                    $product->category->id, $meta['price']) > 0): ?>
+                                                    <td class="text-center">
+                                                        <?php echo e(round((($meta['price'] - price($product->id, $product->category->id, $meta['price'])['price']) * 100) / $meta['price'])); ?>
 
-                                        </td>
-                                        <?php endif; ?>
-                                        <td class="text-center">0</td>
-                                        <td class="text-center">
-                                            <?php echo e(price($product->id,$product->category->id,$meta['price'])['price']); ?>
+                                                    </td>
+                                                    <?php endif; ?>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">
+                                                        <?php echo e(price($product->id,$product->category->id,$meta['price'])['price']); ?>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="table-responsive table-post-price table-post-price-s">
+                                        <table class="table table-hover table-factor-modal"
+                                            style="margin-bottom: 0;padding-bottom: 0;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"><?php echo e(trans('main.amount')); ?></th>
+                                                    <th class="text-center"><?php echo e(trans('main.discount')); ?></th>
+                                                    <th class="text-center"><?php echo e(trans('main.tax')); ?></th>
+                                                    <th class="text-center"><?php echo e(trans('main.total_amount')); ?></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center"><?php echo e($meta['post_price']); ?></td>
+                                                    <?php if(isset($meta['post_price']) && $meta['post_price']>0): ?>
+                                                    <td class="text-center">
+                                                        <?php echo e(round((($meta['post_price'] - price($product->id,$product->category->id,$meta['post_price'])['price']) * 100) / $meta['post_price'])); ?>
+
+                                                    </td>
+                                                    <td class="text-center">۰</td>
+                                                    <td class="text-center">۰</td>
+                                                    <td class="text-center">
+                                                        <?php echo e(price($product->id,$product->category->id,$meta['post_price'])['price']); ?>
+
+                                                    </td>
+                                                    <?php endif; ?>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="table-responsive table-post-price table-post-price-s">
-                            <table class="table table-hover table-factor-modal"
-                                style="margin-bottom: 0;padding-bottom: 0;">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"><?php echo e(trans('main.amount')); ?></th>
-                                        <th class="text-center"><?php echo e(trans('main.discount')); ?></th>
-                                        <th class="text-center"><?php echo e(trans('main.tax')); ?></th>
-                                        <th class="text-center"><?php echo e(trans('main.total_amount')); ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center"><?php echo e($meta['post_price']); ?></td>
-                                        <?php if(isset($meta['post_price']) && $meta['post_price']>0): ?>
-                                        <td class="text-center">
-                                            <?php echo e(round((($meta['post_price'] - price($product->id,$product->category->id,$meta['post_price'])['price']) * 100) / $meta['post_price'])); ?>
 
-                                        </td>
-                                        <td class="text-center">۰</td>
-                                        <td class="text-center">۰</td>
-                                        <td class="text-center">
-                                            <?php echo e(price($product->id,$product->category->id,$meta['post_price'])['price']); ?>
-
-                                        </td>
-                                        <?php endif; ?>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -637,7 +666,7 @@
                                 <input type="text" value="12av el bosque 2-56 zona 11 de Mixco" name="avs" class="form-control" placeholder="Address" aria-label="avs" aria-describedby="addon-avs">
                             </div>-->
                     <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
-                    <input type="submit" class="btn btn-primary" value="Pay">
+                    <input type="submit" class="btn btn-primary" value="Pay" disabled>
                     </form>
                 </div>
                 <div class="modal-footer">

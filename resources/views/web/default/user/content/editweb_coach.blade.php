@@ -73,7 +73,7 @@
                         <label class="control-label col-md-2 tab-con"
                             for="inputDefault">{{{ trans('main.description') }}}</label>
                         <div class="col-md-10 tab-con">
-                            <textarea class="form-control editor-te editor-te-h" placeholder="You can import HTML..."
+                            <textarea class="form-control" placeholder="You can import HTML..."
                                 name="content" required>{!! $item->content ?? '' !!}</textarea>
                         </div>
                     </div>

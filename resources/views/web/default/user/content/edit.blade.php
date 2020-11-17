@@ -49,9 +49,8 @@
                             for="inputDefault">{{ trans('main.publish_type') }}</label>
                         <div class="col-md-10 tab-con">
                             <select name="private" class="form-control font-s">
-                                <option value="2">Fundal</option>
-                                <option value="1">{{ trans('main.exclusive') }}</option>
-                                <option value="0">{{ trans('main.open') }}</option>
+                                <option value="2" {{$item->private == 2 ? 'selected' : ''}}>Fundal</option>
+                                <option value="0" {{$item->private == 0 ? 'selected' : ''}}>{{ trans('main.open') }}</option>
                             </select>
                         </div>
                     </div>
@@ -67,7 +66,7 @@
                         <label class="control-label col-md-2 tab-con"
                             for="inputDefault">{{ trans('main.description') }}</label>
                         <div class="col-md-10 tab-con">
-                            <textarea class="form-control editor-te" rows="12" placeholder="Description..."
+                            <textarea class="form-control" rows="12" placeholder="Description..."
                                 name="content" required>{!! $item->content !!}</textarea>
                         </div>
                     </div>
@@ -413,14 +412,11 @@
                                                     data-toggle="modal" data-target="#VideoModal"
                                                     data-whatever="upload_video"><span
                                                         class="formicon mdi mdi-eye"></span></span>
-                                                <input type="text" name="upload_video" dir="ltr" class="form-control">
+                                                <input type="text" name="upload_video" dir="ltr" class="form-control" required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video"
                                                     data-preview="holder" class="btn btn-primary">
                                                     Choose
                                                 </button>
-                                                <span data-toggle="modal" href="#vimeo-modal"
-                                                    class="input-group-addon click-for-vimeo img-icon-s"><span
-                                                        class="formicon mdi mdi-vimeo"></span></span>
                                             </div>
                                         </div>
 
@@ -522,7 +518,7 @@
                                                     data-whatever="upload_video2"><span
                                                         class="formicon mdi mdi-eye"></span></span>
                                                 <input type="text" id="upload_video2" name="upload_video" dir="ltr"
-                                                    class="form-control">
+                                                    class="form-control" required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video2"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>
@@ -585,7 +581,7 @@
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="date" name="initial_date"
-                                                    class="form-control" required>
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <label
@@ -593,7 +589,7 @@
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="date" name="limit_date"
-                                                    class="form-control" required>
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -616,7 +612,6 @@
                                 <div class="table-responsive">
                                     <table class="table ucp-table">
                                         <thead class="thead-s">
-                                            <th class="text-center" width="50"></th>
                                             <th class="cell-ta">{{ trans('main.title') }}</th>
                                             <th class="text-center" width="50">{{ trans('main.volume') }}</th>
                                             <th class="text-center" width="100">{{ trans('main.duration') }}</th>
@@ -989,8 +984,7 @@
         $.get('/user/content/part/json/' + id, function (data) {
             $('#part-video-table-body').html('');
             $.each(data, function (index, item) {
-                $('#part-video-table-body').append('<tr class="text-center"><td>' + item.price +
-                    '</td><td class="cell-ta">' + item.title + '</td><td>' + item.size +
+                $('#part-video-table-body').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
                     'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
                     '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +

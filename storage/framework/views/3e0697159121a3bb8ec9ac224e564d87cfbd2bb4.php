@@ -285,6 +285,7 @@ unset($__errorArgs, $__bag); ?></div>
                             </thead>
                             <tbody>
                                 <?php $__currentLoopData = $quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($quiz->comprado == true): ?>
                                 <tr>
                                     <td>
                                         <a href="/product/<?php echo e($quiz->content->id); ?>">
@@ -328,6 +329,7 @@ unset($__errorArgs, $__bag); ?></div>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
+                                <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>

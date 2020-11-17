@@ -3091,6 +3091,14 @@ class UserController extends Controller
                 $quiz->result = $quizResults->first();
                 $quiz->result_count = count($quizResults);
 
+                $sell = Sell::where('content_id', $quiz->content_id)->where('buyer_id', $user->id)->get();
+
+                if(!$sell->isEmpty()){
+                    $quiz->comprado = true;
+                }else{
+                    $quiz->comprado = false;
+                }
+
                 $quiz->can_try = true;
                 if ((isset($quiz->attempt) and count($quizResults) >= $quiz->attempt) or (!empty($quiz->result) and $quiz->result->status === 'pass')) {
                     $quiz->can_try = false;
