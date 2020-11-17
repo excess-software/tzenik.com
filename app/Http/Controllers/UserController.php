@@ -4086,7 +4086,7 @@ class UserController extends Controller
         }, 'transactions' => function ($q) {
             $q->where('mode', 'deliver');
         }])->withCount('sells', 'partsactive')->where(function ($w) {
-            $w->where('mode', 'publish');
+            
         })->where('user_id', $user->id);
 
 
