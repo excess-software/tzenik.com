@@ -307,7 +307,7 @@
                                 @endforeach
                                 @else
                                 @foreach($parts as $part)
-                                
+                                <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}" >
                                     <li class="list-group-item list-content-media">
                                         @if($buy or $part['free'] == 1)
                                         <span class="playicon mdi mdi-play-circle"></span>
@@ -320,7 +320,7 @@
                                             {{ 'Sin fecha límite' }} @endif
                                         </b>
                                     </li>
-                                
+                                </a>
                                 <br>
                                 @endforeach
                                 @endif
@@ -406,6 +406,8 @@
             </div>
         </div>
     </div>
+
+    @if($user)
     <div id="buyModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -574,6 +576,30 @@
 
         </div>
     </div>
+    @else
+    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buyModalLabel">Debes iniciar sesi&oacute;n o registrarte para comprar.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="text-center" style="margin-top: 15%; margin-bottom: 15%;">
+                            <h1><b><a href="/login">Debes iniciar sesi&oacute;n</a> o <a href="/login">registrarte</a> para comprar.</b></h1>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="modal fade" id="paycomModal" tabindex="-1" role="dialog" aria-labelledby="paycomModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

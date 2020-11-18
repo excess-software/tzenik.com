@@ -77,11 +77,12 @@
                     </div>
                     <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    <?php if(!$list): ?>
+                    <?php if($list->isEmpty()): ?>
                     <br>
                     <div class="row">
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-center" style="margin-top: 15%; margin-bottom: 15%;">
                             <h1><b>Aún no has comprado cursos</b></h1>
+                            <a href="/"><h1><b>Explorar</b></h1></a>
                         </div>
                     </div>
                     <br>

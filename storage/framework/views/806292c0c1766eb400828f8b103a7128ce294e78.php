@@ -321,7 +321,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>
                                 <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                
+                                <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>" >
                                     <li class="list-group-item list-content-media">
                                         <?php if($buy or $part['free'] == 1): ?>
                                         <span class="playicon mdi mdi-play-circle"></span>
@@ -334,7 +334,7 @@
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
                                     </li>
-                                
+                                </a>
                                 <br>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php endif; ?>
@@ -420,6 +420,8 @@
             </div>
         </div>
     </div>
+
+    <?php if($user): ?>
     <div id="buyModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -593,6 +595,30 @@
 
         </div>
     </div>
+    <?php else: ?>
+    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buyModalLabel">Debes iniciar sesi&oacute;n o registrarte para comprar.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="text-center" style="margin-top: 15%; margin-bottom: 15%;">
+                            <h1><b><a href="/login">Debes iniciar sesi&oacute;n</a> o <a href="/login">registrarte</a> para comprar.</b></h1>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <div class="modal fade" id="paycomModal" tabindex="-1" role="dialog" aria-labelledby="paycomModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

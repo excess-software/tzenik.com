@@ -1216,6 +1216,10 @@ class WebController extends Controller
 
         $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
+        if($buy == 0){
+            return redirect('/product/' . $id)->with('msg', trans('Compra el curso para acceder a los módulos.'));
+        }
+
         $product = $content->find($id)->withCount(['comments' => function ($q) {
             $q->where('mode', 'publish');
         }])->with(['discount', 'category' => function ($c) use ($id) {
