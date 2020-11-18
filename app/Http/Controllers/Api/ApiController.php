@@ -68,7 +68,7 @@ class ApiController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
     ## Private Function
-    private function response($data, $status = 1){
+    private function response($data, $status = '1'){
         return ['status'=>$status,'data'=>$data];
     }
     private function error($code = -1, $description){
@@ -1535,7 +1535,7 @@ class ApiController extends Controller
             $q->with(['metas']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
         if($purchases->isEmpty()){
-            return $this->response($data, 0);
+            return $this->response($data, '0');
         }else{
             foreach ($purchases as $item){
                 if(isset($item->content)) {

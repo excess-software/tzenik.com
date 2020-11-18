@@ -48,12 +48,6 @@
 
                 <div class="form-group">
                     <div class="col-md-12">
-                        <textarea class="summernote" name="pre_content" required>{{{ $item->pre_content ?? '' }}}</textarea>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
                         <textarea class="summernote" name="content" required>{{{ $item->content ?? '' }}}</textarea>
                     </div>
                 </div>
