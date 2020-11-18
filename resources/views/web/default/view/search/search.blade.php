@@ -58,11 +58,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(isset($content->category->title))
                                 <div class="row curso-destacado-contenido .bottom-column">
                                     <h4><span class="label label-tag-media-categoria"> <span
                                                 class="circle-tag-media-categoria"></span>
                                             {{ $content->category->title ? $content->category->title : '' }}</span></h4>
                                 </div>
+                                @endif
                             </div>
                             <div class="col-md-6">
                                 <img class="img-responsive" style="max-height: 300px !important; width: auto;"

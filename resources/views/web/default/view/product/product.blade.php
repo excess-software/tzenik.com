@@ -307,7 +307,7 @@
                                 @endforeach
                                 @else
                                 @foreach($parts as $part)
-                                <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
+                                
                                     <li class="list-group-item list-content-media">
                                         @if($buy or $part['free'] == 1)
                                         <span class="playicon mdi mdi-play-circle"></span>
@@ -320,7 +320,7 @@
                                             {{ 'Sin fecha límite' }} @endif
                                         </b>
                                     </li>
-                                </a>
+                                
                                 <br>
                                 @endforeach
                                 @endif

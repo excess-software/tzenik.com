@@ -321,7 +321,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>
                                 <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
+                                
                                     <li class="list-group-item list-content-media">
                                         <?php if($buy or $part['free'] == 1): ?>
                                         <span class="playicon mdi mdi-play-circle"></span>
@@ -334,7 +334,7 @@
                                             <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
                                         </b>
                                     </li>
-                                </a>
+                                
                                 <br>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php endif; ?>
@@ -666,7 +666,7 @@
                                 <input type="text" value="12av el bosque 2-56 zona 11 de Mixco" name="avs" class="form-control" placeholder="Address" aria-label="avs" aria-describedby="addon-avs">
                             </div>-->
                     <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
-                    <input type="submit" class="btn btn-primary" value="Pay" disabled>
+                    <input type="submit" class="btn btn-primary" value="Pay">
                     </form>
                 </div>
                 <div class="modal-footer">
