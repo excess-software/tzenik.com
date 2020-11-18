@@ -2824,9 +2824,11 @@ class UserController extends Controller
 
     public function paycomPay(Request $request, $id)
     {   
+        $user = (auth()->check()) ? auth()->user() : false;
+
         $time = $request->time;
         $price = $request->item_price;
-        $tohash = 'Prueba006|1.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
+        $tohash = $user->id.'-'.$id.'|'.number_format($price, 2, '.', '').'|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
         //$tohash = '|'.$price.'.00|'.$time.'|k9xSedmEThFPFjJzHA7kwNFzhXLj4C6G';
         $hash = md5($tohash);
         $mode = $request->method_creditDebit;
@@ -2839,13 +2841,13 @@ class UserController extends Controller
             'time' => $time,
             //'transactionid' => '1234567',
             //'amount' => $price.'.00',
-            'amount' => '1.00',
-            'orderid' => 'Prueba006',
+            'amount' => number_format($price, 2, '.', ''),
+            'orderid' => $user->id.'-'.$id,
             'processor_id' => 'RPGT0728',
             'ccnumber' => $request->ccnumber,
-            'ccexp' => '0425',
-            'cvv' => '944',
-            'avs' => '12av el bosque 2-56 zona 11 de Mixco, lo de fuentes',
+            'ccexp' => $request->ccexp,
+            'cvv' => $request->ccccv,
+            'avs' => 'Tzenik',
         ];
 
         $client = new Client(['verify' => '../cacert.pem']);
@@ -2859,7 +2861,7 @@ class UserController extends Controller
         
         //return $url_toJson;
         if($url_toJson['response'] == 1){
-            $user = (auth()->check()) ? auth()->user() : false;
+            
             if (!$user)
                 return Redirect::to('/user?redirect=/product/' . $id);
 

@@ -98,6 +98,7 @@ class WebController extends Controller
     private function getContents($tag, $orderByName, $orderByValue, $withCount = null, $limit = 10)
     {
         $query = Content::where('mode', 'publish')
+            //->where('content_type', 'Fundal')
             ->orderBy($orderByName, $orderByValue)
             ->limit($limit)
             ->with('metas', 'user');

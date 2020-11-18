@@ -647,7 +647,7 @@
                                 <input type="text" value="12av el bosque 2-56 zona 11 de Mixco" name="avs" class="form-control" placeholder="Address" aria-label="avs" aria-describedby="addon-avs">
                             </div>-->
                     <!--<Input type="hidden" name="redirect" value="https://proacademydos.local/PaycomTester"/>-->
-                    <input type="submit" class="btn btn-primary" value="Pay" disabled>
+                    <input type="submit" class="btn btn-primary" value="Pay">
                     </form>
                 </div>
                 <div class="modal-footer">

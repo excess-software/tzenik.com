@@ -42,7 +42,6 @@
                         <div class="col-md-10 tab-con">
                             <select name="private" class="form-control font-s">
                                 <option value="2">Fundal</option>
-                                <option value="1"><?php echo e(trans('main.exclusive')); ?></option>
                                 <option value="0"><?php echo e(trans('main.open')); ?></option>
                             </select>
                         </div>
@@ -59,7 +58,7 @@
                         <label class="control-label col-md-2 tab-con"
                             for="inputDefault"><?php echo e(trans('main.description')); ?></label>
                         <div class="col-md-10 tab-con">
-                            <textarea class="form-control editor-te" rows="12" placeholder="Description..."
+                            <textarea class="form-control" rows="12" placeholder="Description..."
                                 name="content" required></textarea>
                         </div>
                     </div>

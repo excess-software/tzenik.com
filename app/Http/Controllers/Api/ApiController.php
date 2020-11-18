@@ -427,7 +427,7 @@ class ApiController extends Controller
         }
 
         ## Support
-        $support  = [];
+        /*$support  = [];
         if(isset($User)){
             $supports = ContentSupport::where(function($w) use ($User){
                 $w->where('user_id', $User['id'])->orWhere('sender_id', $User['id']);
@@ -445,7 +445,7 @@ class ApiController extends Controller
                     'date'      => date('Y F,d H:i', $s->created_at)
                 ];
             }
-        }
+        }*/
 
         ## User
         $user['avatar'] = '';
