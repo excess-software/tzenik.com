@@ -27,7 +27,7 @@
                                 <li class="list-group-item list-content-media list-active"><b>Cursos terminados</b></li>
                             </a>
                             <br>
-                            <a href="/user/user/quizzes" style="text-decoration: none;">
+                            <a href="/user/quizzes" style="text-decoration: none;">
                                 <li class="list-group-item list-content-media"><b>Calificaciones</b></li>
                             </a>
                         </ul>
