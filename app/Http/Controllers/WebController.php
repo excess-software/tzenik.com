@@ -98,7 +98,7 @@ class WebController extends Controller
     private function getContents($tag, $orderByName, $orderByValue, $withCount = null, $limit = 10)
     {
         $query = Content::where('mode', 'publish')
-            //->where('content_type', 'Fundal')
+            ->whereNull('content_type')
             ->orderBy($orderByName, $orderByValue)
             ->limit($limit)
             ->with('metas', 'user');
@@ -247,7 +247,7 @@ class WebController extends Controller
                 ->get();
         }
 
-        $content = Content::where('mode', 'publish')->with(['metas', 'sells', 'discount', 'user'])->withCount('parts');
+        $content = Content::where('mode', 'publish')->whereNull('content_type')->with(['metas', 'sells', 'discount', 'user'])->withCount('parts');
         if (!empty($Category)) {
             $content = $content->where('category_id', $Category->id);
         }
