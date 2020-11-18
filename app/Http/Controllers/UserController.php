@@ -1259,7 +1259,7 @@ class UserController extends Controller
     public function contentUpdateRequest($id, Request $request)
     {
         $user = auth()->user();
-        $request->request->add(['mode' => 'request']);
+        $request->request->add(['mode' => 'publish']);
         $content = Content::where('user_id', $user->id)->find($id);
 
         if ($content) {
@@ -1344,7 +1344,7 @@ class UserController extends Controller
         $user = auth()->user();
         $part = ContentPart::with('content')->find($id);
         if ($part->content->user_id == $user->id) {
-            $part->update(['mode' => 'draft']);
+            $part->update(['mode' => 'publish']);
         }
         return back();
     }
@@ -1354,7 +1354,7 @@ class UserController extends Controller
         $user = auth()->user();
         $part = ContentPart::with('content')->find($id);
         if ($part->content->user_id == $user->id) {
-            $part->update(['mode' => 'request']);
+            $part->update(['mode' => 'publish']);
         }
         return back();
     }
@@ -1364,7 +1364,7 @@ class UserController extends Controller
         $user = auth()->user();
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
-            $request->request->add(['created_at' => time(), 'mode' => 'request']);
+            $request->request->add(['created_at' => time(), 'mode' => 'publish']);
             $newPart = ContentPart::create($request->all());
             return redirect('/user/content/part/list/' . $content->id);
         } else {
@@ -1378,7 +1378,7 @@ class UserController extends Controller
         $user = auth()->user();
         $content = Content::where('user_id',$user->id)->find($request->content_id);
         if($content){
-            $request->request->add(['create_at'=>time(),'mode'=>'request']);
+            $request->request->add(['create_at'=>time(),'mode'=>'publish']);
             $create = $request->create_at;
             $request->request->remove('create_at');
             $request->request->add(['created_at'=>$create]);
@@ -1431,7 +1431,7 @@ class UserController extends Controller
         $user = auth()->user();
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
-            $request->request->add(['mode' => 'request']);
+            $request->request->add(['mode' => 'publish']);
             ContentPart::find($id)->update($request->all());
             return back();
         } else {
@@ -1445,7 +1445,7 @@ class UserController extends Controller
         $user = auth()->user();
         $content = Content::where('user_id',$user->id)->find($request->content_id);
         if($content){
-            $request->request->add(['mode'=>'request']);
+            $request->request->add(['mode'=>'publish']);
             $create = $request->create_at;
             $request->request->remove('create_at');
             $request->request->add(['created_at'=>$create]);

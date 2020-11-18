@@ -429,7 +429,7 @@
                                         <label class="control-label col-md-1 tab-con"><?php echo e(trans('main.sort')); ?></label>
                                         <div class="col-md-2 tab-con">
                                             <input name="sort" type="number" class="spinner-input form-control"
-                                                maxlength="3" min="0" max="100">
+                                                maxlength="3" min="0" max="100" required>
                                         </div>
                                     </div>
 
@@ -534,7 +534,7 @@
                                         <label class="control-label tab-con col-md-1"><?php echo e(trans('main.sort')); ?></label>
                                         <div class="col-md-2 tab-con">
                                             <input type="number" name="sort" class="spinner-input form-control"
-                                                maxlength="3" min="0" max="100">
+                                                maxlength="3" min="0" max="100" required>
                                         </div>
                                     </div>
 

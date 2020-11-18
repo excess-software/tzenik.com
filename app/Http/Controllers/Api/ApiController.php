@@ -68,8 +68,8 @@ class ApiController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
     ## Private Function
-    private function response($data){
-        return ['status'=>'1','data'=>$data];
+    private function response($data, $status = 1){
+        return ['status'=>$status,'data'=>$data];
     }
     private function error($code = -1, $description){
         return ['status'=>-1,'code'=>$code,'error'=>$description];
@@ -1534,23 +1534,27 @@ class ApiController extends Controller
         $purchases = Sell::with(['content'=>function($q){
             $q->with(['metas']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
-        foreach ($purchases as $item){
-            if(isset($item->content)) {
-                $meta = arrayToList($item->content->metas, 'option', 'value');
-                $data['asignados'][] = [
-                    'id'        => $item->content->id,
-                    'title'     => $item->content->title,
-                    'thumbnail' => checkUrl($meta['thumbnail']),
-                    'price'     => isset($meta['price']) ? $meta['price'] : 'free',
-                    'amount'    => isset($meta['price']) ? $meta['price'] : 'free',
-                    'currency'  => $currency,
-                    'date'      => date('Y F d | H:i', $item->created_at)
-                ];
+        if($purchases->isEmpty()){
+            return $this->response($data, 0);
+        }else{
+            foreach ($purchases as $item){
+                if(isset($item->content)) {
+                    $meta = arrayToList($item->content->metas, 'option', 'value');
+                    $data['asignados'][] = [
+                        'id'        => $item->content->id,
+                        'title'     => $item->content->title,
+                        'thumbnail' => checkUrl($meta['thumbnail']),
+                        'price'     => isset($meta['price']) ? $meta['price'] : 'free',
+                        'amount'    => isset($meta['price']) ? $meta['price'] : 'free',
+                        'currency'  => $currency,
+                        'date'      => date('Y F d | H:i', $item->created_at)
+                    ];
+                }
             }
+    
+    
+            return $this->response($data);
         }
-
-
-        return $this->response($data);
     }
     ## Financial
     public function financialList(Request $request){
