@@ -2114,7 +2114,8 @@ class UserController extends Controller
             return abort(404);
         }
 
-        return view(getTemplate() . '.auth.active');
+        //return view(getTemplate() . '.auth.active');
+        return redirect('/login')->with('msg', 'Ya puede iniciar sesión.');
     }
 
     public function forgetPassword(Request $request)

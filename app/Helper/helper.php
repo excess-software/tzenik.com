@@ -306,7 +306,7 @@ function all_option($mode = 'object')
 function sendMail(array $request)
 {
     $recipent = $request['recipent'];
-    $subject = $request['subject'];
+    $subject = isset($request['subject']) ? $request['subject'] : '';
     $users = \App\User::whereIn('email', $recipent)->get();
     if (!isset($request['title']))
         $request['title'] = '';
@@ -319,9 +319,7 @@ function sendMail(array $request)
         });
         if(isset($template)) {
             $request['message'] = $template->template;
-            if(!isset($request['subject'])){
-                $request['subject'] = $template->title;
-            }
+            $request['subject'] = $subject != '' ? $request['subject'] : $template->title;
         }
     }
 
