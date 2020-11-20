@@ -365,6 +365,7 @@ class ApiController extends Controller
                     $canTryAgainQuiz = true;
                 }
                 $quiz->user_attempts = count($userQuizDone);
+                $quiz->times_can_try = $quiz->attempt - count($userQuizDone);
                 $quiz->can_try = $canTryAgainQuiz;
 
                 if ($quiz->certificate) {
