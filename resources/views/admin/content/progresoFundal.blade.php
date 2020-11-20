@@ -37,7 +37,7 @@
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="{{$asignado[4]}}" aria-valuemin="0"
                                 aria-valuemax="100" style="width:{{$asignado[4]}}%">
-                                <span class="sr-only">7{{$asignado[4]}}% Complete</span>
+                                <span class="sr-only">{{$asignado[4]}}% Complete</span>
                             </div>
                         </div>
                     </td>

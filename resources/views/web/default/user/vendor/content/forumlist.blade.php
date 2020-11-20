@@ -35,7 +35,7 @@
                             </td>
                             <td class="text-center">
                                 <a href="/user/vendor/forum/post/edit/{{{ $item->id }}}" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                <a href="#" data-href="/admin/forum/post/delete/{{{ $item->id }}}" title="Delete" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                <a href="#" data-href="/user/vendor/forum/post/delete/{{{ $item->id }}}" title="Delete" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach

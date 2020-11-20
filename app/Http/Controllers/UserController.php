@@ -4315,6 +4315,30 @@ class UserController extends Controller
             return redirect('/user/vendor/forum/post/edit/'.$post->id);
         }
     }
+    public function vendorforumcomments(Request $request){
+        $user = auth()->user();
+
+        $content = Content::where('user_id', $user->id)->select('id')->get()->toArray();
+
+        $categories = ForumCategory::whereIn('product_id', $content)->select('id')->get()->toArray();
+
+        $postList = Forum::with('comments','user')->orderBy('id','DESC')->whereIn('category_id', $categories)->get()->toArray();
+
+        $comments = ForumComments::whereIn('post_id', $postList)->with('user','post')->orderBy('id','DESC')->get();
+        return view('web.default.user.vendor.content.forumcomments',['comments'=>$comments]);
+    }
+    public function vendorforumpostDelete($id){
+        $post = Forum::find($id);
+        $post->delete();
+
+        return back();
+    }
+    public function vendorforumcommentDelete($id){
+        $comment = ForumComments::find($id);
+        $comment->delete();
+
+        return back();
+    }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####
 }

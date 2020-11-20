@@ -97,6 +97,7 @@
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span>Forum</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="/user/vendor/forum/posts">Posts</a></li>
+                            <li><a class="nav-link" href="/user/vendor/forum/comments">Comments</a></li>
                         </ul>
                     </li>
                 </ul>

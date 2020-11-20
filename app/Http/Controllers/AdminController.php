@@ -3961,7 +3961,7 @@ class AdminController extends Controller
         $list = ForumCategory::withCount('posts')->get();
         return view('admin.forum.categroy',array('lists'=>$list));
     }
-    public function categoryEdit($id)
+    public function forumcategoryEdit($id)
     {
         $list = ForumCategory::all();
         $item = ForumCategory::find($id);

@@ -65,15 +65,15 @@ Route::group(['prefix' => 'user'], function () {
                 Route::get('posts', 'UserController@vendorforumposts');
                 Route::get('post/new', 'UserController@forumnewpost');
                 Route::get('post/edit/{id}','UserController@vendorforumeditPost');
-                Route::get('post/delete/{id}','UserController@forumpostDelete');
+                Route::get('post/delete/{id}','UserController@vendorforumpostDelete');
                 Route::post('post/store', 'UserController@vendorforumstore');
                 
                 Route::get('category', 'UserController@forumcategorys');
                 Route::get('category/edit/{id}','UserController@forumcategoryEdit');
                 Route::get('category/delete/{id}','UserController@forumcategoryDelete');
                 Route::post('category/store','UserController@forumcategoryStore');
-                Route::get('comments','UserController@forumcomments');
-                Route::get('comment/delete/{id}','UserController@forumcommentDelete');
+                Route::get('comments','UserController@vendorforumcomments');
+                Route::get('comment/delete/{id}','UserController@vendorforumcommentDelete');
             });
 
             #######################
