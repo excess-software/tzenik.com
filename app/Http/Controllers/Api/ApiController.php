@@ -1868,13 +1868,41 @@ class ApiController extends Controller
         if(!$user){
             return $this->error(-1, trans('main.user_not_found'));
         }
-        $events = CalendarEvents::where('user_id', $user['id'])->get();
-        foreach($events as $event){
-            $product = Content::find($event->product_id);
-            $event->product_name = $product->title;
-            $event->product_desc = $product->content;
+        //$events = CalendarEvents::where('user_id', $user['id'])->get();
+        //foreach($events as $event){
+        //    $product = Content::find($event->product_id);
+        //    $event->product_name = $product->title;
+        //    $event->product_desc = $product->content;
+        //}
+        //return $this->response($events);
+
+        $dates = CalendarEvents::where('user_id', $user['id'])->distinct('date')->pluck('date');
+
+        //$dates_array = CalendarEvents::where('user_id', $user['id'])->distinct('date')->pluck('date')->keyBy('date')->toArray();
+
+        $dates_array = array();
+
+        //$events_by_date = array();
+        foreach($dates as $date){
+            $events = CalendarEvents::where('user_id', $user['id'])->where('date', $date)->select(['id', 'user_id', 'product_id', 'type', 'content'])->get();
+            foreach($events as $event){
+                $product = Content::find($event->product_id);
+                $hour_pos = strpos($event->content, "H");
+                $hour = substr($event->content, 9);
+                unset($event['content']);
+                $event->name = $product->title;
+                $event->desc = $product->content;
+                $event->start = $date.'T'.date("H:i", strtotime($hour));
+            }
+            $dates_array[$date] = $events;
+            //array_push($events_by_date, array($date => $events));
         }
-        return $this->response($events);
+
+        //$events = CalendarEvents::where('user_id', $user['id'])->orderBy('date', 'asc')->groupBy('date')->get();
+        //var_dump($events_by_date);
+        //return $this->response($events_by_date);
+        //return $dates_array;
+        return $this->response($dates_array);
     }
     public function addToCalendar(Request $request){
         $user = $this->checkUserToken($request);
