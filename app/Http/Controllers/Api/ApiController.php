@@ -1893,6 +1893,7 @@ class ApiController extends Controller
                 $event->name = $product->title;
                 $event->desc = $product->content;
                 $event->start = $date.'T'.date("H:i", strtotime($hour));
+                $event->selected = true;
             }
             $dates_array[$date] = $events;
             //array_push($events_by_date, array($date => $events));
