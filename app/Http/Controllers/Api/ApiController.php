@@ -1883,8 +1883,8 @@ class ApiController extends Controller
         $dates_array = array();
 
         //$events_by_date = array();
-        foreach($dates as $date){
-            $events = CalendarEvents::where('user_id', $user['id'])->where('date', $date)->select(['id', 'user_id', 'product_id', 'type', 'content'])->get();
+        /*foreach($dates as $date){
+            $events = CalendarEvents::where('user_id', $user['id'])->where('date', $date)->select(['id', 'user_id', 'product_id', 'type', 'content'])->first();
             foreach($events as $event){
                 $product = Content::find($event->product_id);
                 $hour_pos = strpos($event->content, "H");
@@ -1896,6 +1896,15 @@ class ApiController extends Controller
                 $event->selected = true;
             }
             $dates_array[$date] = $events;
+            //array_push($events_by_date, array($date => $events));
+        }¨*/
+
+        foreach($dates as $date){
+            $event = CalendarEvents::where('user_id', $user['id'])->where('date', $date)->select(['product_id', 'type'])->first();
+            
+            $event->selected = true;
+            
+            $dates_array[$date] = $event;
             //array_push($events_by_date, array($date => $events));
         }
 
