@@ -1520,20 +1520,22 @@ class ApiController extends Controller
             return $this->error(-1, trans('main.user_not_found'));
 
 
-        $lists = Content::where('user_id',$User['id'])->with(['metas'])->withCount('sells')->orderBy('id','DESC')->get();
-        foreach ($lists as $item){
-            $meta = arrayToList($item->metas,'option','value');
-            $data['courses'][] = [
-                'id'        => $item->id,
-                'title'     => $item->title,
-                'thumbnail' => checkUrl($meta['thumbnail']),
-                'mode'      => $item->mode,
-                'sales'     => $item->sells_count
-            ];
-        }
+        //$lists = Content::where('user_id',$User['id'])->with(['metas'])->withCount('sells')->orderBy('id','DESC')->get();
+        //foreach ($lists as $item){
+        //    $meta = arrayToList($item->metas,'option','value');
+        //    $data['courses'][] = [
+        //        'id'        => $item->id,
+        //        'title'     => $item->title,
+        //        'thumbnail' => checkUrl($meta['thumbnail']),
+        //        'mode'      => $item->mode,
+        //        'sales'     => $item->sells_count
+        //    ];
+        //}
+
+        $dates = array();
 
         $purchases = Sell::with(['content'=>function($q){
-            $q->with(['metas']);
+            $q->with(['metas', 'parts']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
         if($purchases->isEmpty()){
             return $this->response($data, '0');
@@ -1541,20 +1543,35 @@ class ApiController extends Controller
             foreach ($purchases as $item){
                 if(isset($item->content)) {
                     $meta = arrayToList($item->content->metas, 'option', 'value');
-                    $data['asignados'][] = [
-                        'id'        => $item->content->id,
-                        'title'     => $item->content->title,
-                        'thumbnail' => checkUrl($meta['thumbnail']),
-                        'price'     => isset($meta['price']) ? $meta['price'] : 'free',
-                        'amount'    => isset($meta['price']) ? $meta['price'] : 'free',
-                        'currency'  => $currency,
-                        'date'      => date('Y F d | H:i', $item->created_at)
-                    ];
+                    //$data['asignados'][] = [
+                    //    'id'        => $item->content->id,
+                    //    'title'     => $item->content->title,
+                    //    'thumbnail' => checkUrl($meta['thumbnail']),
+                    //    //'price'     => isset($meta['price']) ? $meta['price'] : 'free',
+                    //    //'amount'    => isset($meta['price']) ? $meta['price'] : 'free',
+                    //    //'currency'  => $currency,
+                    //    //'date'      => date('Y F d | H:i', $item->created_at),
+                    //    'parts'     => $item->content->parts
+                    //];
+                    foreach($item->content->parts as $part){
+
+                        $data = [
+                            'content_id' => $item->content->id,
+                            'content_title' => $item->content->title,
+                            'thumbnail' => checkUrl($meta['thumbnail']),
+                            'part_id'    => $part->id,
+                            'part_title' => $part->title,
+                            'initial_date' => $part->initial_date,
+                            'limit_date' => $part->limit_date
+                        ];
+
+                        $dates[$part->initial_date][] = $data;
+                    }
                 }
             }
     
     
-            return $this->response($data);
+            return $this->response($dates);
         }
     }
     ## Financial
