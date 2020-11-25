@@ -1532,26 +1532,9 @@ class ApiController extends Controller
         //    ];
         //}
 
-        $dates = array();
+        //return $dates;
 
-        $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
-
-        $parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
         
-        foreach($parts_dates as $date){
-            $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
-            foreach($parts_data as $part){
-                $content = Content::where('id', $part->content_id)->with('metas')->first();
-                $meta = arrayToList($content->metas, 'option', 'value');
-                $part->content_title = $content->title;
-                $part->thumbnail = checkUrl($meta['thumbnail']);
-            }
-
-            $dates[] = ["title" => $date, "data" => [$parts_data]];
-        }
-
-        return $dates;
-
         $purchases = Sell::with(['content'=>function($q){
             $q->with(['metas', 'parts']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
@@ -1559,7 +1542,7 @@ class ApiController extends Controller
         if($purchases->isEmpty()){
             return $this->response($data, '0');
         }else{
-            foreach ($purchases as $item){
+            /*foreach ($purchases as $item){
                 if(isset($item->content)) {
                     $meta = arrayToList($item->content->metas, 'option', 'value');
                     //$data['asignados'][] = [
@@ -1588,6 +1571,24 @@ class ApiController extends Controller
                         $dates[] = ["title" => $date, "data" => [$content_data]];
                     }
                 }
+            }*/
+
+            $dates = array();
+
+            $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
+
+            $parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
+            
+            foreach($parts_dates as $date){
+                $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
+                foreach($parts_data as $part){
+                    $content = Content::where('id', $part->content_id)->with('metas')->first();
+                    $meta = arrayToList($content->metas, 'option', 'value');
+                    $part->content_title = $content->title;
+                    $part->thumbnail = checkUrl($meta['thumbnail']);
+                }
+
+                $dates[] = ["title" => $date, "data" => [$parts_data]];
             }
     
     
