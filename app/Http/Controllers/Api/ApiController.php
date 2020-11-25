@@ -1588,7 +1588,7 @@ class ApiController extends Controller
                     $part->thumbnail = checkUrl($meta['thumbnail']);
                 }
 
-                $dates[] = ["title" => $date, "data" => [$parts_data]];
+                $dates[] = ["title" => $date, "data" => $parts_data];
             }
     
     
