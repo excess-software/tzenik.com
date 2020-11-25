@@ -11,6 +11,9 @@
                         <a href="#main" class="nav-link active" data-toggle="tab"> {{ trans('admin.general') }} </a>
                     </li>
                     <li class="nav-item">
+                        <a href="#password" class="nav-link" data-toggle="tab">{{ trans('admin.password') }}</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#profile" class="nav-link" data-toggle="tab">{{ trans('admin.profile') }}</a>
                     </li>
                     <li class="nav-item">
@@ -87,6 +90,40 @@
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary" type="submit">{{ trans('admin.save_changes') }}</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="password" class="tab-pane active">
+                        <form action="/admin/user/edit/changePassword/{{$user->id}}" class="form-horizontal form-bordered" method="post">
+                            {{ csrf_field() }}
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.real_name') }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="name" value="{{ $user->name }}" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.username') }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" value="{{ $user->username }}" id="inputReadOnly" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.email') }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" value="{{ $user->email }}" id="inputReadOnly" class="form-control text-left" dir="ltr" readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-8 control-label"><h5> ¿Está seguro que desea generar una nueva contraseña?</h5></label>
                                 <div class="col-md-6">
                                     <button class="btn btn-primary" type="submit">{{ trans('admin.save_changes') }}</button>
                                 </div>

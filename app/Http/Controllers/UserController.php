@@ -3056,7 +3056,7 @@ class UserController extends Controller
 
         $quizzesQuery = Quiz::query();
 
-        if ($user->vendor) {
+        /*if ($user->vendor) {
             $quizzes = $quizzesQuery->where('user_id', $user->id)
                 ->with(['questions', 'content', 'QuizResults' => function ($query) {
                     $query->orderBy('status', 'desc');
@@ -3080,7 +3080,8 @@ class UserController extends Controller
                 $quiz->average_grade = ($total_grade > 0) ? round($total_grade / count($QuizResults), 2) : 0;
                 $quiz->review_needs = $waiting_results;
             }
-        } else {
+        */
+        //} else {
             $quizzes = $quizzesQuery->where('status', 'active')
                 ->with(['questionsGradeSum', 'content'])
                 ->get();
@@ -3107,12 +3108,14 @@ class UserController extends Controller
                     $quiz->can_try = false;
                 }
             }
-        }
+        //}
 
         $data = [
             'user' => $user,
             'quizzes' => $quizzes,
         ];
+
+        //return $data;
 
         return view(getTemplate() . '.user.quizzes.list', $data);
     }

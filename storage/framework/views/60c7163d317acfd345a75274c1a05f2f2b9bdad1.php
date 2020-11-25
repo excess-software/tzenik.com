@@ -11,6 +11,9 @@
                         <a href="#main" class="nav-link active" data-toggle="tab"> <?php echo e(trans('admin.general')); ?> </a>
                     </li>
                     <li class="nav-item">
+                        <a href="#password" class="nav-link" data-toggle="tab"><?php echo e(trans('admin.password')); ?></a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#profile" class="nav-link" data-toggle="tab"><?php echo e(trans('admin.profile')); ?></a>
                     </li>
                     <li class="nav-item">
@@ -88,6 +91,41 @@
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary" type="submit"><?php echo e(trans('admin.save_changes')); ?></button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="password" class="tab-pane active">
+                        <form action="/admin/user/edit/changePassword/<?php echo e($user->id); ?>" class="form-horizontal form-bordered" method="post">
+                            <?php echo e(csrf_field()); ?>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="inputDefault"><?php echo e(trans('admin.real_name')); ?></label>
+                                <div class="col-md-6">
+                                    <input type="text" name="name" value="<?php echo e($user->name); ?>" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="inputReadOnly"><?php echo e(trans('admin.username')); ?></label>
+                                <div class="col-md-6">
+                                    <input type="text" value="<?php echo e($user->username); ?>" id="inputReadOnly" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="inputReadOnly"><?php echo e(trans('admin.email')); ?></label>
+                                <div class="col-md-6">
+                                    <input type="text" value="<?php echo e($user->email); ?>" id="inputReadOnly" class="form-control text-left" dir="ltr" readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-8 control-label"><h5> ¿Está seguro que desea generar una nueva contraseña?</h5></label>
                                 <div class="col-md-6">
                                     <button class="btn btn-primary" type="submit"><?php echo e(trans('admin.save_changes')); ?></button>
                                 </div>

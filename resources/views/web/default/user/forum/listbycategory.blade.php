@@ -1,9 +1,9 @@
-@extends('web.default.user.layout.forum',['breadcom'=>['Forum','Posts']])
+@extends(getTemplate().'.view.layout.layout')
 @section('title')
     {{{ trans('main.forum_title') }}}
 @endsection
-@section('page')
-
+@section('content')
+@include(getTemplate() . '.user.parts.navigation')
     <div class="row">
         <div class="col-lg-6 col-xs-6 col-md-6">
             <a href="/user/forum/post/new" class="float-right" style="float: right"><button class="btn btn-info">{{{ trans('main.forum_btn_new_thread') }}}</button></a>

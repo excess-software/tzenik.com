@@ -3,8 +3,8 @@
     <?php echo e(trans('main.forum_title')); ?>
 
 <?php $__env->stopSection(); ?>
-<?php $__env->startSection('page'); ?>
-
+<?php $__env->startSection('content'); ?>
+<?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <div class="row">
         <div class="col-lg-6 col-xs-6 col-md-6">
             <a href="/user/forum/post/new" class="float-right" style="float: right"><button class="btn btn-info"><?php echo e(trans('main.forum_btn_new_thread')); ?></button></a>
@@ -43,4 +43,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('web.default.user.layout.forum',['breadcom'=>['Forum','Posts']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/forum/listbycategory.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(getTemplate().'.view.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/forum/listbycategory.blade.php ENDPATH**/ ?>

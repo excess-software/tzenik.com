@@ -1,8 +1,9 @@
-@extends('admin.newlayout.forum',['breadcom'=>['Blog','Categories']])
+@extends(getTemplate().'.view.layout.layout')
 @section('title')
     {{{ trans('admin.blog_categories') }}}
 @endsection
-@section('page')
+@section('content')
+@include(getTemplate() . '.user.parts.navigation')
     <div class="card">
         <div class="card-body">
             <div class="tabs">

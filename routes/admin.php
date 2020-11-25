@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('guardar', 'AdminController@guardarUsuario');
             Route::get('item/{id}', 'AdminController@userShow');
             Route::post('edit/{id}', 'AdminController@userEdit');
+            Route::post('edit/changePassword/{id}', 'AdminController@userChangePassword');
             Route::get('password/{id}','AdminController@userPassword');
             Route::get('delete/{id}', 'AdminController@userDelete');
             Route::post('editprofile/{id}', 'AdminController@userEditProfile');

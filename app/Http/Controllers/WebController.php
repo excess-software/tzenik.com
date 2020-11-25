@@ -1252,10 +1252,42 @@ class WebController extends Controller
             }]);
         }, 'supports' => function ($q) use ($user) {
             $q->with(['user.usermetas', 'supporter.usermetas', 'sender.usermetas'])->where('sender_id', $user->id)->where('mode', 'publish')->orderBy('id', 'DESC');
+        }, 'quizzes' => function ($q) {
+            $q->where('status', 'active');
         }])->where(function ($where) {
             $where->where('mode', 'publish');
         })->find($id);
 
+        if ($user) {
+            $quizzes = $product->quizzes;
+            foreach ($quizzes as $quiz) {
+                $canTryAgainQuiz = false;
+                $userQuizDone = QuizResult::where('quiz_id', $quiz->id)
+                    ->where('student_id', $user->id)
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                if (count($userQuizDone)) {
+                    $quiz->user_grade = $userQuizDone->first()->user_grade;
+                    $quiz->result_status = $userQuizDone->first()->status;
+                    $quiz->result = $userQuizDone->first();
+                    $quiz->student_id = $userQuizDone->first()->student_id;
+                    if ($quiz->result_status == 'pass') {
+                        $canDownloadCertificate = true;
+                    }
+                }
+
+                if (!isset($quiz->attempt) or (count($userQuizDone) < $quiz->attempt and $quiz->result_status !== 'pass')) {
+                    $canTryAgainQuiz = true;
+                }
+
+                $quiz->can_try = $canTryAgainQuiz;
+
+                if ($quiz->certificate) {
+                    $hasCertificate = true;
+                }
+            }
+        }
 
         if (!$product)
             return abort(404);
@@ -1362,6 +1394,7 @@ class WebController extends Controller
             'product_material' => $product_material,
         ];
 
+        
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
 
         if($product->content_type == 'Fundal' || $product->content_type == 'fundal'){

@@ -392,6 +392,21 @@ class AdminController extends Controller
         return view('admin.user.item', array('user' => $user, 'category' => $userCategory, 'meta' => $userMetas, 'lists' => $lists, 'mrates' => $mrate, 'getrate' => $getrate));
     }
 
+    public function userChangePassword($id){
+        $user = User::find($id);
+        $random_password = Str::random(8);
+        $user->password = Hash::make($random_password);
+        $user->save();
+
+        sendMail([
+            'template'=>get_option('user_register_wellcome_email'),
+            'recipent'=>[$user->email],
+            'subject'=> 'Password: '.$random_password
+        ]);
+        
+        return redirect('/admin/user/item/'.$id)->with('msg', 'La contraseña se cambió correctamente.');
+    }
+
     public function userEdit($id, Request $request)
     {
         $request->request->remove('block_date');

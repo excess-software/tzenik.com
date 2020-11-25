@@ -1,9 +1,9 @@
-@extends('web.default.user.layout.forum',['breadcom'=>[trans('admin.blog_posts'),trans('admin.new_post')]])
+@extends(getTemplate().'.view.layout.layout')
 @section('title')
     {{{ trans('admin.new_post') }}}
 @endsection
-@section('page')
-
+@section('content')
+@include(getTemplate() . '.user.parts.navigation')
     <div class="row">
         <div class="col-lg-12 col-xs-6">
         <a href="../" class="float-left" style="text-decoration: none;"><h4 class="text-dark"><- {{{ trans('main.forum_goback') }}}</h4></a>

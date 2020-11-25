@@ -1,16 +1,16 @@
-@extends('web.default.user.layout.forum',['breadcom'=>['Forum','Posts']])
+@extends(getTemplate().'.view.layout.layout')
 @section('title')
     {{{ trans('main.forum_title') }}}
 @endsection
-@section('page')
-
+@section('content')
+@include(getTemplate() . '.user.parts.navigation')
     <div class="row">
-        <div class="col-lg-6 col-xs-6 col-md-6">
+        <div class="col-lg-7 col-xs-7 col-md-7">
             <a href="/user/forum/post/new" class="float-right" style="float: right"><button class="btn btn-info">{{{ trans('main.forum_btn_new_thread') }}}</button></a>
         </div>
-        <div class="col-lg-6 col-xs-6 col-md-6">
-            <a href="../" class="float-left" style="text-decoration: none;"><h4 class="text-dark"><- {{{ trans('main.forum_goback') }}}</h4></a>
-        </div>        
+        <!--<div class="col-lg-6 col-xs-6 col-md-6">
+            <a href="/user/video/buy" class="float-left" style="text-decoration: none;"><h4 class="text-dark"><- {{{ trans('main.forum_goback') }}}</h4></a>
+        </div>    -->    
     </div>
 
     <br>

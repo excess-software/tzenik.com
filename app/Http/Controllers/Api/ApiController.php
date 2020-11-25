@@ -1579,6 +1579,8 @@ class ApiController extends Controller
 
             $parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
             
+            setlocale(LC_ALL, 'es_ES');
+
             foreach($parts_dates as $date){
                 $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
                 foreach($parts_data as $part){
@@ -1587,8 +1589,8 @@ class ApiController extends Controller
                     $part->content_title = $content->title;
                     $part->thumbnail = checkUrl($meta['thumbnail']);
                 }
-
-                $dates[] = ["title" => $date, "data" => $parts_data];
+                $date = Carbon::parse($date);
+                $dates[] = ["title" => $date->format('j').' de '.$date->formatLocalized('%B').' del '.$date->format('Y'), "data" => $parts_data];
             }
     
     

@@ -1,8 +1,9 @@
-@extends('user.layout.forum')
+@extends(getTemplate().'.view.layout.layout')
 @section('title')
    {{{ trans('admin.reply_comment') }}}
 @endsection
-@section('page')
+@section('content')
+@include(getTemplate() . '.user.parts.navigation')
     <section class="card">
         <div class="card-body">
             {!! $item->comment or '' !!}
