@@ -1555,7 +1555,8 @@ class ApiController extends Controller
                     //];
                     foreach($item->content->parts as $part){
 
-                        $data = [
+                        $date = $part->initial_date;
+                        $content_data = [
                             'content_id' => $item->content->id,
                             'content_title' => $item->content->title,
                             'thumbnail' => checkUrl($meta['thumbnail']),
@@ -1565,7 +1566,7 @@ class ApiController extends Controller
                             'limit_date' => $part->limit_date
                         ];
 
-                        $dates[$part->initial_date][] = $data;
+                        $dates[] = ["title" => $date, "data" => [$content_data]];
                     }
                 }
             }
