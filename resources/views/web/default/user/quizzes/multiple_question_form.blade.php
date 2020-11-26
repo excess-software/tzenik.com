@@ -23,8 +23,9 @@
         <div class="col-md-12">
             <div class="ansalrt">
                 <p>{{ trans('main.answer_alert') }}</p>
-                <button type="button" class="btn add-btn btn-info marl-16"><i class="mdi mdi-plus"></i></button>
+                <button type="button" class="btn add-btn btn-info marl-16 btn-block"><i class="fa fa-plus"></i></button>
             </div>
+            <br>
 
             @if (!empty($question_edit))
                 @foreach ($question_edit->questionsAnswers as $answer)

@@ -99,6 +99,23 @@ Route::group(['prefix' => 'user'], function () {
 
             });
 
+            ########################
+            #### Vendor Quizzes ####
+            ########################
+            Route::group(['prefix' => 'quizzes'], function () {
+                Route::get('', 'UserController@vendorQuizzesList');
+                Route::get('newQuiz', 'UserController@newQuiz');
+                Route::post('/store', 'UserController@QuizzesStore');
+                Route::get('/edit/{quiz_id}', 'UserController@QuizzesEdit');
+                Route::post('/update/{quiz_id}', 'UserController@QuizzesUpdate');
+                Route::get('/delete/{quiz_id}', 'UserController@QuizzesDelete');
+                Route::get('/{quiz_id}/questions', 'UserController@QuizzesQuestions');
+                Route::post('/{quiz_id}/questions', 'UserController@QuizzesQuestionsStore');
+                Route::get('/{quiz_id}/results', 'UserController@QuizzesResults');
+                Route::post('/results/get_descriptive', 'UserController@QuizzesResultsDescriptive');
+                Route::post('/results/reviewed', 'UserController@QuizzesResultsReviewed');
+            });
+
         }); 
 
         ##################
@@ -309,6 +326,7 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::group(['prefix' => 'quizzes'], function () {
             Route::get('/', 'UserController@QuizzesList');
+            Route::get('newQuiz', 'UserController@newQuiz');
             Route::post('/store', 'UserController@QuizzesStore');
             Route::get('/edit/{quiz_id}', 'UserController@QuizzesEdit');
             Route::post('/update/{quiz_id}', 'UserController@QuizzesUpdate');

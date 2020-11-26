@@ -3120,6 +3120,50 @@ class UserController extends Controller
         return view(getTemplate() . '.user.quizzes.list', $data);
     }
 
+    public function vendorQuizzesList()
+    {
+        $user = auth()->user();
+
+        $quizzesQuery = Quiz::query();
+
+        $quizzes = $quizzesQuery->where('user_id', $user->id)
+            ->with(['questions', 'content', 'QuizResults' => function ($query) {
+                $query->orderBy('status', 'desc');
+                $query->with('student');
+            }])->get();
+
+        foreach ($quizzes as $quiz) {
+            $QuizResults = $quiz->QuizResults;
+            $waiting_results = 0;
+            $passed_results = 0;
+            $total_grade = 0;
+            foreach ($QuizResults as $result) {
+                if ($result->status == 'waiting') {
+                    $waiting_results += 1;
+                } else if ($result->status == 'pass') {
+                    $passed_results += 1;
+                }
+                $total_grade += (int)$result->user_grade;
+            }
+
+            $quiz->average_grade = ($total_grade > 0) ? round($total_grade / count($QuizResults), 2) : 0;
+            $quiz->review_needs = $waiting_results;
+        }
+
+        $data = [
+            'user' => $user,
+            'quizzes' => $quizzes,
+        ];
+
+        //return $data;
+
+        return view(getTemplate() . '.user.vendor.quizzes.list', $data);
+    }
+
+    public function newQuiz(){
+        return view(getTemplate().'.user.vendor.quizzes.newquiz');
+    }
+
     public function QuizzesStore(Request $request)
     {
         $user = auth()->user();
@@ -3154,7 +3198,7 @@ class UserController extends Controller
                 'user' => $user,
                 'quiz' => $quiz,
             ];
-            return view(getTemplate() . '.user.quizzes.list', $data);
+            return view(getTemplate() . '.user.vendor.quizzes.newquiz', $data);
         }
 
         abort(404);
@@ -3187,7 +3231,7 @@ class UserController extends Controller
             $data['updated_at'] = time();
             $quiz->update($data);
 
-            return redirect('/user/quizzes')->with('msg', trans('main.quiz_updated_msg'));
+            return redirect('/user/vendor/quizzes')->with('msg', trans('main.quiz_updated_msg'));
         }
 
         return back();
@@ -3219,7 +3263,7 @@ class UserController extends Controller
             $data = [
                 'quiz' => $quiz
             ];
-            return view(getTemplate() . '.user.quizzes.questions', $data);
+            return view(getTemplate() . '.user.vendor.quizzes.questions', $data);
         }
 
         abort(404);
@@ -3455,7 +3499,7 @@ class UserController extends Controller
                 'averageResults' => ($total_grade > 0) ? round($total_grade / count($QuizResults), 2) : 0,
             ];
 
-            return view(getTemplate() . '.user.quizzes.results', $data);
+            return view(getTemplate() . '.user.vendor.quizzes.results', $data);
         }
         abort(404);
     }
