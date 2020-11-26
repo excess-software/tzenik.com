@@ -80,6 +80,9 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Razorpay\Api\Api;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use File;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -1257,7 +1260,7 @@ class UserController extends Controller
     }
 
     public function contentUpdateRequest($id, Request $request)
-    {
+    {   
         $user = auth()->user();
         $request->request->add(['mode' => 'publish']);
         $content = Content::where('user_id', $user->id)->find($id);
@@ -1360,13 +1363,20 @@ class UserController extends Controller
     }
 
     public function contentPartStore(Request $request)
-    {
+    {  
         $user = auth()->user();
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
             $request->request->add(['created_at' => time(), 'mode' => 'publish']);
-            $newPart = ContentPart::create($request->all());
-            return redirect('/user/content/part/list/' . $content->id);
+            $newPart = ContentPart::create($request->except('material'));
+
+            $material = $request->material;
+
+            if($material->isValid()){
+                $material->move('bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/', $material->getClientOriginalName());
+            }
+            return back();
+            //return redirect('/user/content/part/list/' . $content->id);
         } else {
             echo 'error';
         }

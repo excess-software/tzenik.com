@@ -488,7 +488,7 @@
                             </div>
                             <div class="submenu dblock">
                                 <div class="h-15"></div>
-                                <form action="/user/content/part/store" id="step-5-form-new-part" method="post"
+                                <form action="/user/content/part/store" enctype="multipart/form-data" id="step-5-form-new-part" method="post"
                                     class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="content_id" value="{{ $item->id }}">
@@ -591,6 +591,14 @@
                                                 <input type="date" name="limit_date"
                                                     class="form-control">
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">Materiales del módulo</label>
+                                        <div class="col-md-8 tab-con">
+                                            <input type="file" name="material" id="material-modulo" class="form-control">
                                         </div>
                                     </div>
 
@@ -947,13 +955,13 @@
 
 </script>
 <script>
-    $('#new-part').click(function (e) {
+    /*$('#new-part').click(function (e) {
         e.preventDefault();
         if (!$('#step-5-form-new-part')[0].checkValidity()) {
             $('#step-5-form-new-part input').filter('[required]:visible').css('border-color', 'red');
         } else {
             $('#step-5-form-new-part input').filter('[required]:visible').css('border-color', '#CCCCCC');
-            $.post('/user/content/part/store', $('#step-5-form-new-part').serialize(), function (data) {
+            $.get('/user/content/part/store', $('#step-5-form-new-part').serialize(), function (data) {
                 $('#step-5-form-new-part')[0].reset();
                 refreshContent();
                 $.notify({
@@ -970,7 +978,7 @@
                 });
             })
         }
-    })
+    })*/
 
 </script>
 <script>

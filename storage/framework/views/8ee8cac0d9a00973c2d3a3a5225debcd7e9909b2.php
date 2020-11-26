@@ -3,8 +3,8 @@
     <?php echo e(trans('admin.new_post')); ?>
 
 <?php $__env->stopSection(); ?>
-<?php $__env->startSection('page'); ?>
-
+<?php $__env->startSection('content'); ?>
+<?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <div class="row">
         <div class="col-lg-12 col-xs-6">
         <a href="../" class="float-left" style="text-decoration: none;"><h4 class="text-dark"><- <?php echo e(trans('main.forum_goback')); ?></h4></a>
@@ -65,4 +65,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('web.default.user.layout.forum',['breadcom'=>[trans('admin.blog_posts'),trans('admin.new_post')]], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/forum/new.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(getTemplate().'.view.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/forum/new.blade.php ENDPATH**/ ?>

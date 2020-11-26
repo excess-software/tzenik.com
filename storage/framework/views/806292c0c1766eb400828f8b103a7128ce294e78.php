@@ -130,25 +130,21 @@
                                     </button>
                                 </a>
                                 <?php else: ?>
-                                <a href="/product/part/material/<?php echo e($product->id); ?>/materiales.zip">
                                     <button class="btn btn-media-descargar-leccion">
                                         <h4>Descargar Materiales de Lecci&oacute;n</h4>
                                     </button>
-                                </a>
                                 <?php endif; ?>
                                 <br>
                                 <?php if(isset($user)): ?>
-                                <a href="<?php echo e($product_material); ?>">
+                                <a href="/material/curso/<?php echo e($product->id); ?>">
                                     <button class="btn btn-media-descargar-curso">
                                         <h4>Descargar Materiales del Curso</h4>
                                     </button>
                                 </a>
                                 <?php else: ?>
-                                <a href="/product/part/material/<?php echo e($product->id); ?>/1">
                                     <button class="btn btn-media-descargar-curso">
                                         <h4>Descargar Materiales del Curso</h4>
                                     </button>
-                                </a>
                                 <?php endif; ?>
                             </div>
                         </div>

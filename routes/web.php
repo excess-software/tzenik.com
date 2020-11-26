@@ -65,6 +65,12 @@ Route::group(['middleware' => 'notification'], function () {
         Route::get('subscribe/{id}/{type}/{payMode}', 'WebController@productSubscribe');
     });
 
+    ### Product material ###
+    Route::group(['prefix' => 'material'], function () {
+        Route::get('curso/{id}/modulo/{pid}', 'WebController@downloadMaterial');
+        Route::get('curso/{id}', 'WebController@downloadAllMaterial');
+    });
+
     ## Article Section
     Route::group(['prefix' => 'article'], function () {
         Route::get('/list', 'WebController@articles');

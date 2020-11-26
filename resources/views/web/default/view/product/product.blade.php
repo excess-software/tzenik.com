@@ -125,25 +125,21 @@
                                     </button>
                                 </a>
                                 @else
-                                <a href="/product/part/material/{{$product->id}}/materiales.zip">
                                     <button class="btn btn-media-descargar-leccion">
                                         <h4>Descargar Materiales de Lecci&oacute;n</h4>
                                     </button>
-                                </a>
                                 @endif
                                 <br>
                                 @if(isset($user))
-                                <a href="{{$product_material}}">
+                                <a href="/material/curso/{{$product->id}}">
                                     <button class="btn btn-media-descargar-curso">
                                         <h4>Descargar Materiales del Curso</h4>
                                     </button>
                                 </a>
                                 @else
-                                <a href="/product/part/material/{{$product->id}}/1">
                                     <button class="btn btn-media-descargar-curso">
                                         <h4>Descargar Materiales del Curso</h4>
                                     </button>
-                                </a>
                                 @endif
                             </div>
                         </div>

@@ -55,6 +55,8 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
+use File;
+
 class WebController extends Controller
 {
     public function __construct()
@@ -959,7 +961,7 @@ class WebController extends Controller
         $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
         $partDesc = ContentPart::find($producto_id, ['title', 'description', 'initial_date', 'limit_date']);
 
-        $product_material = '/bin/contenido-cursos/'.$id.'/1/materiales.zip';
+        $product_material = '/material/curso/'.$id.'/modulo/'.$producto_id->id.'/';
 
         $enabled = 1;
         if($product->type == 'webinar' || $product->type == 'coaching'){
@@ -1023,6 +1025,46 @@ class WebController extends Controller
                 return view(getTemplate() . '.view.product.product', $data);
             }
         }
+    }
+
+    public function downloadMaterial($id, $pid){
+        $zip = new \ZipArchive();
+        $fileName = 'material-modulo.zip';
+
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE){
+                
+            $files = File::files(public_path('bin/contenido-cursos/'.$id.'/'.$pid.'/'));
+            foreach ($files as $key => $value){
+                $relativeName = basename($value);
+                $zip->addFile($value, $relativeName);
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
+    }
+
+    public function downloadAllMaterial($id){
+        $zip = new \ZipArchive();
+        $fileName = 'materiales.zip';
+
+        $content = Content::with('parts')->find($id);
+
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE){
+            foreach($content->parts as $part){
+                    if(is_dir(public_path('bin/contenido-cursos/'.$id.'/'.$part->id.'/'))){
+                        $files = File::files(public_path('bin/contenido-cursos/'.$id.'/'.$part->id.'/'));
+                        foreach ($files as $key => $value){
+                            $relativeName = basename($value);
+                            $zip->addFile($value, $relativeName);
+                        }
+                    }
+                
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
     }
 
     public function productcard($id, $card)
@@ -1377,7 +1419,7 @@ class WebController extends Controller
             $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
         }*/
         $partDesc = ContentPart::find($pid, ['title', 'description', 'initial_date', 'limit_date']);
-        $product_material = '/bin/contenido-cursos/'.$id.'/'.$pid.'/materiales.zip';
+        $product_material = '/material/curso/'.$id.'/modulo/'.$pid.'/';
 
         $data = [
             'product' => $product,
