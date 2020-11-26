@@ -1192,7 +1192,7 @@ class UserController extends Controller
         $newContent['chat_id'] = $chat_id;
         $content_id = Content::insertGetId($newContent);
 
-        $forum_category = ForumCategory::create(['product_id' => $content_id, 'title' => $newContent['title'], 'desc' => 'Un foro para el curso '.$newContent['title'], 'published' => 'false', 'type' => $newContent['private'] == 2 ? 'private' : 'public']);
+        $forum_category = ForumCategory::create(['product_id' => $content_id, 'title' => $newContent['title'], 'desc' => 'Un foro para el curso '.$newContent['title'], 'published' => 'true', 'type' => $newContent['private'] == 2 ? 'private' : 'public']);
 
         if($newContent['type'] == 'webinar' || $newContent['type'] == 'coaching'){
             return redirect('/user/content/web_coach/edit/'.$content_id);
