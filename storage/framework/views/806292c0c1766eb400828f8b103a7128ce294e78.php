@@ -178,6 +178,7 @@
                         </div>
                         <br>
                     </div>
+                                </div>
                     <div class="col-md-6">
                         <div class="col-md-12">
                             <h2>Lista</h2>

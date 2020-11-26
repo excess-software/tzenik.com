@@ -120,7 +120,7 @@
                     </div>
                     <div class="h-15"></div>
                     @foreach($menus as $menu)
-                    <div class="col-md-11 col-md-offset-1 tab-con filters @if($menu->id != $item->category_id) dnone @endif"
+                    <!--<div class="col-md-11 col-md-offset-1 tab-con filters @if($menu->id != $item->category_id) dnone @endif"
                         id="filter{{{ $menu->id ?? 0 }}}">
                         @foreach($menu->filters as $filter)
                         <div class="col-md-3 col-xs-12 tab-con">
@@ -140,7 +140,7 @@
                             </ul>
                         </div>
                         @endforeach
-                    </div>
+                    </div>-->
                     @endforeach
                 </form>
             </div>
@@ -831,14 +831,14 @@
 
 </script>
 <script>
-    $('#category_id').change(function () {
+    /*$('#category_id').change(function () {
         var id = $(this).val();
         $('.filter-tags').removeAttr('checked');
         $('.filters').not('#filter' + id).each(function () {
             $('.filters').slideUp();
         });
         $('#filter' + id).slideDown(500);
-    })
+    })/*
 
 </script>
 <script>
