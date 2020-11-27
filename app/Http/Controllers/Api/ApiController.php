@@ -522,9 +522,11 @@ class ApiController extends Controller
             }
         }
 
+        $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $id)->get();
 
         $data    = [
             'id'            => $content->id,
+            'downloaded'    => $descargado->isEmpty() ? false : true,
             'content'       => $content->content,
             'title'         => $content->title,
             'material'      => url('/').'/bin/contenido-cursos/'.$id.'/materiales.zip',
