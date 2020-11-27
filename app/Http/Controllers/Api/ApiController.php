@@ -54,6 +54,7 @@ use App\Models\ProgresoAlumno;
 use Carbon\Carbon;
 use App\Models\QuizzesQuestion;
 use App\Models\QuizzesQuestionsAnswer;
+use App\Models\RegistroDescargas;
 
 class ApiController extends Controller
 {
@@ -1094,6 +1095,22 @@ class ApiController extends Controller
         else
             return abort(404);
     }
+    public function productDownloaded(Request $request){
+        $User = $this->checkUserToken($request);
+        if(!$User){
+            return redirect('/')->with('msg',trans('main.user_not_found'));
+        }
+
+        $buscarRegistro = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $request->product)->get();
+        if($buscarRegistro->isEmpty()){
+            $updateDownload = RegistroDescargas::create(['user_id' => $User['id'], 'content_id' => $request->product]);
+            return $this->response(['result' => 'Guardado.']);
+        }else{
+            return $this->error(-1, 'El registro ya existe.');
+        }
+
+
+    }
     public function productSupport(Request $request){
         $User = $this->checkUserToken($request);
         if(!$User)
@@ -1582,7 +1599,8 @@ class ApiController extends Controller
             setlocale(LC_ALL, 'es_ES');
 
             foreach($parts_dates as $date){
-                $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
+                $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
+                $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
                 foreach($parts_data as $part){
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
                     $meta = arrayToList($content->metas, 'option', 'value');
@@ -1590,7 +1608,9 @@ class ApiController extends Controller
                     $part->thumbnail = checkUrl($meta['thumbnail']);
                 }
                 $date = Carbon::parse($date);
-                $dates[] = ["title" => $date->format('j').' de '.$date->formatLocalized('%B').' del '.$date->format('Y'), "data" => $parts_data];
+                if(!$parts_data->isEmpty()){
+                    $dates[] = ["title" => $date->format('j').' de '.$date->formatLocalized('%B').' del '.$date->format('Y'), "data" => $parts_data];
+                }
             }
     
     
