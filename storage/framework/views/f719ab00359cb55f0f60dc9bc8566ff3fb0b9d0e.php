@@ -28,7 +28,7 @@
                                         $meta = arrayToList($item->content['metas'], 'option', 'value')
                                         ?>
                                             <img class="img-responsive img-ultimos-blogs"
-                                                src="<?php echo e($meta['thumbnail']); ?>"
+                                                src="<?php echo e(isset($meta['thumbnail']) ? $meta['thumbnail'] : ''); ?>"
                                                 alt="">
                                         </div>
                                     </div>

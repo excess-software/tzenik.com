@@ -344,6 +344,7 @@
 
     </style>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
+    @if(isset($user))
     <script>
         var socket = io.connect('http://localhost:8890');
         $(document).ready(function () {
@@ -531,6 +532,7 @@
         }
 
     </script>
+    @endif
     <title>@yield('title'){!! $title ?? '' !!}</title>
     <script>
         function changeFont(font) {
@@ -635,8 +637,10 @@
             </div>
         </div>
     </div>
+    @if(isset($user))
     <button type="button" id="btn-chat" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-comment"></i>
     </button>
+    @endif
     <div class="container-full">
         <div class="navbar navbar-inverse">
             <div class="container-fluid nav-container">
