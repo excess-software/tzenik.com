@@ -1604,10 +1604,12 @@ class ApiController extends Controller
                 $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
                 $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
                 foreach($parts_data as $part){
+                    $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
                     $meta = arrayToList($content->metas, 'option', 'value');
                     $part->content_title = $content->title;
                     $part->thumbnail = checkUrl($meta['thumbnail']);
+                    $part->downloaded = $descargado->isEmpty() ? false : true;
                 }
                 $date = Carbon::parse($date);
                 if(!$parts_data->isEmpty()){
