@@ -1968,7 +1968,7 @@ class ApiController extends Controller
             
             $event->selected = true;
             
-            $dates_array[$date] = $event;
+            $dates_array[$date] = ['marked' => true, 'eventos' => $event];
             //array_push($events_by_date, array($date => $events));
         }
 
