@@ -205,11 +205,11 @@ if (localStorage.getItem("font")) {
         $.notify({
             message: '<?php echo e(session('msg')); ?>'
         }, {
-            type: 'danger',
+            type: 'info',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {
-                from: "bottom",
+                from: "top",
                 align: "right"
             },
             position: 'fixed'

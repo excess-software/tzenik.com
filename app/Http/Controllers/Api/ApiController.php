@@ -1964,7 +1964,7 @@ class ApiController extends Controller
         }¨*/
 
         foreach($dates as $date){
-            $event = CalendarEvents::where('user_id', $user['id'])->where('date', $date)->select(['product_id', 'type'])->first();
+            $event = CalendarEvents::where('user_id', $user['id'])->where('date', $date)->select(['product_id', 'type'])->get();
             
             $event->selected = true;
             

@@ -908,7 +908,7 @@
                         $.notify({
                             message: 'Rating Submited.'
                         },{
-                            type: 'danger',
+                            type: 'info',
                             allow_dismiss: false,
                             z_index: '99999999',
                             placement: {

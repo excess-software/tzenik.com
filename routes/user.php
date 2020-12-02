@@ -83,6 +83,7 @@ Route::group(['prefix' => 'user'], function () {
 
                 Route::get('list', 'UserController@vendorcontentLists');
                 Route::get('private/asignar', 'UserController@vendorUinCPrivate');
+                Route::get('private/progreso', 'UserController@vendorProgresoAlumnosFundal');
                 Route::get('private/desasignar', 'UserController@desasignarPrivate');
                 Route::get('private/progresoFundal', 'UserController@progresoAlumnosFundal');
                 Route::post('asignar', 'UserController@asignarCurso');

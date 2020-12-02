@@ -123,7 +123,7 @@
                     $.notify({
                         message: 'Your feedback sent successfully.'
                     }, {
-                        type: 'danger',
+                        type: 'info',
                         allow_dismiss: false,
                         z_index: '99999999',
                         placement: {

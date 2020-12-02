@@ -4328,6 +4328,131 @@ class UserController extends Controller
         return view('web.default.user.vendor.content.usuariosEnCursos', $data);
     }
 
+    public function vendorProgresoAlumnosFundal(Request $request){
+        $fdate = strtotime($request->get('fdate', null)) + 12600;
+        $ldate = strtotime($request->get('ldate', null)) + 12600;
+
+        $user = auth()->user();
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $users = User::where('category_id', $fundal_category[0]->id)->get();
+        $category = ContentCategory::get();
+        $lists = Content::with(['category', 'user', 'metas' => function ($qm) {
+            $qm->get()->pluck('option', 'value');
+        }, 'transactions' => function ($q) {
+            $q->where('mode', 'deliver');
+        }])->withCount('sells', 'partsactive')->where(function ($w) {
+            $w->where('mode', 'publish');
+        })->where('content_type', 'Fundal')->where('user_id', $user->id);
+
+
+        if ($fdate > 12601)
+            $lists->where('created_at', '>', $fdate);
+        if ($ldate > 12601)
+            $lists->where('created_at', '<', $ldate);
+        if ($request->get('user', null) !== null)
+            $lists->where('user_id', $request->get('user', null));
+        if ($request->get('cat', null) !== null)
+            $lists->where('category_id', $request->get('cat', null));
+        if ($request->get('id', null) !== null)
+            $lists->where('id', $request->get('id', null));
+        if ($request->get('title', null) !== null)
+            $lists->where('title', 'like', '%' . $request->get('title', null) . '%');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $lists->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $lists->orderBy('sells_count', 'DESC');
+                    break;
+                case 'viewa':
+                    $lists->orderBy('view');
+                    break;
+                case 'viewd':
+                    $lists->orderBy('view', 'DESC');
+                    break;
+                case 'datea':
+                    $lists->orderBy('id');
+                    break;
+
+            }
+        } else
+            $lists->orderBy('id', 'DESC');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'priced':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'pricea':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'suma':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+                case 'sumd':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+            }
+        }
+
+        $duration = 0;
+        $duration_done = 0;
+
+        //$lists = $lists->paginate(10);
+        $lists = $lists->get();
+        //return $lists;
+
+        $usuarios_cursos = array();
+
+        foreach($lists as $item){
+
+            $sell = Sell::where('content_id', $item->id)->get();
+            if(!$sell->isEmpty()){
+                foreach($sell as $venta){
+                    $duration = 0;
+                    $duration_done = 0;
+                    $parts = ContentPart::where('content_id', $item->id)->get();
+                    if(!$parts->isEmpty()){
+                        foreach($parts as $part){
+                            $parts_done = ProgresoAlumno::where('content_id', $item->id)->where('part_id', $part->id)->where('user_id', $venta->buyer_id)->get();
+                            if(!$parts_done->isEmpty()){
+                                $duration_done = $duration_done + $part->duration;
+                            }
+                            $duration = $duration + $part->duration;
+                        }
+    
+                        $progress = (100 * $duration_done) / $duration;
+    
+                        array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id, $duration_done, $duration, $progress)); 
+                    }  
+                }
+            }
+        }
+
+        $data = [
+            'lists' => $lists,
+            'users' => $users,
+            'category' => $category,
+            'asignados' => $usuarios_cursos
+        ];
+
+        return view('web.default.user.vendor.content.progresoAlumnos', $data);
+    }
+
     public function vendorforumposts(){
 
         $user = auth()->user();

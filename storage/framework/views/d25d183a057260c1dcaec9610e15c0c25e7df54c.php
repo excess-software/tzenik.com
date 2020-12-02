@@ -103,14 +103,14 @@
 
 </script>
 <script>
-    $('#category_id').change(function () {
+    /*$('#category_id').change(function () {
         var id = $(this).val();
         $('.filter-tags').removeAttr('checked');
         $('.filters').not('#filter' + id).each(function () {
             $('.filters').slideUp();
         });
         $('#filter' + id).slideDown(500);
-    })
+    })/*
 
 </script>
 <?php $__env->stopSection(); ?>

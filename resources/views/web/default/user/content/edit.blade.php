@@ -867,7 +867,7 @@
         $.notify({
             message: 'Your changes saved successfully'
         }, {
-            type: 'danger',
+            type: 'info',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {
@@ -891,7 +891,7 @@
         $.notify({
             message: 'Your course sent to content review department.'
         }, {
-            type: 'danger',
+            type: 'info',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {
@@ -1054,7 +1054,7 @@
         $.notify({
             message: 'Part changes saved successfully.'
         }, {
-            type: 'danger',
+            type: 'info',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {

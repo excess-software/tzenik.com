@@ -215,11 +215,11 @@
             $.notify({
                 message: 'Password & its confirmation are not the same.'
             }, {
-                type: 'danger',
+                type: 'info',
                 allow_dismiss: false,
                 z_index: '99999999',
                 placement: {
-                    from: "bottom",
+                    from: "top",
                     align: "right"
                 },
                 position: 'fixed'

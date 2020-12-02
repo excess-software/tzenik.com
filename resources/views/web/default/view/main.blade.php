@@ -38,10 +38,7 @@
     </div>
     <div class="row text-center">
         <div class="col banner-descripcion">
-            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac laoreet ante, ut iaculis
-                purus. Donec nec eleifend ligula, id sollicitudin sem. Phasellus pharetra tellus at auctor
-                faucibus. Cras posuere nec sem a consequat. Phasellus pharetra tellus at auctor faucibus. Cras
-                posuere nec sem a consequat.</h3>
+            <h3>{{ get_option('main_page_slide_text','') }}</h3>
         </div>
     </div>
 </div>

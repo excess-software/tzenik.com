@@ -1410,7 +1410,9 @@ class AdminController extends Controller
         $duration = 0;
         $duration_done = 0;
 
-        $lists = $lists->paginate(10);
+        //$lists = $lists->paginate(10);
+        $lists = $lists->get();
+        //return $lists;
 
         $usuarios_cursos = array();
 
@@ -1419,18 +1421,22 @@ class AdminController extends Controller
             $sell = Sell::where('content_id', $item->id)->get();
             if(!$sell->isEmpty()){
                 foreach($sell as $venta){
+                    $duration = 0;
+                    $duration_done = 0;
                     $parts = ContentPart::where('content_id', $item->id)->get();
-                    foreach($parts as $part){
-                        $parts_done = ProgresoAlumno::where('content_id', $item->id)->where('part_id', $part->id)->where('user_id', $venta->buyer_id)->get();
-                        if(!$parts_done->isEmpty()){
-                            $duration_done = $duration_done + $part->duration;
+                    if(!$parts->isEmpty()){
+                        foreach($parts as $part){
+                            $parts_done = ProgresoAlumno::where('content_id', $item->id)->where('part_id', $part->id)->where('user_id', $venta->buyer_id)->get();
+                            if(!$parts_done->isEmpty()){
+                                $duration_done = $duration_done + $part->duration;
+                            }
+                            $duration = $duration + $part->duration;
                         }
-                        $duration += $part->duration;
-                    }
-
-                    $progress = (100 * $duration_done) / $duration;
-
-                    array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id, $duration_done, $duration, $progress));   
+    
+                        $progress = (100 * $duration_done) / $duration;
+    
+                        array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id, $duration_done, $duration, $progress)); 
+                    }  
                 }
             }
         }
