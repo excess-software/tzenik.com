@@ -1,26 +1,29 @@
-<?php $__env->startSection('pages'); ?>
+<?php $__env->startSection('page'); ?>
 
-<div class="container" style="padding-top: 15%; padding-bottom: 15%;">
-    <div class="row white-rounded-back">
-        <div class="col-md-3">
-            <ul class="list-group partes-nuevo-curso">
-                <li class="list-group-item active" cstep="1"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-library-video"></span><span><?php echo e(trans('main.general')); ?></span></a>
+<div class="cards">
+    <div class="card-body">
+        <div class="tabs">
+            <ul class="nav nav-pills partes-nuevo-curso">
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link active" cstep="1" data-toggle="tab"> <?php echo e(trans('main.general')); ?> </a>
                 </li>
-                <li class="list-group-item" cstep="2"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-apps"></span><span><?php echo e(trans('main.category')); ?></span></a></li>
-                <li class="list-group-item" cstep="3"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-library-books"></span><span><?php echo e(trans('main.extra_info')); ?></span></a>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link disabled" cstep="2" data-toggle="tab"><?php echo e(trans('main.category')); ?></a>
                 </li>
-                <li class="list-group-item" cstep="4"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-folder-image"></span><span><?php echo e(trans('main.view')); ?></span></a></li>
-                <li class="list-group-item" cstep="5"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-movie-open"></span><span><?php echo e(trans('main.parts')); ?></span></a></li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link disabled" cstep="3" data-toggle="tab"><?php echo e(trans('main.extra_info')); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link disabled" cstep="4" data-toggle="tab"><?php echo e(trans('main.view')); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link disabled" cstep="5" data-toggle="tab"><?php echo e(trans('main.parts')); ?></a>
+                </li>
             </ul>
         </div>
-        <div class="col-md-9">
+        <br>
+        <div class="tab-content">
             <div class="steps" id="step1">
-
                 <form method="post" action="/user/content/new/store" class="form-horizontal">
                     <?php echo e(csrf_field()); ?>
 
@@ -65,7 +68,7 @@
                     <hr>
                     <div class="form-group">
                         <div class="col-md-12 tab-con">
-                            <input type="submit" class="btn btn-custom pull-left" value="Next">
+                            <input type="submit" class="btn btn-primary pull-left" value="Next">
                         </div>
                     </div>
                 </form>
@@ -115,4 +118,4 @@
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make(getTemplate().'.user.layout.sendvideolayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/content/new.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(getTemplate() . '.user.vendor.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/content/new.blade.php ENDPATH**/ ?>

@@ -204,7 +204,7 @@ if (localStorage.getItem("font")) {
         $.notify({
             message: '{{ session('msg')}}'
         }, {
-            type: 'info',
+            type: '{{ session('type') ? session('type') : 'info'}}',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {

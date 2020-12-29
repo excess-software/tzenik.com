@@ -1251,7 +1251,7 @@ class WebController extends Controller
         $user = (auth()->check()) ? auth()->user() : null;
 
         if (!$user) {
-            return redirect('/product/' . $id)->with('msg', trans('admin.login_to_play_video'));
+            return redirect('/product/' . $id)->with('msg', trans('admin.login_to_play_video'))->with('type', 'warning');
         }
 
         $content = Content::where('id', $id)->where('mode', 'publish')->find($id);
@@ -1259,7 +1259,7 @@ class WebController extends Controller
         $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
         if($buy == 0){
-            return redirect('/product/' . $id)->with('msg', trans('Compra el curso para acceder a los módulos.'));
+            return redirect('/product/' . $id)->with('msg', trans('Compra el curso para acceder a los módulos.'))->with('type', 'warning');
         }
 
         $product = $content->find($id)->withCount(['comments' => function ($q) {
@@ -1466,7 +1466,7 @@ class WebController extends Controller
     public function productMaterial($id, $pid){
         $user = (auth()->check()) ? auth()->user() : null;
         if (!$user) {
-            return redirect('/product/' . $id)->with('msg', trans('Inicie sesión para descargar el material'));
+            return redirect('/product/' . $id)->with('msg', trans('Inicie sesión para descargar el material'))->with('type', 'warning');
         }
     }
 
@@ -1495,7 +1495,7 @@ class WebController extends Controller
     {
         $user = (auth()->check()) ? auth()->user() : null;
         if ($user == null)
-            return redirect()->back()->with('msg', trans('admin.login_to_comment'));
+            return redirect()->back()->with('msg', trans('admin.login_to_comment'))->with('type', 'warning');
         ContentComment::create([
             'comment' => $request->comment,
             'user_id' => $user->id,
@@ -1506,14 +1506,14 @@ class WebController extends Controller
             'mode' => 'draft'
         ]);
 
-        return redirect()->back()->with('msg', trans('admin.comment_success'));
+        return redirect()->back()->with('msg', trans('admin.comment_success'))->with('type', 'success');
     }
 
     public function productSupportStore(Request $request)
     {
         $user = (auth()->check()) ? auth()->user() : null;
         if ($user == null) {
-            return redirect()->back()->with('msg', trans('admin.login_alert'));
+            return redirect()->back()->with('msg', trans('admin.login_alert'))->with('type', 'warning');
         }
         $id = $request->content_id;
 
@@ -1530,9 +1530,9 @@ class WebController extends Controller
                 'supporter_id' => $buy->user_id,
                 'sender_id' => $user->id
             ]);
-            return redirect()->back()->with('msg', trans('admin.support_success'));
+            return redirect()->back()->with('msg', trans('admin.support_success'))->with('type', 'success');
         } else {
-            return redirect()->back()->with('msg', trans('admin.support_failed'));
+            return redirect()->back()->with('msg', trans('admin.support_failed'))->with('type', 'danger');
         }
     }
 
@@ -1785,7 +1785,7 @@ class WebController extends Controller
                 ## Notification Center
                 $product = Content::find($transaction->content_id);
                 sendNotification(0, ['[c.title]' => $product->title], get_option('notification_template_buy_new'), 'user', $buyer->id);
-                return redirect()->back()->with('msg', trans('admin.item_purchased_success'));
+                return redirect()->back()->with('msg', trans('admin.item_purchased_success'))->with('type', 'success');
             }
         }
     }

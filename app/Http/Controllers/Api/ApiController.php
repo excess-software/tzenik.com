@@ -498,6 +498,36 @@ class ApiController extends Controller
                 }
             }
 
+            $quizzes = $content->quizzes->where('part_id', $part->id);
+            foreach ($quizzes as $quiz) {
+                $canTryAgainQuiz = false;
+                $userQuizDone = QuizResult::where('quiz_id', $quiz->id)
+                    ->where('student_id', $User['id'])
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                if (count($userQuizDone)) {
+                    $quiz->user_grade = $userQuizDone->first()->user_grade;
+                    $quiz->result_status = $userQuizDone->first()->status;
+                    $quiz->result = $userQuizDone->first();
+                    $quiz->student_id = $userQuizDone->first()->student_id;
+                    if ($quiz->result_status == 'pass') {
+                        $canDownloadCertificate = true;
+                    }
+                }
+
+                if (!isset($quiz->attempt) or (count($userQuizDone) < $quiz->attempt and $quiz->result_status !== 'pass')) {
+                    $canTryAgainQuiz = true;
+                }
+                $quiz->user_attempts = count($userQuizDone);
+                $quiz->times_can_try = $quiz->attempt - count($userQuizDone);
+                $quiz->can_try = $canTryAgainQuiz;
+
+                if ($quiz->certificate) {
+                    $hasCertificate = true;
+                }
+            }
+
             $parts[] = [
                 'id'        => $part->id,
                 'title'     => $part->title,
@@ -506,7 +536,9 @@ class ApiController extends Controller
                 'initial_date' => $part->initial_date,
                 'limit_date' => $part->limit_date,
                 'part_material' => url('/').'/bin/contenido-cursos/'.$id.'/'.$part->id.'/materiales.zip',
-                'status' => $partStatus
+                'status' => $partStatus,
+                'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values()
+                
             ];
         }
 
@@ -535,7 +567,7 @@ class ApiController extends Controller
             'thumbnail'     => isset($meta['thumbnail'])?checkUrl($meta['thumbnail']):'',
             'date'          => date('Y-m-d', $content->created_at),
             'parts'         => $parts,
-            'quizzes'       => $content->quizzes
+            //'quizzes'       => $content->quizzes
         ];
 
         return $this->response(['product'=>$data]);

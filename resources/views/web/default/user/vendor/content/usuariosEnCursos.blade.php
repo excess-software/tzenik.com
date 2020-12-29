@@ -13,7 +13,7 @@
         <h2 class="card-title">Asignar usuarios a cursos privados</h2>
     </header>
     <div class="card-body">
-        <form action="/admin/content/asignar" method="post">
+        <form action="/user/vendor/content/asignar" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-12">
@@ -93,7 +93,7 @@
     function getUsers(curso) {
         $.ajax({
             type: 'GET',
-            url: "/admin/content/private/getUsers/" + curso,
+            url: "/user/vendor/content/private/getUsers/" + curso,
             dataType: "json",
             success: function (data) {
                 var html = '';

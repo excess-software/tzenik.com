@@ -205,7 +205,7 @@ if (localStorage.getItem("font")) {
         $.notify({
             message: '<?php echo e(session('msg')); ?>'
         }, {
-            type: 'info',
+            type: '<?php echo e(session('type') ? session('type') : 'info'); ?>',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {

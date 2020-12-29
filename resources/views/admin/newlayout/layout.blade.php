@@ -381,5 +381,21 @@
     @endif
 </script>
 @yield('script')
+@if(session('msg') != null)
+    <script>
+        $.notify({
+            message: '{{ session('msg')}}'
+        }, {
+            type: '{{ session('type') ? session('type') : 'info'}}',
+            allow_dismiss: false,
+            z_index: '99999999',
+            placement: {
+                from: "top",
+                align: "right"
+            },
+            position: 'fixed'
+        });
+    </script>
+    @endif
 </body>
 </html>

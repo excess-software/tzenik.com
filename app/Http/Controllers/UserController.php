@@ -232,9 +232,9 @@ class UserController extends Controller
                 CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id, 
                 'date' => $date, 'type' => $content->type, 'content' => 'Horario: '.$part_date->time]);
             }
-            return back()->with('msg', trans('¡Inscrito exitosamente!'));
+            return back()->with('msg', trans('¡Inscrito exitosamente!'))->with('type', 'success');
         }else{
-            return back()->with('msg', trans('Usted ya se encuentra inscrito.'));
+            return back()->with('msg', trans('Usted ya se encuentra inscrito.'))->with('type', 'warning');
         }
 
     }
@@ -252,6 +252,7 @@ class UserController extends Controller
                 'first_login' => 'true'
             ]);
             $request->session()->flash('msg', 'success');
+            $request->session()->flash('type', 'success');
             return back();
         }
 
@@ -2125,7 +2126,7 @@ class UserController extends Controller
         }
 
         //return view(getTemplate() . '.auth.active');
-        return redirect('/login')->with('msg', 'Ya puede iniciar sesión.');
+        return redirect('/login')->with('msg', 'Ya puede iniciar sesión.')->with('type', 'success');
     }
 
     public function forgetPassword(Request $request)
@@ -2137,9 +2138,9 @@ class UserController extends Controller
             $update = User::where('email', $email)->update(['token' => $str]);
             if ($update) {
                 sendMail(['template' => get_option('user_register_reset_email'), 'recipent' => [$request->email]]);
-                return back()->with('msg', trans('main.pass_change_link'));
+                return back()->with('msg', trans('main.pass_change_link'))->with('type', 'success');
             } else {
-                return back()->with('msg', trans('main.user_not_found'));
+                return back()->with('msg', trans('main.user_not_found'))->with('type', 'warning');
             }
         }
 
@@ -2151,7 +2152,7 @@ class UserController extends Controller
         $user = User::where('token', $token)->first();
         $user->update(['password' => encrypt(Str::random(6))]);
         sendMail(['template' => get_option('user_register_new_password_email'), 'recipent' => [$user->email]]);
-        return redirect('/')->with('msg', trans('main.new_pass_email'));
+        return redirect('/')->with('msg', trans('main.new_pass_email'))->with('type', 'success');
     }
 
     public function googleLogin()
@@ -2937,7 +2938,7 @@ class UserController extends Controller
 
             return redirect('/bank/paycom/status/'.$content->id.'/'.$Transaction->id);
         }else{
-            return back()->with('msg', trans('Hubo un problema con tu tarjeta, verifica los datos.'));
+            return back()->with('msg', trans('Hubo un problema con tu tarjeta, verifica los datos.'))->with('type', 'warning');
         }
 
     }
@@ -3191,10 +3192,10 @@ class UserController extends Controller
         $quiz = Quiz::create($data);
 
         if ($quiz) {
-            return redirect()->back()->with('msg', trans('main.quiz_created_msg'));
+            return redirect()->back()->with('msg', trans('main.quiz_created_msg'))->with('type', 'success');
         }
 
-        return redirect()->back()->with('msg', trans('main.failed_store'));
+        return redirect()->back()->with('msg', trans('main.failed_store'))->with('type', 'danger');
     }
 
     public function QuizzesEdit($quiz_id)
@@ -3241,7 +3242,7 @@ class UserController extends Controller
             $data['updated_at'] = time();
             $quiz->update($data);
 
-            return redirect('/user/vendor/quizzes')->with('msg', trans('main.quiz_updated_msg'));
+            return redirect('/user/vendor/quizzes')->with('msg', trans('main.quiz_updated_msg'))->with('type', 'success');
         }
 
         return back();
@@ -3256,7 +3257,7 @@ class UserController extends Controller
 
         if (!empty($quiz)) {
             $quiz->delete();
-            return back()->with('msg', trans('main.quiz_delete_msg'));
+            return back()->with('msg', trans('main.quiz_delete_msg'))->with('type', 'success');
         }
 
         abort(404);
@@ -3318,7 +3319,7 @@ class UserController extends Controller
                     }
                 }
 
-                return back()->with('msg', trans('main.question_create_msg'));
+                return back()->with('msg', trans('main.question_create_msg'))->with('type', 'success');
             }
         }
 
@@ -3364,7 +3365,7 @@ class UserController extends Controller
 
                 return view(getTemplate() . '.user.quizzes.start', $data);
             } else {
-                return back()->with('msg', trans('main.cant_start_quiz'));
+                return back()->with('msg', trans('main.cant_start_quiz'))->with('type', 'warning');
             }
         }
         abort(404);
@@ -3742,7 +3743,7 @@ class UserController extends Controller
                     }
                 }
 
-                return back()->with('msg', trans('main.question_create_msg'));
+                return back()->with('msg', trans('main.question_create_msg'))->with('type', 'success');
             }
         }
 
@@ -3758,7 +3759,7 @@ class UserController extends Controller
 
         if (!empty($question)) {
             $question->delete();
-            return back()->with('msg', trans('main.question_delete_msg'));
+            return back()->with('msg', trans('main.question_delete_msg'))->with('type', 'success');
         }
 
         abort(404);
@@ -4520,6 +4521,42 @@ class UserController extends Controller
         $comment->delete();
 
         return back();
+    }
+
+    public function vendorAsignarCurso(Request $request){
+        $curso = $request->curso;
+        $getCurso = Content::find($curso);
+
+        foreach($request->usuarios as $usuario){
+            Sell::insert([
+                'user_id' => $getCurso->user_id,
+                'buyer_id' => $usuario,
+                'content_id' => $getCurso->id,
+                'type' => 'download',
+                'created_at' => time(),
+                'mode' => 'pay',
+                'transaction_id' => '0',
+                'remain_time' => NULL
+            ]);
+        }
+        return back();
+    }
+    public function vendorGetUsersPrivate($curso){
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $userList = User::where('category_id', $fundal_category[0]->id)->get();
+
+        $array_disponibles = array();
+
+        foreach($userList as $usuario){
+            $asignados = Sell::where('buyer_id', $usuario->id)->where('content_id', $curso)->get();
+            if($asignados->isEmpty()){
+                $array_curso = array($usuario->id, $usuario->name, $usuario->username);
+                array_push($array_disponibles, $array_curso);
+            }
+        }
+        echo json_encode($array_disponibles);
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

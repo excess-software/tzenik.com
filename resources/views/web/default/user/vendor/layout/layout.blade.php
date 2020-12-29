@@ -6,10 +6,13 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Admin Panel - @yield('title', '')</title>
 
+    <link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v={{time()}}">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="/assets/admin/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/admin/modules/fontawesome/css/all.min.css">
-
+    <link rel="stylesheet" href="/assets/default/vendor/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/default/stylesheets/vendor/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="/assets/admin/modules/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="/assets/admin/modules/select2/dist/css/select2.min.css">
@@ -145,6 +148,7 @@
                 </div>
             </div>
             @include('admin.newlayout.modals')
+            @include(getTemplate().'.user.layout.modals')
             @yield('modals')
         </div>
     </div>
@@ -181,6 +185,7 @@
     <script src="/assets/admin/modules/select2/dist/js/select2.full.min.js"></script>
     <script src="/assets/admin/modules/jquery-selectric/jquery.selectric.min.js"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script type="application/javascript" src="/assets/default/vendor/bootstrap-notify-master/bootstrap-notify.min.js"></script>
 
     <script src="/assets/admin/js/scripts.js"></script>
     <script src="/assets/admin/js/custom.js"></script>

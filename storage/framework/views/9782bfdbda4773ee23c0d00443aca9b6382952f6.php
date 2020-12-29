@@ -1,31 +1,36 @@
-<?php $__env->startSection('pages'); ?>
+<?php $__env->startSection('page'); ?>
 
-<div class="container" style="padding-top: 15%; padding-bottom: 15%;">
-    <div class="row white-rounded-back">
-        <div class="col-md-3">
-            <ul class="list-group partes-nuevo-curso">
-                <li class="list-group-item active" cstep="1"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-library-video"></span><span> <?php echo e(trans('main.general')); ?></span></a>
+<div class="cards">
+    <div class="card-body">
+        <div class="tabs">
+            <ul class="nav nav-pills partes-nuevo-curso">
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link active" cstep="1" data-toggle="tab"> <?php echo e(trans('main.general')); ?> </a>
                 </li>
-                <li class="list-group-item" cstep="2"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-apps"></span><span> <?php echo e(trans('main.category')); ?></span></a></li>
-                <li class="list-group-item" cstep="3"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-library-books"></span><span> <?php echo e(trans('main.extra_info')); ?></span></a>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="2" data-toggle="tab"><?php echo e(trans('main.category')); ?></a>
                 </li>
-                <li class="list-group-item" cstep="4"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-folder-image"></span><span> <?php echo e(trans('main.view')); ?></span></a></li>
-                <li class="list-group-item" cstep="5"><a href="javascript:void(0);"><span
-                            class="upicon mdi mdi-movie-open"></span><span> <?php echo e(trans('main.parts')); ?></span></a></li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="3" data-toggle="tab"><?php echo e(trans('main.extra_info')); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="4" data-toggle="tab"><?php echo e(trans('main.view')); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="5" data-toggle="tab"><?php echo e(trans('main.parts')); ?></a>
+                </li>
             </ul>
         </div>
-        <div class="col-md-9">
-            <input type="hidden" value="1" id="current_step">
+        <br>
+        <div class="tab-content">
+        <input type="hidden" value="1" id="current_step">
             <input type="hidden" value="<?php echo e($item->id); ?>" id="edit_id">
 
             <div class="steps" id="step1">
 
-                <form method="post" action="/user/content/new/store" class="form-horizontal">
-                    <?php echo csrf_field(); ?>
+                <form method="post" action="/user/content/new/store" class="form-horizontal" id="step-1-form">
+                    <?php echo e(csrf_field()); ?>
+
                     <div class="form-group">
                         <label class="control-label col-md-2 tab-con"
                             for="inputDefault"><?php echo e(trans('main.course_type')); ?></label>
@@ -70,7 +75,8 @@
                     </div>
                 </form>
                 <form method="post" class="form-horizontal" id="step-1-form-meta">
-                    <?php echo csrf_field(); ?>
+                    <?php echo e(csrf_field()); ?>
+
                 </form>
             </div>
 
@@ -204,7 +210,13 @@
                                 <input type="number" name="price" onkeypress="validate(event)"
                                     value="<?php echo e($meta['price'] ?? ''); ?>" class="form-control text-center numtostr"
                                     <?php if($item->price === 0): ?> disabled <?php endif; ?>>
-                                <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
+                                
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <?php echo e(currencySign()); ?>
+
+                                    </span>
+                                </div>
                             </div>
 
                         </div>
@@ -216,7 +228,12 @@
                                 <input type="number" name="post_price" onkeypress="validate(event)"
                                     value="<?php echo e($meta['post_price'] ?? ''); ?>" class="form-control text-center numtostr"
                                     <?php if($item->post != 1): ?> disabled <?php endif; ?>>
-                                <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <?php echo e(currencySign()); ?>
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -230,7 +247,12 @@
                             <div class="input-group">
                                 <input type="number" name="price_3" onkeypress="validate(event)"
                                     value="<?php echo e($item->price_3); ?>" class="form-control text-center">
-                                <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <?php echo e(currencySign()); ?>
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -240,7 +262,12 @@
                             <div class="input-group">
                                 <input type="number" name="price_6" onkeypress="validate(event)"
                                     value="<?php echo e($item->price_6); ?>" class="form-control text-center">
-                                <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <?php echo e(currencySign()); ?>
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -250,7 +277,12 @@
                             <div class="input-group">
                                 <input type="number" name="price_9" onkeypress="validate(event)"
                                     value="<?php echo e($item->price_9); ?>" class="form-control text-center">
-                                <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <?php echo e(currencySign()); ?>
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,17 +292,22 @@
                             <div class="input-group">
                                 <input type="number" name="price_12" onkeypress="validate(event)"
                                     value="<?php echo e($item->price_12); ?>" class="form-control text-center">
-                                <span class="input-group-addon click-for-upload img-icon-s"><?php echo e(currencySign()); ?></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <?php echo e(currencySign()); ?>
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div class="h-15"></div>
+                <!--<div class="h-15"></div>
                 <div class="alert alert-success">
                     <p><?php echo e(trans('main.prerequisites_desc')); ?></p>
                 </div>
                 <a class="btn btn-custom pull-left" data-toggle="modal"
-                    href="#modal-pre-course"><span><?php echo e(trans('main.select_prerequisites')); ?></span></a>
+                    href="#modal-pre-course"><span><?php echo e(trans('main.select_prerequisites')); ?></span></a>-->
                 <div class="modal fade" id="modal-pre-course">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -500,14 +537,9 @@
                                     <input type="hidden" name="content_id" value="<?php echo e($item->id); ?>">
 
                                     <div class="form-group">
-                                        <label
-                                            class="control-label col-md-2 tab-con"><?php echo e(trans('main.video_file')); ?></label>
+                                        <label class="control-label col-md-2 tab-con"><?php echo e(trans('main.video_file')); ?></label>
                                         <div class="col-md-7 tab-con">
                                             <style>
-                                                .asdf {
-                                                    display: flex;
-                                                }
-
                                                 .asdf span {
                                                     width: 44px;
                                                     height: 44px;
@@ -519,10 +551,12 @@
 
                                             </style>
                                             <div class="input-group asdf">
-                                                <span class="input-group-addon view-selected img-icon-s"
-                                                    data-toggle="modal" data-target="#VideoModal"
-                                                    data-whatever="upload_video2"><span
-                                                        class="formicon mdi mdi-eye"></span></span>
+
+                                            <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video2">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
                                                 <input type="text" id="upload_video2" name="upload_video" dir="ltr"
                                                     class="form-control" required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video2"
@@ -538,6 +572,8 @@
                                         </div>
                                     </div>
 
+                                    
+
                                     <div class="form-group">
                                         <label class="control-label tab-con col-md-2"
                                             for="inputDefault"><?php echo e(trans('main.description')); ?></label>
@@ -552,7 +588,12 @@
                                             <div class="input-group">
                                                 <input type="number" min="0" name="size"
                                                     class="form-control text-center" required>
-                                                <span class="input-group-addon img-icon-s"><?php echo e(trans('main.mb')); ?></span>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <?php echo e(trans('main.mb')); ?>
+
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <label
@@ -561,19 +602,23 @@
                                             <div class="input-group">
                                                 <input type="number" min="0" name="duration"
                                                     class="form-control text-center" required>
-                                                <span
-                                                    class="input-group-addon img-icon-s"><?php echo e(trans('main.minute')); ?></span>
-                                            </div>
-                                        </div>
-                                        <label class="control-label tab-con col-md-1"><?php echo e(trans('main.free')); ?></label>
-                                        <div class="col-md-2 tab-con">
-                                            <div class="switch switch-sm switch-primary pull-left">
-                                                <input type="hidden" value="0" name="free">
-                                                <input type="checkbox" name="free" value="1" data-plugin-ios-switch>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <?php echo e(trans('main.minute')); ?>
 
+                                                        </span>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="free" value="0">            
+                                        <!-- <label class="control-label tab-con col-md-1"><?php echo e(trans('main.free')); ?></label>      
+                                        <br>      
+                                        <label class="custom-switch col-md-2 tab-con">
+                                            <input type="hidden" name="free" value="1">
+                                            <input type="checkbox" name="free" value="1" class="custom-switch-input"/>
+                                            <span class="custom-switch-indicator"></span>
+                                        </label>-->
+                                    </div>           
                                     <div class="form-group">
                                         <label class="control-label tab-con col-md-2"
                                             for="inputDefault"><?php echo e(trans('main.title')); ?></label>
@@ -610,7 +655,7 @@
 
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
-                                            <button class="btn btn-custom tab-con pull-right" id="new-part"
+                                            <button class="btn btn-primary tab-con pull-right" id="new-part"
                                                 type="submit"><?php echo e(trans('main.save_changes')); ?></button>
                                         </div>
                                     </div>
@@ -641,27 +686,22 @@
                     </ul>
                 </div>
             </div>
-            <hr>
-            <div class="row">
+        </div>
+        <hr>
+        <div class="row">
                 <div class="col-md-12 btn-toolbar">
-                    <a href="javascript:void(0);" class="btn btn-custom pull-left tab-con marl-s-10"
-                        id="prev-btn"><?php echo e(trans('main.previous')); ?></a>
-                    <a href="javascript:void(0);" class="btn btn-custom tab-con pull-left marl-s-10"
-                        id="next-btn"><?php echo e(trans('main.next')); ?></a>
-
                     <?php if($item->mode != 'publish'): ?>
                     <a href="#publish-modal" data-toggle="modal"
-                        class="btn btn-custom pull-left tab-con marl-s-10"><?php echo e(trans('main.publish')); ?></a>
+                        class="btn btn-primary pull-left tab-con marl-s-10"><?php echo e(trans('main.publish')); ?></a>
                     <?php else: ?>
                     <a href="#re-publish-modal" data-toggle="modal"
-                        class="btn btn-custom pull-left tab-con marl-s-10"><?php echo e(trans('main.save_changes')); ?></a>
+                        class="btn btn-primary pull-left tab-con marl-s-10"><?php echo e(trans('main.save_changes')); ?></a>
                     <?php endif; ?>
                     <?php if($item->mode != 'publish'): ?>
-                    <input type="submit" class="btn btn-custom pull-left tab-con marl-s-10" id="draft-btn" value="Save">
+                    <input type="submit" class="btn btn-primary pull-left tab-con marl-s-10" id="draft-btn" value="Save">
                     <?php endif; ?>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
@@ -739,15 +779,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"><?php echo e(trans('main.publish')); ?></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <p><?php echo e(trans('main.publish_alert')); ?> </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo e(trans('main.cancel')); ?></button>
-                <button type="button" class="btn btn-default btn-publish-final"><?php echo e(trans('main.publish')); ?></button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo e(trans('main.cancel')); ?></button>
+                <button type="button" class="btn btn-success btn-publish-final"><?php echo e(trans('main.publish')); ?></button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -756,15 +796,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"><?php echo e(trans('main.edit_course')); ?></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <p><?php echo e(trans('main.edit_course_alert')); ?></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo e(trans('main.cancel')); ?></button>
-                <button type="button" class="btn btn-default btn-publish-final"><?php echo e(trans('main.yes_sure')); ?></button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo e(trans('main.cancel')); ?></button>
+                <button type="button" class="btn btn-success btn-publish-final"><?php echo e(trans('main.yes_sure')); ?></button>
             </div>
         </div>
     </div>
@@ -791,18 +831,12 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script>
+        $('#lfm_document,#lfm_video,#lfm_thumbnail,#lfm_cover,#lfm_upload_video').filemanager('file', {prefix: '/user/laravel-filemanager'});
+    </script>
 <script>
-    $('.editor-te').jqte({
-        format: false
-    });
-    $('#lfm_document,#lfm_video,#lfm_thumbnail,#lfm_cover,#lfm_upload_video').filemanager('file', {
-        prefix: '/user/laravel-filemanager'
-    });
-
-</script>
-<script>
-    $('.partes-nuevo-curso li').click(function () {
-        $('.partes-nuevo-curso li').removeClass('active');
+    $('.partes-nuevo-curso li a').click(function () {
+        $('.partes-nuevo-curso li a').removeClass('active');
         $(this).addClass('active');
         var current_step = $('#current_step').val();
         $('#step' + current_step).slideUp(500);
@@ -869,15 +903,16 @@
         $.post('/user/content/edit/meta/store/' + id, $('#step-3-form-precourse').serialize());
         $.post('/user/content/edit/meta/store/' + id, $('#step-4-form-meta').serialize());
 
+        console.log($('#step-1-form').serialize());
         /* Notify */
         $.notify({
             message: 'Your changes saved successfully'
         }, {
-            type: 'info',
+            type: 'success',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {
-                from: "bottom",
+                from: "top",
                 align: "right"
             },
             position: 'fixed'
@@ -897,7 +932,7 @@
         $.notify({
             message: 'Your course sent to content review department.'
         }, {
-            type: 'info',
+            type: 'success',
             allow_dismiss: false,
             z_index: '99999999',
             placement: {
@@ -951,7 +986,6 @@
             }
         }
     };
-    $(".provider-json-pre-course").easyAutocomplete(options);
 
     $('body').on('click', 'i.delete-course', function () {
         $(this).parent('li').remove();
@@ -1090,4 +1124,4 @@
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make(getTemplate().'.user.layout.sendvideolayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/content/edit.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(getTemplate() . '.user.vendor.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/content/edit.blade.php ENDPATH**/ ?>

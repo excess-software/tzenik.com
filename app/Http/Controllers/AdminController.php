@@ -404,7 +404,7 @@ class AdminController extends Controller
             'subject'=> 'Password: '.$random_password
         ]);
         
-        return redirect('/admin/user/item/'.$id)->with('msg', 'La contraseña se cambió correctamente.');
+        return redirect('/admin/user/item/'.$id)->with('msg', 'La contraseña se cambió correctamente.')->with('type', 'success');
     }
 
     public function userEdit($id, Request $request)
@@ -1478,7 +1478,7 @@ class AdminController extends Controller
             'subject'=> 'Password: '.$password
         ]);
 
-        return back()->with('msg', trans('Creado exitosamente.'));
+        return back()->with('msg', trans('Creado exitosamente.'))->with('type', 'success');
     }
     
     public function asignarCurso(Request $request){
@@ -3732,7 +3732,7 @@ class AdminController extends Controller
             ->first();
         if ($result) {
             $result->delete();
-            return back()->with('msg', trans('admin.result_delete_msg'));
+            return back()->with('msg', trans('admin.result_delete_msg'))->with('type', 'success');
         }
 
         abort(404);

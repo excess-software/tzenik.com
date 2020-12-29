@@ -385,6 +385,22 @@
     <?php endif; ?>
 </script>
 <?php echo $__env->yieldContent('script'); ?>
+<?php if(session('msg') != null): ?>
+    <script>
+        $.notify({
+            message: '<?php echo e(session('msg')); ?>'
+        }, {
+            type: '<?php echo e(session('type') ? session('type') : 'info'); ?>',
+            allow_dismiss: false,
+            z_index: '99999999',
+            placement: {
+                from: "top",
+                align: "right"
+            },
+            position: 'fixed'
+        });
+    </script>
+    <?php endif; ?>
 </body>
 </html>
 <?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/newlayout/layout.blade.php ENDPATH**/ ?>
