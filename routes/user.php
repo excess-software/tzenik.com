@@ -97,6 +97,7 @@ Route::group(['prefix' => 'user'], function () {
                 Route::get('delete/{id}', 'UserController@contentDelete');
                 Route::post('store/{id}/{mode}', 'UserController@contentStore');
                 Route::get('list/excel', 'UserController@contentListExcel');
+                Route::get('getModulos/{curso}', 'UserController@vendorGetModulos');
 
             });
 

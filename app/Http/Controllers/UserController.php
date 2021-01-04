@@ -4559,5 +4559,13 @@ class UserController extends Controller
         echo json_encode($array_disponibles);
     }
 
+    public function vendorGetModulos($curso){
+
+        $parts = ContentPart::where('content_id', $curso)->orderBy('id', 'desc')->get();
+
+        return $parts;
+        
+    }
+
     #### Here ends area of custom controllers to meet Tzenik needs ####
 }
