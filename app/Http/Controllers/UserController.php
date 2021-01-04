@@ -4561,9 +4561,9 @@ class UserController extends Controller
 
     public function vendorGetModulos($curso){
 
-        $parts = ContentPart::where('content_id', $curso)->orderBy('id', 'desc')->toJson();
+        $parts = ContentPart::where('content_id', $curso)->orderBy('id', 'desc')->get()->toJson();
 
-        return $parts;
+        echo $parts;
         
     }
 
