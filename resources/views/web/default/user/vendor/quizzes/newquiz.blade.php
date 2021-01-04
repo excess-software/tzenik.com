@@ -132,7 +132,9 @@ function getModulos(curso) {
                 //console.log(data);
                 var html = '';
                 for (i = 0; i < data.length; i++) {
-                    html += '<option value="'+ data.id +'">'+ data.title +'</option>';
+                    console.log(data);
+                    html += '<option>Seleccione el módulo</option>\
+                    <option value="'+ data.id +'">'+ data.title +'</option>';
                 }
                 $('#parts').html(html);
             }
