@@ -42,7 +42,7 @@
                 <div class="col-md-6 pull-left">
                     <div class="form-group @error('content_id') has-error @enderror">
                         <label class="control-label tab-con">{{ trans('main.course') }}</label>
-                        <select name="part_id" class="form-control font-s">
+                        <select name="part_id" id="parts" class="form-control font-s">
                             <option selected disabled>Primero seleccione un curso</option>
                         </select>
                     </div>
@@ -129,15 +129,12 @@ function getModulos(curso) {
             url: "/user/vendor/content/getModulos/" + curso,
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                /*var html = '';
+                //console.log(data);
+                var html = '';
                 for (i = 0; i < data.length; i++) {
-                    html += '<div class="checkbox">\
-                        <label><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"> ' + data[i][2] +
-                        ' - ' + data[i][1] + '</input></label>\
-                    </div>';
+                    html += '<option value="'+ data.id +'">'+ data.title +'</option>';
                 }
-                $('#listado').html(html);*/
+                $('#parts').html(html);
             }
         });
     }
