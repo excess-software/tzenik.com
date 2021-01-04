@@ -133,6 +133,7 @@ function getModulos(curso) {
                 var html = '';
                 for (i = 0; i < data.length; i++) {
                     console.log(data);
+                    console.log(data.length);
                     html += '<option>Seleccione el módulo</option>\
                     <option value="'+ data.id +'">'+ data.title +'</option>';
                 }
