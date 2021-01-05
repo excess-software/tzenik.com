@@ -1419,6 +1419,7 @@ class WebController extends Controller
             $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
         }*/
         $partDesc = ContentPart::find($pid, ['title', 'description', 'initial_date', 'limit_date']);
+        $partVideo = ContentPart::where('id', $pid)->value('upload_video');
         $product_material = '/material/curso/'.$id.'/modulo/'.$pid.'/';
 
         $data = [
@@ -1429,7 +1430,8 @@ class WebController extends Controller
             'buy' => $buy,
             'related' => $relatedContent,
             'precourse' => $preCousreContent,
-            'partVideo' => '/video/stream/' . $pid,
+            //'partVideo' => '/video/stream/' . $pid,
+            'partVideo' => $partVideo,
             'partDesc' => $partDesc,
             'Duration' => $Duration,
             'MB' => $MB,
