@@ -532,6 +532,7 @@ class ApiController extends Controller
                 'id'        => $part->id,
                 'title'     => $part->title,
                 'video' => $part->upload_video,
+                'video_duration' => $part->duration,
                 'description' => $part->description, 
                 'initial_date' => $part->initial_date,
                 'limit_date' => $part->limit_date,
