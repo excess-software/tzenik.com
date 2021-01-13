@@ -1641,7 +1641,7 @@ class ApiController extends Controller
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
                     $meta = arrayToList($content->metas, 'option', 'value');
                     $part->content_title = $content->title;
-                    $part->thumbnail = checkUrl($meta['thumbnail']);
+                    $part->thumbnail = isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail';
                     $part->downloaded = $descargado->isEmpty() ? false : true;
                 }
                 $date = Carbon::parse($date);
