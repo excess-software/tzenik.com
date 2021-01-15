@@ -1373,8 +1373,10 @@ class UserController extends Controller
 
             $material = $request->material;
 
-            if($material->isValid()){
-                $material->move('bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/', $material->getClientOriginalName());
+            if(isset($material)){
+                if($material->isValid()){
+                    $material->move('bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/', $material->getClientOriginalName());
+                }
             }
             return back();
             //return redirect('/user/content/part/list/' . $content->id);
