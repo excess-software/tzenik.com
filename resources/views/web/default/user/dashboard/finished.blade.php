@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-<div class="container-full">
+
     @include(getTemplate() . '.user.parts.navigation')
 
     <div class="row contenido-cursos-dash">
-        <div class="container-fluid">
+        <div class="container">
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-3">
@@ -105,7 +105,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <h1><b>Aún no has completado cursos.</b></h1>
+                                    <h4>Aún no has completado cursos.</h4>
                                 </div>
                             </div>
                             <br>

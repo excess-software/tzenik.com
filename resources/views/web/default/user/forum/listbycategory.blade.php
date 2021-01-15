@@ -4,6 +4,7 @@
 @endsection
 @section('content')
 @include(getTemplate() . '.user.parts.navigation')
+
     <div class="row">
         <div class="col-lg-6 col-xs-6 col-md-6">
             <a href="/user/forum/post/new" class="float-right" style="float: right"><button class="btn btn-info">{{{ trans('main.forum_btn_new_thread') }}}</button></a>
@@ -16,7 +17,7 @@
 
     <section class="card">
         <div class="card-body">
-            <table class="table table-bordered table-striped mb-none" id="datatable-details">
+            <table class="table table-dark" id="datatable-details">
                 <thead>
                 <tr>
                     <th style="" >{{{ trans('admin.th_title') }}}</th>
@@ -38,6 +39,6 @@
             </table>
         </div>
     </section>
-
+</div>
 @endsection
 

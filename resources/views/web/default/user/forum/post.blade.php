@@ -6,6 +6,7 @@
 
 @section('content')
 @include(getTemplate() . '.user.parts.navigation')
+<div class="container">
     <div class="row">
         <div class="col-lg-6 col-xs-6 col-md-6">
             <a href="/user/forum/post/new" class="float-right" style="float: right"><button class="btn btn-info">{{{ trans('main.forum_btn_new_thread') }}}</button></a>
@@ -35,6 +36,32 @@
                     @csrf
                         <input type="hidden" name="post_id" value="{{{ $post->id }}}"/>
                         <input type="hidden" name="parent" value="0" />
+                        
+                        <div> 
+                            <ul class="comment-box">
+                                @foreach($post->comments as $comment)
+                                    <li>
+                                        <a href="/profile/{{{ $comment->user_id or '' }}}">{{{ $comment->user->name}}}</a>
+                                        <label>{{{ date('d F Y | H:i',$comment->create_at) }}}</label>
+                                        <span>{{{$comment->comment}}}</span>
+                                        <span><a href="javascript:void(0);" answer-id="{{{ $comment->id }}}" answer-title="{{{ $comment->name or '' }}}" class="pull-left answer-btn">{{{ trans('main.reply') }}} </a> </span>
+                                        @if(count($comment->childs)>0)
+                                            <ul class="col-md-11 col-md-offset-1 answer-comment">
+                                                @foreach($comment->childs as $child)
+                                                    <li>
+                                                        <span>{{{$child->comment}}}</span>
+                                                        <a href="/profile/{{{ $child->user_id or '' }}}">{{{ $child->name}}}</a>
+                                                        <label>{{{ date('d F Y | H:i',$child->create_at) }}}</label>
+                                                        
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif 
+                                    </li> 
+                                @endforeach
+                            </ul>
+                        </div>
+
                         <div class="form-group">
                             <label>{{{ trans('main.your_comment') }}}</label>
                             <textarea class="form-control" name="comment" rows="4" required></textarea>
@@ -44,31 +71,12 @@
                         </div>
                     </form>
 
-                    <ul class="comment-box">
-                        @foreach($post->comments as $comment)
-                            <li>
-                                <a href="/profile/{{{ $comment->user_id or '' }}}">{{{ $comment->user->name}}}</a>
-                                <label>{{{ date('d F Y | H:i',$comment->create_at) }}}</label>
-                                <span>{{{$comment->comment}}}</span>
-                                <span><a href="javascript:void(0);" answer-id="{{{ $comment->id }}}" answer-title="{{{ $comment->name or '' }}}" class="pull-left answer-btn">{{{ trans('main.reply') }}}</a> </span>
-                                @if(count($comment->childs)>0)
-                                    <ul class="col-md-11 col-md-offset-1 answer-comment">
-                                        @foreach($comment->childs as $child)
-                                            <li>
-                                                <a href="/profile/{{{ $child->user_id or '' }}}">{{{ $child->name}}}</a>
-                                                <label>{{{ date('d F Y | H:i',$child->create_at) }}}</label>
-                                                <span>{{{$child->comment}}}</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
+                    
                 </div>
         </div>
     </div>
     </div>
+</div>
 </section>
 
 @endsection

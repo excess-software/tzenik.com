@@ -1,3 +1,32 @@
+h1 {
+    font-size: 76px;
+    line-height: 84px;
+    font-weight: 800;
+    color: #000;
+}
+
+h2 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 53px;
+    color: #000;
+}
+
+h3 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 31px;
+    color: #000;
+}
+
+body {
+    font-size: 16px;
+    line-height: 27px;
+    color: #000;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
 /* Body CSS */
 .container-full{
     overflow: hidden;
@@ -9,6 +38,7 @@
 .navbar-inverse{
     background-color: black !important;
 }
+
 .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
     border: 3px solid black;
     border-bottom: 3px solid transparent !important;
@@ -85,6 +115,10 @@
 
 .navbar-accesibilidad {
     background-color: #e90a58;
+    color: white;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .navbar-inverse .navbar-nav > li > a{
@@ -93,6 +127,9 @@
 
 .navbar-perfil {
     background-color: #FEBF36;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .navbar-accesibilidad:hover {
@@ -122,17 +159,29 @@ ul.nav.navbar-nav li a:link {
 }
 
 /* Home CSS */
+
+.btn{
+    border-radius: 0px;
+}
+
+.btn:hover{
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
 .pills-home {
     margin-top: 1%;
 }
 .banner-tzenik{
-    margin-top: 125px;
-    margin-bottom: 125px;
+    margin-top: 145px;
+    margin-bottom: 165px;
 }
 .banner-descripcion{
     margin-left: 25%;
     margin-right: 25%;
 }
+
 hr {
     -moz-border-bottom-colors: none;
     -moz-border-image: none;
@@ -163,8 +212,9 @@ hr {
     overflow:hidden
   }
 .titulo-cursos-destacados{
-    
+    margin-bottom: 40px;
 }
+
 .titulo-cursos-destacados span h2 b:after {
     content: ""; /* This is necessary for the pseudo element to work. */ 
     display: block; /* This will put the pseudo element on its own line. */
@@ -172,8 +222,18 @@ hr {
     border-bottom: 5px solid #E90A59; 
 }
 .panel-default{
-    border: 3px solid black;
+    border: 6px solid #000;
 }
+
+.panel-body {
+    padding: 0px;
+}
+
+.panel {
+    border-radius: 0px;
+    margin-bottom: 80px;
+}
+
 .panel-footer{
     padding: 0;
     padding-bottom: 0;
@@ -277,6 +337,11 @@ hr {
     color: white;
     background-color: black;
     border-color: black;
+}
+.btn-cursos-listado:hover{
+    color: black;
+    background-color: white;
+    border-color: white;
 }
 
 /* Media CSS */
@@ -645,12 +710,15 @@ hr {
     background-color: orange;
 }
 .btn-custom{
-    background-color: black;
-    color: white;
+    background-color: #FEBF36;
+    color: black;
+    font-weight: 500;
     padding: 15px;
 }
 .btn-custom:hover{
     text-decoration: none;
+    background-color: black;
+    font-weight: 500;
     color: white;
 }
 .btn-danger-custom{
@@ -740,7 +808,7 @@ hr {
 .formBox {
     width: 460px;
     max-width: 100%;
-    height: 552px;
+    min-height: 500px;
     margin-left: -4px;
     margin-top: 00px;
     margin-bottom: 40px;
@@ -762,17 +830,15 @@ hr {
 }
 
 .formBox h2 {
-    border-left: 6px solid #13ce9c;
-    color: #13ce9c;
+    color: #000;
     padding: 0px 25px;
     font-size: 32px;
     line-height: 45px;
     height: 45px;
-    text-transform: uppercase;
     margin-bottom: 50px;
     position: relative;
     left: 0;
-    text-align: left;
+    text-align: center;
 }
 
 .formBox p {
@@ -888,6 +954,51 @@ hr {
     z-index: 1;
 }
 
+.register-container {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.register-link {
+    display: block;
+    margin-top: 60px;
+    margin-left: 24.5%;
+}
+
+.login-container {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.login-link {
+    display: block;
+    margin-top: 60px;
+    margin-left: 29%;
+}
+
+.navbar.navbar-inverse {
+    margin-bottom: 0;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.nav-pills > li > a {
+    border-radius: 0px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #000;
+}
+
+.nav-pills>li>a:hover {
+    background-color: #000;
+    color: white;
+}
 .formBox .registerBox .f_row label,
 .formBox .registerBox .f_row input {
     color: #fff;
