@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => getcwd().'/public/bin/',
-            'url' =>  '/public/bin/',
+            'url' =>  '/bin/',
             'visibility' => 'public',
         ],
 
