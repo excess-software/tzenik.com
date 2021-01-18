@@ -1411,7 +1411,7 @@ class UserController extends Controller
             ];
 
             $api_uri = 'https://api.zoom.us/v2/users/'.$usuario.'/meetings';
-            $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImxMLTFOOXprVGpPQlFaQU1GNWZzVEEiLCJleHAiOjE2MDQyNTA5NDEsImlhdCI6MTYwMzY0NjEzOH0.-zGxn0qyjxiUaVK3W7qhUUTvSEjhk64UK-y1C99gwGA';
+            $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImxMLTFOOXprVGpPQlFaQU1GNWZzVEEiLCJleHAiOjE2MTA5NjUzMzIsImlhdCI6MTYxMDk1OTkzMX0.lLmWR9vtuHkgoXpBSt14PjAOXa2K9wueKealQxGG2y8';
             $client = new Client(['verify' => '../cacert.pem']);
             $res = $client->request('POST', $api_uri, [
                 'headers' => [
