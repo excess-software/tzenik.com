@@ -1411,7 +1411,7 @@ class UserController extends Controller
             ];
 
             $api_uri = 'https://api.zoom.us/v2/users/'.$usuario.'/meetings';
-            $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImxMLTFOOXprVGpPQlFaQU1GNWZzVEEiLCJleHAiOjE2MTA5NjUzMzIsImlhdCI6MTYxMDk1OTkzMX0.lLmWR9vtuHkgoXpBSt14PjAOXa2K9wueKealQxGG2y8';
+            $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImxMLTFOOXprVGpPQlFaQU1GNWZzVEEiLCJleHAiOjE2NDA5MzA0MDAsImlhdCI6MTYxMDk5NTQ5N30.-VywSOV5r8DqaKH0SUsWHGK-TKwVjLygasbUYcbVgOI';
             $client = new Client(['verify' => '../cacert.pem']);
             $res = $client->request('POST', $api_uri, [
                 'headers' => [
@@ -1476,7 +1476,7 @@ class UserController extends Controller
                 'topic' => $title,
                 'type' => '2'
             ];
-            $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImxMLTFOOXprVGpPQlFaQU1GNWZzVEEiLCJleHAiOjE2MTA5NjUzMzIsImlhdCI6MTYxMDk1OTkzMX0.lLmWR9vtuHkgoXpBSt14PjAOXa2K9wueKealQxGG2y8';
+            $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImxMLTFOOXprVGpPQlFaQU1GNWZzVEEiLCJleHAiOjE2NDA5MzA0MDAsImlhdCI6MTYxMDk5NTQ5N30.-VywSOV5r8DqaKH0SUsWHGK-TKwVjLygasbUYcbVgOI';
             $client = new Client(['verify' => '../cacert.pem']);
             $res = $client->request('POST', 'https://api.zoom.us/v2/users/'.$usuario.'/meetings', [
                 'headers' => [
