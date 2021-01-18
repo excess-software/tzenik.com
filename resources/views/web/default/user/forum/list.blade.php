@@ -4,18 +4,39 @@
 @endsection
 @section('content')
 @include(getTemplate() . '.user.parts.navigation')
-<div class="container">    
+
     <div class="row">
-        <div class="col-md-12">
-            
-            <a href="/user/forum/post/new" class="pull-right"><button class="btn btn-custom">{{{ trans('main.forum_btn_new_thread') }}}</button></a>
+        <div class="col-md-12 ">
+            <h2 class="titulo-partials-forum ">{{{ trans('main.forum_category_title') }}}</h2>
+            <a href="/user/forum/post/new" class="">
+                <button class="btn btn-custom-forum ">Crear Nueva Discución</button>
+            </a>
         </div>
-        <!--<div class="col-lg-6 col-xs-6 col-md-6">
-            <a href="/user/video/buy" class="float-left" style="text-decoration: none;"><h4 class="text-dark"><- {{{ trans('main.forum_goback') }}}</h4></a>
-        </div>    -->    
     </div> 
+    
+    <div class="row">
+        @foreach($lists as $list)
+        @if($loop->index%2==0)
+    </div>
+    <div class="row">
+        @endif
+            <div class="col-md-6">    
+                <a style="text-decoration: none;" href="/user/forum/post/category/{{{ $list->id }}}">
+                    <section class="panel panel-default">
+                        <div class="panel-body-forum">
+                            <div class="row ultimos-blogs-titulo">
+                                <h3> {{{ $list->title }}}</h3>
+                                <p class="text-secondary">{{{ $list->desc }}}</p>
+                            </div>
+                        </div>    
+                    </section>
+                </a>
+            </div>    
+        @endforeach
+    </div>
+
     @if($private)
-    <h2>Cursos Privados</h2>
+        <h3>Cursos Privados</h3>
         <div class="row">
             @foreach($private as $list)
                 @if($loop->index%2==0)
@@ -26,7 +47,7 @@
                     <section class="panel panel-default">
                         <div class="panel-body-forum">
                             <div class="row ultimos-blogs-titulo">
-                                <h2><a style="text-decoration: none;" href="/user/forum/post/category/{{{ $list['id'] }}}" class="text-primary">{{{ $list['title'] }}}</a></h2>
+                                <h3><a style="text-decoration: none;" href="/user/forum/post/category/{{{ $list['id'] }}}" class="text-primary">{{{ $list['title'] }}}</a></h3>
                                 <p class="text-secondary">{{{ $list['desc'] }}}</p>
                             </div>
                         </div>    
@@ -34,27 +55,7 @@
                 </div>    
             @endforeach
         </div>
-        @endif
-   
-    <h2 class="pull-left">{{{ trans('main.forum_category_title') }}}</h2>
-        <div class="row">
-            @foreach($lists as $list)
-                @if($loop->index%2==0)
-                    </div>
-                    <div class="row">
-                @endif
-                <div class="col-md-6">    
-                    <section class="panel panel-default">
-                        <div class="panel-body-forum">
-                            <div class="row ultimos-blogs-titulo">
-                                <h2><a style="text-decoration: none;" href="/user/forum/post/category/{{{ $list->id }}}" class="text-primary">{{{ $list->title }}}</a></h2>
-                                <p class="text-secondary">{{{ $list->desc }}}</p>
-                            </div>
-                        </div>    
-                    </section>
-                </div>    
-            @endforeach
-        </div>
+    @endif    
             <!--<table class="table table-borderes table-striped mb-none" id="datatable-details">
                 <thead>
                     <tr>

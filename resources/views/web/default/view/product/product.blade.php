@@ -17,12 +17,12 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2><b>{{ $product->title }}</b></h2>
+                        <h2 class="course-title">  {{ $product->title }}  </h2>
                     </div>
                     <!--<div class="col-md-4">
                         @if($product->support == 1)
                         <button class="btn btn-next-media pull-right">
-                            <h5><b>Soporte</b></h5>
+                            <h5>  Soporte  </h5>
                         </button>
                         @endif
                     </div>-->
@@ -56,11 +56,11 @@
 
                                 @else
                                 @if(isset($meta['price']) && $product->price != 0)
-                                <h2>Precio:
+                                <h3>Precio:
                                     {{ currencySign() }}{{ price($product->id,$product->category_id,$meta['price'])['price']  }}
-                                </h2>
+                                </h3>
                                 @else
-                                <h2>{{ trans('main.free') }}</h2>
+                                <h3>{{ trans('main.free') }}</h3>
                                 @endif
                                 @endif
                             </div>
@@ -100,12 +100,12 @@
                         </div>
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
-                                <h2>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h2>
-                                <h4><b>Fecha de inicio:</b>
+                                <h3>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h3>
+                                <h4>  Fecha de inicio:  
                                     {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
                                 </h4>
-                                <h4><b>Fecha de finalización:
-                                    </b>{{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
+                                <h4>  Fecha de finalización:
+                                      {{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
                                 </h4>
                                 <br>
                                 <span>{!! !empty($partDesc->description) ? $partDesc->description :
@@ -116,7 +116,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Materiales</h2>
+                                <h3>Materiales</h3>
                                 <br>
                                 @if(isset($user))
                                 <a href="{{$product_material}}">
@@ -150,14 +150,14 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Comparte en tus redes sociales:</h2>
+                                <h3>Comparte en tus redes sociales:</h3>
                                 <br>
                                 <div class="addthis_inline_share_toolbox"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Etiquetas</h2>
+                                <h3>Etiquetas</h3>
                                 <br>
                                 @foreach(explode(',', $product->tag) as $tag)
                                 <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
@@ -168,7 +168,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Categor&iacute;a</h2>
+                                <h3>Categor&iacute;a</h3>
                                 <br>
                                 <h4><span class="label label-tag-media-categoria"> <span
                                             class="circle-tag-media-categoria"></span>
@@ -179,7 +179,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-12">
-                            <h2>Lista</h2>
+                            <h3>Lista</h3>
                             <ul class="list-group partes-curso">
                                 <!--@foreach($parts as $part)
                             <li>
@@ -247,13 +247,13 @@
                                         @else
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
-                                        <b>
+                                          
                                             {{ $part['title'].' | '}}
                                             {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
                                             - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
-                                        </b>
+                                          
                                     </li>
                                     @elseif($part['status'] == 'pending')
                                     <li class="list-group-item list-content-media">
@@ -262,13 +262,13 @@
                                         @else
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
-                                        <b>
+                                          
                                             {{ $part['title'].' | '}}
                                             {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
                                             - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
-                                        </b>
+                                          
                                     </li>
                                     @elseif($part['status'] == 'late')
                                     <li class="list-group-item list-content-media red-back-list">
@@ -277,13 +277,13 @@
                                         @else
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
-                                        <b>
+                                          
                                             {{ $part['title'].' | '}}
                                             {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
                                             - @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
-                                        </b><i class="fa fa-clock-o"></i>
+                                          <i class="fa fa-clock-o"></i>
                                     </li>
                                     @endif
                                 </a>
@@ -294,13 +294,13 @@
                                     @else
                                     <span class="playicon mdi mdi-lock"></span>
                                     @endif
-                                    <b>
+                                      
                                         {{ $part['title'].' | '}}
                                         {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
                                         - @if($part['limit_date'])
                                         {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                         {{ 'Sin fecha límite' }} @endif
-                                    </b>
+                                      
                                 </li>
                                 @endif
                                 <br>
@@ -314,11 +314,11 @@
                                         @else
                                         <span class="playicon mdi mdi-lock"></span>
                                         @endif
-                                        <b>
+                                          
                                             {{ $part['title'].' - '}} @if($part['limit_date'])
                                             {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
                                             {{ 'Sin fecha límite' }} @endif
-                                        </b>
+                                          
                                     </li>
                                 </a>
                                 <br>
@@ -331,7 +331,7 @@
                                 @if($quiz->can_try)
                                 <a href="{{ '/user/quizzes/'. $quiz->id .'/start'}}">
                                     <li class="list-group-item list-content-media">
-                                        <b>Quiz Final</b>
+                                          Quiz Final  
                                     </li>
                                 </a>
                                 @endif
@@ -347,14 +347,14 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                     <div class="resultado-quiz" style="background-color: #3ED2B8">
-                                        <p><b>Calificaci&oacute;n</b></p>
+                                        <p>  Calificaci&oacute;n  </p>
                                         <br>
                                         <p>
-                                            <h3><b>¡{{$quiz->user_grade}}!</b></h3>
+                                            <h3>  ¡{{$quiz->user_grade}}!  </h3>
                                         </p>
                                         <br>
                                         <p>
-                                            <h4><b>¡Felicidades!</b></h4>
+                                            <h4>  ¡Felicidades!  </h4>
                                         </p>
                                     </div>
                                 </div>
@@ -362,10 +362,10 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <div class="resultado-quiz" style="background-color: red">
-                                            <p><b>Calificaci&oacute;n</b></p>
+                                            <p>  Calificaci&oacute;n  </p>
                                             <br>
                                             <p>
-                                                <h3><b>¡{{$quiz->user_grade}}!</b></h3>
+                                                <h3>  ¡{{$quiz->user_grade}}!  </h3>
                                             </p>
                                         </div>
                                     </div>
@@ -374,10 +374,10 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <div class="resultado-quiz" style="background-color: lightgray">
-                                            <p><b>Calificaci&oacute;n</b></p>
+                                            <p>  Calificaci&oacute;n  </p>
                                             <br>
                                             <p>
-                                                <h3><b>Pendiente</b></h3>
+                                                <h3>  Pendiente  </h3>
                                             </p>
                                         </div>
                                     </div>
@@ -387,10 +387,10 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <div class="resultado-quiz" style="background-color: lightgray">
-                                            <p><b>Calificaci&oacute;n</b></p>
+                                            <p>  Calificaci&oacute;n  </p>
                                             <br>
                                             <p>
-                                                <h3><b>Pendiente</b></h3>
+                                                <h3>  Pendiente  </h3>
                                             </p>
                                         </div>
                                     </div>
@@ -432,7 +432,7 @@
                                         &nbsp;
                                         <label class="radio-label"
                                             for="mode-1">{{ trans('main.account_charge') }}&nbsp;<b
-                                                id="credit-remain-modal">({{ currencySign() }}{{ $user['credit'] }})</b></label>
+                                                id="credit-remain-modal">({{ currencySign() }}{{ $user['credit'] }})  </label>
                                     </div>
                                     @if(get_option('gateway_paypal') == 1)
                                     <div class="radio">
@@ -539,9 +539,9 @@
                     @if(isset($user))
                     <div id="modal-user-category">
                         <span>{{ trans('main.you_are_in') }}</span>
-                        <b>{{ $user['category']['title'] }}</b>
+                          {{ $user['category']['title'] }}  
                         <span>{{ trans('main.group_and') }}</span>
-                        <b>{{ $user['category']['off'] }}٪</b>
+                          {{ $user['category']['off'] }}٪  
                         <span> {{ trans('main.extra_discount') }}</span>
                     </div>
                     @endif
@@ -589,7 +589,7 @@
                 </div>
                 <div class="modal-body">
                         <div class="text-center" style="margin-top: 15%; margin-bottom: 15%;">
-                            <h1><b><a href="/login">Debes iniciar sesi&oacute;n</a> o <a href="/login">registrarte</a> para comprar.</b></h1>
+                            <h1>  <a href="/login">Debes iniciar sesi&oacute;n</a> o <a href="/login">registrarte</a> para comprar.  </h1>
                         </div>
                 </div>
                 <div class="modal-footer">

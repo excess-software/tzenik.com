@@ -8,8 +8,8 @@
 </ul>
 @if($user->category_id == 9)
 <div class="row">
-    <div class="col-md-12 p text-center">
-    <h1><b>Cursos Fundal</b></h1>
+    <div class="col-md-12 p text-center cursos-internos">
+        <h3>Cursos Internos de Fundal</h3>
     </div>
 </div>
 @endif

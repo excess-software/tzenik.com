@@ -260,7 +260,7 @@
                         <div class="input-group" style="display:table;">
                             <span class="input-group-addon" style="width:1%;"><span
                                     class="glyphicon glyphicon-search"></span> Buscar </span>
-                            <input class="form-control col-md-11" name="q" placeholder="" autocomplete="off"
+                            <input class="form-control " name="q" placeholder="" autocomplete="off"
                                 autofocus="autofocus" type="text">
                         </div>
                     </div>

@@ -6,9 +6,9 @@
 @include(getTemplate() . '.view.parts.navigation')
 <div class="row">
     <div class="container">
-        <div class="col titulo-cursos-destacados">
+        <div class="col ">
             <span>
-                <h2><img src="{{ $category->icon }}" width="30px" height="30px" /><b> {{ $category->title }}</b></h2>
+                <h2 class="titulo-partials"><!--<img src="{{ $category->icon }}" width="30px" height="30px" />--> {{ $category->title }}</h2>
             </span>
         </div>
     </div>
@@ -33,7 +33,7 @@
                         <div class="col-md-12">
                             <div class="panel-description vertical-center">
                                 <div class="row ultimos-blogs-titulo">
-                                    <h4><b>{{ $content['title'] }}</b></h4>
+                                    <h3><b>{{ $content['title'] }}</b></h3>
                                 </div>
                                 <!--<div class="row ultimos-blogs-contenido">
                                     <div class="col">

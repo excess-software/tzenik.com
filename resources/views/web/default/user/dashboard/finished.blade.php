@@ -5,15 +5,10 @@
 @endsection
 
 @section('content')
-
+<div>
     @include(getTemplate() . '.user.parts.navigation')
-
-    <div class="row contenido-cursos-dash">
-        <div class="container">
-            <div class="col-md-10">
-                <div class="row">
                     <div class="col-md-3">
-                        <h2><b>Filtros</b></h2>
+                        <h2 class="titulo-partials">Filtros</h2>
                         <ul class="list-group">
                             <a href="/user/dashboard/all" style="text-decoration: none;">
                                 <li class="list-group-item list-content-media"><b>Todos los cursos</b></li>
@@ -35,7 +30,7 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col">
-                                <h2><b>Tus Cursos</b></h2>
+                                <h2 class="titulo-partials">Tus Cursos</h2>
                             </div>
                         </div>
                         <div class="row">
@@ -59,7 +54,7 @@
                                                 <div class="col-md-12">
                                                     <div class="panel-description vertical-center">
                                                         <div class="row ultimos-blogs-titulo">
-                                                            <h4><b>{{ $item[0]->content->title }}</b></h4>
+                                                            <h3>{{ $item[0]->content->title }}</h3>
                                                         </div>
                                                         <!--<div class="row ultimos-blogs-contenido">
                                     <div class="col">

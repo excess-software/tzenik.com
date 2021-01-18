@@ -72,15 +72,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel-description vertical-center">
-                                <div class="row curso-destacado-titulo black-text">
+                                <div class="">
                                     <h3>{{ $popular->title }}</h3>
                                 </div>
-                                <div class="row curso-destacado-contenido">
+                                <div class="">
                                     <div class="col">
-                                        <span class="curso-destacado-contenido-interno black-text">
-                                            {!! Str::limit($popular->content, 250) !!}
-                                        </span>
+                                       <p> {!! Str::limit($popular->content, 200) !!}</p>
                                     </div>
+                                </div>
+                                <div class="">
+                                    <button class="btn btn-cursos-destacados btn">
+                                        <h4>Entrar a Curso</h4>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -89,11 +92,6 @@
                                 alt="">
                         </div>
                     </div>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-cursos-destacados btn-block">
-                        <h4>Continuar</h4>
-                    </button>
                 </div>
             </div>
             </a>  
@@ -138,25 +136,26 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="panel-description vertical-center">
-                                            <div class="row proximos-webinars-titulo">
+                                            <div class="">
                                                 <h3> {{ $new->title }} </h3>
                                             </div>
-                                            <div class="row proximos-webinars-contenido">
+                                            <div class="">
                                                 <div class="col">
-                                                    <span class="proximos-webinars-contenido-interno">
+                                                    <span class="">
                                                         {!! Str::limit($new->content, 75) !!}
                                                     </span>
                                                 </div>
+                                            </div>
+                                            <div class="">
+                                                <button class="btn btn-proximos-webinars ">
+                                                    <h4> Ingresar a Webinar </h4>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-proximos-webinars btn-block">
-                                    <h4> Continuar </h4>
-                                </button>
-                            </div>
+                            
                         </div>
                     </a>  
                     @php

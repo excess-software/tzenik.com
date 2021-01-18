@@ -1,29 +1,79 @@
 <footer>
-    <div class="footer">
+    <section id="footer">
+		<div class="container">
+			<div class="row text-left">
+				<div class="col-xs-12 col-sm-3 col-md-3">
+					
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://www.fiverr.com/share/qb8D02">Home</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">About</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">FAQ</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">Get Started</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">Videos</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-3">
+					
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://www.fiverr.com/share/qb8D02">Home</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">About</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">FAQ</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">Get Started</a></li>
+						<li><a href="https://www.fiverr.com/share/qb8D02">Videos</a></li>
+					</ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+					
+					<ul class="list-unstyled quick-links">
+						<li><a href="https://www.fiverr.com/share/qb8D02">Home</a></li>
+                        <li><a href="https://www.fiverr.com/share/qb8D02">About</a></li>
+                        <li><a href="https://www.fiverr.com/share/qb8D02">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-3">
+					<ul class="list-unstyled text-center">
+                        <li><a href="https://www.fiverr.com/share/qb8D02"><img class="img-responsive " alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}"/></a></li>
+                    </ul>
+                    <ul class="list-unstyled list-inline social">
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+    </section>
+    <div id="footer-bar">
+        <div class="container">
+			<div class="row text-left">
+                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-left rights">
+                    <p>Tzenik.com © Derechos Reservados. <u><a href="https://www.fundal.org.gt/">|  Fundal Guatemala</a></u></p>
+                </div>
+            <hr>
+        </div>	
+    </div>
+    
+    <!--<div class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive center-block" alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}"/>
+                <div class="col-md-3">
+                    <img class="img-responsive " alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}"/>
+                    asdf
                 </div>
-            </div>
-            <div class="row footer-tzenik">
-                <div class="col-md-12 text-center">
+                <div class="col-md-3">
                     <p>Patrocinado por:</p>
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <img src="/bin/admin/lavelle_logo.png" class="img-responsive center-block" width="100px" alt="">
+                <div class="col-3">
+                    <img src="/bin/admin/lavelle_logo.png" class="img-responsive " width="100px" alt="">
+                    adf
                 </div>
-            </div>
-            <div class="row footer-tzenik">
-                <div class="col-md-12 text-center">
+                <div class="col-md-3">
                     <p>Tzenik.com 2020</p>
                 </div>
             </div>
         </div>
-        </div>
+    </div>-->
         <div class="modal fade" id="uploader-modal" role="dialog">
             <div class="modal-dialog modal-dialog-s">
                 <div class="modal-content">

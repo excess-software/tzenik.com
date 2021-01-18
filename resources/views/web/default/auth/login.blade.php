@@ -82,7 +82,7 @@
 <br>
     <div class="h-25"></div>
     <div class="h-25"></div>
-    <div class="container text-center login-box">
+    <div class="text-center login-box">
         <div class="formBox level-login" dir="ltr">
             <div class="box boxShaddow"></div>
             <div class="box loginBox">
