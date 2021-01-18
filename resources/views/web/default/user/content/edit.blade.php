@@ -501,6 +501,27 @@
                                         <div class="col-md-8 tab-con">
                                             <input type="text" name="title" class="form-control" required>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-3">Fecha de inicio</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="date" name="initial_date"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-3">Fecha de finalizaci&oacute;n</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="date" name="limit_date"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <div class="col-md-2 tab-con">
                                             <button class="btn btn-custom pull-left" id="edit-part-submit"
                                                 type="submit">{{ trans('main.edit_part') }}</button>
