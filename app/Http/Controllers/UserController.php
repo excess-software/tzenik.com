@@ -1459,7 +1459,7 @@ class UserController extends Controller
         $content = Content::where('user_id',$user->id)->find($request->content_id);
         if($content){
             $request->request->add(['mode'=>'publish']);
-            $create = $request->create_at;
+            $create = $content->created_at;
             $request->request->remove('create_at');
             $request->request->add(['created_at'=>$create]);
             //Zoom api
