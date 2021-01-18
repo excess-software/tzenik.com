@@ -50,8 +50,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => getcwd().'/bin/',
-            'url' =>  '/bin/',
+            'root' => getcwd().'/public/bin/',
+            'url' =>  '/public/bin/',
             'visibility' => 'public',
         ],
 
