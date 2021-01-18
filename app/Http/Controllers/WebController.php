@@ -973,12 +973,15 @@ class WebController extends Controller
             }
         }
 
+        $video_first_module = ContentPart::where('content_id', $id)->first();
+
         $data = [
             'product'               => $product,
             'hasCertificate'        => $hasCertificate,
             'canDownloadCertificate'=> $canDownloadCertificate,
             'meta'                  => $meta,
             'parts'                 => $parts,
+            'partVideo'             => $video_first_module->upload_video,
             'partDesc'              => $partDesc,
             'rates'                 => $rates,
             'buy'                   => $buy,
