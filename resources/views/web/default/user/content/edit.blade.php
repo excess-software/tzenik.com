@@ -1049,6 +1049,8 @@
             $(efrom + 'input[name="duration"]').val(data.duration);
             $(efrom + 'input[name="title"]').val(data.title);
             $(efrom + 'textarea[name="description"]').html(data.description);
+            $(efrom + 'input[name="initial_date"]').val(data.initial_date);
+            $(efrom + 'input[name="limit_date"]').val(data.limit_date);
             if (data.free == 1) {
                 $('.free-edit-check-state .ios-switch').removeClass('off');
                 $('.free-edit-check-state .ios-switch').addClass('on');
