@@ -1390,7 +1390,6 @@ class UserController extends Controller
     {   
         $user = auth()->user();
         $content = Content::where('user_id',$user->id)->find($request->content_id);
-        return $content;
         if($content){
             $request->request->add(['create_at'=>time(),'mode'=>'publish']);
             $create = $request->create_at;
