@@ -1038,6 +1038,7 @@
 </script>
 <script>
     $('body').on('click', 'span.i-part-edit', function () {
+        console.log('edit');
         var id = $(this).attr('pid');
         $.get('/user/content/part/edit/' + id, function (data) {
             $('.edit-part-section').show();
