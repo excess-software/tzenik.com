@@ -60,6 +60,7 @@ Route::group(['prefix'=>'v1'], function (){
         Route::any('cursoDescargado', 'Api\ApiController@productDownloaded');
         Route::any('chatRooms', 'Api\ApiController@chatRooms');
         Route::any('chatMessages', 'Api\ApiController@chat_getMessages');
+        Route::any('chatSendMessage', 'Api\ApiController@chat_sendMessage');
 
         ## Calendar
         Route::group(['prefix'=>'calendar'], function (){
