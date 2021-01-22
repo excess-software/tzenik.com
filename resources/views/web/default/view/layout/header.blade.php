@@ -125,7 +125,7 @@
     @if(isset($user))
     <script>
         var origin = window.location.origin;
-        var socket = io.connect(origin+':8890');
+        var socket = io.connect(origin+':8890', {secure: true});
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
