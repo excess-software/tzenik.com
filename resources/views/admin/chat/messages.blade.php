@@ -296,7 +296,7 @@
 <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
 <script type="application/javascript" src="/assets/default/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-    var socket = io.connect('http://localhost:8890');
+    var socket = io.connect('https://tzenik.com:8890');
     var host = window.location.origin;
 
     //Recepción desde Socket.io

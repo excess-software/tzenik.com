@@ -218,7 +218,7 @@
         $('.msg_history').append('<p>'+data+'</p>');
         return false;
     });*/
-    var socket = io.connect('http://localhost:8890');
+    var socket = io.connect('https://tzenik.com:8890');
     $(document).ready(function($){
         $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
         $('.msg_send_btn').click(function(){

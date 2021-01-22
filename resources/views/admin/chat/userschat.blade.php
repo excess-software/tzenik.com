@@ -30,7 +30,7 @@
     </section>
 
 <script>
-    var socket = io.connect('http://localhost:8890');
+    var socket = io.connect('https://tzenik.com:8890');
     function deleteUser(id, chat_id){
             var host = window.location.origin;
             $.get(host+'/admin/chat/delete_User/'+id+'/'+chat_id, function(data){
