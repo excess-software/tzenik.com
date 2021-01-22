@@ -29,6 +29,8 @@ io.on('connection', function(socket){
     });
 });
 
+console.log('server runing');
+
 /*io.listen(8890, function() {
   console.log('listening on localhost:8890');
 });*/
