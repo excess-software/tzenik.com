@@ -55,6 +55,9 @@ use Carbon\Carbon;
 use App\Models\QuizzesQuestion;
 use App\Models\QuizzesQuestionsAnswer;
 use App\Models\RegistroDescargas;
+use App\Models\Chat_Chats;
+use App\Models\Chat_Messages;
+use App\Models\Chat_UsersInChat;
 
 class ApiController extends Controller
 {
@@ -2164,5 +2167,46 @@ class ApiController extends Controller
             }
         }
         abort(404);
+    }
+
+    public function chatRooms(Request $request){
+        $user = $this->checkUserToken($request);
+        $result = [];
+        $id = $user['id'];
+        //$chats = Chat_Chats::with('users_in_chat')->orderBy('id', 'DESC')->get();
+        $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name', 'chat_chats.published')->orderBy('chat_chats.id', 'DESC')->get();
+        /*foreach($chats as $chat){
+            $result[$chat] = $chat['id'];
+            $result[$chat]['name'] = $chat['name'];
+        }*/
+        //return $result;
+        return $chats;
+    }
+
+    public function chat_getMessages(Request $request){
+        $user = $this->checkUserToken($request);
+        $id = $user['id'];
+        $name = $user['name'];
+        $chat_id = $request->chat_id;
+        $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
+        //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+        //return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $name]);
+        return $messages;
+    }
+
+    public function chat_sendMessage(Request $request){
+        $user = $this->checkUserToken($request);
+        $chat_id = $request->chat_id;
+        $message = $request->message;
+        //$data = $request->except('_token');
+        //$data['sender'] = $user->id;
+        //$data['chat_id'] = $chat_id;
+        //$message = $data['message'];
+        //$redis = LRedis::connection();
+        //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
+        $message_id = Chat_Messages::insertGetId(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
+        return $message_id;
+        
     }
 }
