@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    
     <link rel="icon" href="<?php echo get_option('site_fav','/assets/default/404/images/favicon.png'); ?>" type="image/png"
         sizes="32x32">
     <meta charset="UTF-8">
@@ -22,6 +23,10 @@
     <link rel="stylesheet" href="/assets/default/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" />
     <link rel="stylesheet" href="/assets/default/vendor/jquery-te/jquery-te-1.4.0.css" />
     <link rel="stylesheet" href="/assets/default/stylesheets/vendor/mdi/css/materialdesignicons.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/fafad05c14.js" crossorigin="anonymous"></script>
     <?php if(get_option('site_rtl','0') == 1): ?>
     <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom-rtl.css"/>-->
     <?php else: ?>
@@ -57,7 +62,7 @@
 
     </script>
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
+    <!--<link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />-->
     <?php if(get_option('main_css')!=''): ?>
     <style>
         {
@@ -65,16 +70,62 @@
         }
 
     </style>
-    
     <?php endif; ?>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
         integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA=="
         crossorigin="anonymous"></script>
-    <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
+    <title><?php echo $__env->yieldContent('title'); ?><?php echo $title ?? ''; ?></title>
+    <script>
+        function changeFont(font) {
+            <?php if(isset($user)): ?>
+            $.ajax({
+                type: 'POST',
+                url: "/user/profile/store",
+                data: {
+                    "_token": "<?php echo e(csrf_token()); ?>",
+                    "fontsize": font
+                },
+                dataType: "text",
+                success: function (data) {
+                    location.reload();
+                }
+            });
+            <?php else: ?>
+            localStorage.setItem("font", font);
+            console.log(localStorage.getItem("font"));
+            location.reload();
+            <?php endif; ?>
+        }
+
+        function changeColor(color) {
+            if (color == 'default') {
+                color = ''
+            }
+            <?php if(isset($user)): ?>
+            $.ajax({
+                type: 'POST',
+                url: "/user/profile/store",
+                data: {
+                    "_token": "<?php echo e(csrf_token()); ?>",
+                    "invert": color
+                },
+                dataType: "text",
+                success: function (data) {
+                    location.reload();
+                }
+            });
+            <?php else: ?>
+            localStorage.setItem("color", color);
+            console.log(localStorage.getItem("color"));
+            location.reload();
+            <?php endif; ?>
+        }
+    </script>
     <?php if(isset($user)): ?>
     <script>
-        var socket = io.connect('http://localhost:8890');
+        var origin = window.location.origin;
+        var socket = io.connect(origin+':8890');
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
@@ -261,58 +312,10 @@
 
     </script>
     <?php endif; ?>
-    <title><?php echo $__env->yieldContent('title'); ?><?php echo $title ?? ''; ?></title>
-    <script>
-        function changeFont(font) {
-            <?php if(isset($user)): ?>
-            $.ajax({
-                type: 'POST',
-                url: "/user/profile/store",
-                data: {
-                    "_token": "<?php echo e(csrf_token()); ?>",
-                    "fontsize": font
-                },
-                dataType: "text",
-                success: function (data) {
-                    location.reload();
-                }
-            });
-            <?php else: ?>
-            localStorage.setItem("font", font);
-            console.log(localStorage.getItem("font"));
-            location.reload();
-            <?php endif; ?>
-        }
-
-        function changeColor(color) {
-            if (color == 'default') {
-                color = ''
-            }
-            <?php if(isset($user)): ?>
-            $.ajax({
-                type: 'POST',
-                url: "/user/profile/store",
-                data: {
-                    "_token": "<?php echo e(csrf_token()); ?>",
-                    "invert": color
-                },
-                dataType: "text",
-                success: function (data) {
-                    location.reload();
-                }
-            });
-            <?php else: ?>
-            localStorage.setItem("color", color);
-            console.log(localStorage.getItem("color"));
-            location.reload();
-            <?php endif; ?>
-        }
-
-    </script>
 </head>
 
 <body>
-    <!-- Modal -->
+    <?php if(isset($user)): ?>
     <div class="modal fade" id="UsersInChat" tabindex="-1" role="dialog" aria-labelledby="UsersInChat"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -345,9 +348,9 @@
                     </div>
                 </div>
                 <div class="mesgs">
-                    <button type="button" id="btn-users" class="btn btn-chatCustom" data-toggle="modal"
+                    <button type="button" id="btn-users" class="btn btn-warning" data-toggle="modal"
                         data-target="#UsersInChat" disabled><i class="fa fa-users"></i></button>
-                    <button type="button" id="btn-close" class="btn btn-chatCustom">X
+                    <button type="button" id="btn-close" class="btn btn-warning">X
                     </button>
                     <div class="msg_history">
                     </div>
@@ -365,159 +368,156 @@
             </div>
         </div>
     </div>
-    <?php if(isset($user)): ?>
-    <button type="button" id="btn-chat" class="btn btn-chatCustom btn-circle btn-xl"><i class="fa fa-comment"></i>
+    <button type="button" id="btn-chat" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-comment"></i>
     </button>
     <?php endif; ?>
-    <div class="container-full">
-        <div class="navbar navbar-inverse">
-            <div class="container-fluid nav-container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <img alt="Brand" src="<?php echo e(get_option('site_logo')); ?>" alt="<?php echo e(get_option('site_title')); ?>" />
-                        <img alt="Brand" src="<?php echo e(get_option('site_logo_type')); ?>"
-                            alt="<?php echo e(get_option('site_title')); ?>" />
-                    </a>
-                </div>
-                <div class="navbar-collapse collapse" id="searchbar">
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown navbar-accesibilidad">
-                            <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Men&uacute; de Accesibilidad</a>
-                            <ul class="dropdown-menu accesibilidad-menu">
-                                <li>
-                                    <div class="container" style="width: 100%;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3><b>Text Size:</b></h3>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 text-center">
-                                                <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)">
-                                                    <b>A</b>
-                                                    <br>
-                                                    <b>Smaller</b>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6 text-center">
-                                                <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)">
-                                                    <b>A</b>
-                                                    <br>
-                                                    <b>Larger</b>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container" style="width: 100%;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3><b>Contrast:</b></h3>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button class="btn btn-whiteTxtBlack btn-block"
-                                                    onclick="changeColor('white')">
-                                                    <b>Black Text</b>
-                                                    <br>
-                                                    <b>White</b>
-                                                    <br>
-                                                    <b>Background</b>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button class="btn btn-yellowTxtBlack btn-block"
-                                                    onclick="changeColor('yellow')">
-                                                    <b>Yellow Text</b>
-                                                    <br>
-                                                    <b>Black</b>
-                                                    <br>
-                                                    <b>Background</b>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                        <div class="col-md-6">
-                                                <button class="btn btn-blackTxtWhite btn-block"
-                                                    onclick="changeColor('black')">
-                                                    <b>White Text</b>
-                                                    <br>
-                                                    <b>Black</b>
-                                                    <br>
-                                                    <b>Background</b>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button class="btn btn-menu-accesibilidad btn-block"
-                                                    onclick="changeColor('default')">
-                                                    <br>
-                                                    <b>Default</b>
-                                                    <br>
-                                                    <br>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <?php if(isset($user)): ?>
-                        <li class="dropdown navbar-perfil">
-                            <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Perfil</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/user/video/buy">
-                                        <p>Dashboard</p>
-                                    </a>
-                                </li>
-                                <?php if(isset($user) && isset($user['vendor']) && $user['vendor'] == 1): ?>
-                                <li><a href="/user/vendor">
-                                        <p>Panel de instructor</p>
-                                    </a>
-                                </li>
-                                <?php endif; ?>
-                                <li><a href="/user/profile">
-                                        <p>Configuraci&oacute;n</p>
-                                    </a>
-                                </li>
-                                <li><a href="/logout">
-                                        <p><?php echo e(trans('main.exit')); ?></p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <?php else: ?>
-                        <li class="navbar-perfil">
-                            <a href="/user?redirect=<?php echo e(Request::path()); ?>">Login</a>
-                        </li>
-                        <?php endif; ?>
-                    </ul>
-
-                    <form class="navbar-form" action="/search" method="get">
-                        <?php echo e(csrf_field()); ?>
-
-                        <div class="form-group" style="display:inline;">
-                            <div class="input-group" style="display:table;">
-                                <span class="input-group-addon" style="width:1%;"><span
-                                        class="glyphicon glyphicon-search"></span> Buscar </span>
-                                <input class="form-control col-md-11" name="q" placeholder="Buscar..." autocomplete="off"
-                                    autofocus="autofocus" type="text">
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-                <!--/.nav-collapse -->
+    <div class="navbar navbar-inverse">
+        <div class=" nav-container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img alt="Brand" src="<?php echo e(get_option('site_logo')); ?>" alt="<?php echo e(get_option('site_title')); ?>" />
+                    <img alt="Brand" src="<?php echo e(get_option('site_logo_type')); ?>" alt="<?php echo e(get_option('site_title')); ?>" />
+                </a>
             </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown navbar-accesibilidad">
+                        <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-universal-access"> </i> <i class="fas fa-angle-down"></i></a>
+                        <ul class="dropdown-menu accesibilidad-menu">
+                            <li>
+                                <div class="container" style="width: 100%;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3><b>Text Size:</b></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-center">
+                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)">
+                                                <b>A</b>
+                                                <br>
+                                                <b>Smaller</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)">
+                                                <b>A</b>
+                                                <br>
+                                                <b>Larger</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="container" style="width: 100%;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3><b>Contrast:</b></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-whiteTxtBlack btn-block"
+                                                onclick="changeColor('white')">
+                                                <b>Black Text</b>
+                                                <br>
+                                                <b>White</b>
+                                                <br>
+                                                <b>Background</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-yellowTxtBlack btn-block"
+                                                onclick="changeColor('yellow')">
+                                                <b>Yellow Text</b>
+                                                <br>
+                                                <b>Black</b>
+                                                <br>
+                                                <b>Background</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                            <button class="btn btn-blackTxtWhite btn-block"
+                                                onclick="changeColor('black')">
+                                                <b>White Text</b>
+                                                <br>
+                                                <b>Black</b>
+                                                <br>
+                                                <b>Background</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-menu-accesibilidad btn-block"
+                                                onclick="changeColor('default')">
+                                                <br>
+                                                <b>Default</b>
+                                                <br>
+                                                <br>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <?php if(isset($user)): ?>
+                    <li class="dropdown navbar-perfil">
+                        <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">Perfil</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user/video/buy">
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <?php if(isset($user) && isset($user['vendor']) && $user['vendor'] == 1): ?>
+                            <li><a href="/user/vendor">
+                                    <p>Panel de instructor</p>
+                                </a>
+                            </li>
+                            <?php endif; ?>
+                            <li><a href="/user/profile">
+                                    <p>Configuraci&oacute;n</p>
+                                </a>
+                            </li>
+                            <li><a href="/logout">
+                                    <p><?php echo e(trans('main.exit')); ?></p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <?php else: ?>
+                    <li class="navbar-perfil">
+                        <a href="/user?redirect=<?php echo e(Request::path()); ?>"><i class="far fa-user"></i></a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+
+                <form class="navbar-form" action="/search" method="get">
+                    <?php echo e(csrf_field()); ?>
+
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span
+                                    class="glyphicon glyphicon-search"></span> Buscar </span>
+                            <input class="form-control " name="q" placeholder="" autocomplete="off"
+                                autofocus="autofocus" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
         </div>
+    </div>
 <?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/view/layout/header.blade.php ENDPATH**/ ?>

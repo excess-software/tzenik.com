@@ -29,9 +29,9 @@ io.on('connection', function(socket){
     });
 });
 
-io.listen(8890, function() {
+/*io.listen(8890, function() {
   console.log('listening on localhost:8890');
-});
+});*/
 /*var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
