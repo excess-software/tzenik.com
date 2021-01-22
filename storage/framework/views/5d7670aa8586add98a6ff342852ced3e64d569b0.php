@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title'); ?>
 <?php echo e(!empty($setting['site']['site_title']) ? $setting['site']['site_title'] : ''); ?>
 

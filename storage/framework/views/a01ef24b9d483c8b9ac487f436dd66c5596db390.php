@@ -74,7 +74,7 @@
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <?php if(isset($user)): ?>
     <script>
-        var socket = io.connect('http://localhost:8890');
+        var socket = io.connect('https://tzenik.com:8890');
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
