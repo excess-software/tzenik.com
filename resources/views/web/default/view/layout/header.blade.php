@@ -124,7 +124,8 @@
     </script>
     @if(isset($user))
     <script>
-        var socket = io.connect('https://157.245.94.48:8890', {secure: true});
+        var origin = window.location.origin;
+        var socket = io.connect(origin);
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
