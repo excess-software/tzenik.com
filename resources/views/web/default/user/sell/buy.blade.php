@@ -5,17 +5,13 @@
 @endsection
 
 @section('content')
-<div class="container-full">
+<div class="">
     @include(getTemplate() . '.user.parts.navigation')
 
-    <div class="row contenido-cursos-dash">
-        <div class="container-fluid">
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col">
-                        <h2><b>Tus Cursos</b></h2>
-                    </div>
-                </div>
+    <div class="row ">
+        <div class="">
+            <div class="col-md-12">
+                <h2 class="titulo-partials">Tus Cursos</h2>
                 <div class="row">
                     @foreach($list as $item)
                     @if(isset($item->content))
@@ -37,7 +33,7 @@
                                         <div class="col-md-12">
                                             <div class="panel-description vertical-center">
                                                 <div class="row ultimos-blogs-titulo">
-                                                    <h4><b>{{ $item->content->title }}</b></h4>
+                                                    <h3>{{ $item->content->title }}</h3>
                                                 </div>
                                                 <!--<div class="row ultimos-blogs-contenido">
                                     <div class="col">
@@ -82,8 +78,8 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12 text-center" style="margin-top: 15%; margin-bottom: 15%;">
-                            <h1><b>Aún no has comprado cursos</b></h1>
-                            <a href="/"><h1><b>Explorar</b></h1></a>
+                            <h4>Aún no has comprado cursos</h4>
+                            <a href="/"><h4><b>Explorar</b></h4></a>
                         </div>
                     </div>
                     <br>

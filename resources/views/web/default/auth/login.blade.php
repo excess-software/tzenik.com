@@ -82,11 +82,7 @@
 <br>
     <div class="h-25"></div>
     <div class="h-25"></div>
-    <div class="container text-center login-box">
-    <a href="#" class="regTag">
-                <h3><strong class="fos-s">Registrarse</strong></h3>
-            </a>
-            <br>
+    <div class="text-center login-box">
         <div class="formBox level-login" dir="ltr">
             <div class="box boxShaddow"></div>
             <div class="box loginBox">
@@ -115,8 +111,16 @@
                             >{{ trans('main.forget_password') }}</a>
                         <!-- <a href="/user/sociliate/google" class="btn btn-custom btn-check-form pull-left"><i class="fa fa-google-plus icon-rs"></i><span>{{ trans('main.sign_in_google') }}</span></a> -->
                     </div>
+                    <br>
+                    <div class="register-container">
+                        <a href="#" class="regTag register-link">
+                            <h3><strong class="">Registrarse</strong></h3>
+                        </a>
+                    </div>
                 </form>
+                
             </div>
+            
             <div class="box forgetbox">
                 <a href="#" class="back icon-back">
                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -185,13 +189,21 @@
                         {!! NoCaptcha::display() !!}
                     </div>
                     @endif
-                    <button
-                        class="btn btn-custom pull-left btn-register-user btn-register-user-r">{{ trans('main.register') }}</button>
+                    <button class="btn btn-custom pull-left btn-register-user btn-register-user-r">{{ trans('main.register') }}</button>
+                    <br>
+                    <div class="login-container">
+                        <a href="#" class="regTag login-link">
+                            <h3><strong class="">Iniciar Sesión</strong></h3>
+                        </a>
+                    </div>
                 </form>
+                
             </div>
         </div>
+        
     </div>
 </div>
+
 @endsection
 @section('script')
 <script>
@@ -226,10 +238,11 @@
     $('.regTag').click(function () {
         if ($('.regTag strong').text() == 'Registrarse') {
             $('.regTag strong').text('Iniciar Sesión');
-        } else {
-            $('.regTag strong').text('Registrarse');
+        } else if {
+            $('.regTag strong').text('Iniciar Sesión');
         }
     })
 
+    
 </script>
 @endsection
