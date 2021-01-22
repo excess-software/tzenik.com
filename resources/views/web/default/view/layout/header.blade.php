@@ -314,7 +314,8 @@
 </head>
 
 <body>
-<div class="modal fade" id="UsersInChat" tabindex="-1" role="dialog" aria-labelledby="UsersInChat"
+    @if(isset($user))
+    <div class="modal fade" id="UsersInChat" tabindex="-1" role="dialog" aria-labelledby="UsersInChat"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -368,6 +369,7 @@
     </div>
     <button type="button" id="btn-chat" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-comment"></i>
     </button>
+    @endif
     <div class="navbar navbar-inverse">
         <div class=" nav-container">
             <div class="navbar-header">
