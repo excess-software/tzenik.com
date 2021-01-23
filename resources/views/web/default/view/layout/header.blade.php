@@ -74,7 +74,7 @@
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     @if(isset($user))
     <script>
-        var socket = io.connect('http://157.245.94.48:8890/socket.io/', {secure: true});
+        var socket = io.connect(/socket.io/', {secure: true});
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
