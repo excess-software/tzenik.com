@@ -111,8 +111,10 @@
                     $.post(host + '/user/chat/send_Message/' + this_chat_id, $('#sendForm').serialize(),
                         function (id) {
                             message_id = id;
+                            var message = $('.write_msg').val();
+                            console.log(message);
                             console.log('message_id='+id);
-                            socket.emit('sendMessage', $('.write_msg').val(), "{{ $user['name'] }}", this_chat_id, id);
+                            socket.emit('sendMessage', message, "{{ $user['name'] }}", this_chat_id, id);
                         });
                     $('.write_msg').val('');
                 } else {
