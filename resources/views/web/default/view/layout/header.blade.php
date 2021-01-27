@@ -108,10 +108,10 @@
             $('.msg_send_btn').click(function () {
                 var this_chat_id = $('#chat_id').val();
                 if ($('.write_msg').val() != '') {
+                    var message = $('.write_msg').val();
                     $.post(host + '/user/chat/send_Message/' + this_chat_id, $('#sendForm').serialize(),
                         function (id) {
                             message_id = id;
-                            var message = $('.write_msg').val();
                             console.log(message);
                             console.log('message_id='+id);
                             socket.emit('sendMessage', message, "{{ $user['name'] }}", this_chat_id, id);
