@@ -111,6 +111,7 @@
                     $.post(host + '/user/chat/send_Message/' + this_chat_id, $('#sendForm').serialize(),
                         function (id) {
                             message_id = id;
+                            console.log('message_id='+id);
                         });
                     socket.emit('sendMessage', $('.write_msg').val(), "{{ $user['name'] }}", this_chat_id, message_id);
                     $('.write_msg').val('');
