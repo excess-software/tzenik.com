@@ -1643,7 +1643,7 @@ class ApiController extends Controller
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
 
             foreach($courses as $course){
-                $parts = ContentPart::where('content_id', $course->id)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
+                $parts = ContentPart::where('content_id', $course->id)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id', 'zoom_meeting'])->get();
                 foreach($parts as $part){
                     $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
@@ -1651,6 +1651,7 @@ class ApiController extends Controller
                     $part->content_title = $content->title;
                     $part->thumbnail = isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail';
                     $part->downloaded = $descargado->isEmpty() ? false : true;
+                    $part->type = isset($part->zoom_meeting) ? 'zoom' : 'course';
                 }
 
                 $course->parts = $parts;
