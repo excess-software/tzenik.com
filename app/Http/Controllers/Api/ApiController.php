@@ -566,6 +566,7 @@ class ApiController extends Controller
             'content'       => $content->content,
             'title'         => $content->title,
             'material'      => url('/').'/bin/contenido-cursos/'.$id.'/materiales.zip',
+            'guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/',
             'category'      => ['id'=>$content->category->id,'title'=>$content->category->title],
             'cover'         => isset($meta['cover'])?checkUrl($meta['cover']):'',
             'thumbnail'     => isset($meta['thumbnail'])?checkUrl($meta['thumbnail']):'',
@@ -1632,14 +1633,18 @@ class ApiController extends Controller
 
             $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
 
-            $parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
-            
-            setlocale(LC_ALL, 'es_ES');
+            //$now = Carbon::now();
+            //$weekStartDate = $now->startOfWeek()->format('Y-m-d');
+            //$weekEndDate = $now->endOfWeek()->format('Y-m-d');
+            //return $weekStartDate.' -- '.$weekEndDate;
 
-            foreach($parts_dates as $date){
-                $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
-                $parts_data = ContentPart::where('initial_date', $date)->whereIn('content_id', $purchases_array)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
-                foreach($parts_data as $part){
+            $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
+
+            $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
+
+            foreach($courses as $course){
+                $parts = ContentPart::where('content_id', $course->id)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
+                foreach($parts as $part){
                     $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
                     $meta = arrayToList($content->metas, 'option', 'value');
@@ -1647,14 +1652,30 @@ class ApiController extends Controller
                     $part->thumbnail = isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail';
                     $part->downloaded = $descargado->isEmpty() ? false : true;
                 }
-                $date = Carbon::parse($date);
-                if(!$parts_data->isEmpty()){
-                    $dates[] = ["title" => $date->format('j').' de '.$date->formatLocalized('%B').' del '.$date->format('Y'), "data" => $parts_data];
-                }
+
+                $course->parts = $parts;
             }
-    
-    
-            return $this->response($dates);
+
+            //$parts_data = ContentPart::whereBetween('initial_date', array($weekStartDate, $weekEndDate))->whereIn('content_id', $purchases_array)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
+
+            /*foreach($parts_data as $part){
+                $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
+                $content = Content::where('id', $part->content_id)->with('metas')->first();
+                $meta = arrayToList($content->metas, 'option', 'value');
+                $part->content_title = $content->title;
+                $part->thumbnail = isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail';
+                $part->downloaded = $descargado->isEmpty() ? false : true;
+            }*/
+
+            /*$parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
+            
+            if(!$parts_data->isEmpty()){
+                $dates[] = ["title" => Carbon::parse($weekStartDate)->format('d-m-Y').' al '.Carbon::parse($weekEndDate)->format('d-m-Y'), "data" => $parts_data];
+            }*/
+
+            return $this->response($courses);
+
+            setlocale(LC_ALL, 'es_ES');
         }
     }
     ## Financial
