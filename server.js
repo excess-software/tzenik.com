@@ -12,8 +12,8 @@ io.on('connection', function(socket){
     socket.on('sendMessage', function(message, sender, chat_id, message_id){
         if(typeof message == "object"){
           console.log('from react');
-          console.log(Object.values(message)['message']+', from: '+Object.values(message)['sender']+', to chat: '+Object.values(message)['chat_id']+', message: '+Object.values(message)['message_id']);
-          io.sockets.emit('receiveMessage', Object.values(message)['message'], Object.values(message)['sender'], Object.values(message)['chat_id'], Object.values(message)['message_id']);    
+          console.log(Object.values(message)[0]+', from: '+Object.values(message)[1]+', to chat: '+Object.values(message)[2]+', message: '+Object.values(message)[3]);
+          io.sockets.emit('receiveMessage', Object.values(message)[0], Object.values(message)[1], Object.values(message)[2], Object.values(message)[3]);    
         }else{
           console.log(message+', from: '+sender+', to chat: '+chat_id+', message: '+message_id);
           io.sockets.emit('receiveMessage', message, sender, chat_id, message_id); 
