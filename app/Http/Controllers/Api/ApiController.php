@@ -1648,6 +1648,7 @@ class ApiController extends Controller
                     $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
                     $meta = arrayToList($content->metas, 'option', 'value');
+                    $part->part_title = isset($part->zoom_meeting) ? $part->part_title.' - live' : $part->part_title;
                     $part->content_title = $content->title;
                     $part->thumbnail = isset($part->zoom_meeting) ? (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'https://checkmybroadbandspeed.online/wp-content/uploads/Zoom-icon-logo1.png') : (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail');
                     $part->downloaded = $descargado->isEmpty() ? false : true;
