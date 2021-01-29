@@ -10,8 +10,14 @@ io.on('connection', function(socket){
     console.log('Connected');
 
     socket.on('sendMessage', function(message, sender, chat_id, message_id){
-        console.log(message+', from: '+sender+', to chat: '+chat_id+', message: '+message_id);
-        io.sockets.emit('receiveMessage', message, sender, chat_id, message_id);
+        if(typeof message == "object"){
+          console.log('from react');
+          console.log(Object.values(message)['message']+', from: '+Object.values(message)['sender']+', to chat: '+Object.values(message)['chat_id']+', message: '+Object.values(message)['message_id']);
+          io.sockets.emit('receiveMessage', Object.values(message)['message'], Object.values(message)['sender'], Object.values(message)['chat_id'], Object.values(message)['message_id']);    
+        }else{
+          console.log(message+', from: '+sender+', to chat: '+chat_id+', message: '+message_id);
+          io.sockets.emit('receiveMessage', message, sender, chat_id, message_id); 
+        }
     });
 
     socket.on('deleteMessage', function(message_id){
