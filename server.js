@@ -27,6 +27,10 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(socket){
         console.log('Disconnected');
     });
+
+    socket.on('test', function(test){
+      console.log(test);
+    })
 });
 /*var app = require('express')();
 var server = require('http').Server(app);
