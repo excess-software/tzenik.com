@@ -28,11 +28,20 @@
                     </div>-->
                 </div>
                 <br>
+                @if(isset($meeting))
+                <div class="row">
+                    <iframe style="height: 700px; width: 100%;"
+                        src="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz"
+                        sandbox="allow-forms allow-scripts allow-same-origin" allow="microphone; camera" allowfullscreen
+                        scrolling="no"></iframe>
+                </div>
+                @else
                 <div class="row">
                     <video id="myDiv" class="media-cursos" controls>
                         <source src="{{ !empty($partVideo) ? $partVideo : $meta['video'] }}" type="video/mp4" />
                     </video>
                 </div>
+                @endif
                 <!-- <br>
                 <div class="row">
                     <button class="btn btn-next-media pull-right">
@@ -100,6 +109,11 @@
                         </div>
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
+                                @if(isset($meeting))
+                                <h4><b>Fecha de inicio:</b>
+                                    {{ $meeting_date}}
+                                </h4>
+                                @else
                                 <h2>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h2>
                                 <h4><b>Fecha de inicio:</b>
                                     {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
@@ -107,6 +121,7 @@
                                 <h4><b>Fecha de finalización:
                                     </b>{{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
                                 </h4>
+                                @endif
                                 <br>
                                 <span>{!! !empty($partDesc->description) ? $partDesc->description :
                                     $partDesc[0]->description !!}</span>
@@ -144,6 +159,16 @@
                             </div>
                         </div>
                         <br>
+                        @if(isset($meeting))
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Enlace de Zoom:</h2>
+                                <br>
+                                <span><a
+                                        href="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
+                            </div>
+                        </div>
+                        @endif
                         <div class="row">
                             <div class="col-md-12">
                                 <h2>Comparte en tus redes sociales:</h2>

@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="5" data-toggle="tab">{{ trans('main.parts') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="6" data-toggle="tab">{{ trans('main.parts') }} - Zoom</a>
+                </li>
             </ul>
         </div>
         <br>
@@ -681,6 +684,178 @@
                                             <th class="text-center" width="150">{{ trans('main.upload_date') }}</th>
                                             <th class="text-center" width="50">{{ trans('main.status') }}</th>
                                             <th class="text-center" width="100">{{ trans('main.controls') }}</th>
+                                        </thead>
+                                        <tbody id="part-video-table-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="steps dnone" id="step6">
+                <div class="accordion-off">
+                    <ul id="accordion" class="accordion off-filters-li">
+                        <li class="open edit-part-section dnone">
+                            <div class="link edit-part-click">
+                                <h2>{{{ trans('main.edit_part') }}}</h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu dblock">
+                                <div class="h-15"></div>
+                                <input type="hidden" id="part-edit-id">
+                                <form action="/user/content_web_coach/part/edit/store/" id="step-5-form-edit-part"
+                                    method="post" class="form-horizontal">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label col-md-2 tab-con">{{{ trans('main.date_webinar_coach') }}}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <input type="date" class="form-control"
+                                                id="datetimepicker_date_edit" name="date" />
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-1">{{{ trans('main.time_webinar_coach') }}}</label>
+                                        <div class="col-md-2 tab-con">
+                                            <input type="time" class="form-control"
+                                                id="datetimepicker_time_edit" name="time" />
+                                        </div>
+
+                                        <label
+                                            class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="number" min="0" name="duration"
+                                                    class="form-control text-center" required>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            {{ trans('main.minute') }}
+                                                        </span>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label tab-con col-md-2">{{{ trans('main.webinar_coach_mail') }}}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <input class="form-control" type="text" name="mail">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">{{{ trans('main.description') }}}</label>
+                                        <div class="col-md-10 tab-con">
+                                            <textarea class="form-control" rows="4" name="description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">{{{ trans('main.title') }}}</label>
+                                        <div class="col-md-8 tab-con">
+                                            <input type="text" name="title" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-2 tab-con">
+                                            <button class="btn btn-custom tab-con pull-left" id="edit-part-submit"
+                                                type="submit">{{{ trans('main.save_changes') }}}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="h-15"></div>
+                            </div>
+                        </li>
+                        <li class="open">
+                            <div class="link new-part-click">
+                                <h2>{{{ trans('main.new_part') }}}</h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu dblock">
+                                <div class="h-15"></div>
+                                <form action="/user/content/web_coach/part/store" id="step-5-form-new-part"
+                                    method="post" class="form-horizontal">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label col-md-2 tab-con">{{{ trans('main.date_webinar_coach') }}}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <input type="date" class="form-control"
+                                                id="datetimepicker_date_create" name="date" />
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-1">{{{ trans('main.time_webinar_coach') }}}</label>
+                                        <div class="col-md-2 tab-con">
+                                            <input type="time" class="form-control"
+                                                id="datetimepicker_time_create" name="time" />
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="number" min="0" name="duration"
+                                                    class="form-control text-center" required>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            {{ trans('main.minute') }}
+                                                        </span>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label tab-con col-md-2">{{{ trans('main.webinar_coach_mail') }}}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <input class="form-control" type="text" name="mail">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">{{{ trans('main.description') }}}</label>
+                                        <div class="col-md-10 tab-con">
+                                            <textarea class="form-control" rows="4" name="description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">{{{ trans('main.title') }}}</label>
+                                        <div class="col-md-10 tab-con">
+                                            <input type="text" name="title" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 tab-con">
+                                            <button class="btn btn-custom tab-con pull-right" id="new-part"
+                                                type="submit">{{ trans('main.save_changes') }}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="h-15"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="link list-part-click">
+                                <h2>{{{ trans('main.parts') }}}</h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu">
+                                <div class="table-responsive">
+                                    <table class="table ucp-table">
+                                        <thead class="thead-s">
+                                            <th class="text-center" width="50"></th>
+                                            <th class="cell-ta">{{{ trans('main.title') }}}</th>
+                                            <th class="text-center" width="50">{{{ trans('main.volume') }}}</th>
+                                            <th class="text-center" width="100">{{{ trans('main.duration') }}}</th>
+                                            <th class="text-center" width="150">{{{ trans('main.upload_date') }}}
+                                            </th>
+                                            <th class="text-center" width="50">{{{ trans('main.status') }}}</th>
+                                            <th class="text-center" width="100">{{{ trans('main.controls') }}}</th>
                                         </thead>
                                         <tbody id="part-video-table-body"></tbody>
                                     </table>
