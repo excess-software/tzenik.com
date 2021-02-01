@@ -566,7 +566,7 @@ class ApiController extends Controller
             'content'       => $content->content,
             'title'         => $content->title,
             'material'      => url('/').'/bin/contenido-cursos/'.$id.'/materiales.zip',
-            'guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/',
+            'guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
             'category'      => ['id'=>$content->category->id,'title'=>$content->category->title],
             'cover'         => isset($meta['cover'])?checkUrl($meta['cover']):'',
             'thumbnail'     => isset($meta['thumbnail'])?checkUrl($meta['thumbnail']):'',
