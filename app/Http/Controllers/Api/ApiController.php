@@ -577,6 +577,15 @@ class ApiController extends Controller
 
         return $this->response(['product'=>$data]);
     }
+
+    public function guia_curso($id, Request $request){
+
+        $content = Content::find($id);
+
+        return $this->response(['guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf']);
+
+    }
+
     public function productPay(Request $request){
         $User = $this->checkUserToken($request);
         if(!$User)
