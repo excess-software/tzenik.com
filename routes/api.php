@@ -44,6 +44,7 @@ Route::group(['prefix'=>'v1'], function (){
        Route::any('download','Api\ApiController@productDownload');
        Route::any('support', 'Api\ApiController@productSupport');
        Route::any('{id}','Api\ApiController@product');
+       Route::any('{id}/guia', 'Api\ApiController@guia_curso');
     });
 
     ## User Section
