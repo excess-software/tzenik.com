@@ -6,20 +6,18 @@
 
 @section('content')
 
-<div class="container-full">
-@include(getTemplate() . '.user.parts.navigation')
-<div class="row contenido-calendario-dash">
-            <div class="container-fluid">
-                <div class="col-md-10">
-                    <div id="calendario">
 
-                    </div>
-                </div>
+@include(getTemplate() . '.user.parts.navigation')
+    <div class="row">
+        <div class="">
+            <div class="col-md-12">
+                <div id="calendario"></div>
             </div>
         </div>
     </div>
-    <br>
+</div>
 @endsection
+
 @section('script')
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -27,7 +25,7 @@
         integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js"
         integrity="sha256-mMw9aRRFx9TK/L0dn25GKxH/WH7rtFTp+P9Uma+2+zc=" crossorigin="anonymous"></script>
-<script>
+    <script>
         $(document).ready(function () {
             var calendario = document.getElementById('calendario');
             var crearCalendario = new FullCalendar.Calendar(calendario, {
@@ -35,7 +33,6 @@
                 locale: 'es',
                 events: {!! $Eventos !!}
             });
-
             crearCalendario.render();
         });
     </script>

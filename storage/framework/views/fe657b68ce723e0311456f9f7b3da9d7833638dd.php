@@ -37,7 +37,6 @@
                     <input type="text" name="username" valid-title="Fill out this form." class="form-control validate"
                         required>
                 </div>
-
                 <div class="form-group">
                     <label><?php echo e(trans('main.password')); ?></label>
                     <input type="password" id="r-password" valid-title="Fill out this form." name="password"
@@ -86,11 +85,7 @@
 <br>
     <div class="h-25"></div>
     <div class="h-25"></div>
-    <div class="container text-center login-box">
-    <a href="#" class="regTag">
-                <h3><strong class="fos-s">Registrarse</strong></h3>
-            </a>
-            <br>
+    <div class="text-center login-box">
         <div class="formBox level-login" dir="ltr">
             <div class="box boxShaddow"></div>
             <div class="box loginBox">
@@ -120,8 +115,16 @@
                             ><?php echo e(trans('main.forget_password')); ?></a>
                         <!-- <a href="/user/sociliate/google" class="btn btn-custom btn-check-form pull-left"><i class="fa fa-google-plus icon-rs"></i><span><?php echo e(trans('main.sign_in_google')); ?></span></a> -->
                     </div>
+                    <br>
+                    <div class="register-container">
+                        <a href="#" class="regTag register-link">
+                            <h3><strong class="">Registrarse</strong></h3>
+                        </a>
+                    </div>
                 </form>
+                
             </div>
+            
             <div class="box forgetbox">
                 <a href="#" class="back icon-back">
                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -193,13 +196,21 @@
 
                     </div>
                     <?php endif; ?>
-                    <button
-                        class="btn btn-custom pull-left btn-register-user btn-register-user-r"><?php echo e(trans('main.register')); ?></button>
+                    <button class="btn btn-custom pull-left btn-register-user btn-register-user-r"><?php echo e(trans('main.register')); ?></button>
+                    <br>
+                    <div class="login-container">
+                        <a href="#" class="regTag login-link">
+                            <h3><strong class="">Iniciar Sesión</strong></h3>
+                        </a>
+                    </div>
                 </form>
+                
             </div>
         </div>
+        
     </div>
 </div>
+
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script>
@@ -208,7 +219,6 @@
             $('#loginForm').submit();
         }
     });
-
 </script>
 <script>
     $('.btn-register-user').on('click', function (e) {
@@ -216,11 +226,11 @@
             $.notify({
                 message: 'Password & its confirmation are not the same.'
             }, {
-                type: 'info',
+                type: 'danger',
                 allow_dismiss: false,
                 z_index: '99999999',
                 placement: {
-                    from: "top",
+                    from: "bottom",
                     align: "right"
                 },
                 position: 'fixed'
@@ -228,18 +238,16 @@
             e.preventDefault();
         }
     })
-
 </script>
 <script>
     $('.regTag').click(function () {
         if ($('.regTag strong').text() == 'Registrarse') {
             $('.regTag strong').text('Iniciar Sesión');
-        } else {
-            $('.regTag strong').text('Registrarse');
+        } else if {
+            $('.regTag strong').text('Iniciar Sesión');
         }
     })
-
+    
 </script>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make(getTemplate().'.view.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/auth/login.blade.php ENDPATH**/ ?>

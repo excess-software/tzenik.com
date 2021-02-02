@@ -7,10 +7,8 @@
 @include(getTemplate() . '.view.parts.navigation')
 <div class="row">
     <div class="container">
-        <div class="col titulo-blog">
-            <span>
-                <h2><b>Blog</b></h2>
-            </span>
+        <div class="col titulo-blog">            
+            <h2 class="titulo-partials">Blog</h2>            
         </div>
     </div>
 </div>
@@ -33,7 +31,7 @@
                                 <div class="col-md-12">
                                     <div class="panel-description vertical-center">
                                         <div class="row ultimos-blogs-titulo">
-                                            <h2><b>{!! Str::limit($post->title, 30) !!}</b></h2>
+                                            <h3><b>{!! Str::limit($post->title, 30) !!}</b></h3>
                                         </div>
                                         <div class="row ultimos-blogs-contenido">
                                             <div class="col">
