@@ -1689,6 +1689,116 @@ class ApiController extends Controller
             setlocale(LC_ALL, 'es_ES');
         }
     }
+    ##Videoteca
+    public function videoteca(Request $request){
+        $currency = currencySign();
+        $data = [];
+        $User = $this->checkUserToken($request);
+        if(!$User)
+            return $this->error(-1, trans('main.user_not_found'));
+
+
+        //$lists = Content::where('user_id',$User['id'])->with(['metas'])->withCount('sells')->orderBy('id','DESC')->get();
+        //foreach ($lists as $item){
+        //    $meta = arrayToList($item->metas,'option','value');
+        //    $data['courses'][] = [
+        //        'id'        => $item->id,
+        //        'title'     => $item->title,
+        //        'thumbnail' => checkUrl($meta['thumbnail']),
+        //        'mode'      => $item->mode,
+        //        'sales'     => $item->sells_count
+        //    ];
+        //}
+
+        //return $dates;
+
+        $content = Content::where('mode', 'publish')->where('content_type', 'Videoteca')->with(['metas', 'parts'])->get();
+        
+        if($content->isEmpty()){
+            return $this->response($data, '0');
+        }else{
+            /*foreach ($purchases as $item){
+                if(isset($item->content)) {
+                    $meta = arrayToList($item->content->metas, 'option', 'value');
+                    //$data['asignados'][] = [
+                    //    'id'        => $item->content->id,
+                    //    'title'     => $item->content->title,
+                    //    'thumbnail' => checkUrl($meta['thumbnail']),
+                    //    //'price'     => isset($meta['price']) ? $meta['price'] : 'free',
+                    //    //'amount'    => isset($meta['price']) ? $meta['price'] : 'free',
+                    //    //'currency'  => $currency,
+                    //    //'date'      => date('Y F d | H:i', $item->created_at),
+                    //    'parts'     => $item->content->parts
+                    //];
+                    foreach($item->content->parts as $part){
+
+                        $date = $part->initial_date;
+                        $content_data = [
+                            'content_id' => $item->content->id,
+                            'content_title' => $item->content->title,
+                            'thumbnail' => checkUrl($meta['thumbnail']),
+                            'part_id'    => $part->id,
+                            'part_title' => $part->title,
+                            'initial_date' => $part->initial_date,
+                            'limit_date' => $part->limit_date
+                        ];
+
+                        $dates[] = ["title" => $date, "data" => [$content_data]];
+                    }
+                }
+            }*/
+
+            $purchases_array = Content::where('mode', 'publish')->where('content_type', 'Videoteca')->pluck('id')->toArray();
+
+            //$now = Carbon::now();
+            //$weekStartDate = $now->startOfWeek()->format('Y-m-d');
+            //$weekEndDate = $now->endOfWeek()->format('Y-m-d');
+            //return $weekStartDate.' -- '.$weekEndDate;
+
+            $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
+
+            $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Videoteca')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
+
+            foreach($courses as $course){
+                $parts = ContentPart::where('content_id', $course->id)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time'])->get();
+                foreach($parts as $part){
+                    $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
+                    $content = Content::where('id', $part->content_id)->with('metas')->first();
+                    $meta = arrayToList($content->metas, 'option', 'value');
+                    $part->part_title = isset($part->zoom_meeting) ? $part->part_title.' - live' : $part->part_title;
+                    $part->content_title = $content->title;
+                    $part->thumbnail = isset($part->zoom_meeting) ? (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'https://checkmybroadbandspeed.online/wp-content/uploads/Zoom-icon-logo1.png') : (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail');
+                    $part->downloaded = $descargado->isEmpty() ? false : true;
+                    $part->type = isset($part->zoom_meeting) ? 'zoom' : 'course';
+                }
+
+                $course->parts = $parts;
+            }
+
+            //$parts_data = ContentPart::whereBetween('initial_date', array($weekStartDate, $weekEndDate))->whereIn('content_id', $purchases_array)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id'])->get();
+
+            /*foreach($parts_data as $part){
+                $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
+                $content = Content::where('id', $part->content_id)->with('metas')->first();
+                $meta = arrayToList($content->metas, 'option', 'value');
+                $part->content_title = $content->title;
+                $part->thumbnail = isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail';
+                $part->downloaded = $descargado->isEmpty() ? false : true;
+            }*/
+
+            /*$parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
+            
+            if(!$parts_data->isEmpty()){
+                $dates[] = ["title" => Carbon::parse($weekStartDate)->format('d-m-Y').' al '.Carbon::parse($weekEndDate)->format('d-m-Y'), "data" => $parts_data];
+            }*/
+
+            return $this->response($courses);
+
+            setlocale(LC_ALL, 'es_ES');
+        }
+    }
+
+
     ## Financial
     public function financialList(Request $request){
         $currency = currencySign();
