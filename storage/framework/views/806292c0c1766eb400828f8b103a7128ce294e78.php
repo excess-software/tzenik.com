@@ -138,7 +138,6 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <?php if(isset($guia)): ?>
                                 <h2>Guía</h2>
                                 <br>
                                 <a href="<?php echo e($guia); ?>">
@@ -147,7 +146,6 @@
                                     </button>
                                 </a>
                                 <br>
-                                <?php endif; ?>
                                 <h2>Materiales</h2>
                                 <br>
                                 <?php if(isset($user)): ?>

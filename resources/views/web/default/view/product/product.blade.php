@@ -131,7 +131,6 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                @if(isset($guia))
                                 <h2>Guía</h2>
                                 <br>
                                 <a href="{{$guia}}">
@@ -140,7 +139,6 @@
                                     </button>
                                 </a>
                                 <br>
-                                @endif
                                 <h2>Materiales</h2>
                                 <br>
                                 @if(isset($user))

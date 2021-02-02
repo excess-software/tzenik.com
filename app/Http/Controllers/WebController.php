@@ -996,10 +996,8 @@ class WebController extends Controller
             'meeting'               => $meeting,
             'meeting_date'          => $meeting_date,
             'product_material'      => $product_material,
-            'guia' => Storage::exists('/public/bin/contenido-cursos/'.$id.'/guia') ? null : '/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
+            'guia' => '/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
         ];
-
-        return $data;
 
         //return File::exists('/bin/contenido-cursos/'.$id.'/guia');
 
