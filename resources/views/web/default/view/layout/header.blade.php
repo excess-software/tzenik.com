@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    
     <link rel="icon" href="{!! get_option('site_fav','/assets/default/404/images/favicon.png') !!}" type="image/png"
         sizes="32x32">
     <meta charset="UTF-8">
@@ -22,6 +23,10 @@
     <link rel="stylesheet" href="/assets/default/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" />
     <link rel="stylesheet" href="/assets/default/vendor/jquery-te/jquery-te-1.4.0.css" />
     <link rel="stylesheet" href="/assets/default/stylesheets/vendor/mdi/css/materialdesignicons.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/fafad05c14.js" crossorigin="anonymous"></script>
     @if(get_option('site_rtl','0') == 1)
     <!-- <link rel="stylesheet" href="/assets/default/stylesheets/view-custom-rtl.css"/>-->
     @else
@@ -54,20 +59,16 @@
         } else {
             document.head.innerHTML += '<link rel="stylesheet" href="/assets/default/stylesheets/tzenik-main.css?v={{time()}}">';
         }
-
     </script>
     @endif
-    <link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />
+    <!--<link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />-->
     @if(get_option('main_css')!='')
     <style>
         {
              ! ! get_option('main_css') ! !
         }
-
     </style>
-    
     @endif
-    <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     @if(isset($user))
@@ -283,7 +284,6 @@
             location.reload();
             @endif
         }
-
         function changeColor(color) {
             if (color == 'default') {
                 color = ''
@@ -307,7 +307,6 @@
             location.reload();
             @endif
         }
-
     </script>
 </head>
 
@@ -369,153 +368,151 @@
     <button type="button" id="btn-chat" class="btn btn-chatCustom btn-circle btn-xl"><i class="fa fa-comment"></i>
     </button>
     @endif
-    <div class="container-full">
-        <div class="navbar navbar-inverse">
-            <div class="container-fluid nav-container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <img alt="Brand" src="{{ get_option('site_logo') }}" alt="{{ get_option('site_title') }}" />
-                        <img alt="Brand" src="{{ get_option('site_logo_type') }}"
-                            alt="{{ get_option('site_title') }}" />
-                    </a>
-                </div>
-                <div class="navbar-collapse collapse" id="searchbar">
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown navbar-accesibilidad">
-                            <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Men&uacute; de Accesibilidad</a>
-                            <ul class="dropdown-menu accesibilidad-menu">
-                                <li>
-                                    <div class="container" style="width: 100%;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3><b>Text Size:</b></h3>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 text-center">
-                                                <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)">
-                                                    <b>A</b>
-                                                    <br>
-                                                    <b>Smaller</b>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6 text-center">
-                                                <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)">
-                                                    <b>A</b>
-                                                    <br>
-                                                    <b>Larger</b>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="container" style="width: 100%;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3><b>Contrast:</b></h3>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button class="btn btn-whiteTxtBlack btn-block"
-                                                    onclick="changeColor('white')">
-                                                    <b>Black Text</b>
-                                                    <br>
-                                                    <b>White</b>
-                                                    <br>
-                                                    <b>Background</b>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button class="btn btn-yellowTxtBlack btn-block"
-                                                    onclick="changeColor('yellow')">
-                                                    <b>Yellow Text</b>
-                                                    <br>
-                                                    <b>Black</b>
-                                                    <br>
-                                                    <b>Background</b>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                        <div class="col-md-6">
-                                                <button class="btn btn-blackTxtWhite btn-block"
-                                                    onclick="changeColor('black')">
-                                                    <b>White Text</b>
-                                                    <br>
-                                                    <b>Black</b>
-                                                    <br>
-                                                    <b>Background</b>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button class="btn btn-menu-accesibilidad btn-block"
-                                                    onclick="changeColor('default')">
-                                                    <br>
-                                                    <b>Default</b>
-                                                    <br>
-                                                    <br>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        @if(isset($user))
-                        <li class="dropdown navbar-perfil">
-                            <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Perfil</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/user/video/buy">
-                                        <p>Dashboard</p>
-                                    </a>
-                                </li>
-                                @if(isset($user) && isset($user['vendor']) && $user['vendor'] == 1)
-                                <li><a href="/user/vendor">
-                                        <p>Panel de instructor</p>
-                                    </a>
-                                </li>
-                                @endif
-                                <li><a href="/user/profile">
-                                        <p>Configuraci&oacute;n</p>
-                                    </a>
-                                </li>
-                                <li><a href="/logout">
-                                        <p>{{ trans('main.exit') }}</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        @else
-                        <li class="navbar-perfil">
-                            <a href="/user?redirect={{ Request::path() }}">Login</a>
-                        </li>
-                        @endif
-                    </ul>
-
-                    <form class="navbar-form" action="/search" method="get">
-                        {{ csrf_field() }}
-                        <div class="form-group" style="display:inline;">
-                            <div class="input-group" style="display:table;">
-                                <span class="input-group-addon" style="width:1%;"><span
-                                        class="glyphicon glyphicon-search"></span> Buscar </span>
-                                <input class="form-control col-md-11" name="q" placeholder="Buscar..." autocomplete="off"
-                                    autofocus="autofocus" type="text">
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-                <!--/.nav-collapse -->
+    <div class="navbar navbar-inverse">
+        <div class=" nav-container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img alt="Brand" src="{{ get_option('site_logo') }}" alt="{{ get_option('site_title') }}" />
+                    <img alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}" />
+                </a>
             </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown navbar-accesibilidad">
+                        <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-universal-access"> </i> <i class="fas fa-angle-down"></i></a>
+                        <ul class="dropdown-menu accesibilidad-menu">
+                            <li>
+                                <div class="container" style="width: 100%;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3><b>Text Size:</b></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-center">
+                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)">
+                                                <b>A</b>
+                                                <br>
+                                                <b>Smaller</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)">
+                                                <b>A</b>
+                                                <br>
+                                                <b>Larger</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="container" style="width: 100%;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3><b>Contrast:</b></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-whiteTxtBlack btn-block"
+                                                onclick="changeColor('white')">
+                                                <b>Black Text</b>
+                                                <br>
+                                                <b>White</b>
+                                                <br>
+                                                <b>Background</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-yellowTxtBlack btn-block"
+                                                onclick="changeColor('yellow')">
+                                                <b>Yellow Text</b>
+                                                <br>
+                                                <b>Black</b>
+                                                <br>
+                                                <b>Background</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                            <button class="btn btn-blackTxtWhite btn-block"
+                                                onclick="changeColor('black')">
+                                                <b>White Text</b>
+                                                <br>
+                                                <b>Black</b>
+                                                <br>
+                                                <b>Background</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-menu-accesibilidad btn-block"
+                                                onclick="changeColor('default')">
+                                                <br>
+                                                <b>Default</b>
+                                                <br>
+                                                <br>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    @if(isset($user))
+                    <li class="dropdown navbar-perfil">
+                        <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">Perfil</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user/video/buy">
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            @if(isset($user) && isset($user['vendor']) && $user['vendor'] == 1)
+                            <li><a href="/user/vendor">
+                                    <p>Panel de instructor</p>
+                                </a>
+                            </li>
+                            @endif
+                            <li><a href="/user/profile">
+                                    <p>Configuraci&oacute;n</p>
+                                </a>
+                            </li>
+                            <li><a href="/logout">
+                                    <p>{{ trans('main.exit') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @else
+                    <li class="navbar-perfil">
+                        <a href="/user?redirect={{ Request::path() }}"><i class="far fa-user"></i></a>
+                    </li>
+                    @endif
+                </ul>
+
+                <form class="navbar-form" action="/search" method="get">
+                    {{ csrf_field() }}
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span
+                                    class="glyphicon glyphicon-search"></span> Buscar </span>
+                            <input class="form-control " name="q" placeholder="" autocomplete="off"
+                                autofocus="autofocus" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
         </div>
+    </div>
