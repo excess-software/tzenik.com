@@ -11,9 +11,9 @@
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="2" data-toggle="tab">{{ trans('main.category') }}</a>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="3" data-toggle="tab">{{ trans('main.extra_info') }}</a>
-                </li>
+                </li>-->
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="4" data-toggle="tab">{{ trans('main.view') }}</a>
                 </li>
@@ -57,6 +57,7 @@
                             <select name="private" class="form-control font-s">
                                 <option value="2" {{$item->private == 2 ? 'selected' : ''}}>Fundal</option>
                                 <option value="0" {{$item->private == 0 ? 'selected' : ''}}>{{ trans('main.open') }}</option>
+                                <option value="3" {{$item->private == 3 ? 'selected' : ''}}>Videoteca</option>
                             </select>
                         </div>
                     </div>
@@ -85,9 +86,9 @@
             <div class="steps dnone" id="step2">
                 <form method="post" id="step-2-form" class="form-horizontal">
                     {{ csrf_field() }}
-                    <div class="alert alert-success">
+                    <!--<div class="alert alert-success">
                         <p>{{ trans('main.tags_header') }}</p>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label class="col-md-2 control-label tab-con"
                             for="inputDefault">{{ trans('main.tags') }}</label>
@@ -121,9 +122,9 @@
                         </div>
                     </div>
                     <div class="h-15"></div>
-                    <div class="alert alert-success">
+                    <!--<div class="alert alert-success">
                         <p>{{ trans('main.filters_header') }}</p>
-                    </div>
+                    </div>-->
                     <div class="h-15"></div>
                     @foreach($menus as $menu)
                     <!--<div class="col-md-11 col-md-offset-1 tab-con filters @if($menu->id != $item->category_id) dnone @endif"
@@ -452,11 +453,11 @@
                                         </div>
 
 
-                                        <label class="control-label col-md-1 tab-con">{{ trans('main.sort') }}</label>
+                                        <!--<label class="control-label col-md-1 tab-con">{{ trans('main.sort') }}</label>
                                         <div class="col-md-2 tab-con">
                                             <input name="sort" type="number" class="spinner-input form-control"
                                                 maxlength="3" min="0" max="100" required>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     <div class="form-group">
@@ -469,14 +470,14 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 tab-con">{{ trans('main.volume') }}</label>
+                                        <!--<label class="control-label col-md-2 tab-con">{{ trans('main.volume') }}</label>
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="number" min="0" name="size"
                                                     class="form-control text-center">
                                                 <span class="input-group-addon img-icon-s">{{ trans('main.mb') }}</span>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <label
                                             class="control-label col-md-1 tab-con">{{ trans('main.duration') }}</label>
                                         <div class="col-md-3 tab-con">
@@ -574,11 +575,11 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <label class="control-label tab-con col-md-1">{{ trans('main.sort') }}</label>
+                                        <!--<label class="control-label tab-con col-md-1">{{ trans('main.sort') }}</label>
                                         <div class="col-md-2 tab-con">
                                             <input type="number" name="sort" class="spinner-input form-control"
                                                 maxlength="3" min="0" max="100" required>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     
@@ -592,7 +593,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label tab-con col-md-2">{{ trans('main.volume') }}</label>
+                                        <!--<label class="control-label tab-con col-md-2">{{ trans('main.volume') }}</label>
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="number" min="0" name="size"
@@ -603,7 +604,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <label
                                             class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
                                         <div class="col-md-3 tab-con">
@@ -841,7 +842,7 @@
                             </div>
                         </li>
                         <li>
-                            <div class="link list-part-click">
+                            <div class="link list-part-click-zoom">
                                 <h2>{{{ trans('main.parts') }}}</h2><i class="mdi mdi-chevron-down"></i>
                             </div>
                             <div class="submenu">
@@ -857,7 +858,7 @@
                                             <th class="text-center" width="50">{{{ trans('main.status') }}}</th>
                                             <th class="text-center" width="100">{{{ trans('main.controls') }}}</th>
                                         </thead>
-                                        <tbody id="part-video-table-body"></tbody>
+                                        <tbody id="part-video-table-body-zoom"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -1211,13 +1212,23 @@
         $.get('/user/content/part/json/' + id, function (data) {
             $('#part-video-table-body').html('');
             $.each(data, function (index, item) {
-                $('#part-video-table-body').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
+                if(!item.zoom_meeting){
+                    $('#part-video-table-body').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
                     'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
                     '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
                     item.id +
                     '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
                     item.id + '" title="Delete"></span></td></tr>');
+                }else{
+                    $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
+                    'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
+                    '</td><td>' + item.mode +
+                    '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
+                    item.id +
+                    '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
+                    item.id + '" title="Delete"></span></td></tr>');
+                }
             })
         })
     }

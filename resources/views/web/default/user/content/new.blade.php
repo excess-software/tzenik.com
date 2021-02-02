@@ -46,6 +46,7 @@
                             <select name="private" class="form-control font-s">
                                 <option value="2">Fundal</option>
                                 <option value="0">{{ trans('main.open') }}</option>
+                                <option value="3">Videoteca</option>
                             </select>
                         </div>
                     </div>

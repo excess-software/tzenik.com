@@ -131,6 +131,16 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
+                                @if(isset($guia))
+                                <h2>Guía</h2>
+                                <br>
+                                <a href="{{$guia}}">
+                                    <button class="btn btn-media-descargar-leccion">
+                                        <h4>Descargar guía</h4>
+                                    </button>
+                                </a>
+                                <br>
+                                @endif
                                 <h2>Materiales</h2>
                                 <br>
                                 @if(isset($user))

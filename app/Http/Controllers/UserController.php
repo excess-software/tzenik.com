@@ -1175,13 +1175,15 @@ class UserController extends Controller
     public function contentStore(Request $request)
     {
         $user = auth()->user();
-        $newContent = $request->except(['_token']);
+        $newContent = $request->except(['_token', 'guia_trabajo']);
         $newContent['created_at'] = time();
         $newContent['mode'] = 'draft';
         $newContent['user_id'] = $user->id;
         
         if($newContent['private'] == 2 ){
             $newContent['content_type'] = 'Fundal';
+        }elseif($newContent['private'] == 3){
+            $newContent['content_type'] = 'Videoteca';
         }
 
         $newChat = ['name' => $newContent['title'], 'creator' => $user->id, 'published' => 'false'];
@@ -1192,6 +1194,15 @@ class UserController extends Controller
 
         $newContent['chat_id'] = $chat_id;
         $content_id = Content::insertGetId($newContent);
+
+        $guia = $request->guia_trabajo;
+
+
+            if(isset($guia)){
+                if($guia->isValid()){
+                    $guia->move('bin/contenido-cursos/'.$content_id.'/guia/', 'Guía-'.$newContent['title'].'.'.$guia->getClientOriginalExtension());
+                }
+            }
 
         $forum_category = ForumCategory::create(['product_id' => $content_id, 'title' => $newContent['title'], 'desc' => 'Un foro para el curso '.$newContent['title'], 'published' => 'true', 'type' => $newContent['private'] == 2 ? 'private' : 'public']);
 
@@ -1428,6 +1439,7 @@ class UserController extends Controller
             $request->request->add(['zoom_meeting'=>$meeting]);
             $newPart = ContentPart::create($request->all());
             echo $newPart->id;
+            return back();
         }else{
             //$date = $request->request->date;
             //$time = $request->request->time;
@@ -4567,6 +4579,83 @@ class UserController extends Controller
 
         echo $parts;
         
+    }
+
+    public static function videoteca(Request $request, $id = null){
+        $order = $request->get('order', null);
+        $price = $request->get('price', null);
+        $course = $request->get('course', null);
+        $off = $request->get('off', null);
+        if ($request->get('filter') != null) {
+            $filters = array_unique($request->get('filter'));
+        } else {
+            $filters = null;
+        }
+        $q = $request->get('q', null);
+        $post_sell = $request->get('post-sell', null);
+        $support = $request->get('support', null);
+
+        $Category = ContentCategory::with(array('filters' => function ($q) {
+            $q->with('tags');
+        }))->where('class', $id)->first();
+
+        $content = Content::where('mode', 'publish')->where('content_type', 'Videoteca')->with(['metas', 'sells', 'discount', 'user'])->withCount('parts');
+        if (!empty($Category)) {
+            $content = $content->where('category_id', $Category->id);
+        }
+
+        if (isset($q) and $q != '') {
+            $content->where('title', 'LIKE', '%' . $q . '%');
+        }
+
+        if (isset($post_sell) and $post_sell == 1) {
+            $content->where('post', '1');
+        }
+
+        if (isset($support) and $support == 1) {
+            $content->where('support', '1');
+        }
+
+        if (isset($order) and $order == 'old') {
+            $content->orderBy('id');
+        }
+
+        if (isset($order) and $order == 'new') {
+            $content->orderBy('id', 'DESC');
+        }
+
+        ## Set For Course
+        switch ($course) {
+            case 'one':
+                $content->where('type', 'single');
+                break;
+            case 'multi':
+                $content->where('type', 'course');
+                break;
+            default:
+                break;
+        }
+
+        $content = $content->get()->toArray();
+
+        foreach ($content as $index => $c) {
+            $content[$index]['metas'] = arrayToList($c['metas'], 'option', 'value');
+        }
+
+        $data = [
+            'category' => $Category,
+            'contents' => $content,
+            'order' => $order,
+            'pricing' => $price,
+            'course' => $course,
+            'off' => $off,
+            'filters' => $filters,
+        ];
+
+        if ($id != null)
+            return view(getTemplate() . '.view.category.videoteca', $data);
+        else
+            return view(getTemplate() . '.view.category.videoteca', $data);
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

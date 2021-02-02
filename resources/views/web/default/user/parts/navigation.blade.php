@@ -8,6 +8,7 @@
 <br>
 <ul class="nav nav-tabs nav-justified">
         <li role="presentation" class="{{ request()->is('user/video/buy') ? 'active' : ''  }}"><a class="nav-home" href="/user/video/buy"><i class="fa fa-home"></i> Tablero</a></li>
+        <li role="presentation" class="{{ request()->is('user/videoteca') ? 'active' : ''  }}"><a class="nav-home" href="/user/videoteca"><i class="fa fa-video-camera"></i> Videoteca</a></li>
         <li role="presentation" class="{{ request()->is('user/quizzes') || request()->is('user/dashboard/*') ? 'active' : ''  }}"><a class="nav-home" href="/user/quizzes"><i class="fa fa-book"></i> Cursos</a>
         </li>
         <li role="presentation" class="{{ request()->is('user/forum*') ? 'active' : ''  }}"><a class="nav-home" href="/user/forum"><i class="fa fa-calendar"></i> Foro</a></li>

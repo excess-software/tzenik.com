@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('page'); ?>
 
 <div class="cards">
@@ -10,14 +11,17 @@
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="2" data-toggle="tab"><?php echo e(trans('main.category')); ?></a>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="3" data-toggle="tab"><?php echo e(trans('main.extra_info')); ?></a>
-                </li>
+                </li>-->
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="4" data-toggle="tab"><?php echo e(trans('main.view')); ?></a>
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="5" data-toggle="tab"><?php echo e(trans('main.parts')); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="6" data-toggle="tab"><?php echo e(trans('main.parts')); ?> - Zoom</a>
                 </li>
             </ul>
         </div>
@@ -54,6 +58,7 @@
                             <select name="private" class="form-control font-s">
                                 <option value="2" <?php echo e($item->private == 2 ? 'selected' : ''); ?>>Fundal</option>
                                 <option value="0" <?php echo e($item->private == 0 ? 'selected' : ''); ?>><?php echo e(trans('main.open')); ?></option>
+                                <option value="3" <?php echo e($item->private == 3 ? 'selected' : ''); ?>>Videoteca</option>
                             </select>
                         </div>
                     </div>
@@ -84,9 +89,9 @@
                 <form method="post" id="step-2-form" class="form-horizontal">
                     <?php echo e(csrf_field()); ?>
 
-                    <div class="alert alert-success">
+                    <!--<div class="alert alert-success">
                         <p><?php echo e(trans('main.tags_header')); ?></p>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label class="col-md-2 control-label tab-con"
                             for="inputDefault"><?php echo e(trans('main.tags')); ?></label>
@@ -120,9 +125,9 @@
                         </div>
                     </div>
                     <div class="h-15"></div>
-                    <div class="alert alert-success">
+                    <!--<div class="alert alert-success">
                         <p><?php echo e(trans('main.filters_header')); ?></p>
-                    </div>
+                    </div>-->
                     <div class="h-15"></div>
                     <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <!--<div class="col-md-11 col-md-offset-1 tab-con filters <?php if($menu->id != $item->category_id): ?> dnone <?php endif; ?>"
@@ -463,11 +468,11 @@
                                         </div>
 
 
-                                        <label class="control-label col-md-1 tab-con"><?php echo e(trans('main.sort')); ?></label>
+                                        <!--<label class="control-label col-md-1 tab-con"><?php echo e(trans('main.sort')); ?></label>
                                         <div class="col-md-2 tab-con">
                                             <input name="sort" type="number" class="spinner-input form-control"
                                                 maxlength="3" min="0" max="100" required>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     <div class="form-group">
@@ -480,14 +485,14 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 tab-con"><?php echo e(trans('main.volume')); ?></label>
+                                        <!--<label class="control-label col-md-2 tab-con"><?php echo e(trans('main.volume')); ?></label>
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="number" min="0" name="size"
                                                     class="form-control text-center">
                                                 <span class="input-group-addon img-icon-s"><?php echo e(trans('main.mb')); ?></span>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <label
                                             class="control-label col-md-1 tab-con"><?php echo e(trans('main.duration')); ?></label>
                                         <div class="col-md-3 tab-con">
@@ -515,6 +520,27 @@
                                         <div class="col-md-8 tab-con">
                                             <input type="text" name="title" class="form-control" required>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-3">Fecha de inicio</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="date" name="initial_date"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-3">Fecha de finalizaci&oacute;n</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="date" name="limit_date"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <div class="col-md-2 tab-con">
                                             <button class="btn btn-custom pull-left" id="edit-part-submit"
                                                 type="submit"><?php echo e(trans('main.edit_part')); ?></button>
@@ -565,11 +591,11 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <label class="control-label tab-con col-md-1"><?php echo e(trans('main.sort')); ?></label>
+                                        <!--<label class="control-label tab-con col-md-1"><?php echo e(trans('main.sort')); ?></label>
                                         <div class="col-md-2 tab-con">
                                             <input type="number" name="sort" class="spinner-input form-control"
                                                 maxlength="3" min="0" max="100" required>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     
@@ -583,7 +609,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label tab-con col-md-2"><?php echo e(trans('main.volume')); ?></label>
+                                        <!--<label class="control-label tab-con col-md-2"><?php echo e(trans('main.volume')); ?></label>
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="number" min="0" name="size"
@@ -595,7 +621,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <label
                                             class="control-label tab-con col-md-1"><?php echo e(trans('main.duration')); ?></label>
                                         <div class="col-md-3 tab-con">
@@ -679,6 +705,183 @@
                                             <th class="text-center" width="100"><?php echo e(trans('main.controls')); ?></th>
                                         </thead>
                                         <tbody id="part-video-table-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="steps dnone" id="step6">
+                <div class="accordion-off">
+                    <ul id="accordion" class="accordion off-filters-li">
+                        <li class="open edit-part-section dnone">
+                            <div class="link edit-part-click">
+                                <h2><?php echo e(trans('main.edit_part')); ?></h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu dblock">
+                                <div class="h-15"></div>
+                                <input type="hidden" id="part-edit-id">
+                                <form action="/user/content_web_coach/part/edit/store/" id="step-5-form-edit-part"
+                                    method="post" class="form-horizontal">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="content_id" value="<?php echo e($item->id ?? ''); ?>">
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label col-md-2 tab-con"><?php echo e(trans('main.date_webinar_coach')); ?></label>
+                                        <div class="col-md-3 tab-con">
+                                            <input type="date" class="form-control"
+                                                id="datetimepicker_date_edit" name="date" />
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-1"><?php echo e(trans('main.time_webinar_coach')); ?></label>
+                                        <div class="col-md-2 tab-con">
+                                            <input type="time" class="form-control"
+                                                id="datetimepicker_time_edit" name="time" />
+                                        </div>
+
+                                        <label
+                                            class="control-label tab-con col-md-1"><?php echo e(trans('main.duration')); ?></label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="number" min="0" name="duration"
+                                                    class="form-control text-center" required>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <?php echo e(trans('main.minute')); ?>
+
+                                                        </span>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label tab-con col-md-2"><?php echo e(trans('main.webinar_coach_mail')); ?></label>
+                                        <div class="col-md-3 tab-con">
+                                            <input class="form-control" type="text" name="mail">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault"><?php echo e(trans('main.description')); ?></label>
+                                        <div class="col-md-10 tab-con">
+                                            <textarea class="form-control" rows="4" name="description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault"><?php echo e(trans('main.title')); ?></label>
+                                        <div class="col-md-8 tab-con">
+                                            <input type="text" name="title" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-2 tab-con">
+                                            <button class="btn btn-custom tab-con pull-left" id="edit-part-submit"
+                                                type="submit"><?php echo e(trans('main.save_changes')); ?></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="h-15"></div>
+                            </div>
+                        </li>
+                        <li class="open">
+                            <div class="link new-part-click">
+                                <h2><?php echo e(trans('main.new_part')); ?></h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu dblock">
+                                <div class="h-15"></div>
+                                <form action="/user/content/web_coach/part/store" id="step-5-form-new-part"
+                                    method="post" class="form-horizontal">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="content_id" value="<?php echo e($item->id ?? ''); ?>">
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label col-md-2 tab-con"><?php echo e(trans('main.date_webinar_coach')); ?></label>
+                                        <div class="col-md-3 tab-con">
+                                            <input type="date" class="form-control"
+                                                id="datetimepicker_date_create" name="date" />
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-1"><?php echo e(trans('main.time_webinar_coach')); ?></label>
+                                        <div class="col-md-2 tab-con">
+                                            <input type="time" class="form-control"
+                                                id="datetimepicker_time_create" name="time" />
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-1"><?php echo e(trans('main.duration')); ?></label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="number" min="0" name="duration"
+                                                    class="form-control text-center" required>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <?php echo e(trans('main.minute')); ?>
+
+                                                        </span>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label tab-con col-md-2"><?php echo e(trans('main.webinar_coach_mail')); ?></label>
+                                        <div class="col-md-3 tab-con">
+                                            <input class="form-control" type="text" name="mail">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault"><?php echo e(trans('main.description')); ?></label>
+                                        <div class="col-md-10 tab-con">
+                                            <textarea class="form-control" rows="4" name="description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault"><?php echo e(trans('main.title')); ?></label>
+                                        <div class="col-md-10 tab-con">
+                                            <input type="text" name="title" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 tab-con">
+                                            <button class="btn btn-custom tab-con pull-right" id="new-part"
+                                                type="submit"><?php echo e(trans('main.save_changes')); ?></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="h-15"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="link list-part-click-zoom">
+                                <h2><?php echo e(trans('main.parts')); ?></h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu">
+                                <div class="table-responsive">
+                                    <table class="table ucp-table">
+                                        <thead class="thead-s">
+                                            <th class="text-center" width="50"></th>
+                                            <th class="cell-ta"><?php echo e(trans('main.title')); ?></th>
+                                            <th class="text-center" width="50"><?php echo e(trans('main.volume')); ?></th>
+                                            <th class="text-center" width="100"><?php echo e(trans('main.duration')); ?></th>
+                                            <th class="text-center" width="150"><?php echo e(trans('main.upload_date')); ?>
+
+                                            </th>
+                                            <th class="text-center" width="50"><?php echo e(trans('main.status')); ?></th>
+                                            <th class="text-center" width="100"><?php echo e(trans('main.controls')); ?></th>
+                                        </thead>
+                                        <tbody id="part-video-table-body-zoom"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -1032,13 +1235,23 @@
         $.get('/user/content/part/json/' + id, function (data) {
             $('#part-video-table-body').html('');
             $.each(data, function (index, item) {
-                $('#part-video-table-body').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
+                if(!item.zoom_meeting){
+                    $('#part-video-table-body').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
                     'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
                     '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
                     item.id +
                     '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
                     item.id + '" title="Delete"></span></td></tr>');
+                }else{
+                    $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
+                    'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
+                    '</td><td>' + item.mode +
+                    '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
+                    item.id +
+                    '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
+                    item.id + '" title="Delete"></span></td></tr>');
+                }
             })
         })
     }
@@ -1055,6 +1268,7 @@
 </script>
 <script>
     $('body').on('click', 'span.i-part-edit', function () {
+        console.log('edit');
         var id = $(this).attr('pid');
         $.get('/user/content/part/edit/' + id, function (data) {
             $('.edit-part-section').show();
@@ -1066,6 +1280,8 @@
             $(efrom + 'input[name="duration"]').val(data.duration);
             $(efrom + 'input[name="title"]').val(data.title);
             $(efrom + 'textarea[name="description"]').html(data.description);
+            $(efrom + 'input[name="initial_date"]').val(data.initial_date);
+            $(efrom + 'input[name="limit_date"]').val(data.limit_date);
             if (data.free == 1) {
                 $('.free-edit-check-state .ios-switch').removeClass('off');
                 $('.free-edit-check-state .ios-switch').addClass('on');

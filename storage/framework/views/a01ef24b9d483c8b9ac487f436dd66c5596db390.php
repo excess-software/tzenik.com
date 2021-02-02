@@ -68,13 +68,11 @@
     
     <?php endif; ?>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
-        integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA=="
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     <?php if(isset($user)): ?>
     <script>
-        var socket = io.connect('https://tzenik.com:8890');
+        var socket = io.connect('https://www.tzenik.com/', {path: '/socket.io/'});
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
@@ -110,12 +108,14 @@
             $('.msg_send_btn').click(function () {
                 var this_chat_id = $('#chat_id').val();
                 if ($('.write_msg').val() != '') {
+                    var message = $('.write_msg').val();
                     $.post(host + '/user/chat/send_Message/' + this_chat_id, $('#sendForm').serialize(),
                         function (id) {
                             message_id = id;
+                            console.log(message);
+                            console.log('message_id='+id);
+                            socket.emit('sendMessage', message, "<?php echo e($user['name']); ?>", this_chat_id, id);
                         });
-                    socket.emit('sendMessage', $('.write_msg').val(), '<?php echo e($user['
-                        name ']); ?>', this_chat_id, message_id);
                     $('.write_msg').val('');
                 } else {
                     $('.write_msg').focus();

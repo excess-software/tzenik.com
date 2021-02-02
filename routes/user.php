@@ -39,6 +39,8 @@ Route::group(['prefix' => 'user'], function () {
     
         #### Routes added to meet Tzenik needs ####
 
+        Route::get('videoteca', 'UserController@videoteca');
+
         ###################
         ###### Forum ######
         ###################

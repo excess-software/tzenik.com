@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title'); ?>
 <?php echo e(!empty($setting['site']['site_title']) ? $setting['site']['site_title'] : ''); ?>
 
@@ -29,11 +30,20 @@
                     </div>-->
                 </div>
                 <br>
+                <?php if(isset($meeting)): ?>
+                <div class="row">
+                    <iframe style="height: 700px; width: 100%;"
+                        src="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz"
+                        sandbox="allow-forms allow-scripts allow-same-origin" allow="microphone; camera" allowfullscreen
+                        scrolling="no"></iframe>
+                </div>
+                <?php else: ?>
                 <div class="row">
                     <video id="myDiv" class="media-cursos" controls>
                         <source src="<?php echo e(!empty($partVideo) ? $partVideo : $meta['video']); ?>" type="video/mp4" />
                     </video>
                 </div>
+                <?php endif; ?>
                 <!-- <br>
                 <div class="row">
                     <button class="btn btn-next-media pull-right">
@@ -103,6 +113,12 @@
                         </div>
                         <div class="row text-content-media-curso">
                             <div class="col-md-12">
+                                <?php if(isset($meeting)): ?>
+                                <h4><b>Fecha de inicio:</b>
+                                    <?php echo e($meeting_date); ?>
+
+                                </h4>
+                                <?php else: ?>
                                 <h2><?php echo e(!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title); ?></h2>
                                 <h4><b>Fecha de inicio:</b>
                                     <?php echo e(!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
@@ -112,6 +128,7 @@
                                     </b><?php echo e(!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
 
                                 </h4>
+                                <?php endif; ?>
                                 <br>
                                 <span><?php echo !empty($partDesc->description) ? $partDesc->description :
                                     $partDesc[0]->description; ?></span>
@@ -121,6 +138,16 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
+                                <?php if(isset($guia)): ?>
+                                <h2>Guía</h2>
+                                <br>
+                                <a href="<?php echo e($guia); ?>">
+                                    <button class="btn btn-media-descargar-leccion">
+                                        <h4>Descargar guía</h4>
+                                    </button>
+                                </a>
+                                <br>
+                                <?php endif; ?>
                                 <h2>Materiales</h2>
                                 <br>
                                 <?php if(isset($user)): ?>
@@ -149,6 +176,16 @@
                             </div>
                         </div>
                         <br>
+                        <?php if(isset($meeting)): ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Enlace de Zoom:</h2>
+                                <br>
+                                <span><a
+                                        href="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <div class="row">
                             <div class="col-md-12">
                                 <h2>Comparte en tus redes sociales:</h2>

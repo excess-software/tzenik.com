@@ -358,6 +358,8 @@ class WebController extends Controller
             return view(getTemplate() . '.view.category.category_base', $data);
     }
 
+    
+
     private static function orderPrice($a, $b)
     {
         if ($a['metas']['price'] == $b['metas']['price'])
@@ -994,7 +996,12 @@ class WebController extends Controller
             'meeting'               => $meeting,
             'meeting_date'          => $meeting_date,
             'product_material'      => $product_material,
+            'guia' => Storage::exists('/public/bin/contenido-cursos/'.$id.'/guia') ? null : '/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
         ];
+
+        return $data;
+
+        //return File::exists('/bin/contenido-cursos/'.$id.'/guia');
 
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
 
@@ -1441,6 +1448,7 @@ class WebController extends Controller
             'meeting' => $partDesc->zoom_meeting,
             'meeting_date' => date('d-m-Y', strtotime($partDesc->date)).' '.$partDesc->time,
             'product_material' => $product_material,
+            'guia' => !Storage::exists('/bin/contenido-cursos/'.$id.'/guia') ? null : '/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
         ];
 
         

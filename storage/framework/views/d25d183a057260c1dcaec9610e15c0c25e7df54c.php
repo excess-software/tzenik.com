@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('page'); ?>
 
 <div class="cards">
@@ -24,7 +25,7 @@
         <br>
         <div class="tab-content">
             <div class="steps" id="step1">
-                <form method="post" action="/user/content/new/store" class="form-horizontal">
+                <form method="post" action="/user/content/new/store" enctype="multipart/form-data" class="form-horizontal">
                     <?php echo e(csrf_field()); ?>
 
                     <div class="form-group">
@@ -46,6 +47,7 @@
                             <select name="private" class="form-control font-s">
                                 <option value="2">Fundal</option>
                                 <option value="0"><?php echo e(trans('main.open')); ?></option>
+                                <option value="3">Videoteca</option>
                             </select>
                         </div>
                     </div>
@@ -64,6 +66,11 @@
                             <textarea class="form-control" rows="12" placeholder="Description..."
                                 name="content" required></textarea>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 tab-con"
+                            for="inputDefault">Guía de trabajo</label>
+                        <input type="file" name="guia_trabajo" id="guia_trabajo" class="form-control">
                     </div>
                     <hr>
                     <div class="form-group">
