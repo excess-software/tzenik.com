@@ -31,30 +31,30 @@
     </div>
     <div class="row text-center">
         <div class="col">
-            <span>
-                <h1><b>Alegr&iacute;a de Aprender</b></h1>
-            </span>
+            
+                <h1 class="main">Alegr&iacute;a de Aprender</h1>
+            
         </div>
     </div>
     <div class="row text-center">
         <div class="col banner-descripcion">
-            <h3>{{ get_option('main_page_slide_text','') }}</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac laoreet ante, ut iaculis
+                purus. Donec nec eleifend ligula, id sollicitudin sem. Phasellus pharetra tellus at auctor
+                faucibus. Cras posuere nec sem a consequat. Phasellus pharetra tellus at auctor faucibus. Cras
+                posuere nec sem a consequat.</p>
         </div>
     </div>
 </div>
-
-<hr>
 
 <div class="row">
     <div class="container">
         <div class="col-md-12 titulo-cursos-destacados">
-            <span>
-                <h2><b>Cursos Destacados</b></h2>
-            </span>
+            
+                <h2> Cursos Destacados </h2>
+            
         </div>
     </div>
 </div>
-<br>
 
 <div class="row">
     <div class="container">
@@ -72,28 +72,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel-description vertical-center">
-                                <div class="row curso-destacado-titulo black-text">
-                                    <h3><b>{{ $popular->title }}</b></h3>
+                                <div class="">
+                                    <h3>{{ $popular->title }}</h3>
                                 </div>
-                                <div class="row curso-destacado-contenido">
+                                <div class="">
                                     <div class="col">
-                                        <span class="curso-destacado-contenido-interno black-text">
-                                            {!! Str::limit($popular->content, 250) !!}
-                                        </span>
+                                       <p> {!! Str::limit($popular->content, 200) !!}</p>
                                     </div>
+                                </div>
+                                <div class="">
+                                    <button class="btn btn-cursos-destacados btn">
+                                        <h4>Entrar a Curso</h4>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <img class="img-responsive" style="max-height: 300px !important; width: auto;" src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/1/8/6/0/230681-6-eng-GB/IB3-Limited-SIC-Pharma-April-20142_news_large.jpg' }}"
+                            <img class="img-responsive" style="width: auto;" src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/1/8/6/0/230681-6-eng-GB/IB3-Limited-SIC-Pharma-April-20142_news_large.jpg' }}"
                                 alt="">
                         </div>
                     </div>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-cursos-destacados btn-block">
-                        <h4><b>Continuar</b></h4>
-                    </button>
                 </div>
             </div>
             </a>  
@@ -111,7 +109,7 @@
     <div class="container">
         <div class="col-md-12 titulo-proximos-webinars">
             <span>
-                <h2><b>Pr&oacute;ximos Webinars</b></h2>
+                <h2> Pr&oacute;ximos Webinars </h2>
             </span>
         </div>
     </div>
@@ -127,42 +125,43 @@
             @foreach($new_content as $new)
             <?php $meta = arrayToList($new->metas, 'option', 'value'); ?>
             @if($new->type == 'webinar')
-            @if($contador_webinars <= 5)
-            <a href="/product/{{ $new->id }}">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img class="img-responsive center-block img-proximos-webinars"
-                                src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/1/8/6/0/230681-6-eng-GB/IB3-Limited-SIC-Pharma-April-20142_news_large.jpg' }}" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="panel-description vertical-center">
-                                <div class="row proximos-webinars-titulo">
-                                    <h3><b>{{ $new->title }}</b></h3>
-                                </div>
-                                <div class="row proximos-webinars-contenido">
-                                    <div class="col">
-                                        <span class="proximos-webinars-contenido-interno">
-                                            {!! Str::limit($new->content, 75) !!}
-                                        </span>
+                @if($contador_webinars <= 5)
+                    <a href="/product/{{ $new->id }}">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="img-responsive center-block img-proximos-webinars"
+                                            src="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : 'https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/1/8/6/0/230681-6-eng-GB/IB3-Limited-SIC-Pharma-April-20142_news_large.jpg' }}" alt="">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="panel-description vertical-center">
+                                            <div class="">
+                                                <h3> {{ $new->title }} </h3>
+                                            </div>
+                                            <div class="">
+                                                <div class="col">
+                                                    <span class="">
+                                                        {!! Str::limit($new->content, 75) !!}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <button class="btn btn-proximos-webinars ">
+                                                    <h4> Ingresar a Webinar </h4>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-proximos-webinars btn-block">
-                        <h4><b>Continuar</b></h4>
-                    </button>
-                </div>
-            </div>
-            </a>  
-            @php
-            $contador_webinars++;
-            @endphp
-            @endif
+                    </a>  
+                    @php
+                        $contador_webinars++;
+                    @endphp
+                @endif
             @endif
             @endforeach
         </div>
@@ -173,7 +172,7 @@
     <div class="container">
         <div class="col-md-12 titulo-ultimos-blogs">
             <span>
-                <h2><b>&Uacute;ltimos Blogs</b></h2>
+                <h2> &Uacute;ltimos Blogs </h2>
             </span>
         </div>
     </div>
@@ -182,52 +181,55 @@
 
 <div class="row">
     <div class="container ultimos-blogs">
-    @php
+        @php
             $contador_blog = 1;
-            @endphp
-            @foreach($blog_post as $post)
+        @endphp
+        @foreach($blog_post as $post)
             <?php $meta = arrayToList($post->metas, 'option', 'value'); ?>
-            @if($contador_blog <= 2)
-            <a href="/blog/post/{{ $post->id }}">
-            <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <img class="img-responsive img-ultimos-blogs center-block"
-                                src="{{ $post->image }}" alt="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel-description vertical-center">
-                                <div class="row ultimos-blogs-titulo">
-                                    <h2><b>{!! Str::limit($post->title, 25) !!}</b></h2>
+        @if($contador_blog <= 2)
+            
+                <div class="col-md-6">
+                    
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="img-responsive img-ultimos-blogs center-block" src="{{ $post->image }}" alt="">
                                 </div>
-                                <div class="row ultimos-blogs-contenido">
-                                    <div class="col">
-                                        <span class="ultimos-blogs-contenido-interno">
-                                        {!! Str::limit($post->pre_content, 75) !!}
-                                        </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-description vertical-center">
+                                        <div class="row ultimos-blogs-titulo">
+                                            <h3> {!! Str::limit($post->title, 25) !!} </h3>
+                                        </div>
+                                        <div class="row ultimos-blogs-contenido">
+                                            <div class="col">
+                                                <span class="ultimos-blogs-contenido-interno">
+                                                {!! Str::limit($post->pre_content, 75) !!}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="panel-footer">
+                            
+                            <a href="/blog/post/{{ $post->id }}">
+                                <button class="btn btn-ultimos-blogs btn-block">
+                                    <h4> Continuar </h4>
+                                </button></a>
+                        </div>
                     </div>
+                    
                 </div>
-                <div class="panel-footer">
-                    <button class="btn btn-ultimos-blogs btn-block">
-                        <h4><b>Continuar</b></h4>
-                    </button>
-                </div>
-            </div>
-        </div>
-            </a>  
-            @php
+            
+        @php
             $contador_blog++;
-            @endphp
-            @endif
-            @endforeach
+        @endphp
+        @endif
+        @endforeach
     </div>
 </div>
 @endsection
