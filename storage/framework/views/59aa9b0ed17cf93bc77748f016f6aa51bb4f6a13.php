@@ -7,9 +7,9 @@
 <?php echo $__env->make(getTemplate() . '.view.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <div class="row">
     <div class="container">
-        <div class="col titulo-cursos-destacados">
+        <div class="col ">
             <span>
-                <h2><img src="<?php echo e($category->icon); ?>" width="30px" height="30px" /><b> <?php echo e($category->title); ?></b></h2>
+                <h2 class="titulo-partials"><!--<img src="<?php echo e($category->icon); ?>" width="30px" height="30px" />--> <?php echo e($category->title); ?></h2>
             </span>
         </div>
     </div>
@@ -34,7 +34,7 @@
                         <div class="col-md-12">
                             <div class="panel-description vertical-center">
                                 <div class="row ultimos-blogs-titulo">
-                                    <h4><b><?php echo e($content['title']); ?></b></h4>
+                                    <h3><b><?php echo e($content['title']); ?></b></h3>
                                 </div>
                                 <!--<div class="row ultimos-blogs-contenido">
                                     <div class="col">
@@ -76,5 +76,4 @@
 </div>
 </div>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make(getTemplate().'.view.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/view/category/category.blade.php ENDPATH**/ ?>
