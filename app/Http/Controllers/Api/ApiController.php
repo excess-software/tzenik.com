@@ -2364,8 +2364,6 @@ class ApiController extends Controller
             $q->with(['metas', 'parts']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
         
-        return $purchases;
-
         if($purchases->isEmpty()){
             return $this->response($data, '0');
         }else{
