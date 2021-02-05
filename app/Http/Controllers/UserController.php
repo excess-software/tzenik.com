@@ -79,6 +79,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Razorpay\Api\Api;
+use App\Models\Homeworks;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
@@ -4581,7 +4582,7 @@ class UserController extends Controller
         
     }
 
-    public static function videoteca(Request $request, $id = null){
+    public function videoteca(Request $request, $id = null){
         $order = $request->get('order', null);
         $price = $request->get('price', null);
         $course = $request->get('course', null);
@@ -4656,6 +4657,19 @@ class UserController extends Controller
             return view(getTemplate() . '.view.category.videoteca', $data);
         else
             return view(getTemplate() . '.view.category.videoteca', $data);
+    }
+
+    public function vendorTareas(){
+        $user = auth()->user();
+
+        $courses = Content::where('user_id', $user->id)->orderBy('id', 'DESC')->select(['id', 'title'])->get();
+
+        foreach($courses as $course){
+            $homework = Homeworks::where('content_id', $course->id)->get();
+            $course->homeworks = $homework;
+        }
+        
+        return view('web.default.user.vendor.content.tareas', $courses);
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

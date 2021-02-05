@@ -58,6 +58,7 @@ use App\Models\RegistroDescargas;
 use App\Models\Chat_Chats;
 use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
+use App\Models\Homeworks;
 
 class ApiController extends Controller
 {
@@ -2350,5 +2351,61 @@ class ApiController extends Controller
         $message_id = Chat_Messages::insertGetId(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
         return $message_id;
         
+    }
+
+    public function homeworks(Request $request){
+
+        $User = $this->checkUserToken($request);
+
+        if(!$User)
+            return $this->error(-1, trans('main.user_not_found'));
+
+        $purchases = Sell::with(['content'=>function($q){
+            $q->with(['metas', 'parts']);
+        },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
+        
+        if($purchases->isEmpty()){
+            return $this->response($data, '0');
+        }else{
+
+            $purchases_array = $purchases->toArray();
+
+            $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
+
+            foreach($courses as $course){
+                $homework = Homeworks::where('content_id', $course->id)->get();
+                $course->homeworks = $homework;
+            }
+
+            return $this->response($courses);
+        }
+
+    }
+
+    public function uploadHomework(Request $request){
+        $User = $this->checkUserToken($request);
+
+        $course = $request->product;
+        $part = $request->part;
+
+        $counter = 0;
+
+        if(!$User)
+            return $this->error(-1, trans('main.user_not_found'));
+
+        if($request->hasFile('homeworks')){
+            foreach($request->file('homeworks') as $homework){
+                $extension = $homework->getClientOriginalExtension();
+                $name = $User['name'].'-'.$course.'-'.$part.'-('.$counter.').'.$extension;
+
+                $homework->move('bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
+
+                $counter++;
+            }
+
+            return $this->response('Data added.');
+        }else{
+            return $this->error(-1, 'Append data.');
+        }
     }
 }
