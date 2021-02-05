@@ -2370,9 +2370,9 @@ class ApiController extends Controller
 
             $purchases_array = $purchases->toArray();
 
-            return $purchases_array;
-
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
+
+            return $courses;
 
             foreach($courses as $course){
                 $homework = Homeworks::where('content_id', $course->id)->get();
