@@ -80,6 +80,7 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Razorpay\Api\Api;
 use App\Models\Homeworks;
+use App\Models\HomeworksUser;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
@@ -4669,7 +4670,20 @@ class UserController extends Controller
             $course->homeworks = $homework;
         }
         
+        //return $courses;
         return view('web.default.user.vendor.content.tareas', $courses);
+    }
+
+    public function vendorVerTareas($course, $part){
+        $homeworks = HomeworksUser::where('content_id', $course)->where('part_id', $part)->get();
+
+        foreach($homeworks as $homework){
+            $user = User::where('id', $homework->user_id)->select(['id', 'name'])->get();
+            $homework->route = url('/').$homework->route;
+            $homework->user = $user;
+        }
+
+        return $homeworks;
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

@@ -101,6 +101,7 @@ Route::group(['prefix' => 'user'], function () {
                 Route::get('list/excel', 'UserController@contentListExcel');
                 Route::get('getModulos/{curso}', 'UserController@vendorGetModulos');
                 Route::get('tareas', 'UserController@vendorTareas');
+                Route::get('tareas/{course}/{part}', 'UserController@vendorVerTareas');
 
             });
 
