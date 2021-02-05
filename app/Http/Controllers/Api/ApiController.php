@@ -2363,14 +2363,14 @@ class ApiController extends Controller
         $purchases = Sell::with(['content'=>function($q){
             $q->with(['metas', 'parts']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
-        
-        return $purchases;
 
         if($purchases->isEmpty()){
             return $this->response($data, '0');
         }else{
 
             $purchases_array = $purchases->toArray();
+
+            return $purchases_array;
 
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
 
