@@ -2360,9 +2360,7 @@ class ApiController extends Controller
         if(!$User)
             return $this->error(-1, trans('main.user_not_found'));
 
-        $purchases = Sell::with(['content'=>function($q){
-            $q->with(['metas', 'parts']);
-        },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
+        $purchases = Sell::where('buyer_id',$User['id'])->select(['content_id'])->get();
 
         if($purchases->isEmpty()){
             return $this->response($data, '0');
@@ -2372,7 +2370,7 @@ class ApiController extends Controller
 
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
 
-            return $courses;
+            //return $courses;
 
             foreach($courses as $course){
                 $homework = Homeworks::where('content_id', $course->id)->get();
