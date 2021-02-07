@@ -4663,27 +4663,96 @@ class UserController extends Controller
     public function vendorTareas(){
         $user = auth()->user();
 
-        $courses = Content::where('user_id', $user->id)->orderBy('id', 'DESC')->select(['id', 'title'])->get();
+        $courses = Content::where('user_id', $user->id)->where('content_type', '!=', 'Videoteca')->orderBy('id', 'DESC')->select(['id', 'title'])->get();
 
         foreach($courses as $course){
             $homework = Homeworks::where('content_id', $course->id)->get();
+            if(!$homework->isEmpty()){
+                foreach($homework as $hmwrk){
+                    $part = ContentPart::where('id', $hmwrk->part_id)->value('title');
+                    $hmwrk->part = $part;
+                }   
+            }
             $course->homeworks = $homework;
         }
-        
-        //return $courses;
-        return view('web.default.user.vendor.content.tareas', $courses);
+
+        return view('web.default.user.vendor.content.tareas', ['courses' => $courses]);
     }
 
     public function vendorVerTareas($course, $part){
         $homeworks = HomeworksUser::where('content_id', $course)->where('part_id', $part)->get();
 
+        $course = Content::where('id', $course)->value('title');
+        $title = Homeworks::where('part_id', $part)->value('title');
+        $part = ContentPart::where('id', $part)->value('title');
+
         foreach($homeworks as $homework){
-            $user = User::where('id', $homework->user_id)->select(['id', 'name'])->get();
+            $user = User::where('id', $homework->user_id)->value('name');
             $homework->route = url('/').$homework->route;
             $homework->user = $user;
         }
 
-        return $homeworks;
+        return view('web.default.user.vendor.content.tareas_usuarios', ['homeworks' => $homeworks, 'content_title' => $course, 'part_title' => $part, 'title' => $title]);
+    }
+
+    public function vendorRecibirTarea($tarea){
+        $homework = HomeworksUser::where('id', $tarea)->update(['viewed' => 'true']);
+
+        return $tarea;
+    }
+
+    public function vendorGetPartes($curso){
+        $partes = ContentPart::where('content_id', $curso)->select(['id', 'title'])->get()->toJson();
+
+        return $partes;
+    }
+
+    public function vendorNuevaTarea(Request $request){
+        Homeworks::insert([
+            'content_id' => $request->curso,
+            'part_id' => $request->modulo,
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        return back();
+    }
+
+    public function tareas(){
+        $user = auth()->user();
+
+        $purchases = Sell::where('buyer_id',$user->id)->select(['content_id'])->get();
+
+        $purchases_array = $purchases->toArray();
+
+        $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
+
+        //return $courses;
+
+        foreach($courses as $course){
+            $homework = Homeworks::where('content_id', $course->id)->get();
+            $course->homeworks = $homework;
+            foreach($homework as $hmwrk){
+                $part = ContentPart::where('id', $hmwrk->part_id)->value('title');
+                $hmwrk->part = $part;
+            } 
+        }
+
+        return view(getTemplate() . '.user.dashboard.tareas', ['courses' => $courses]);
+    }
+
+    public function subirTarea(Request $request){
+        $user = auth()->user();
+        $image = $request->file('file');
+        $course = $request->course;
+        $part = $request->part;
+
+        $extension = $image->getClientOriginalExtension();
+        $name = $user->name.'-'.$course.'-'.$part.'-('.time().').'.$extension;
+
+        $image->move(public_path().'/bin/tareas/'.$course.'/'.$user->name.'/'.$part, $name);
+
+        return response()->json(['success' => $name]);
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

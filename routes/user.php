@@ -41,6 +41,10 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::get('videoteca', 'UserController@videoteca');
 
+        Route::get('tareas', 'UserController@tareas');
+
+        Route::post('subirTarea', 'UserController@subirTarea');
+
         ###################
         ###### Forum ######
         ###################
@@ -102,6 +106,9 @@ Route::group(['prefix' => 'user'], function () {
                 Route::get('getModulos/{curso}', 'UserController@vendorGetModulos');
                 Route::get('tareas', 'UserController@vendorTareas');
                 Route::get('tareas/{course}/{part}', 'UserController@vendorVerTareas');
+                Route::get('tarea/{tarea}/recibir', 'UserController@vendorRecibirTarea');
+                Route::get('getPartes/{curso}', 'UserController@vendorGetPartes');
+                Route::post('tarea/nueva', 'UserController@vendorNuevaTarea');
 
             });
 

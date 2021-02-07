@@ -2398,7 +2398,7 @@ class ApiController extends Controller
                 $extension = $homework->getClientOriginalExtension();
                 $name = $User['name'].'-'.$course.'-'.$part.'-('.$counter.').'.$extension;
 
-                $homework->move('/bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
+                $homework->move(public_path().'/bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
 
                 $counter++;
             }
