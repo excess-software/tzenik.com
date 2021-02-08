@@ -4752,6 +4752,13 @@ class UserController extends Controller
 
         $image->move(public_path().'/bin/tareas/'.$course.'/'.$user->name.'/'.$part, $name);
 
+        HomeworksUser::insert([
+            'user_id' => $user->id,
+            'content_id' => $course,
+            'part_id' => $part,
+            'route' => '/bin/tareas/'.$course.'/'.$user->name.'/'.$part.'/'.$name,
+        ]);
+
         return response()->json(['success' => $name]);
     }
 
