@@ -59,6 +59,7 @@ use App\Models\Chat_Chats;
 use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
 use App\Models\Homeworks;
+use App\Models\HomeworksUser;
 
 class ApiController extends Controller
 {
