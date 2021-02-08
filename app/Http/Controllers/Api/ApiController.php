@@ -2400,6 +2400,13 @@ class ApiController extends Controller
 
                 $homework->move(public_path().'/bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
 
+                HomeworksUser::insert([
+                    'user_id' => $User['id'],
+                    'content_id' => $course,
+                    'part_id' => $part,
+                    'route' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name,
+                ]);
+
                 $counter++;
             }
 
