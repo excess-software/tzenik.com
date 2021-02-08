@@ -1202,7 +1202,7 @@ class UserController extends Controller
 
             if(isset($guia)){
                 if($guia->isValid()){
-                    $guia->move('bin/contenido-cursos/'.$content_id.'/guia/', 'Guía-'.$newContent['title'].'.'.$guia->getClientOriginalExtension());
+                    $guia->move('bin/contenido-cursos/'.$content_id.'/guia/', 'guia-'.$newContent['title'].'.'.$guia->getClientOriginalExtension());
                 }
             }
 
