@@ -2,31 +2,31 @@ h1 {
     font-size: 76px;
     line-height: 84px;
     font-weight: 800;
-    color: black !important;
+    color: white !important;;
 }
 
 h2 {
     font-size: 48px;
     font-weight: 800;
     line-height: 53px;
-    color: black !important;
+    color: white !important;;
 }
 
 h3 {
     font-size: 28px;
     font-weight: 800;
     line-height: 31px;
-    color: black !important;
+    color: white !important;;
 }
 
 b, strong {
-    color : black !important;
+    color : white !important;
 }
 
 body {
     font-size: 16px;
     line-height: 27px;
-    color: #fff !important;
+    color: white !important;;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
     background-color: #000 ;
@@ -55,7 +55,7 @@ body {
     border-bottom: 3px solid transparent !important;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
-    background-color: black !important;
+    background-color: white !important;
     border: 3px solid black !important;
     border-bottom: 3px solid transparent !important;
 }
@@ -66,46 +66,49 @@ body {
 }
 .nav-tabs > li > a:hover{
     border: 3px solid black !important;
-    background-color: black !important;
+    background-color: white !important;
 }
 /*.open{
-    color: black !important;
+    color: white !important;
 }*/
 .navbar-inverse .navbar-nav > .open > a{
-    color: black !important;
+    color: white !important;
 }
 .accesibilidad-menu{
     width: 300px;
     color: black;
+    background-color: black;
+    border: solid 1px white;
 }
-.btn-blackTxtBlack{
-    background-color: black !important;
+
+.btn-whiteTxtBlack{
+    background-color: white !important;
     color: black !important;
     text-align: left;
     border-color: black !important;
 }
-.btn-blackTxtBlack b{
+.btn-whiteTxtBlack b{
     color: black !important;
 }
-.btn-blackTxtBlack{
+.btn-whiteTxtBlack{
     background-color: black !important;
-    color: black !important;
+    color: white !important;
     text-align: left;
 }
-.btn-blackTxtBlack b{
-    color: black !important;
+.btn-whiteTxtBlack b{
+    color: white !important;
 }
-.btn-blackTxtblack{
+.btn-blackTxtWhite{
     background-color: black !important;
-    color: black !important;
+    color: white !important;
     text-align: left;
 }
-.btn-blackTxtblack b{
-    color: black !important;
+.btn-blackTxtWhite b{
+    color: white !important;
 }
 .btn-menu-accesibilidad{
     background-color: #3ED2B8;
-    color: black;
+    color: white;
 }
 /* Navbar CSS */
 .navbar-brand {
@@ -121,12 +124,12 @@ body {
 
 .container-fluid{
     padding-right: 0;
-    /* background-color: black; */
+    /* background-color: white; */
 }
 
 .navbar-accesibilidad {
     background-color: #e90a58;
-    color: black;
+    color: white;
     font-size: 20px;
     padding-left: 15px;
     padding-right: 15px;
@@ -177,7 +180,7 @@ ul.nav.navbar-nav li a:link {
 
 .btn:hover{
     background-color: black;
-    color: black;
+    color: white;
     border-color: black;
 }
 
@@ -212,7 +215,7 @@ hr {
     border-bottom: 0px solid transparent;
 }
 .nav-home{
-    color: black;
+    color: white;
 }
 .nav-home:hover{
     color: black;
@@ -233,7 +236,11 @@ hr {
     border-bottom: 5px solid #E90A59; 
 }
 .panel-default{
-    border: 6px solid black;
+    border: 6px solid white;
+}
+
+.text-secondary{
+    color: white;
 }
 
 .panel-body {
@@ -244,13 +251,14 @@ hr {
 .panel {
     border-radius: 0px;
     margin-bottom: 80px;
+    background-color: black;
 }
 
 .panel-footer{
     padding: 0;
     padding-bottom: 0;
     background-color: #000 !important;
-    border-top: 1px solid black !important;
+    border-top: 1px solid white !important;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
@@ -259,10 +267,14 @@ hr {
     text-decoration: none;
 }
 
+.text-dark{
+    color: white;
+}
+
 .btn-cursos-destacados{
-    color: black;
+    color: white;
     background-color: black;
-    border-color: black;
+    border-color: white;
 }
 
 .titulo-proximos-webinars span h2 b:after {
@@ -283,7 +295,7 @@ hr {
 }
 
 .btn-proximos-webinars{
-    color: black;
+    color: white;
     background-color: #000;
     border-color: #FEBF36;
     margin-top: 10px;
@@ -312,18 +324,18 @@ hr {
     min-height: 400px;
 }
 .btn-ultimos-blogs{
-    color: black;
+    color: white;
     background-color: #000;
-    border-color: black;
+    border-color: white;
 }
 
 /** Categorias CSS */
 
 .label-tag-cursos{
     background-color: #000;
-    color: black;
+    color: white;
     border-radius: 20px;
-    border: 3px solid black;
+    border: 3px solid white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -331,35 +343,35 @@ hr {
 }
 .circle-tag-cursos{
     border-radius: 50%;
-    background-color: black;
+    background-color: white;
     width: 10px;
     height: 10px;
     display: inline-block;
 }
 .btn-cursos-listado{
-    color: black;
+    color: white;
     background-color: black;
     border-color: black;
 }
 .btn-cursos-listado:hover{
     color: black;
-    background-color: black;
-    border-color: black;
+    background-color: white;
+    border-color: white;
 }
 
 /* Media CSS */
 .visualizador-media{
-    background-color: #fff;
+    background-color: black;
     margin: 0;
     margin-top: -20px;
     padding-bottom: 5%;
 }
 .volver-atras-media{
     margin-right: auto;
-    color: black;
+    color: white;
 }
 .volver-atras-media a{
-    color: black;
+    color: white;
     text-decoration: none;
 }
 .media-cursos{
@@ -377,7 +389,7 @@ hr {
 }
 .input-group-addon{
     background-color: black !important;
-    color: black !important;
+    color: white !important;
 }
 .text-content-media-curso img{
     max-width: 100%;
@@ -385,27 +397,27 @@ hr {
 }
 .btn-media-descargar-leccion{
     background-color: #000;
-    border-color: black;
-    color: black;
+    border-color: white;
+    color: white;
     margin-bottom: 15px;
 }
 .btn-media-descargar-curso{
     background-color: black;
-    border-color: black;
-    color: black;
+    border-color: white;
+    color: white;
     margin-bottom: 15px;
 }
 .label-tag-media-categoria{
     background-color: #000;
-    color: black;
-    border: 3px solid black;
+    color: white;
+    border: 3px solid white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
 }
 .list-group-item {
-    color : black !important;
+    color : white !important;
     background-color: #000 !important;
 }
 .circle-tag-media-categoria{
@@ -416,10 +428,10 @@ hr {
     display: inline-block;
 }
 .list-content-media{
-    border: 2px solid black;
+    border: 2px solid white;
 }
 .list-active{
-    color: black;
+    color: white;
     background-color: black;
 }
 .partes-curso a{
@@ -437,15 +449,15 @@ hr {
 }
 .dark-back-list{
     background-color: black !important;
-    color: black !important;
+    color: white !important;
 }
 .red-back-list{
     background-color: red !important;
-    color: black !important;
+    color: white !important;
 }
 .gray-back-list{
     background-color: gray !important;
-    color: black !important;
+    color: white !important;
 }
 /* BLog CSS */
 .titulo-blog{
@@ -483,7 +495,7 @@ hr {
 /** Tests CSS **/
 .btn-cerrar-test{
     margin-left: 5%;
-    color: black;
+    color: white;
 }
 .btn-cerrar-test a{
     color: black;
@@ -491,7 +503,7 @@ hr {
 }
 .titulo-test{
     background-color: black;
-    color: black;
+    color: white;
     margin-left: 5%;
     border-radius: 10px;
 }
@@ -511,7 +523,7 @@ hr {
 .resultado-quiz{
     padding: 30px;
     border-radius: 10px;
-    color: black;
+    color: white;
 }
 .flipTimer {
     font-size: 32px !important;
@@ -692,7 +704,7 @@ hr {
     font-family: FontAwesome;
     position: absolute;
     z-index: 5;
-    color: black;
+    color: white;
     font-size: 40px;
     transform: translate(-50%, -50%);
     top: 50%;
@@ -748,16 +760,16 @@ hr {
     text-decoration: none;
     background-color: black;
     font-weight: 500;
-    color: black;
+    color: white;
 }
 .btn-danger-custom{
     background-color: red;
-    color: black;
+    color: white;
     padding: 15px;
 }
 .btn-danger-custom:hover{
     text-decoration: none;
-    color: black;
+    color: white;
 }
   .modal-quiz{
     text-align: center;
@@ -794,7 +806,7 @@ hr {
 }
 .table-dark{
     background-color: black;
-    color: black;
+    color: white;
 }
 .table td {
     text-align: center;
@@ -825,13 +837,13 @@ section .section-title {
 }
 #footer h5{
 	padding-left: 10px;
-    border-left: 3px solid black;
+    border-left: 3px solid white;
     padding-bottom: 6px;
     margin-bottom: 20px;
-    color:black;
+    color:white;
 }
 #footer a {
-    color: black;
+    color: white;
     text-decoration: none !important;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -852,7 +864,7 @@ section .section-title {
 }
 #footer ul.social li a,
 #footer ul.quick-links li a{
-    color:black;
+    color:white;
     font-weight: 600;
     letter-spacing: .05em;
     padding: 10px 15px;
@@ -881,8 +893,8 @@ section .section-title {
 
 #footer-bar {
     background-color: #000 !important;
-    color: black;
-    border-top: 2px solid black;
+    color: white;
+    border-top: 2px solid white;
 
 }
 
@@ -910,7 +922,7 @@ section .section-title {
 }
 .login-form form {
     margin-bottom: 15px;
-    background: black;
+    background: white;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     padding: 30px;
 }
@@ -931,7 +943,8 @@ section .section-title {
 
 .formBox .box {
     text-align: left;
-    background-color: #fff;
+    background-color: black;
+    border: solid 1px white;
     border-radius: 8px;
     padding: 60px 0px 40px 0;
     position: absolute;
@@ -957,7 +970,7 @@ section .section-title {
     font-size: 18px;
     line-height: 27px;
     margin-bottom: 30px;
-    color: black;
+    color: white;
 }
 
 .formBox form {
@@ -1056,7 +1069,8 @@ section .section-title {
 
 .formBox .registerBox {
     border-radius: 8px;
-    background-color: #fff;
+    border: solid 1px white;
+    background-color: black;
     right: 0;
     overflow: hidden;
     width: 100%;
@@ -1103,7 +1117,7 @@ a {
 }
 
 .course-title{
-    color: black;
+    color: white;
 }
 
 .titulo-partials {
@@ -1117,7 +1131,7 @@ a {
 }
 
 #myDiv{
-    border: 5px solid black;
+    border: 5px solid white;
 }
 
 a:hover {
@@ -1139,7 +1153,7 @@ a:hover {
 
 .nav-pills>li>a:hover {
     background-color: #000;
-    color: black;
+    color: white;
 }
 .formBox .registerBox .f_row label,
 .formBox .registerBox .f_row input {
@@ -1262,7 +1276,7 @@ a:hover {
 }
 
 .formBox .forgetbox p {
-    color: black
+    color: white;
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
@@ -1291,7 +1305,7 @@ a:hover {
     margin-bottom: 7%;
 }
 .fos-s{
-    color: black;
+    color: white;
 }
 .formBox.level-reg h2 {
     border-left-color: #fff;
@@ -1308,6 +1322,7 @@ a:hover {
     opacity: 0.7;
     transform-origin: center top;
     transform: translate(0px, -9px) scale(0.97);
+    background-color: black;
 }
 
 .formBox.level-reg .registerBox {
@@ -1355,6 +1370,7 @@ a:hover {
     opacity: 0.7;
     transform-origin: center top;
     transform: translate(0px, -9px) scale(0.97);
+    background-color: black;
 }
 
 .formBox.level-forget .forgetbox {
@@ -1379,8 +1395,8 @@ a:hover {
 }
 
 /** Instructor CSS **/
-.black-rounded-back{
-    background-color: black; 
+.white-rounded-back{
+    background-color: white; 
     padding-bottom: 5%; 
     padding-top: 5%; 
     border-radius: 30px;
@@ -1389,7 +1405,7 @@ a:hover {
     color: black !important;
 }
 .partes-nuevo-curso .active a{
-    color: black !important;
+    color: white !important;
 }
 .dnone{
     display: none;
@@ -1500,11 +1516,11 @@ a:hover {
 .ios-switch .state-background {
     border-radius: 100px;
     z-index: 2;
-    background-image: -o-linear-gradient(black, #fdfdfd);
-    background-image: -ms-linear-gradient(black, #fdfdfd);
-    background-image: -moz-linear-gradient(black, #fdfdfd);
-    background-image: -webkit-linear-gradient(black, #fdfdfd);
-    background-image: linear-gradient(black, #fdfdfd);
+    background-image: -o-linear-gradient(white, #fdfdfd);
+    background-image: -ms-linear-gradient(white, #fdfdfd);
+    background-image: -moz-linear-gradient(white, #fdfdfd);
+    background-image: -webkit-linear-gradient(white, #fdfdfd);
+    background-image: linear-gradient(white, #fdfdfd);
     border: 2px solid #E5E5E5;
     -o-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -1526,7 +1542,7 @@ a:hover {
 .ios-switch .handle {
     width: 41px;
     height: 41px;
-    background-color: black;
+    background-color: white;
     top: 2px;
     left: 2px;
     position: absolute;

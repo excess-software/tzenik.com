@@ -4,21 +4,12 @@
 - {{ $product->title }}
 @endsection
 @section('content')
-<div class="row visualizador-media">
+<div class="visualizador-media">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 volver-atras-media">
-                <br>
-                <div class="row">
-                    <a href="javascript: history.go(-1)">
-                        <h4><i class="fa fa-arrow-left"> </i><span> Cursos</span></h4>
-                    </a>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2><b>{{ $product->title }}</b></h2>
-                    </div>
+            <div class="col-sm-12 volver-atras-media ">
+                    <a href="javascript: history.go(-1)"><h4><i class="fa fa-arrow-left"></i> Cursos</h4></a>
+                    <h2 class="titulo-curso">{{ $product->title }}</h2>
                     <!--<div class="col-md-4">
                         @if($product->support == 1)
                         <button class="btn btn-next-media pull-right">
@@ -26,21 +17,16 @@
                         </button>
                         @endif
                     </div>-->
-                </div>
-                <br>
                 @if(isset($meeting))
-                <div class="row">
                     <iframe style="height: 700px; width: 100%;"
                         src="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz"
                         sandbox="allow-forms allow-scripts allow-same-origin" allow="microphone; camera" allowfullscreen
-                        scrolling="no"></iframe>
-                </div>
+                        scrolling="no">
+                    </iframe>
                 @else
-                <div class="row">
                     <video id="myDiv" class="media-cursos" controls>
                         <source src="{{ !empty($partVideo) ? $partVideo : $meta['video'] }}" type="video/mp4" />
                     </video>
-                </div>
                 @endif
                 <!-- <br>
                 <div class="row">
@@ -53,388 +39,377 @@
     </div>
 </div>
 <br>
-<div class="row">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 content-media-curso">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row text-content-media-curso">
-                            <div class="col-md-12">
-                                @if($product->content_type == 'Fundal' || $product->content_type == 'fundal')
+            <div class="col-md-6">
+                <div  class="text-content-media-curso">
+                        @if($product->content_type == 'Fundal' || $product->content_type == 'fundal')
 
-                                @else
-                                @if(isset($meta['price']) && $product->price != 0)
-                                <h2>Precio:
-                                    {{ currencySign() }}{{ price($product->id,$product->category_id,$meta['price'])['price']  }}
-                                </h2>
-                                @else
-                                <h2>{{ trans('main.free') }}</h2>
-                                @endif
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @if (isset($meta['price']))
-                                <form>
-                                    {{ csrf_field() }}
-                                    @if(isset($user) && $product->user_id == $user['id'])
-                                    <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/edit/{{ $product->id }}">{{ trans('main.edit_course') }}</a>
-                                    <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/part/list/{{ $product->id }}">{{ trans('main.add_video') }}</a>
-                                    @elseif(!$buy)
-                                    @if(!empty($product->price) and $product->price != 0)
-                                    <div class="radio">
-                                        <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
-                                            value="{{ price($product->id,$product->category_id,$meta['price'])['price'] }}"
-                                            checked>
-                                    </div>
-                                    @endif
-
-                                    @if(!empty($product->price) and $product->price != 0)
-                                    <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
-                                        href="">{{ trans('main.pay') }}</a>
-                                    @endif
-                                    @else
-                                    @if(!empty($product->price) and $product->price != 0)
-                                    <a class="btn btn-success"
-                                        href="javascript:void(0);">{{ trans('main.purchased_item') }}</a>
-                                    @endif
-                                    @endif
-                                </form>
+                        @else
+                        @if(isset($meta['price']) && $product->price != 0)
+                        <h3>Precio:
+                            {{ currencySign() }}{{ price($product->id,$product->category_id,$meta['price'])['price']  }}
+                        </h3>
+                        @else
+                        <h3>{{ trans('main.free') }}</h3>
+                        @endif
+                        @endif
+                </div>
+                <div class="lesson-section">
+                    @if (isset($meta['price']))
+                        <form>
+                            {{ csrf_field() }}
+                            @if(isset($user) && $product->user_id == $user['id'])
+                            <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
+                                href="/user/content/edit/{{ $product->id }}">{{ trans('main.edit_course') }}</a>
+                            <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
+                                href="/user/content/part/list/{{ $product->id }}">{{ trans('main.add_video') }}</a>
+                            @elseif(!$buy)
+                            @if(!empty($product->price) and $product->price != 0)
+                            <div class="radio">
+                                <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
+                                    value="{{ price($product->id,$product->category_id,$meta['price'])['price'] }}"
+                                    checked>
                             </div>
                             @endif
-                        </div>
-                        <div class="row text-content-media-curso">
-                            <div class="col-md-12">
-                                @if(isset($meeting))
-                                <h4><b>Fecha de inicio:</b>
-                                    {{ $meeting_date}}
-                                </h4>
-                                @else
-                                <h2>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h2>
-                                <h4><b>Fecha de inicio:</b>
-                                    {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
-                                </h4>
-                                <h4><b>Fecha de finalización:
-                                    </b>{{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
-                                </h4>
-                                @endif
-                                <br>
-                                <span>{!! !empty($partDesc->description) ? $partDesc->description :
-                                    $partDesc[0]->description !!}</span>
-                            </div>
 
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Guía</h2>
-                                <br>
-                                <a href="{{$guia}}">
-                                    <button class="btn btn-media-descargar-leccion">
-                                        <h4>Descargar guía</h4>
-                                    </button>
-                                </a>
-                                <br>
-                                <h2>Materiales</h2>
-                                <br>
-                                @if(isset($user))
-                                <a href="{{$product_material}}">
-                                    <button class="btn btn-media-descargar-leccion">
-                                        <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                                    </button>
-                                </a>
-                                @else
-                                    <button class="btn btn-media-descargar-leccion">
-                                        <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                                    </button>
-                                @endif
-                                <br>
-                                @if(isset($user))
-                                <a href="/material/curso/{{$product->id}}">
-                                    <button class="btn btn-media-descargar-curso">
-                                        <h4>Descargar Materiales del Curso</h4>
-                                    </button>
-                                </a>
-                                @else
-                                    <button class="btn btn-media-descargar-curso">
-                                        <h4>Descargar Materiales del Curso</h4>
-                                    </button>
-                                @endif
-                            </div>
-                        </div>
-                        <br>
+                            @if(!empty($product->price) and $product->price != 0)
+                            <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
+                                href="">{{ trans('main.pay') }}</a>
+                            @endif
+                            @else
+                            @if(!empty($product->price) and $product->price != 0)
+                            <a class="btn btn-success"
+                                href="javascript:void(0);">{{ trans('main.purchased_item') }}</a>
+                            @endif
+                            @endif
+                        </form>
+
+                    @endif
+                </div> 
+                <div class="lesson-section">
                         @if(isset($meeting))
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Enlace de Zoom:</h2>
-                                <br>
-                                <span><a
-                                        href="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
-                            </div>
-                        </div>
+                        <h4><b>Fecha de inicio:</b>
+                            {{ $meeting_date}}
+                        </h4>
+                        @else
+                        <h3>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h3>
+                        <h4><b>Fecha de inicio:</b>
+                            {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
+                        </h4>
+                        <h4><b>Fecha de finalización:
+                            </b>{{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
+                        </h4>
                         @endif
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Comparte en tus redes sociales:</h2>
-                                <br>
-                                <div class="addthis_inline_share_toolbox"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Etiquetas</h2>
-                                <br>
-                                @foreach(explode(',', $product->tag) as $tag)
-                                <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
-                                        {{$tag}}</span></h4>
-                                @endforeach
-                            </div>
-                        </div>
                         <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Categor&iacute;a</h2>
-                                <br>
-                                <h4><span class="label label-tag-media-categoria"> <span
-                                            class="circle-tag-media-categoria"></span>
-                                        {{ $product->category->title }}</span></h4>
-                            </div>
-                        </div>
+                        <span>{!! !empty($partDesc->description) ? $partDesc->description :
+                            $partDesc[0]->description !!}</span>
+                </div>    
+                <br>
+                <div class="lesson-section">
+                        <h3>Guía</h3>
                         <br>
-                    </div>
-                                </div>
-                    <div class="col-md-6">
-                        <div class="col-md-12">
-                            <h2>Lista</h2>
-                            <ul class="list-group partes-curso">
-                                <!--@foreach($parts as $part)
-                            <li>
-                                <div class="part-links">
-                                    <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
-                                        <div class="col-md-1 hidden-xs tab-con">
-                                            @if($buy or $part['free'] == 1)
-                                            <span class="playicon mdi mdi-play-circle"></span>
-                                            @else
-                                            <span class="playicon mdi mdi-lock"></span>
-                                            @endif
-                                        </div>
-                                        <div
-                                            class="@if($product->download == 1) col-md-4 @else col-md-5 @endif col-xs-10 tab-con">
-                                            <label>{{ $part['title'] }}</label>
-                                        </div>
-                                    </a>
-                                    <div class="col-md-2 tab-con">
-                                        <span class="btn btn-gray btn-description hidden-xs" data-toggle="modal"
-                                            href="#description-{{ $part['id'] }}">{{ trans('main.description') }}</span>
-                                        <div class="modal fade" id="description-{{ $part['id'] }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">
-                                                            &times;
-                                                        </button>
-                                                        <h4 class="modal-title">{{ trans('main.description') }}</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        {!! $part['description'] !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-custom pull-left"
-                                                            data-dismiss="modal">{{ trans('main.close') }}</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 text-center hidden-xs tab-con">
-                                        <span>{{ $part['size'] }} {{ trans('main.mb') }}</span>
-                                    </div>
-                                    <div class="col-md-2 hidden-xs tab-con">
-                                        <span>{{ $part['duration'] }} {{ trans('main.minute') }}</span>
-                                    </div>
-                                    @if($product->download == 1)
-                                    <div class="col-md-1 col-xs-2 tab-con">
-                                        <span class="download-part" data-href="/video/download/{{ $part['id'] }}"><span
-                                                class="mdi mdi-arrow-down-bold"></span></span>
-                                    </div>
-                                    @endif
-                                </div>
-                            </li>
-                            @endforeach-->
-                                @if($buy)
-                                @foreach($parts as $part)
-                                @if($part['status'] != 'early')
-                                <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
-                                    @if($part['status'] == 'finished')
-                                    <li class="list-group-item list-content-media dark-back-list">
-                                        @if($buy or $part['free'] == 1)
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        @else
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        @endif
-                                        <b>
-                                            {{ $part['title'].' | '}}
-                                            {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
-                                            - @if($part['limit_date'])
-                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
-                                            {{ 'Sin fecha límite' }} @endif
-                                        </b>
-                                    </li>
-                                    @elseif($part['status'] == 'pending')
-                                    <li class="list-group-item list-content-media">
-                                        @if($buy or $part['free'] == 1)
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        @else
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        @endif
-                                        <b>
-                                            {{ $part['title'].' | '}}
-                                            {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
-                                            - @if($part['limit_date'])
-                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
-                                            {{ 'Sin fecha límite' }} @endif
-                                        </b>
-                                    </li>
-                                    @elseif($part['status'] == 'late')
-                                    <li class="list-group-item list-content-media red-back-list">
-                                        @if($buy or $part['free'] == 1)
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        @else
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        @endif
-                                        <b>
-                                            {{ $part['title'].' | '}}
-                                            {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
-                                            - @if($part['limit_date'])
-                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
-                                            {{ 'Sin fecha límite' }} @endif
-                                        </b><i class="fa fa-clock-o"></i>
-                                    </li>
-                                    @endif
-                                </a>
-                                @else
-                                <li class="list-group-item list-content-media gray-back-list">
+                        <a href="{{$guia}}">
+                            <button class="btn btn-media-descargar-leccion">
+                                <h4>Descargar guía</h4>
+                            </button>
+                        </a>
+                        <br>
+                        <h3>Materiales</h3>
+                        <br>
+                        @if(isset($user))
+                        <a href="{{$product_material}}">
+                            <button class="btn btn-media-descargar-leccion">
+                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                            </button>
+                        </a>
+                        @else
+                            <button class="btn btn-media-descargar-leccion">
+                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                            </button>
+                        @endif
+                        <br>
+                        @if(isset($user))
+                        <a href="/material/curso/{{$product->id}}">
+                            <button class="btn btn-media-descargar-curso">
+                                <h4>Descargar Materiales del Curso</h4>
+                            </button>
+                        </a>
+                        @else
+                            <button class="btn btn-media-descargar-curso">
+                                <h4>Descargar Materiales del Curso</h4>
+                            </button>
+                        @endif
+                </div>
+                <br>
+                @if(isset($meeting))
+                <div class="lesson-section">
+                    
+                        <h3>Enlace de Zoom:</h3>
+                        <br>
+                        <span><a
+                                href="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
+                    
+                </div>
+                @endif
+                <div class="lesson-section">
+                    
+                        <h3>Comparte en tus redes sociales:</h3>
+                        <br>
+                        <div class="addthis_inline_share_toolbox"></div>
+                    
+                </div>
+                <div class="lesson-section">
+                    
+                        <h3>Etiquetas</h3>
+                        <br>
+                        @foreach(explode(',', $product->tag) as $tag)
+                        <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
+                                {{$tag}}</span></h4>
+                        @endforeach
+                    
+                </div>
+                <br>
+                <div class="lesson-section">
+                    
+                        <h3>Categor&iacute;a</h3>
+                        <br>
+                        <h4><span class="label label-tag-media-categoria"> <span
+                                    class="circle-tag-media-categoria"></span>
+                                {{ $product->category->title }}</span></h4>
+                    
+                </div>
+                <br>
+            </div>
+        
+        
+            <div class="col-md-6">
+                
+                    <h3>Lista</h3>
+                    <ul class="list-group partes-curso">
+                        <!--@foreach($parts as $part)
+                    <li>
+                        <div class="part-links">
+                            <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
+                                <div class="col-md-1 hidden-xs tab-con">
                                     @if($buy or $part['free'] == 1)
                                     <span class="playicon mdi mdi-play-circle"></span>
                                     @else
                                     <span class="playicon mdi mdi-lock"></span>
                                     @endif
-                                    <b>
-                                        {{ $part['title'].' | '}}
-                                        {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
-                                        - @if($part['limit_date'])
-                                        {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
-                                        {{ 'Sin fecha límite' }} @endif
-                                    </b>
-                                </li>
-                                @endif
-                                <br>
-                                @endforeach
+                                </div>
+                                <div
+                                    class="@if($product->download == 1) col-md-4 @else col-md-5 @endif col-xs-10 tab-con">
+                                    <label>{{ $part['title'] }}</label>
+                                </div>
+                            </a>
+                            <div class="col-md-2 tab-con">
+                                <span class="btn btn-gray btn-description hidden-xs" data-toggle="modal"
+                                    href="#description-{{ $part['id'] }}">{{ trans('main.description') }}</span>
+                                <div class="modal fade" id="description-{{ $part['id'] }}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title">{{ trans('main.description') }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                {!! $part['description'] !!}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-custom pull-left"
+                                                    data-dismiss="modal">{{ trans('main.close') }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center hidden-xs tab-con">
+                                <span>{{ $part['size'] }} {{ trans('main.mb') }}</span>
+                            </div>
+                            <div class="col-md-2 hidden-xs tab-con">
+                                <span>{{ $part['duration'] }} {{ trans('main.minute') }}</span>
+                            </div>
+                            @if($product->download == 1)
+                            <div class="col-md-1 col-xs-2 tab-con">
+                                <span class="download-part" data-href="/video/download/{{ $part['id'] }}"><span
+                                        class="mdi mdi-arrow-down-bold"></span></span>
+                            </div>
+                            @endif
+                        </div>
+                    </li>
+                    @endforeach-->
+                        @if($buy)
+                        @foreach($parts as $part)
+                        @if($part['status'] != 'early')
+                        <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}">
+                            @if($part['status'] == 'finished')
+                            <li class="list-group-item list-content-media dark-back-list">
+                                @if($buy or $part['free'] == 1)
+                                <span class="playicon mdi mdi-play-circle"></span>
                                 @else
-                                @foreach($parts as $part)
-                                <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}" >
-                                    <li class="list-group-item list-content-media">
-                                        @if($buy or $part['free'] == 1)
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        @else
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        @endif
-                                        <b>
-                                            {{ $part['title'].' - '}} @if($part['limit_date'])
-                                            {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
-                                            {{ 'Sin fecha límite' }} @endif
-                                        </b>
-                                    </li>
-                                </a>
-                                <br>
-                                @endforeach
+                                <span class="playicon mdi mdi-lock"></span>
                                 @endif
+                                <b>
+                                    {{ $part['title'].' | '}}
+                                    {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
+                                    - @if($part['limit_date'])
+                                    {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                    {{ 'Sin fecha límite' }} @endif
+                                </b>
+                            </li>
+                            @elseif($part['status'] == 'pending')
+                            <li class="list-group-item list-content-media">
+                                @if($buy or $part['free'] == 1)
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                @else
+                                <span class="playicon mdi mdi-lock"></span>
+                                @endif
+                                <b>
+                                    {{ $part['title'].' | '}}
+                                    {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
+                                    - @if($part['limit_date'])
+                                    {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                    {{ 'Sin fecha límite' }} @endif
+                                </b>
+                            </li>
+                            @elseif($part['status'] == 'late')
+                            <li class="list-group-item list-content-media red-back-list">
+                                @if($buy or $part['free'] == 1)
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                @else
+                                <span class="playicon mdi mdi-lock"></span>
+                                @endif
+                                <b>
+                                    {{ $part['title'].' | '}}
+                                    {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
+                                    - @if($part['limit_date'])
+                                    {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                    {{ 'Sin fecha límite' }} @endif
+                                </b><i class="fa fa-clock-o"></i>
+                            </li>
+                            @endif
+                        </a>
+                        @else
+                        <li class="list-group-item list-content-media gray-back-list">
+                            @if($buy or $part['free'] == 1)
+                            <span class="playicon mdi mdi-play-circle"></span>
+                            @else
+                            <span class="playicon mdi mdi-lock"></span>
+                            @endif
+                            <b>
+                                {{ $part['title'].' | '}}
+                                {{ $part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'}}
+                                - @if($part['limit_date'])
+                                {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                {{ 'Sin fecha límite' }} @endif
+                            </b>
+                        </li>
+                        @endif
+                        <br>
+                        @endforeach
+                        @else
+                        @foreach($parts as $part)
+                        <a href="/product/part/{{ $product->id }}/{{ $part['id'] }}" >
+                            <li class="list-group-item list-content-media">
+                                @if($buy or $part['free'] == 1)
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                @else
+                                <span class="playicon mdi mdi-lock"></span>
+                                @endif
+                                <b>
+                                    {{ $part['title'].' - '}} @if($part['limit_date'])
+                                    {{date('d/m/Y', strtotime($part['limit_date'])) }} @else
+                                    {{ 'Sin fecha límite' }} @endif
+                                </b>
+                            </li>
+                        </a>
+                        <br>
+                        @endforeach
+                        @endif
 
-                                @if($buy)
-                                @if (!empty($product->quizzes) and !$product->quizzes->isEmpty())
-                                @foreach ($product->quizzes as $quiz)
-                                @if($quiz->can_try)
-                                <a href="{{ '/user/quizzes/'. $quiz->id .'/start'}}">
-                                    <li class="list-group-item list-content-media">
-                                        <b>Quiz Final</b>
-                                    </li>
-                                </a>
-                                @endif
-                                @endforeach
-                                @endif
-                                @endif
-                            </ul>
-                            @if(isset($user))
-                            @foreach($product->quizzes as $quiz)
-                            @if($quiz->student_id == $user->id)
-                            @if(isset($quiz->user_grade))
-                            @if($quiz->result_status == 'pass')
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <div class="resultado-quiz" style="background-color: #3ED2B8">
-                                        <p><b>Calificaci&oacute;n</b></p>
-                                        <br>
-                                        <p>
-                                            <h3><b>¡{{$quiz->user_grade}}!</b></h3>
-                                        </p>
-                                        <br>
-                                        <p>
-                                            <h4><b>¡Felicidades!</b></h4>
-                                        </p>
-                                    </div>
-                                </div>
-                                @elseif($quiz->result_status == 'fail')
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="resultado-quiz" style="background-color: red">
-                                            <p><b>Calificaci&oacute;n</b></p>
-                                            <br>
-                                            <p>
-                                                <h3><b>¡{{$quiz->user_grade}}!</b></h3>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="resultado-quiz" style="background-color: lightgray">
-                                            <p><b>Calificaci&oacute;n</b></p>
-                                            <br>
-                                            <p>
-                                                <h3><b>Pendiente</b></h3>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                                @else
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="resultado-quiz" style="background-color: lightgray">
-                                            <p><b>Calificaci&oacute;n</b></p>
-                                            <br>
-                                            <p>
-                                                <h3><b>Pendiente</b></h3>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                                @endif
-                                @endforeach
-                                @endif
+                        @if($buy)
+                        @if (!empty($product->quizzes) and !$product->quizzes->isEmpty())
+                        @foreach ($product->quizzes as $quiz)
+                        @if($quiz->can_try)
+                        <a href="{{ '/user/quizzes/'. $quiz->id .'/start'}}">
+                            <li class="list-group-item list-content-media">
+                                <b>Quiz Final</b>
+                            </li>
+                        </a>
+                        @endif
+                        @endforeach
+                        @endif
+                        @endif
+                    </ul>
+                    @if(isset($user))
+                    @foreach($product->quizzes as $quiz)
+                    @if($quiz->student_id == $user->id)
+                    @if(isset($quiz->user_grade))
+                    @if($quiz->result_status == 'pass')
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="resultado-quiz" style="background-color: #3ED2B8">
+                                <p><b>Calificaci&oacute;n</b></p>
+                                <br>
+                                <p>
+                                    <h3><b>¡{{$quiz->user_grade}}!</b></h3>
+                                </p>
+                                <br>
+                                <p>
+                                    <h4><b>¡Felicidades!</b></h4>
+                                </p>
                             </div>
                         </div>
+                        @elseif($quiz->result_status == 'fail')
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="resultado-quiz" style="background-color: red">
+                                    <p><b>Calificaci&oacute;n</b></p>
+                                    <br>
+                                    <p>
+                                        <h3><b>¡{{$quiz->user_grade}}!</b></h3>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="resultado-quiz" style="background-color: lightgray">
+                                    <p><b>Calificaci&oacute;n</b></p>
+                                    <br>
+                                    <p>
+                                        <h3><b>Pendiente</b></h3>
+                                    </p>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        @else
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="resultado-quiz" style="background-color: lightgray">
+                                    <p><b>Calificaci&oacute;n</b></p>
+                                    <br>
+                                    <p>
+                                        <h3><b>Pendiente</b></h3>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endif
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     @if($user)
