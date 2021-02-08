@@ -2397,7 +2397,7 @@ class ApiController extends Controller
         if($request->hasFile('homeworks')){
             foreach($request->file('homeworks') as $homework){
                 $extension = $homework->getClientOriginalExtension();
-                $name = $User['name'].'-'.$course.'-'.$part.'-('.$counter.').'.$extension;
+                $name = $User['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
                 $homework->move(public_path().'/bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
 
@@ -2407,8 +2407,6 @@ class ApiController extends Controller
                     'part_id' => $part,
                     'route' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name,
                 ]);
-
-                $counter++;
             }
 
             return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
