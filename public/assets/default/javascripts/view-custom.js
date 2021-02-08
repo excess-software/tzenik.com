@@ -1,5 +1,6 @@
 'use strict';
 
+
 /* Login */
 function login(user) {
     setInterval(function () {

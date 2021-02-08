@@ -77,7 +77,10 @@ body {
 .accesibilidad-menu{
     width: 300px;
     color: black;
+    background-color: black;
+    border: solid 1px yellow;
 }
+
 .btn-whiteTxtBlack{
     background-color: white !important;
     color: black !important;
@@ -212,7 +215,7 @@ hr {
     border-bottom: 0px solid transparent;
 }
 .nav-home{
-    color: black;
+    color: yellow;
 }
 .nav-home:hover{
     color: black;
@@ -236,6 +239,10 @@ hr {
     border: 6px solid yellow;
 }
 
+.text-secondary{
+    color: yellow;
+}
+
 .panel-body {
     padding: 0px;
     background-color: #000;
@@ -244,6 +251,7 @@ hr {
 .panel {
     border-radius: 0px;
     margin-bottom: 80px;
+    background-color: black;
 }
 
 .panel-footer{
@@ -257,6 +265,10 @@ hr {
 
 .cursos-destacados h3{
     text-decoration: none;
+}
+
+.text-dark{
+    color: yellow;
 }
 
 .btn-cursos-destacados{
@@ -931,7 +943,8 @@ section .section-title {
 
 .formBox .box {
     text-align: left;
-    background-color: #fff;
+    background-color: black;
+    border: solid 1px yellow;
     border-radius: 8px;
     padding: 60px 0px 40px 0;
     position: absolute;
@@ -1056,7 +1069,8 @@ section .section-title {
 
 .formBox .registerBox {
     border-radius: 8px;
-    background-color: #fff;
+    border: solid 1px yellow;
+    background-color: black;
     right: 0;
     overflow: hidden;
     width: 100%;
@@ -1262,7 +1276,7 @@ a:hover {
 }
 
 .formBox .forgetbox p {
-    color: yellow
+    color: yellow;
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
@@ -1308,6 +1322,7 @@ a:hover {
     opacity: 0.7;
     transform-origin: center top;
     transform: translate(0px, -9px) scale(0.97);
+    background-color: black;
 }
 
 .formBox.level-reg .registerBox {
@@ -1355,6 +1370,7 @@ a:hover {
     opacity: 0.7;
     transform-origin: center top;
     transform: translate(0px, -9px) scale(0.97);
+    background-color: black;
 }
 
 .formBox.level-forget .forgetbox {

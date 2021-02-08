@@ -17,7 +17,6 @@
     @endif
     @include(getTemplate() . '.view.parts.news')
     @include(getTemplate(). '.view.parts.pills')
-
 @endsection -->
 @section('content')
 @include(getTemplate() . '.view.parts.navigation')
