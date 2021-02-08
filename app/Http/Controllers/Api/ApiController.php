@@ -2410,7 +2410,7 @@ class ApiController extends Controller
                 $counter++;
             }
 
-            return $this->response('/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name);
+            return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
         }else{
             return $this->error(-1, 'Append data.');
         }
