@@ -2391,27 +2391,24 @@ class ApiController extends Controller
 
         $counter = 0;
 
-        if(!$User)
+        if(!$User){
             return $this->error(-1, trans('main.user_not_found'));
-
-        if($request->hasFile('homeworks')){
-            foreach($request->file('homeworks') as $homework){
-                $extension = $homework->getClientOriginalExtension();
-                $name = $User['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
-
-                $homework->move(public_path().'/bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
-
-                HomeworksUser::insert([
-                    'user_id' => $User['id'],
-                    'content_id' => $course,
-                    'part_id' => $part,
-                    'route' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name,
-                ]);
-            }
-
-            return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
-        }else{
-            return $this->error(-1, 'Append data.');
         }
+        
+        foreach($request->file('homeworks') as $homework){
+            $extension = $homework->getClientOriginalExtension();
+            $name = $User['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
+
+            $homework->move(public_path().'/bin/tareas/'.$course.'/'.$User['name'].'/'.$part, $name);
+
+            HomeworksUser::insert([
+                'user_id' => $User['id'],
+                'content_id' => $course,
+                'part_id' => $part,
+                'route' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name,
+            ]);
+        }
+
+        return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
     }
 }

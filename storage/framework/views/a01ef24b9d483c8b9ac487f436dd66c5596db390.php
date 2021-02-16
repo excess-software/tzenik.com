@@ -64,6 +64,18 @@
     <!--<link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />-->
     <?php if(get_option('main_css')!=''): ?>
     <style>
+        .preloader 
+        {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('https://retchhh.files.wordpress.com/2015/03/loading2.gif') 50% 50% no-repeat rgb(255,255,255);
+            opacity: 1;
+        }
+
         {
              ! ! get_option('main_css') ! !
         }
@@ -77,7 +89,6 @@
         $(document).ready(function () {
             var host = window.location.origin;
             var message_id = '';
-
             $.get(host + '/user/chat', function (data) {
                 $.each(data, function (key, value) {
                     if (value.published == 'true') {
@@ -95,16 +106,13 @@
                     }
                 });
             });
-
             $('#btn-chat').click(function () {
                 $('#chat-test').fadeIn();
             });
             $('#btn-close').click(function () {
                 $('#chat-test').fadeOut();
             });
-
             $('#btn-users').hide();
-
             //Funciones Socket.io
             $('.msg_send_btn').click(function () {
                 var this_chat_id = $('#chat_id').val();
@@ -123,7 +131,6 @@
                 }
                 return false;
             });
-
             socket.on('receiveMessage', function (message, sender, chat_id, message_id) {
                 var this_chat_id = $('#chat_id').val();
                 if (chat_id == this_chat_id) {
@@ -152,11 +159,9 @@
                     $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
                 }
             })
-
             socket.on('messageDeleted', function (message_id) {
                 $('#Msg_' + message_id).remove();
             });
-
             socket.on('userDeleted', function (user_id, chat_id) {
                 if (user_id == "<?php echo e($user['id']); ?>") {
                     $('#chatNo_' + chat_id).remove();
@@ -164,9 +169,7 @@
                 }
                 $('#liUser_' + user_id).remove();
             });
-
         });
-
         function callChat(id) {
             var host = window.location.origin;
             var ownerid = '';
@@ -174,20 +177,17 @@
             $('#chat_id').val(id);
             $('.chat_list').removeClass('active_chat');
             $('#chatNo_' + id).addClass('active_chat');
-
             //Obtener id del creador del chat
             $.get(host + '/user/chat/get_Owner/' + id, function (data) {
                 ownerid = data;
                 sessionStorage.ownerid = ownerid;
                 console.log(sessionStorage.ownerid);
                 sessionStorage.chat_id = id;
-
                 if (ownerid == "<?php echo e($user['id']); ?>") {
                     $('#btn-users').show();
                     $('#btn-users').prop('disabled', false);
                 }
             });
-
             $.get(host + '/user/chat/get_Users/' + id, function (data) {
                 $.each(data, function (key, value) {
                     if (ownerid == value.id) {
@@ -202,8 +202,6 @@
                     }
                 });
             });
-
-
             $.get(host + '/user/chat/Chat/' + id, function (data) {
                 $.each(data, function (key, value) {
                     if (ownerid == "<?php echo e($user['id']); ?>") {
@@ -231,39 +229,38 @@
                 });
                 $('.msg_history').scrollTop($(".msg_history")[0].scrollHeight);
             });
-
         };
-
         function deleteMessage(id) {
             var host = window.location.origin;
             $.get(host + '/user/chat/delete_Message/' + id, function (data) {
                 socket.emit('deleteMessage', id);
             });
         }
-
         function deleteUser(id, chat_id) {
             var host = window.location.origin;
             $.get(host + '/user/chat/delete_User/' + id + '/' + chat_id, function (data) {
                 socket.emit('deleteUser', id, chat_id);
             });
         }
-
         function changeFont() {
             $.post('/user/profile/store', $('#userform').serialize(), function (data) {
                 location.reload();
             })
         }
-
         function changeColor() {
             $.post('/user/profile/store', $('#invertform').serialize(), function (data) {
                 location.reload();
             })
         }
-
     </script>
     <?php endif; ?>
     <title><?php echo $__env->yieldContent('title'); ?><?php echo $title ?? ''; ?></title>
     <script>
+        $(window).load(function() 
+        {          
+            $("#preloaders").fadeOut(1000);
+        });
+        
         function changeFont(font) {
             <?php if(isset($user)): ?>
             $.ajax({
@@ -368,6 +365,8 @@
     <button type="button" id="btn-chat" class="btn btn-chatCustom btn-circle btn-xl"><i class="fa fa-comment"></i>
     </button>
     <?php endif; ?>
+    <div id="preloaders" class="preloader"></div>
+
     <div class="navbar navbar-inverse">
         <div class=" nav-container">
             <div class="navbar-header">
