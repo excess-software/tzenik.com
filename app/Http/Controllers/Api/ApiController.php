@@ -2388,14 +2388,15 @@ class ApiController extends Controller
 
         $course = $request->product;
         $part = $request->part;
+        $homeworks = $request->file('homeworks');
 
         $counter = 0;
 
         if(!$User){
             return $this->error(-1, trans('main.user_not_found'));
         }
-        
-        foreach($request->file('homeworks') as $homework){
+
+        foreach($homeworks as $homework){
             $extension = $homework->getClientOriginalExtension();
             $name = $User['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
