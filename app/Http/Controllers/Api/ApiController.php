@@ -2388,6 +2388,8 @@ class ApiController extends Controller
 
         $User = User::where('token', $request->token)->first();
 
+        return $User;
+
         $image = $request->file('homeworks');
         $course = $request->product;
         $part = $request->part;
