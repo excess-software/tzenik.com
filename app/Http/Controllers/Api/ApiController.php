@@ -2384,9 +2384,7 @@ class ApiController extends Controller
     }
 
     public function uploadHomework(Request $request){
-        //$User = $this->checkUserToken($request);
-
-        $User = User::where('token', $request->token)->first();
+        $User = $this->checkUserToken($request);
 
         return $User;
 
