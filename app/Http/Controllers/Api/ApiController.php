@@ -2429,4 +2429,25 @@ class ApiController extends Controller
         return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
         //return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/test']);
     }
+
+    public function subirTarea(Request $request){
+        $user = $this->checkUserToken($request);
+        $image = $request->file('file');
+        $course = $request->course;
+        $part = $request->part;
+
+        $extension = $image->getClientOriginalExtension();
+        $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
+
+        $image->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
+
+        HomeworksUser::insert([
+            'user_id' => $user['id'],
+            'content_id' => $course,
+            'part_id' => $part,
+            'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
+        ]);
+
+        return response()->json(['success' => $name]);
+    }
 }
