@@ -2392,6 +2392,8 @@ class ApiController extends Controller
         $course = $request->product;
         $part = $request->part;
 
+        return $request;
+
         $counter = 0;
 
         if(!$User){
