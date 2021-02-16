@@ -2586,4 +2586,8 @@ class WebController extends Controller
             return redirect('/product/' . $Transaction->content_id);
     }
 
+    public function testForm(){
+        return view(getTemplate() . '.view.product.testForm'); 
+    }
+
 }

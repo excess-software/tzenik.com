@@ -2433,9 +2433,9 @@ class ApiController extends Controller
     public function subirTarea(Request $request){
         $user = $this->checkUserToken($request);
         $image = $request->file('file');
-        $course = $request->course;
+        $course = $request->product;
         $part = $request->part;
-
+        
         $extension = $image->getClientOriginalExtension();
         $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
@@ -2447,7 +2447,8 @@ class ApiController extends Controller
             'part_id' => $part,
             'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
         ]);
-
-        return response()->json(['success' => $name]);
+    
+            return response()->json(['success' => 'success']);
+        
     }
 }

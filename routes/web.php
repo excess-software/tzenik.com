@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('testForm', 'WebController@testForm');
+
 
 Route::group(['namespace' => 'Auth'], function () {
     // Web Auth Routes
