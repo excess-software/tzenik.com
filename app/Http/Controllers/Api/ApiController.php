@@ -2411,7 +2411,7 @@ class ApiController extends Controller
             ]);
         }
 
-        return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
-        //return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/test']);
+        //return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
+        return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/test']);
     }
 }
