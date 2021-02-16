@@ -2384,7 +2384,8 @@ class ApiController extends Controller
     }
 
     public function uploadHomework(Request $request){
-        $User = $this->checkUserToken($request);
+        //$User = $this->checkUserToken($request);
+        $User = User::where('token', $request->token)->first();
 
         $course = $request->product;
         $part = $request->part;
@@ -2396,7 +2397,7 @@ class ApiController extends Controller
             return $this->error(-1, trans('main.user_not_found'));
         }
 
-        /*foreach($homeworks as $homework){
+        foreach($homeworks as $homework){
             $extension = $homework->getClientOriginalExtension();
             $name = $User['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
@@ -2408,9 +2409,9 @@ class ApiController extends Controller
                 'part_id' => $part,
                 'route' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name,
             ]);
-        }*/
+        }
 
-        //return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
-        return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/test']);
+        return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/'.$name]);
+        //return $this->response(['image' => '/bin/tareas/'.$course.'/'.$User['name'].'/'.$part.'/test']);
     }
 }
