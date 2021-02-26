@@ -81,6 +81,7 @@ use PayPal\Rest\ApiContext;
 use Razorpay\Api\Api;
 use App\Models\Homeworks;
 use App\Models\HomeworksUser;
+use App\Models\Course_guides;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
@@ -1177,7 +1178,7 @@ class UserController extends Controller
     public function contentStore(Request $request)
     {
         $user = auth()->user();
-        $newContent = $request->except(['_token', 'guia_trabajo']);
+        $newContent = $request->except(['_token']);
         $newContent['created_at'] = time();
         $newContent['mode'] = 'draft';
         $newContent['user_id'] = $user->id;
@@ -1196,15 +1197,6 @@ class UserController extends Controller
 
         $newContent['chat_id'] = $chat_id;
         $content_id = Content::insertGetId($newContent);
-
-        $guia = $request->guia_trabajo;
-
-
-            if(isset($guia)){
-                if($guia->isValid()){
-                    $guia->move('bin/contenido-cursos/'.$content_id.'/guia/', 'guia-'.$newContent['title'].'.'.$guia->getClientOriginalExtension());
-                }
-            }
 
         $forum_category = ForumCategory::create(['product_id' => $content_id, 'title' => $newContent['title'], 'desc' => 'Un foro para el curso '.$newContent['title'], 'published' => 'true', 'type' => $newContent['private'] == 2 ? 'private' : 'public']);
 
@@ -1229,10 +1221,13 @@ class UserController extends Controller
         $contentMenu = ContentCategory::with(['childs', 'filters' => function ($q) {
             $q->with(['tags']);
         }])->get();
+
+        $guides = Course_guides::where('content_id', $id)->get();
+
         if($item['type'] == 'webinar' || $item['type'] == 'coaching'){
-            return view(getTemplate() . '.user.content.editweb_coach',['item'=>$item,'meta'=>$meta,'menus'=>$contentMenu,'preCourse'=>$preCourseContent]);
+            return view(getTemplate() . '.user.content.editweb_coach',['item'=>$item,'meta'=>$meta,'menus'=>$contentMenu,'preCourse'=>$preCourseContent, 'guides' => $guides]);
         }else{
-            return view(getTemplate() . '.user.content.edit', ['item' => $item, 'meta' => $meta, 'menus' => $contentMenu, 'preCourse' => $preCourseContent]);
+            return view(getTemplate() . '.user.content.edit', ['item' => $item, 'meta' => $meta, 'menus' => $contentMenu, 'preCourse' => $preCourseContent, 'guides' => $guides]);
         }
     }
 
@@ -4760,6 +4755,34 @@ class UserController extends Controller
         ]);
 
         return response()->json(['success' => $name]);
+    }
+
+    public function guia_trabajo(Request $request){
+
+        $content_id = $request->content_id;
+
+        $curso = Content::where('id', $content_id)->value('title');
+
+        $guia = $request->file('guia_trabajo');
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_fin = $request->fecha_fin;
+
+        Course_guides::updateOrCreate([
+            'content_id' => $content_id,
+            'initial_date' => $fecha_inicio,
+            'final_date' => $fecha_fin,
+        ],[
+            'route' => '/bin/contenido-cursos/'.$content_id.'/guia/guia-'.$curso.'-'.$fecha_inicio.'-'.$fecha_fin.'.'.$guia->getClientOriginalExtension(),
+        ]);
+
+        if(isset($guia)){
+            if($guia->isValid()){
+                $guia->move(public_path().'/bin/contenido-cursos/'.$content_id.'/guia/', 'guia-'.$curso.'-'.$fecha_inicio.'-'.$fecha_fin.'.'.$guia->getClientOriginalExtension());
+            }
+        }
+
+        return back();
+
     }
 
     #### Here ends area of custom controllers to meet Tzenik needs ####

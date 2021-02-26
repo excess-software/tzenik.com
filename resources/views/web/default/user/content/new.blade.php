@@ -66,11 +66,6 @@
                                 name="content" required></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2 tab-con"
-                            for="inputDefault">Guía de trabajo</label>
-                        <input type="file" name="guia_trabajo" id="guia_trabajo" class="form-control">
-                    </div>
                     <hr>
                     <div class="form-group">
                         <div class="col-md-12 tab-con">

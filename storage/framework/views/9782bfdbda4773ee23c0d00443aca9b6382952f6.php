@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="6" data-toggle="tab"><?php echo e(trans('main.parts')); ?> - Zoom</a>
                 </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" cstep="7" data-toggle="tab">Guías</a>
+                </li>
             </ul>
         </div>
         <br>
@@ -882,6 +885,83 @@
                                             <th class="text-center" width="100"><?php echo e(trans('main.controls')); ?></th>
                                         </thead>
                                         <tbody id="part-video-table-body-zoom"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="steps dnone" id="step7">
+                <div class="accordion-off">
+                    <ul id="accordion" class="accordion off-filters-li">
+                        <li class="open">
+                            <div class="link new-part-click">
+                                <h2>Guías </h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu dblock">
+                                <div class="h-15"></div>
+                                <form action="/user/content/guide/store" enctype="multipart/form-data" id="step-7-form-new-part"
+                                    method="post" class="form-horizontal">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="content_id" value="<?php echo e($item->id ?? ''); ?>">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2 tab-con"
+                                            for="inputDefault">Guía de trabajo</label>
+                                        <input type="file" name="guia_trabajo" id="guia_trabajo" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-3">Fecha de inicio</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="date" name="fecha_inicio"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <label
+                                            class="control-label tab-con col-md-3">Fecha de finalizaci&oacute;n</label>
+                                        <div class="col-md-3 tab-con">
+                                            <div class="input-group">
+                                                <input type="date" name="fecha_fin"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 tab-con">
+                                            <button class="btn btn-custom tab-con pull-left" id="new-guide"
+                                                type="submit"><?php echo e(trans('main.save_changes')); ?></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="h-15"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="link list-part-click-zoom">
+                                <h2>Guías</h2><i class="mdi mdi-chevron-down"></i>
+                            </div>
+                            <div class="submenu">
+                                <div class="table-responsive">
+                                    <table class="table ucp-table">
+                                        <thead class="thead-s">
+                                            <th class="text-center" width="50">Fecha Inicio</th>
+                                            <th class="text-center" width="50">Fecha Fin</th>
+                                            <th class="text-center" width="50">Ver</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php $__currentLoopData = $guides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $guide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                             <tr>
+                                                <td class="text-center" width="50"><?php echo e($guide->initial_date); ?></td>
+                                                <td class="text-center" width="50"><?php echo e($guide->final_date); ?></td>
+                                                <td class="text-center" width="50"><a href="<?php echo e($guide->route); ?>" target="_blank"><b>Ver</b></a></td>
+                                            </tr>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

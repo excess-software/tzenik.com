@@ -6,21 +6,12 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="row visualizador-media">
+<div class="visualizador-media">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 volver-atras-media">
-                <br>
-                <div class="row">
-                    <a href="javascript: history.go(-1)">
-                        <h4><i class="fa fa-arrow-left"> </i><span> Cursos</span></h4>
-                    </a>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2><b><?php echo e($product->title); ?></b></h2>
-                    </div>
+            <div class="col-sm-12 volver-atras-media ">
+                    <a href="javascript: history.go(-1)"><h4><i class="fa fa-arrow-left"></i> Cursos</h4></a>
+                    <h2 class="titulo-curso"><?php echo e($product->title); ?></h2>
                     <!--<div class="col-md-4">
                         <?php if($product->support == 1): ?>
                         <button class="btn btn-next-media pull-right">
@@ -28,21 +19,16 @@
                         </button>
                         <?php endif; ?>
                     </div>-->
-                </div>
-                <br>
                 <?php if(isset($meeting)): ?>
-                <div class="row">
                     <iframe style="height: 700px; width: 100%;"
                         src="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz"
                         sandbox="allow-forms allow-scripts allow-same-origin" allow="microphone; camera" allowfullscreen
-                        scrolling="no"></iframe>
-                </div>
+                        scrolling="no">
+                    </iframe>
                 <?php else: ?>
-                <div class="row">
                     <video id="myDiv" class="media-cursos" controls>
                         <source src="<?php echo e(!empty($partVideo) ? $partVideo : $meta['video']); ?>" type="video/mp4" />
                     </video>
-                </div>
                 <?php endif; ?>
                 <!-- <br>
                 <div class="row">
@@ -55,402 +41,391 @@
     </div>
 </div>
 <br>
-<div class="row">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 content-media-curso">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row text-content-media-curso">
-                            <div class="col-md-12">
-                                <?php if($product->content_type == 'Fundal' || $product->content_type == 'fundal'): ?>
+            <div class="col-md-6">
+                <div  class="text-content-media-curso">
+                        <?php if($product->content_type == 'Fundal' || $product->content_type == 'fundal'): ?>
 
-                                <?php else: ?>
-                                <?php if(isset($meta['price']) && $product->price != 0): ?>
-                                <h2>Precio:
-                                    <?php echo e(currencySign()); ?><?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>
+                        <?php else: ?>
+                        <?php if(isset($meta['price']) && $product->price != 0): ?>
+                        <h3>Precio:
+                            <?php echo e(currencySign()); ?><?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>
 
-                                </h2>
-                                <?php else: ?>
-                                <h2><?php echo e(trans('main.free')); ?></h2>
-                                <?php endif; ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?php if(isset($meta['price'])): ?>
-                                <form>
-                                    <?php echo e(csrf_field()); ?>
+                        </h3>
+                        <?php else: ?>
+                        <h3><?php echo e(trans('main.free')); ?></h3>
+                        <?php endif; ?>
+                        <?php endif; ?>
+                </div>
+                <div class="lesson-section">
+                    <?php if(isset($meta['price'])): ?>
+                        <form>
+                            <?php echo e(csrf_field()); ?>
 
-                                    <?php if(isset($user) && $product->user_id == $user['id']): ?>
-                                    <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/edit/<?php echo e($product->id); ?>"><?php echo e(trans('main.edit_course')); ?></a>
-                                    <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
-                                        href="/user/content/part/list/<?php echo e($product->id); ?>"><?php echo e(trans('main.add_video')); ?></a>
-                                    <?php elseif(!$buy): ?>
-                                    <?php if(!empty($product->price) and $product->price != 0): ?>
-                                    <div class="radio">
-                                        <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
-                                            value="<?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>"
-                                            checked>
-                                    </div>
-                                    <?php endif; ?>
-
-                                    <?php if(!empty($product->price) and $product->price != 0): ?>
-                                    <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
-                                        href=""><?php echo e(trans('main.pay')); ?></a>
-                                    <?php endif; ?>
-                                    <?php else: ?>
-                                    <?php if(!empty($product->price) and $product->price != 0): ?>
-                                    <a class="btn btn-success"
-                                        href="javascript:void(0);"><?php echo e(trans('main.purchased_item')); ?></a>
-                                    <?php endif; ?>
-                                    <?php endif; ?>
-                                </form>
+                            <?php if(isset($user) && $product->user_id == $user['id']): ?>
+                            <a class="btn btn-orange product-btn-buy sbox3" id="buy-btn"
+                                href="/user/content/edit/<?php echo e($product->id); ?>"><?php echo e(trans('main.edit_course')); ?></a>
+                            <a class="btn btn-blue product-btn-buy sbox3" id="buy-btn"
+                                href="/user/content/part/list/<?php echo e($product->id); ?>"><?php echo e(trans('main.add_video')); ?></a>
+                            <?php elseif(!$buy): ?>
+                            <?php if(!empty($product->price) and $product->price != 0): ?>
+                            <div class="radio">
+                                <input type="radio" id="radio-2" name="buy_mode" data-mode="download"
+                                    value="<?php echo e(price($product->id,$product->category_id,$meta['price'])['price']); ?>"
+                                    checked>
                             </div>
                             <?php endif; ?>
-                        </div>
-                        <div class="row text-content-media-curso">
-                            <div class="col-md-12">
-                                <?php if(isset($meeting)): ?>
-                                <h4><b>Fecha de inicio:</b>
-                                    <?php echo e($meeting_date); ?>
 
-                                </h4>
-                                <?php else: ?>
-                                <h2><?php echo e(!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title); ?></h2>
-                                <h4><b>Fecha de inicio:</b>
-                                    <?php echo e(!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
+                            <?php if(!empty($product->price) and $product->price != 0): ?>
+                            <a class="btn btn-success" id="buy-btn" data-toggle="modal" data-target="#buyModal"
+                                href=""><?php echo e(trans('main.pay')); ?></a>
+                            <?php endif; ?>
+                            <?php else: ?>
+                            <?php if(!empty($product->price) and $product->price != 0): ?>
+                            <a class="btn btn-success"
+                                href="javascript:void(0);"><?php echo e(trans('main.purchased_item')); ?></a>
+                            <?php endif; ?>
+                            <?php endif; ?>
+                        </form>
 
-                                </h4>
-                                <h4><b>Fecha de finalización:
-                                    </b><?php echo e(!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
-
-                                </h4>
-                                <?php endif; ?>
-                                <br>
-                                <span><?php echo !empty($partDesc->description) ? $partDesc->description :
-                                    $partDesc[0]->description; ?></span>
-                            </div>
-
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Guía</h2>
-                                <br>
-                                <a href="<?php echo e($guia); ?>">
-                                    <button class="btn btn-media-descargar-leccion">
-                                        <h4>Descargar guía</h4>
-                                    </button>
-                                </a>
-                                <br>
-                                <h2>Materiales</h2>
-                                <br>
-                                <?php if(isset($user)): ?>
-                                <a href="<?php echo e($product_material); ?>">
-                                    <button class="btn btn-media-descargar-leccion">
-                                        <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                                    </button>
-                                </a>
-                                <?php else: ?>
-                                    <button class="btn btn-media-descargar-leccion">
-                                        <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                                    </button>
-                                <?php endif; ?>
-                                <br>
-                                <?php if(isset($user)): ?>
-                                <a href="/material/curso/<?php echo e($product->id); ?>">
-                                    <button class="btn btn-media-descargar-curso">
-                                        <h4>Descargar Materiales del Curso</h4>
-                                    </button>
-                                </a>
-                                <?php else: ?>
-                                    <button class="btn btn-media-descargar-curso">
-                                        <h4>Descargar Materiales del Curso</h4>
-                                    </button>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <br>
+                    <?php endif; ?>
+                </div> 
+                <div class="lesson-section">
                         <?php if(isset($meeting)): ?>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Enlace de Zoom:</h2>
-                                <br>
-                                <span><a
-                                        href="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
-                            </div>
-                        </div>
+                        <h4><b>Fecha de inicio:</b>
+                            <?php echo e($meeting_date); ?>
+
+                        </h4>
+                        <?php else: ?>
+                        <h3><?php echo e(!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title); ?></h3>
+                        <h4><b>Fecha de inicio:</b>
+                            <?php echo e(!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->initial_date)) : 'No asignada' )); ?>
+
+                        </h4>
+                        <h4><b>Fecha de finalización:
+                            </b><?php echo e(!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )); ?>
+
+                        </h4>
                         <?php endif; ?>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Comparte en tus redes sociales:</h2>
-                                <br>
-                                <div class="addthis_inline_share_toolbox"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Etiquetas</h2>
-                                <br>
-                                <?php $__currentLoopData = explode(',', $product->tag); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
-                                        <?php echo e($tag); ?></span></h4>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </div>
-                        </div>
                         <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Categor&iacute;a</h2>
-                                <br>
-                                <h4><span class="label label-tag-media-categoria"> <span
-                                            class="circle-tag-media-categoria"></span>
-                                        <?php echo e($product->category->title); ?></span></h4>
-                            </div>
-                        </div>
+                        <span><?php echo !empty($partDesc->description) ? $partDesc->description :
+                            $partDesc[0]->description; ?></span>
+                </div>    
+                <br>
+                <div class="lesson-section">
+                        <h3>Guía</h3>
                         <br>
-                    </div>
-                                </div>
-                    <div class="col-md-6">
-                        <div class="col-md-12">
-                            <h2>Lista</h2>
-                            <ul class="list-group partes-curso">
-                                <!--<?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <li>
-                                <div class="part-links">
-                                    <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
-                                        <div class="col-md-1 hidden-xs tab-con">
-                                            <?php if($buy or $part['free'] == 1): ?>
-                                            <span class="playicon mdi mdi-play-circle"></span>
-                                            <?php else: ?>
-                                            <span class="playicon mdi mdi-lock"></span>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div
-                                            class="<?php if($product->download == 1): ?> col-md-4 <?php else: ?> col-md-5 <?php endif; ?> col-xs-10 tab-con">
-                                            <label><?php echo e($part['title']); ?></label>
-                                        </div>
-                                    </a>
-                                    <div class="col-md-2 tab-con">
-                                        <span class="btn btn-gray btn-description hidden-xs" data-toggle="modal"
-                                            href="#description-<?php echo e($part['id']); ?>"><?php echo e(trans('main.description')); ?></span>
-                                        <div class="modal fade" id="description-<?php echo e($part['id']); ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">
-                                                            &times;
-                                                        </button>
-                                                        <h4 class="modal-title"><?php echo e(trans('main.description')); ?></h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <?php echo $part['description']; ?>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-custom pull-left"
-                                                            data-dismiss="modal"><?php echo e(trans('main.close')); ?></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 text-center hidden-xs tab-con">
-                                        <span><?php echo e($part['size']); ?> <?php echo e(trans('main.mb')); ?></span>
-                                    </div>
-                                    <div class="col-md-2 hidden-xs tab-con">
-                                        <span><?php echo e($part['duration']); ?> <?php echo e(trans('main.minute')); ?></span>
-                                    </div>
-                                    <?php if($product->download == 1): ?>
-                                    <div class="col-md-1 col-xs-2 tab-con">
-                                        <span class="download-part" data-href="/video/download/<?php echo e($part['id']); ?>"><span
-                                                class="mdi mdi-arrow-down-bold"></span></span>
-                                    </div>
-                                    <?php endif; ?>
-                                </div>
-                            </li>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>-->
-                                <?php if($buy): ?>
-                                <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if($part['status'] != 'early'): ?>
-                                <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
-                                    <?php if($part['status'] == 'finished'): ?>
-                                    <li class="list-group-item list-content-media dark-back-list">
-                                        <?php if($buy or $part['free'] == 1): ?>
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        <?php else: ?>
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        <?php endif; ?>
-                                        <b>
-                                            <?php echo e($part['title'].' | '); ?>
-
-                                            <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
-
-                                            - <?php if($part['limit_date']): ?>
-                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
-                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
-                                        </b>
-                                    </li>
-                                    <?php elseif($part['status'] == 'pending'): ?>
-                                    <li class="list-group-item list-content-media">
-                                        <?php if($buy or $part['free'] == 1): ?>
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        <?php else: ?>
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        <?php endif; ?>
-                                        <b>
-                                            <?php echo e($part['title'].' | '); ?>
-
-                                            <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
-
-                                            - <?php if($part['limit_date']): ?>
-                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
-                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
-                                        </b>
-                                    </li>
-                                    <?php elseif($part['status'] == 'late'): ?>
-                                    <li class="list-group-item list-content-media red-back-list">
-                                        <?php if($buy or $part['free'] == 1): ?>
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        <?php else: ?>
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        <?php endif; ?>
-                                        <b>
-                                            <?php echo e($part['title'].' | '); ?>
-
-                                            <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
-
-                                            - <?php if($part['limit_date']): ?>
-                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
-                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
-                                        </b><i class="fa fa-clock-o"></i>
-                                    </li>
-                                    <?php endif; ?>
-                                </a>
-                                <?php else: ?>
-                                <li class="list-group-item list-content-media gray-back-list">
+                        <a href="<?php echo e($guia); ?>">
+                            <button class="btn btn-media-descargar-leccion">
+                                <h4>Descargar guía</h4>
+                            </button>
+                        </a>
+                        <br>
+                        <h3>Materiales</h3>
+                        <br>
+                        <?php if(isset($user)): ?>
+                        <a href="<?php echo e($product_material); ?>">
+                            <button class="btn btn-media-descargar-leccion">
+                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                            </button>
+                        </a>
+                        <?php else: ?>
+                            <button class="btn btn-media-descargar-leccion">
+                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                            </button>
+                        <?php endif; ?>
+                        <br>
+                        <?php if(isset($user)): ?>
+                        <a href="/material/curso/<?php echo e($product->id); ?>">
+                            <button class="btn btn-media-descargar-curso">
+                                <h4>Descargar Materiales del Curso</h4>
+                            </button>
+                        </a>
+                        <?php else: ?>
+                            <button class="btn btn-media-descargar-curso">
+                                <h4>Descargar Materiales del Curso</h4>
+                            </button>
+                        <?php endif; ?>
+                </div>
+                <br>
+                <?php if(isset($meeting)): ?>
+                <div class="lesson-section">
+                    
+                        <h3>Enlace de Zoom:</h3>
+                        <br>
+                        <span><a
+                                href="https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/<?php echo e($meeting->zoom_meeting ?? $meeting); ?>/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
+                    
+                </div>
+                <?php endif; ?>
+                <div class="lesson-section">
+                    
+                        <h3>Comparte en tus redes sociales:</h3>
+                        <br>
+                        <div class="addthis_inline_share_toolbox"></div>
+                    
+                </div>
+                <div class="lesson-section">
+                    
+                        <h3>Etiquetas</h3>
+                        <br>
+                        <?php $__currentLoopData = explode(',', $product->tag); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
+                                <?php echo e($tag); ?></span></h4>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    
+                </div>
+                <br>
+                <div class="lesson-section">
+                    
+                        <h3>Categor&iacute;a</h3>
+                        <br>
+                        <h4><span class="label label-tag-media-categoria"> <span
+                                    class="circle-tag-media-categoria"></span>
+                                <?php echo e($product->category->title); ?></span></h4>
+                    
+                </div>
+                <br>
+            </div>
+        
+        
+            <div class="col-md-6">
+                
+                    <h3>Lista</h3>
+                    <ul class="list-group partes-curso">
+                        <!--<?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li>
+                        <div class="part-links">
+                            <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
+                                <div class="col-md-1 hidden-xs tab-con">
                                     <?php if($buy or $part['free'] == 1): ?>
                                     <span class="playicon mdi mdi-play-circle"></span>
                                     <?php else: ?>
                                     <span class="playicon mdi mdi-lock"></span>
                                     <?php endif; ?>
-                                    <b>
-                                        <?php echo e($part['title'].' | '); ?>
+                                </div>
+                                <div
+                                    class="<?php if($product->download == 1): ?> col-md-4 <?php else: ?> col-md-5 <?php endif; ?> col-xs-10 tab-con">
+                                    <label><?php echo e($part['title']); ?></label>
+                                </div>
+                            </a>
+                            <div class="col-md-2 tab-con">
+                                <span class="btn btn-gray btn-description hidden-xs" data-toggle="modal"
+                                    href="#description-<?php echo e($part['id']); ?>"><?php echo e(trans('main.description')); ?></span>
+                                <div class="modal fade" id="description-<?php echo e($part['id']); ?>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title"><?php echo e(trans('main.description')); ?></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <?php echo $part['description']; ?>
 
-                                        <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
-
-                                        - <?php if($part['limit_date']): ?>
-                                        <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
-                                        <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
-                                    </b>
-                                </li>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-custom pull-left"
+                                                    data-dismiss="modal"><?php echo e(trans('main.close')); ?></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center hidden-xs tab-con">
+                                <span><?php echo e($part['size']); ?> <?php echo e(trans('main.mb')); ?></span>
+                            </div>
+                            <div class="col-md-2 hidden-xs tab-con">
+                                <span><?php echo e($part['duration']); ?> <?php echo e(trans('main.minute')); ?></span>
+                            </div>
+                            <?php if($product->download == 1): ?>
+                            <div class="col-md-1 col-xs-2 tab-con">
+                                <span class="download-part" data-href="/video/download/<?php echo e($part['id']); ?>"><span
+                                        class="mdi mdi-arrow-down-bold"></span></span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>-->
+                        <?php if($buy): ?>
+                        <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($part['status'] != 'early'): ?>
+                        <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>">
+                            <?php if($part['status'] == 'finished'): ?>
+                            <li class="list-group-item list-content-media dark-back-list">
+                                <?php if($buy or $part['free'] == 1): ?>
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                <?php else: ?>
+                                <span class="playicon mdi mdi-lock"></span>
                                 <?php endif; ?>
+                                <b>
+                                    <?php echo e($part['title'].' | '); ?>
+
+                                    <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                    - <?php if($part['limit_date']): ?>
+                                    <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                    <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                </b>
+                            </li>
+                            <?php elseif($part['status'] == 'pending'): ?>
+                            <li class="list-group-item list-content-media">
+                                <?php if($buy or $part['free'] == 1): ?>
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                <?php else: ?>
+                                <span class="playicon mdi mdi-lock"></span>
+                                <?php endif; ?>
+                                <b>
+                                    <?php echo e($part['title'].' | '); ?>
+
+                                    <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                    - <?php if($part['limit_date']): ?>
+                                    <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                    <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                </b>
+                            </li>
+                            <?php elseif($part['status'] == 'late'): ?>
+                            <li class="list-group-item list-content-media red-back-list">
+                                <?php if($buy or $part['free'] == 1): ?>
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                <?php else: ?>
+                                <span class="playicon mdi mdi-lock"></span>
+                                <?php endif; ?>
+                                <b>
+                                    <?php echo e($part['title'].' | '); ?>
+
+                                    <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                    - <?php if($part['limit_date']): ?>
+                                    <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                    <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                </b><i class="fa fa-clock-o"></i>
+                            </li>
+                            <?php endif; ?>
+                        </a>
+                        <?php else: ?>
+                        <li class="list-group-item list-content-media gray-back-list">
+                            <?php if($buy or $part['free'] == 1): ?>
+                            <span class="playicon mdi mdi-play-circle"></span>
+                            <?php else: ?>
+                            <span class="playicon mdi mdi-lock"></span>
+                            <?php endif; ?>
+                            <b>
+                                <?php echo e($part['title'].' | '); ?>
+
+                                <?php echo e($part['initial_date'] ? date('d/m/Y', strtotime($part['initial_date'])) : 'Sin fecha de inicio'); ?>
+
+                                - <?php if($part['limit_date']): ?>
+                                <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                            </b>
+                        </li>
+                        <?php endif; ?>
+                        <br>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                        <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>" >
+                            <li class="list-group-item list-content-media">
+                                <?php if($buy or $part['free'] == 1): ?>
+                                <span class="playicon mdi mdi-play-circle"></span>
+                                <?php else: ?>
+                                <span class="playicon mdi mdi-lock"></span>
+                                <?php endif; ?>
+                                <b>
+                                    <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
+                                    <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
+                                    <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
+                                </b>
+                            </li>
+                        </a>
+                        <br>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
+
+                        <?php if($buy): ?>
+                        <?php if(!empty($product->quizzes) and !$product->quizzes->isEmpty()): ?>
+                        <?php $__currentLoopData = $product->quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($quiz->can_try): ?>
+                        <a href="<?php echo e('/user/quizzes/'. $quiz->id .'/start'); ?>">
+                            <li class="list-group-item list-content-media">
+                                <b>Quiz Final</b>
+                            </li>
+                        </a>
+                        <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
+                        <?php endif; ?>
+                    </ul>
+                    <?php if(isset($user)): ?>
+                    <?php $__currentLoopData = $product->quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($quiz->student_id == $user->id): ?>
+                    <?php if(isset($quiz->user_grade)): ?>
+                    <?php if($quiz->result_status == 'pass'): ?>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="resultado-quiz" style="background-color: #3ED2B8">
+                                <p><b>Calificaci&oacute;n</b></p>
                                 <br>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php else: ?>
-                                <?php $__currentLoopData = $parts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $part): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <a href="/product/part/<?php echo e($product->id); ?>/<?php echo e($part['id']); ?>" >
-                                    <li class="list-group-item list-content-media">
-                                        <?php if($buy or $part['free'] == 1): ?>
-                                        <span class="playicon mdi mdi-play-circle"></span>
-                                        <?php else: ?>
-                                        <span class="playicon mdi mdi-lock"></span>
-                                        <?php endif; ?>
-                                        <b>
-                                            <?php echo e($part['title'].' - '); ?> <?php if($part['limit_date']): ?>
-                                            <?php echo e(date('d/m/Y', strtotime($part['limit_date']))); ?> <?php else: ?>
-                                            <?php echo e('Sin fecha límite'); ?> <?php endif; ?>
-                                        </b>
-                                    </li>
-                                </a>
+                                <p>
+                                    <h3><b>¡<?php echo e($quiz->user_grade); ?>!</b></h3>
+                                </p>
                                 <br>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php endif; ?>
-
-                                <?php if($buy): ?>
-                                <?php if(!empty($product->quizzes) and !$product->quizzes->isEmpty()): ?>
-                                <?php $__currentLoopData = $product->quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if($quiz->can_try): ?>
-                                <a href="<?php echo e('/user/quizzes/'. $quiz->id .'/start'); ?>">
-                                    <li class="list-group-item list-content-media">
-                                        <b>Quiz Final</b>
-                                    </li>
-                                </a>
-                                <?php endif; ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php endif; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <?php if(isset($user)): ?>
-                            <?php $__currentLoopData = $product->quizzes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quiz): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($quiz->student_id == $user->id): ?>
-                            <?php if(isset($quiz->user_grade)): ?>
-                            <?php if($quiz->result_status == 'pass'): ?>
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <div class="resultado-quiz" style="background-color: #3ED2B8">
-                                        <p><b>Calificaci&oacute;n</b></p>
-                                        <br>
-                                        <p>
-                                            <h3><b>¡<?php echo e($quiz->user_grade); ?>!</b></h3>
-                                        </p>
-                                        <br>
-                                        <p>
-                                            <h4><b>¡Felicidades!</b></h4>
-                                        </p>
-                                    </div>
-                                </div>
-                                <?php elseif($quiz->result_status == 'fail'): ?>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="resultado-quiz" style="background-color: red">
-                                            <p><b>Calificaci&oacute;n</b></p>
-                                            <br>
-                                            <p>
-                                                <h3><b>¡<?php echo e($quiz->user_grade); ?>!</b></h3>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php else: ?>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="resultado-quiz" style="background-color: lightgray">
-                                            <p><b>Calificaci&oacute;n</b></p>
-                                            <br>
-                                            <p>
-                                                <h3><b>Pendiente</b></h3>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <?php endif; ?>
-                                </div>
-                                <?php else: ?>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="resultado-quiz" style="background-color: lightgray">
-                                            <p><b>Calificaci&oacute;n</b></p>
-                                            <br>
-                                            <p>
-                                                <h3><b>Pendiente</b></h3>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endif; ?>
-                                <?php endif; ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php endif; ?>
+                                <p>
+                                    <h4><b>¡Felicidades!</b></h4>
+                                </p>
                             </div>
                         </div>
+                        <?php elseif($quiz->result_status == 'fail'): ?>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="resultado-quiz" style="background-color: red">
+                                    <p><b>Calificaci&oacute;n</b></p>
+                                    <br>
+                                    <p>
+                                        <h3><b>¡<?php echo e($quiz->user_grade); ?>!</b></h3>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php else: ?>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="resultado-quiz" style="background-color: lightgray">
+                                    <p><b>Calificaci&oacute;n</b></p>
+                                    <br>
+                                    <p>
+                                        <h3><b>Pendiente</b></h3>
+                                    </p>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php else: ?>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="resultado-quiz" style="background-color: lightgray">
+                                    <p><b>Calificaci&oacute;n</b></p>
+                                    <br>
+                                    <p>
+                                        <h3><b>Pendiente</b></h3>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <?php if($user): ?>

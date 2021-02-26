@@ -268,6 +268,8 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('part/request/{id}', 'UserController@contentPartRequest');
             Route::post('part/store', 'UserController@contentPartStore');
 
+            Route::post('guide/store', 'UserController@guia_trabajo');
+
             Route::post('web_coach/part/store','UserController@contentPartStoreWeb_Coach');
             Route::post('web_coach/part/edit/store/{id}', 'UserController@contentPartEditStoreWeb_Coach');
 

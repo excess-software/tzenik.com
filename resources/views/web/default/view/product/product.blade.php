@@ -95,7 +95,7 @@
                         @else
                         <h3>{{!empty($partDesc->title) ? $partDesc->title : $partDesc[0]->title}}</h3>
                         <h4><b>Fecha de inicio:</b>
-                            {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}
+                            {{!empty($partDesc->initial_date) ? date('d/m/Y', strtotime($partDesc->initial_date)) : (!empty($partDesc[0]->initial_date) ? date('d/m/Y', strtotime($partDesc[0]->initial_date)) : 'No asignada' )}}
                         </h4>
                         <h4><b>Fecha de finalización:
                             </b>{{!empty($partDesc->limit_date) ? date('d/m/Y', strtotime($partDesc->limit_date)) : (!empty($partDesc[0]->limit_date) ? date('d/m/Y', strtotime($partDesc[0]->limit_date)) : 'No asignada' )}}

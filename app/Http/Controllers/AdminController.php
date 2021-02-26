@@ -1460,17 +1460,35 @@ class AdminController extends Controller
 
     public function guardarUsuario(Request $request){
         $password = Str::random(8);
-        User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($password),
-            'created_at' => time(),
-            'admin' => false,
-            'mode' => $request->mode,
-            'category_id' => $request->category_id,
-            'token' => Str::random(15)
-        ]);
+
+        $user_category = Usercategories::where('id', $request->category_id)->value('title');
+
+        if($user_category == 'instructor' || $user_category == 'Instructor' || $user_category == 'INSTRUCTOR'){
+            User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($password),
+                'created_at' => time(),
+                'admin' => false,
+                'mode' => $request->mode,
+                'category_id' => $request->category_id,
+                'token' => Str::random(15),
+                'vendor' => 1
+            ]);
+        }else{
+            User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($password),
+                'created_at' => time(),
+                'admin' => false,
+                'mode' => $request->mode,
+                'category_id' => $request->category_id,
+                'token' => Str::random(15)
+            ]);
+        }
 
         sendMail([
             'template'=>get_option('user_register_wellcome_email'),

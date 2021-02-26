@@ -903,13 +903,19 @@ class WebController extends Controller
                             $part->status = 'early';
                         }
                     }
+
+                    if(is_null($part->initial_date) && $part->date){
+                        $part->initial_date = $part->date;
+                    }
                 }
             }
         }
 
+        $product->parts = $product->parts->sortBy('initial_date')->values()->all();
+
         $inscrito = CalendarEvents::where('user_id', $user->id)->where('product_id', $id)->get();
 
-        $parts = $product->parts->toArray();
+        $parts = $product->parts;
         $meeting = $parts[0]['zoom_meeting'];
         $meeting_date = date('d-m-Y', strtotime($parts[0]['date'])).' '.$parts[0]['time'];
         if(isset($product->user))
@@ -960,7 +966,7 @@ class WebController extends Controller
         }
 
         //$partDesc = ContentPart::where('id', $pid)->select('title', 'description')->get();
-        $producto_id = ContentPart::select('id')->where('content_id', $id)->first();
+        $producto_id = ContentPart::select('id')->where('content_id', $id)->orderBy('date', 'ASC')->first();
         $partDesc = ContentPart::find($producto_id, ['title', 'description', 'initial_date', 'limit_date']);
 
         $product_material = '/material/curso/'.$id.'/modulo/'.$producto_id->id.'/';
@@ -1376,6 +1382,10 @@ class WebController extends Controller
                             $part->status = 'early';
                         }
                     }
+
+                    if(is_null($part->initial_date) && $part->date){
+                        $part->initial_date = $part->date;
+                    }
                 }
             }
         }
@@ -1383,7 +1393,7 @@ class WebController extends Controller
         //return $product->parts;
 
         $meta = arrayToList($product->metas, 'option', 'value');
-        $parts = $product->parts->toArray();
+        $parts = $product->parts->sortBy('initial_date')->values()->all();
         $rates = getRate($product->user->toArray());
 
 
