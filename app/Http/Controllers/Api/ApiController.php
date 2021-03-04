@@ -60,6 +60,7 @@ use App\Models\Chat_Messages;
 use App\Models\Chat_UsersInChat;
 use App\Models\Homeworks;
 use App\Models\HomeworksUser;
+use App\Models\Course_guides;
 
 class ApiController extends Controller
 {
@@ -582,9 +583,12 @@ class ApiController extends Controller
 
     public function guia_curso($id, Request $request){
 
-        $content = Content::find($id);
+        $guides = Course_guides::where('content_id', $id)->get();
 
-        return $this->response(['guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf']);
+        //$content = Content::find($id);
+
+        //return $this->response(['guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf']);
+        return $this->response($guides);
 
     }
 
@@ -2435,8 +2439,22 @@ class ApiController extends Controller
         $image = $request->file('file');
         $course = $request->product;
         $part = $request->part;
+
+        foreach($request->file('file') as $homework){
+            $extension = $homework->getClientOriginalExtension();
+            $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
+
+            $homework->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
+
+            HomeworksUser::insert([
+                'user_id' => $user['id'],
+                'content_id' => $course,
+                'part_id' => $part,
+                'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
+            ]);
+        }
         
-        $extension = $image->getClientOriginalExtension();
+        /*$extension = $image->getClientOriginalExtension();
         $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
         $image->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
@@ -2446,9 +2464,9 @@ class ApiController extends Controller
             'content_id' => $course,
             'part_id' => $part,
             'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
-        ]);
+        ]);*/
     
-            return response()->json(['success' => 'success']);
+        return response()->json(['success' => 'success']);
         
     }
 }

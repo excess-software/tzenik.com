@@ -38,6 +38,7 @@ use App\Models\Usage;
 use App\Models\ProgresoAlumno;
 use Carbon\Carbon;
 use App\Models\CalendarEvents;
+use App\Models\Course_guides;
 
 use App\User;
 use App\Models\Usercategories;
@@ -981,7 +982,11 @@ class WebController extends Controller
             }
         }
 
+
+
         $video_first_module = ContentPart::where('content_id', $id)->first();
+
+        $product_firts_guide = Course_guides::where('content_id', $id)->first();
 
         $data = [
             'product'               => $product,
@@ -1002,7 +1007,7 @@ class WebController extends Controller
             'meeting'               => $meeting,
             'meeting_date'          => $meeting_date,
             'product_material'      => $product_material,
-            'guia' => '/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
+            'guia' => $product_firts_guide->route,
         ];
 
         //return File::exists('/bin/contenido-cursos/'.$id.'/guia');
@@ -1272,10 +1277,6 @@ class WebController extends Controller
 
         $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
-        if($buy == 0){
-            return redirect('/product/' . $id)->with('msg', trans('Compra el curso para acceder a los módulos.'))->with('type', 'warning');
-        }
-
         $product = $content->find($id)->withCount(['comments' => function ($q) {
             $q->where('mode', 'publish');
         }])->with(['discount', 'category' => function ($c) use ($id) {
@@ -1343,6 +1344,15 @@ class WebController extends Controller
                     $hasCertificate = true;
                 }
             }
+        }
+
+        if($product->content_type == 'Videoteca'){
+            $buy = 1;
+            $product->price = 0;
+        }
+
+        if($buy == 0){
+            return redirect('/product/' . $id)->with('msg', trans('Compra el curso para acceder a los módulos.'))->with('type', 'warning');
         }
 
         if (!$product)
@@ -1440,6 +1450,10 @@ class WebController extends Controller
         $partVideo = ContentPart::where('id', $pid)->value('upload_video');
         $product_material = '/material/curso/'.$id.'/modulo/'.$pid.'/';
 
+        $part_dates = ContentPart::where('id', $pid)->first();
+
+        $product_guide = Course_guides::where('content_id', $id)->where('initial_date', $part_dates->initial_date)->where('final_date', $part_dates->limit_date)->first();
+
         $data = [
             'product' => $product,
             'meta' => $meta,
@@ -1456,7 +1470,7 @@ class WebController extends Controller
             'meeting' => $partDesc->zoom_meeting,
             'meeting_date' => date('d-m-Y', strtotime($partDesc->date)).' '.$partDesc->time,
             'product_material' => $product_material,
-            'guia' => !Storage::exists('/bin/contenido-cursos/'.$id.'/guia') ? null : '/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
+            'guia' => $product_guide->route,
         ];
 
         
