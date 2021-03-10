@@ -21,6 +21,9 @@
                         <a class="nav-link" href="#parts" data-toggle="tab">{{ trans('admin.parts') }}</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#guides" data-toggle="tab">Guías</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#subscribe" data-toggle="tab">{{ trans('admin.subscribe') }}</a>
                     </li>
                 </ul>
@@ -311,6 +314,42 @@
                             @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="tab-pane" id="guides">
+                        <div class="accordion-off">
+                            <ul id="accordion" class="accordion off-filters-li">
+                                <li class="open">
+                                    <div class="link new-part-click">
+                                        <h2>Guías </h2><i class="mdi mdi-chevron-down"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="link list-part-click-zoom">
+                                        <h2>Guías</h2><i class="mdi mdi-chevron-down"></i>
+                                    </div>
+                                    <div class="submenu">
+                                        <div class="table-responsive">
+                                            <table class="table ucp-table">
+                                                <thead class="thead-s">
+                                                    <th class="text-center" width="50">Fecha Inicio</th>
+                                                    <th class="text-center" width="50">Fecha Fin</th>
+                                                    <th class="text-center" width="50">Ver</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($guides as $guide)
+                                                    <tr>
+                                                        <td class="text-center" width="50">{{$guide->initial_date}}</td>
+                                                        <td class="text-center" width="50">{{$guide->final_date}}</td>
+                                                        <td class="text-center" width="50"><a href="{{$guide->route}}" target="_blank"><b>Ver</b></a></td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="subscribe" class="tab-pane">
                         <form action="/admin/content/store/{{$item->id}}/subscribe" class="form-horizontal form-bordered" method="post">

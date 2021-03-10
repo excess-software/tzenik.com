@@ -1835,7 +1835,10 @@ class AdminController extends Controller
         $contentMenu = contentMenu();
         $filters = ContentCategoryFilter::where('category_id', $item->category_id)->with('tags')->get();
         $products = Content::where('mode', 'publish')->get();
-        return view('admin.content.edit', ['item' => $item, 'meta' => $meta, 'menus' => $contentMenu, 'filters' => $filters, 'products' => $products]);
+
+        $guides = Course_guides::where('content_id', $id)->get();
+
+        return view('admin.content.edit', ['item' => $item, 'meta' => $meta, 'menus' => $contentMenu, 'filters' => $filters, 'products' => $products, 'guides' => $guides]);
     }
 
     public function contentDelete($id)
