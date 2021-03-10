@@ -2142,6 +2142,7 @@ class UserController extends Controller
 
     public function forgetPassword(Request $request)
     {
+        return decrypt('eyJpdiI6IjVBeW1KYkZRaGk5dzkwTEFUcTZ2UUE9PSIsInZhbHVlIjoidldHSjhMdkwrTk01ZUpOQzRRTW1adz09IiwibWFjIjoiOTNmZTc2NjUxYWMwOTFhMzY1NDBmZjRlYTQ2M2VkMmZiMjYxOGYwYjQ4Y2EzNGNlMmI3ZGE3ZjA1OWRjYjAyYSJ9');
         $str = Str::random();
         $email = $request->get('email', null);
 
