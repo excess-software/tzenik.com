@@ -71,6 +71,17 @@
     <input type="hidden" id="UserVerify">
     <input type="hidden" id="MailVerify">
     <script>
+
+    $("#User").on({
+        keydown: function(e) {
+            if (e.which === 32)
+            return false;
+        },
+        change: function() {
+            this.value = this.value.replace(/\s/g, "");
+        }
+    });
+
     function verifyUser() {
         var user = $('#User').val();
         $.ajax({
