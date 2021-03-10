@@ -381,7 +381,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="control-label col-md-2 tab-con">{{ trans('main.demo') }}</label>
                         <div class="col-md-10 tab-con">
                             <div class="input-group" style="display: flex">
@@ -418,7 +418,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </form>
 
             </div>

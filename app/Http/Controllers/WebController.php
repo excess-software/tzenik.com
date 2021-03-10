@@ -1015,7 +1015,7 @@ class WebController extends Controller
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
 
         if($product->content_type == 'Fundal' || $product->content_type == 'fundal'){
-            if($user->category_id == $fundal_category[0]->id){
+            if($user->category_id == $fundal_category[0]->id || $user->admin == 1 || $user->vendor == 1){
                 $product->price = 0;
                 if($product->type == 'webinar'){
                     if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
