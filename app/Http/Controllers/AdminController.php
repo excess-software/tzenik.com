@@ -31,6 +31,8 @@ use App\Models\Forum;
 use App\Models\ForumCategory;
 use App\Models\ForumComments;
 
+use App\Models\Course_guides;
+
 use App\Models\Content;
 use App\Models\ContentCategory;
 use App\Models\ContentCategoryFilter;
