@@ -55,7 +55,7 @@
                             for="inputDefault">{{ trans('main.course_title') }}</label>
                         <div class="col-md-10 tab-con">
                             <input type="text" name="title" placeholder="30-60 Characters" class="form-control"
-                                required>
+                            onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" required>
                         </div>
                     </div>
                     <div class="form-group">
