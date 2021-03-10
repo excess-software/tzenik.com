@@ -29,7 +29,11 @@
                     @endforeach
                     @foreach($users as $user)
                     @if($user->id == $asignado[1])
-                    <td>{{$user->username.' - '.$user->name}}</td>
+                        @if(isset($user->username))
+                            <td>{{$user->username.' - '.$user->name}}</td>
+                        @else
+                            <td>Sin username</td>
+                        @endif
                     @endif
                     @endforeach
                     <td>{{$asignado[2].' / '.$asignado[3]}}</td>

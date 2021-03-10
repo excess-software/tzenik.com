@@ -130,12 +130,11 @@ function getModulos(curso) {
             dataType: "json",
             success: function (data) {
                 //console.log(data);
-                var html = '';
+                var html = '<option>Seleccione el módulo</option>';
                 for (i = 0; i < data.length; i++) {
                     //console.log(data);
                     console.log(data.length);
-                    html += '<option>Seleccione el módulo</option>\
-                    <option value="'+ data[i].id +'">'+ data[i].title +'</option>';
+                    html += '<option value="'+ data[i].id +'">'+ data[i].title +'</option>';
                 }
                 $('#parts').html(html);
             }
