@@ -2160,9 +2160,11 @@ class UserController extends Controller
 
     public function resetToken($token)
     {
+        $noHash_password = Str::random(6);
+        $password = Hash::make($noHash_password);
         $user = User::where('token', $token)->first();
-        $user->update(['password' => encrypt(Str::random(6))]);
-        sendMail(['template' => get_option('user_register_new_password_email'), 'recipent' => [$user->email]]);
+        $user->update(['password' => $password]);
+        sendMail(['template' => get_option('user_register_new_password_email'), 'recipent' => [$user->email], 'password' => $noHash_password]);
         return redirect('/')->with('msg', trans('main.new_pass_email'))->with('type', 'success');
     }
 
