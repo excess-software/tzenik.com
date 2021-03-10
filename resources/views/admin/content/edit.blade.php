@@ -319,9 +319,6 @@
                         <div class="accordion-off">
                             <ul id="accordion" class="accordion off-filters-li">
                                 <li>
-                                    <div class="link list-part-click-zoom">
-                                        <h2>Guías</h2><i class="mdi mdi-chevron-down"></i>
-                                    </div>
                                     <div class="submenu">
                                         <div class="table-responsive">
                                             <table class="table ucp-table">
