@@ -424,7 +424,12 @@ class AdminController extends Controller
             sendNotification(0, ['[u.username]' => $uUser->username, '[u.c.title]' => $uUser->category->title], get_option('notification_template_change_group'), 'user', $uUser->id);
         }
 
-        $uUser->update($request->all());
+        if($user_category == 'instructor' || $user_category == 'Instructor' || $user_category == 'INSTRUCTOR'){
+            $uUser->update($request->all() + ['vendor' => 1]);
+        }else{
+            $uUser->update($request->all());
+        }
+
         return back();
     }
 
