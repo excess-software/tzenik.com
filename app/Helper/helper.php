@@ -326,8 +326,7 @@ function sendMail(array $request)
     foreach ($users as $to) {
         if(isset($request['message'])) {
             $password = decrypt($to->password);
-            $password = 'test';
-            $request['message'] = str_replace(['[username]', '[name]', '[email]', '[active]', '[token]', '[n.title]', '[n.content]', '[password]'], [$to->username, $to->name, $to->email, url('/') . '/user/active/' . $to->token, url('/') . '/user/reset/token/' . $to->token, $request['title'], $request['content']], $request['message'], $to->name);
+            $request['message'] = str_replace(['[username]', '[name]', '[email]', '[password]', '[active]', '[token]', '[n.title]', '[n.content]'], [$to->username, $to->name, $to->email, $password, url('/') . '/user/active/' . $to->token, url('/') . '/user/reset/token/' . $to->token, $request['title'], $request['content']], $request['message']);
             Mail::send('email.content', ['content' => $request['message']], function ($mail) use ($to, $request) {
                 $mail->to($to->email, $to->name);
                 $mail->subject($request['subject']);
