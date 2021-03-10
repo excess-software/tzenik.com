@@ -318,11 +318,6 @@
                     <div class="tab-pane" id="guides">
                         <div class="accordion-off">
                             <ul id="accordion" class="accordion off-filters-li">
-                                <li class="open">
-                                    <div class="link new-part-click">
-                                        <h2>Guías </h2><i class="mdi mdi-chevron-down"></i>
-                                    </div>
-                                </li>
                                 <li>
                                     <div class="link list-part-click-zoom">
                                         <h2>Guías</h2><i class="mdi mdi-chevron-down"></i>
