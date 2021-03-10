@@ -419,6 +419,8 @@ class AdminController extends Controller
         cache()->forget('user.' . $id . '.meta.blockDate');
         $uUser = User::with('category')->find($id);
 
+        $user_category = Usercategories::where('id', $request->category_id)->value('title');
+
         ## Notification Center
         if ($uUser->category_id != $request->category_id && isset($uUser->category->title)) {
             sendNotification(0, ['[u.username]' => $uUser->username, '[u.c.title]' => $uUser->category->title], get_option('notification_template_change_group'), 'user', $uUser->id);
