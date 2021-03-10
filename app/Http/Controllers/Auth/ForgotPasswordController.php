@@ -22,6 +22,6 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
-        return view('web.default.auth.login');
+        return view('web.default.auth.reset');
     }
 }
