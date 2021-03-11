@@ -97,7 +97,7 @@
 
                         </form>
                     </div>
-                    <div id="password" class="tab-pane active">
+                    <div id="password" class="tab-pane">
                         <form action="/admin/user/edit/changePassword/{{$user->id}}" class="form-horizontal form-bordered" method="post">
                             {{ csrf_field() }}
 
@@ -125,7 +125,7 @@
                             <div class="form-group">
                                 <label class="col-md-8 control-label"><h5> ¿Está seguro que desea generar una nueva contraseña?</h5></label>
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary" type="submit">{{ trans('admin.save_changes') }}</button>
+                                    <button class="btn btn-primary" type="submit">Generar</button>
                                 </div>
                             </div>
 
