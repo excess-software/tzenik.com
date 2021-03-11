@@ -73,7 +73,7 @@ return [
     'publish_type' => 'Tipo de Publicación',
     'exclusive' => 'Exclusivo',
 	'course_webinar'=> 'Curso + seminario web',
-    'open' => 'Abrir',
+    'open' => 'Abierto',
     'course_title' => 'Título del Curso',
     'description' => 'Descripción',
     'tags_header' => 'Definir etiquetas adecuadas ayuda a que tu curso aparezca en los resultados de búsqueda relacionados.',

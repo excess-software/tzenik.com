@@ -69,14 +69,14 @@
                             </div>
 
                             <div class="col-12">
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="custom-switch">
                                         <input type="hidden" value="0" name="document">
                                         <input type="checkbox" name="document" value="1" class="custom-switch-input" @if($item->document == 1) checked="checked" @endif />
                                         <span class="custom-switch-indicator"></span>
                                         <label class="custom-switch-description" for="inputDefault">{{ trans('admin.item_doc') }}</label>
                                     </label>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label class="custom-switch">
                                         <input type="hidden" name="price" value="1">
@@ -85,7 +85,7 @@
                                         <label class="custom-switch-description" for="inputDefault">{{ trans('admin.free_course') }}</label>
                                     </label>
                                 </div>
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="custom-switch">
                                         <input type="hidden" name="support" value="0">
                                         <input type="checkbox" name="support" value="1" class="custom-switch-input" @if($item->support == 1) checked="checked" @endif />
@@ -108,7 +108,7 @@
                                         <span class="custom-switch-indicator"></span>
                                         <label class="custom-switch-description" for="inputDefault">{{ trans('admin.download') }}</label>
                                     </label>
-                                </div>
+                                </div>-->
                             </div>
 
                             <div class="form-group">

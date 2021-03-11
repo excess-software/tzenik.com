@@ -148,11 +148,11 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a href="/admin/notification/new?recipent_type=userone&uid={{ isset($item->user->id) }}" title="Send notification to user"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
-                                <a href="/admin/ticket/new?uid={{ isset($item->user->id) }}&title=Course {{ $item->title }}" title="Send support ticket to user"><i class="fa fa-life-ring" aria-hidden="true"></i></a>
+                                <!--<a href="/admin/notification/new?recipent_type=userone&uid={{ isset($item->user->id) }}" title="Send notification to user"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                                <a href="/admin/ticket/new?uid={{ isset($item->user->id) }}&title=Course {{ $item->title }}" title="Send support ticket to user"><i class="fa fa-life-ring" aria-hidden="true"></i></a>-->
                                 <a href="/admin/content/edit/{{ $item->id }}" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                 <a href="#" data-href="/admin/content/delete/{{ $item->id }}" title="Delete" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                <a href="/admin/content/usage/{{ $item->id }}" title="Spend Time"><i class="fa fa-clock" aria-hidden="true"></i></a>
+                                <!-- <a href="/admin/content/usage/{{ $item->id }}" title="Spend Time"><i class="fa fa-clock" aria-hidden="true"></i></a>-->
                             </td>
                         </tr>
                     @endforeach
