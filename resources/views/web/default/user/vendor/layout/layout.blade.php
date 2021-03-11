@@ -89,10 +89,10 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="/vendor">Admin Panel</a>
+                        <a href="#">Admin Panel</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="/vendor">AP</a>
+                        <a href="#">AP</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Content</li>
