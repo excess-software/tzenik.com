@@ -903,6 +903,10 @@ class WebController extends Controller
 
         $meta = arrayToList($product->metas, 'option', 'value');
 
+        if($content->user_id == $user->id || $user->admin){
+            $buy = 1;
+        }
+
         if($user){
             if($buy){
 
