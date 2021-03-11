@@ -81,12 +81,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <div class="col-md-6 switch switch-sm switch-primary">
                                     <input type="hidden" value="0" name="vendor">
                                     <input type="checkbox" name="vendor" value="1" data-plugin-ios-switch @if(isset($user->vendor) and $user->vendor == 1) {{ 'checked="checked"' }} @endif/>&nbsp;&nbsp;Vendor
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>

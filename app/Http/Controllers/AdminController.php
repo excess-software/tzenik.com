@@ -428,8 +428,10 @@ class AdminController extends Controller
 
         if($user_category == 'instructor' || $user_category == 'Instructor' || $user_category == 'INSTRUCTOR'){
             $request->request->add(['vendor' => '1']);
+        }else{
+            $request->request->add(['vendor' => '0']);
         }
-        
+
         $uUser->update($request->all());
 
         return back();

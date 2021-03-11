@@ -70,7 +70,7 @@
                             for="inputDefault"><?php echo e(trans('main.course_title')); ?></label>
                         <div class="col-md-10 tab-con">
                             <input type="text" name="title" placeholder="30-60 Characters" class="form-control"
-                                value="<?php echo e($item->title); ?>" required>
+                                value="<?php echo e($item->title); ?>" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -395,7 +395,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="control-label col-md-2 tab-con"><?php echo e(trans('main.demo')); ?></label>
                         <div class="col-md-10 tab-con">
                             <div class="input-group" style="display: flex">
@@ -432,7 +432,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </form>
 
             </div>
@@ -583,11 +583,11 @@
 
                                             <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video2">
                                                 <span class="input-group-text">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    <a id="video_preview" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 </span>
                                             </div>
                                                 <input type="text" id="upload_video2" name="upload_video" dir="ltr"
-                                                    class="form-control" required>
+                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val())' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video2"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>

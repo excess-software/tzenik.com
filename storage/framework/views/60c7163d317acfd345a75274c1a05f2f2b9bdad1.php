@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly"><?php echo e(trans('admin.email')); ?></label>
                                 <div class="col-md-6">
-                                    <input type="text" value="<?php echo e($user->email); ?>" id="inputReadOnly" class="form-control text-left" dir="ltr" readonly="readonly">
+                                    <input type="text" value="<?php echo e($user->email); ?>" id="inputReadOnly" name="email" class="form-control text-left" dir="ltr">
                                 </div>
                             </div>
 
@@ -82,12 +82,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <div class="col-md-6 switch switch-sm switch-primary">
                                     <input type="hidden" value="0" name="vendor">
                                     <input type="checkbox" name="vendor" value="1" data-plugin-ios-switch <?php if(isset($user->vendor) and $user->vendor == 1): ?> <?php echo e('checked="checked"'); ?> <?php endif; ?>/>&nbsp;&nbsp;Vendor
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
@@ -98,7 +98,7 @@
 
                         </form>
                     </div>
-                    <div id="password" class="tab-pane active">
+                    <div id="password" class="tab-pane">
                         <form action="/admin/user/edit/changePassword/<?php echo e($user->id); ?>" class="form-horizontal form-bordered" method="post">
                             <?php echo e(csrf_field()); ?>
 
@@ -127,7 +127,7 @@
                             <div class="form-group">
                                 <label class="col-md-8 control-label"><h5> ¿Está seguro que desea generar una nueva contraseña?</h5></label>
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary" type="submit"><?php echo e(trans('admin.save_changes')); ?></button>
+                                    <button class="btn btn-primary" type="submit">Generar</button>
                                 </div>
                             </div>
 

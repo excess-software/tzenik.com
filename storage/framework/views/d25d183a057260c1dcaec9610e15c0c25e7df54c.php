@@ -56,7 +56,7 @@
                             for="inputDefault"><?php echo e(trans('main.course_title')); ?></label>
                         <div class="col-md-10 tab-con">
                             <input type="text" name="title" placeholder="30-60 Characters" class="form-control"
-                                required>
+                            onkeypress="return /[A-Za-z0-9 _]/i.test(event.key)" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -66,11 +66,6 @@
                             <textarea class="form-control" rows="12" placeholder="Description..."
                                 name="content" required></textarea>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2 tab-con"
-                            for="inputDefault">Guía de trabajo</label>
-                        <input type="file" name="guia_trabajo" id="guia_trabajo" class="form-control">
                     </div>
                     <hr>
                     <div class="form-group">
