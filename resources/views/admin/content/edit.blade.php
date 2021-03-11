@@ -199,7 +199,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-md-2 control-label">{{ trans('admin.postal_price') }}</label>
                                 <div class="col-md-8">
                                     <div class="input-group">
@@ -227,7 +227,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label"></label>

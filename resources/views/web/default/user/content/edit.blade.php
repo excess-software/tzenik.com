@@ -725,7 +725,7 @@
                             <div class="link edit-part-click">
                                 <h2>{{{ trans('main.edit_part') }}}</h2><i class="mdi mdi-chevron-down"></i>
                             </div>
-                            <div class="submenu dblock">
+                            <div class="submenu_zoom dblock">
                                 <div class="h-15"></div>
                                 <input type="hidden" id="part-edit-id">
                                 <form action="/user/content_web_coach/part/edit/store/" id="step-5-form-edit-part"
