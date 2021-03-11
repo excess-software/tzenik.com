@@ -738,13 +738,13 @@
                                             class="control-label col-md-2 tab-con">{{{ trans('main.date_webinar_coach') }}}</label>
                                         <div class="col-md-3 tab-con">
                                             <input type="date" class="form-control"
-                                                id="datetimepicker_date_edit" name="date" />
+                                                id="datetimepicker_date_edit" name="date" required>
                                         </div>
                                         <label
                                             class="control-label tab-con col-md-1">{{{ trans('main.time_webinar_coach') }}}</label>
                                         <div class="col-md-2 tab-con">
                                             <input type="time" class="form-control"
-                                                id="datetimepicker_time_edit" name="time" />
+                                                id="datetimepicker_time_edit" name="time" required>
                                         </div>
 
                                         <label
@@ -766,7 +766,7 @@
                                         <label
                                             class="control-label tab-con col-md-2">{{{ trans('main.webinar_coach_mail') }}}</label>
                                         <div class="col-md-3 tab-con">
-                                            <input class="form-control" type="text" name="mail">
+                                            <input class="form-control" type="text" name="mail" required>
                                         </div>
                                     </div>
 
@@ -809,13 +809,13 @@
                                             class="control-label col-md-2 tab-con">{{{ trans('main.date_webinar_coach') }}}</label>
                                         <div class="col-md-3 tab-con">
                                             <input type="date" class="form-control"
-                                                id="datetimepicker_date_create" name="date" />
+                                                id="datetimepicker_date_create" name="date" required>
                                         </div>
                                         <label
                                             class="control-label tab-con col-md-1">{{{ trans('main.time_webinar_coach') }}}</label>
                                         <div class="col-md-2 tab-con">
                                             <input type="time" class="form-control"
-                                                id="datetimepicker_time_create" name="time" />
+                                                id="datetimepicker_time_create" name="time" required>
                                         </div>
                                         <label
                                             class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
@@ -836,7 +836,7 @@
                                         <label
                                             class="control-label tab-con col-md-2">{{{ trans('main.webinar_coach_mail') }}}</label>
                                         <div class="col-md-3 tab-con">
-                                            <input class="form-control" type="text" name="mail">
+                                            <input class="form-control" type="text" name="mail" required>
                                         </div>
                                     </div>
 
