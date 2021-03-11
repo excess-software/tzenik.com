@@ -788,6 +788,8 @@ class WebController extends Controller
 
         $content = Content::where('id', $id)->where('mode', 'publish')->first();
 
+        $content_pending = Content::where('id', $id)->where('mode', 'request')->first();
+
         if($user->admin == 1){
             if (empty($content)) {
                 $content = Content::where('id', $id)->where('mode', 'request')->first();
@@ -796,11 +798,18 @@ class WebController extends Controller
                     return back();
                 }
             }
+        }else{
+            if (empty($content) && empty($content_pending)) {
+                return back();
+            }else if(!empty($content_pending)){
+                if($user->id != $content_pending->user_id){
+                    return back();
+                }else{
+                    $content = $content_pending;
+                }
+            }    
         }
-        if (empty($content)) {
-            return back();
-        }
-
+        
         $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
         $product = $content->withCount(['comments' => function ($q) {

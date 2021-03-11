@@ -43,8 +43,8 @@
                             for="inputDefault"><?php echo e(trans('main.course_type')); ?></label>
                         <div class="col-md-10 tab-con">
                             <select name="type" class="form-control font-s">
-                                <option value="single" <?php if(isset($item) && $item->type == 'single'): ?> selected
-                                    <?php endif; ?>><?php echo e(trans('main.single')); ?></option>
+                                <!--<option value="single" <?php if(isset($item) && $item->type == 'single'): ?> selected
+                                    <?php endif; ?>><?php echo e(trans('main.single')); ?></option>-->
                                 <option value="course" <?php if(isset($item) && $item->type == 'course'): ?> selected
                                     <?php endif; ?>><?php echo e(trans('main.course')); ?></option>
                                 <option value="webinar" <?php if(isset($item) && $item->type == 'webinar'): ?> selected
@@ -741,14 +741,14 @@
             <div class="steps dnone" id="step6">
                 <div class="accordion-off">
                     <ul id="accordion" class="accordion off-filters-li">
-                        <li class="open edit-part-section dnone">
+                        <li class="open edit-part-section-zoom dnone">
                             <div class="link edit-part-click">
                                 <h2><?php echo e(trans('main.edit_part')); ?></h2><i class="mdi mdi-chevron-down"></i>
                             </div>
-                            <div class="submenu dblock">
+                            <div class="submenu_zoom dblock">
                                 <div class="h-15"></div>
                                 <input type="hidden" id="part-edit-id">
-                                <form action="/user/content_web_coach/part/edit/store/" id="step-5-form-edit-part"
+                                <form action="/user/content_web_coach/part/edit/store/" id="step-6-form-edit-part"
                                     method="post" class="form-horizontal">
                                     <?php echo e(csrf_field()); ?>
 
@@ -759,13 +759,13 @@
                                             class="control-label col-md-2 tab-con"><?php echo e(trans('main.date_webinar_coach')); ?></label>
                                         <div class="col-md-3 tab-con">
                                             <input type="date" class="form-control"
-                                                id="datetimepicker_date_edit" name="date" />
+                                                id="datetimepicker_date_edit" name="date" required>
                                         </div>
                                         <label
                                             class="control-label tab-con col-md-1"><?php echo e(trans('main.time_webinar_coach')); ?></label>
                                         <div class="col-md-2 tab-con">
                                             <input type="time" class="form-control"
-                                                id="datetimepicker_time_edit" name="time" />
+                                                id="datetimepicker_time_edit" name="time" required>
                                         </div>
 
                                         <label
@@ -788,7 +788,7 @@
                                         <label
                                             class="control-label tab-con col-md-2"><?php echo e(trans('main.webinar_coach_mail')); ?></label>
                                         <div class="col-md-3 tab-con">
-                                            <input class="form-control" type="text" name="mail">
+                                            <input class="form-control" type="text" name="mail" required>
                                         </div>
                                     </div>
 
@@ -832,13 +832,13 @@
                                             class="control-label col-md-2 tab-con"><?php echo e(trans('main.date_webinar_coach')); ?></label>
                                         <div class="col-md-3 tab-con">
                                             <input type="date" class="form-control"
-                                                id="datetimepicker_date_create" name="date" />
+                                                id="datetimepicker_date_create" name="date" required>
                                         </div>
                                         <label
                                             class="control-label tab-con col-md-1"><?php echo e(trans('main.time_webinar_coach')); ?></label>
                                         <div class="col-md-2 tab-con">
                                             <input type="time" class="form-control"
-                                                id="datetimepicker_time_create" name="time" />
+                                                id="datetimepicker_time_create" name="time" required>
                                         </div>
                                         <label
                                             class="control-label tab-con col-md-1"><?php echo e(trans('main.duration')); ?></label>
@@ -860,7 +860,7 @@
                                         <label
                                             class="control-label tab-con col-md-2"><?php echo e(trans('main.webinar_coach_mail')); ?></label>
                                         <div class="col-md-3 tab-con">
-                                            <input class="form-control" type="text" name="mail">
+                                            <input class="form-control" type="text" name="mail" required>
                                         </div>
                                     </div>
 
@@ -1350,7 +1350,7 @@
                     $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
                     'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
-                    '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
+                    '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit-zoom img-icon-s" pid="' +
                     item.id +
                     '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
                     item.id + '" title="Delete"></span></td></tr>');
@@ -1398,6 +1398,41 @@
             $('.new-part-click').click();
         }
         if ($('.edit-part-click').next('.submenu').css('display') == 'none') {
+            $('.new-part-click').click();
+        }
+    })
+
+    $('body').on('click', 'span.i-part-edit-zoom', function () {
+        console.log('edit');
+        var id = $(this).attr('pid');
+        $.get('/user/content/part/edit/' + id, function (data) {
+            $('.edit-part-section-zoom').show();
+            var efrom = '#step-6-form-edit-part ';
+            $('#part-edit-id').val(id);
+            date
+            time
+            duration
+            mail
+            description
+            title
+            $(efrom + 'input[name="date"]').val(data.date);
+            $(efrom + 'input[name="time"]').val(data.time);
+            $(efrom + 'input[name="duration"]').val(data.size);
+            $(efrom + 'input[name="mail"]').val(data.mail);
+            $(efrom + 'input[name="title"]').val(data.title);
+            $(efrom + 'textarea[name="description"]').html(data.description);
+            if (data.free == 1) {
+                $('.free-edit-check-state .ios-switch').removeClass('off');
+                $('.free-edit-check-state .ios-switch').addClass('on');
+            } else {
+                $('.free-edit-check-state .ios-switch').removeClass('on');
+                $('.free-edit-check-state .ios-switch').addClass('off');
+            }
+        })
+        if ($('.new-part-click').next('.submenu_zoom').css('display') == 'block') {
+            $('.new-part-click').click();
+        }
+        if ($('.edit-part-click').next('.submenu_zoom').css('display') == 'none') {
             $('.new-part-click').click();
         }
     })
