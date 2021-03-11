@@ -728,7 +728,7 @@
                             <div class="submenu_zoom dblock">
                                 <div class="h-15"></div>
                                 <input type="hidden" id="part-edit-id">
-                                <form action="/user/content_web_coach/part/edit/store/" id="step-5-form-edit-part"
+                                <form action="/user/content_web_coach/part/edit/store/" id="step-6-form-edit-part"
                                     method="post" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
@@ -1324,7 +1324,7 @@
                     $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
                     'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
-                    '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
+                    '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit-zoom img-icon-s" pid="' +
                     item.id +
                     '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
                     item.id + '" title="Delete"></span></td></tr>');
@@ -1372,6 +1372,41 @@
             $('.new-part-click').click();
         }
         if ($('.edit-part-click').next('.submenu').css('display') == 'none') {
+            $('.new-part-click').click();
+        }
+    })
+
+    $('body').on('click', 'span.i-part-edit-zoom', function () {
+        console.log('edit');
+        var id = $(this).attr('pid');
+        $.get('/user/content/part/edit/' + id, function (data) {
+            $('.edit-part-section').show();
+            var efrom = '#step-6-form-edit-part ';
+            $('#part-edit-id').val(id);
+            date
+            time
+            duration
+            mail
+            description
+            title
+            $(efrom + 'input[name="date"]').val(data.date);
+            $(efrom + 'input[name="time"]').val(data.time);
+            $(efrom + 'input[name="duration"]').val(data.size);
+            $(efrom + 'input[name="mail"]').val(data.mail);
+            $(efrom + 'input[name="title"]').val(data.title);
+            $(efrom + 'textarea[name="description"]').html(data.description);
+            if (data.free == 1) {
+                $('.free-edit-check-state .ios-switch').removeClass('off');
+                $('.free-edit-check-state .ios-switch').addClass('on');
+            } else {
+                $('.free-edit-check-state .ios-switch').removeClass('on');
+                $('.free-edit-check-state .ios-switch').addClass('off');
+            }
+        })
+        if ($('.new-part-click').next('.submenu-zoom').css('display') == 'block') {
+            $('.new-part-click').click();
+        }
+        if ($('.edit-part-click').next('.submenu-zoom').css('display') == 'none') {
             $('.new-part-click').click();
         }
     })
