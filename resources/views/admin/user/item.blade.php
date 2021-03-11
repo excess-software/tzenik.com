@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.email') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" value="{{ $user->email }}" id="inputReadOnly" class="form-control text-left" dir="ltr">
+                                    <input type="text" value="{{ $user->email }}" id="inputReadOnly" name="email" class="form-control text-left" dir="ltr">
                                 </div>
                             </div>
 
