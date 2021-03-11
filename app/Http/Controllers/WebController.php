@@ -787,6 +787,16 @@ class WebController extends Controller
         $user = (auth()->check()) ? auth()->user() : null;
 
         $content = Content::where('id', $id)->where('mode', 'publish')->first();
+
+        if($user->admin == 1){
+            if (empty($content)) {
+                $content = Content::where('id', $id)->where('mode', 'request')->first();
+
+                if (empty($content)) {
+                    return back();
+                }
+            }
+        }
         if (empty($content)) {
             return back();
         }
