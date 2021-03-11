@@ -156,7 +156,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-md-2 control-label">{{ trans('admin.demo') }}</label>
                                 <div class="col-md-8">
                                     <div class="input-group" style="display: flex">
@@ -171,7 +171,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         <!--
                             <div class="form-group">
