@@ -688,7 +688,7 @@
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
                                             <button class="btn btn-primary tab-con pull-right" id="new-part"
-                                                type="submit">{{ trans('main.save_changes') }}</button>
+                                                type="submit">Guardar módulo</button>
                                         </div>
                                     </div>
                                 </form>
