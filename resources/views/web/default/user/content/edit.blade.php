@@ -721,7 +721,7 @@
             <div class="steps dnone" id="step6">
                 <div class="accordion-off">
                     <ul id="accordion" class="accordion off-filters-li">
-                        <li class="open edit-part-section dnone">
+                        <li class="open edit-part-section-zoom dnone">
                             <div class="link edit-part-click">
                                 <h2>{{{ trans('main.edit_part') }}}</h2><i class="mdi mdi-chevron-down"></i>
                             </div>
@@ -1380,7 +1380,7 @@
         console.log('edit');
         var id = $(this).attr('pid');
         $.get('/user/content/part/edit/' + id, function (data) {
-            $('.edit-part-section').show();
+            $('.edit-part-section-zoom').show();
             var efrom = '#step-6-form-edit-part ';
             $('#part-edit-id').val(id);
             date
@@ -1403,10 +1403,10 @@
                 $('.free-edit-check-state .ios-switch').addClass('off');
             }
         })
-        if ($('.new-part-click').next('.submenu-zoom').css('display') == 'block') {
+        if ($('.new-part-click').next('.submenu_zoom').css('display') == 'block') {
             $('.new-part-click').click();
         }
-        if ($('.edit-part-click').next('.submenu-zoom').css('display') == 'none') {
+        if ($('.edit-part-click').next('.submenu_zoom').css('display') == 'none') {
             $('.new-part-click').click();
         }
     })
