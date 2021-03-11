@@ -47,7 +47,7 @@ return [
     'item_no' => 'Numero de Producto', 
     'title' => 'Título',
     'publish_date' => 'Fecha de Publicación',
-    'parts' => 'partes',
+    'parts' => 'Partes',
     'category' => 'Categoría',
     'status' => 'Estatus',
     'controls' => 'Controles',

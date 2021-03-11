@@ -25,10 +25,10 @@
                 </li>
                 <li class="list-group-item" cstep="2"><a href="javascript:void(0);"><span
                             class="upicon mdi mdi-apps"></span><span> {{ trans('main.category') }}</span></a></li>
-                <li class="list-group-item" cstep="3"><a href="javascript:void(0);"><span
+                <!--<li class="list-group-item" cstep="3"><a href="javascript:void(0);"><span
                             class="upicon mdi mdi-library-books"></span><span>
                             {{ trans('main.extra_info') }}</span></a>
-                </li>
+                </li>-->
                 <li class="list-group-item" cstep="4"><a href="javascript:void(0);"><span
                             class="upicon mdi mdi-folder-image"></span><span> {{ trans('main.view') }}</span></a>
                 </li>
@@ -155,7 +155,7 @@
                     @endforeach
                 </form>
             </div>
-            <div class="steps dnone" id="step3">
+            <!--<div class="steps dnone" id="step3">
                 <form method="post" id="step-3-form" class="form-horizontal">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -203,7 +203,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" id="step-3-form-meta" class="form-horizontal">
+                <!--<form method="post" id="step-3-form-meta" class="form-horizontal">
                     {{ csrf_field() }}
                     <div class="h-10"></div>
                     <div class="form-group">
@@ -230,8 +230,8 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                <form method="post" id="step-3-form-subscribe" class="form-horizontal">
+                </form>-->
+                <!--<form method="post" id="step-3-form-subscribe" class="form-horizontal">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="control-label col-md-4 tab-con">3 Months Subscribe Price</label>
@@ -277,7 +277,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form>-->
                 <div class="h-15"></div>
                 <div class="alert alert-success">
                     <p>{{{ trans('main.prerequisites_desc') }}}</p>
@@ -315,7 +315,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="steps dnone" id="step4">
                 <form method="post" class="form-horizontal" id="step-4-form-meta">
                     {{ csrf_field() }}

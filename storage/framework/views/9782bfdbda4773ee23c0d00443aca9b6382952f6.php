@@ -457,15 +457,29 @@
                                         <label
                                             class="control-label tab-con col-md-2"><?php echo e(trans('main.video_file')); ?></label>
                                         <div class="col-md-7 tab-con">
+                                            <style>
+                                                .asdf span {
+                                                    width: 44px;
+                                                    height: 44px;
+                                                }
+
+                                                .asdf input {
+                                                    height: 44px;
+                                                }
+
+                                            </style>
                                             <div class="input-group asdf">
-                                                <span class="input-group-addon view-selected img-icon-s"
-                                                    data-toggle="modal" data-target="#VideoModal"
-                                                    data-whatever="upload_video"><span
-                                                        class="formicon mdi mdi-eye"></span></span>
-                                                <input type="text" name="upload_video" dir="ltr" class="form-control" required>
+
+                                            <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video">
+                                                <span class="input-group-text">
+                                                    <a id="video_preview" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                </span>
+                                            </div>
+                                                <input type="text" id="upload_video" name="upload_video" dir="ltr"
+                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val())' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video"
                                                     data-preview="holder" class="btn btn-primary">
-                                                    Choose
+                                                    <span class="formicon mdi mdi-arrow-up-thick"></span>
                                                 </button>
                                             </div>
                                         </div>
@@ -486,35 +500,44 @@
                                                 placeholder="Description..." name="description" required></textarea>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="form-group">
-                                        <!--<label class="control-label col-md-2 tab-con"><?php echo e(trans('main.volume')); ?></label>
+                                        <!--<label class="control-label tab-con col-md-2"><?php echo e(trans('main.volume')); ?></label>
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="number" min="0" name="size"
-                                                    class="form-control text-center">
-                                                <span class="input-group-addon img-icon-s"><?php echo e(trans('main.mb')); ?></span>
+                                                    class="form-control text-center" required>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <?php echo e(trans('main.mb')); ?>
+
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>-->
                                         <label
-                                            class="control-label col-md-1 tab-con"><?php echo e(trans('main.duration')); ?></label>
+                                            class="control-label tab-con col-md-1"><?php echo e(trans('main.duration')); ?></label>
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="number" min="0" name="duration"
-                                                    class="form-control text-center">
-                                                <span
-                                                    class="input-group-addon img-icon-s"><?php echo e(trans('main.minute')); ?></span>
+                                                    class="form-control text-center" required>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <?php echo e(trans('main.minute')); ?>
+
+                                                        </span>
+                                                    </div>
                                             </div>
                                         </div>
-                                        <label class="control-label col-md-1 tab-con"><?php echo e(trans('main.free')); ?></label>
-                                        <div class="col-md-2 tab-con">
-                                            <div
-                                                class="switch switch-sm switch-primary pull-left free-edit-check-state">
-                                                <input type="hidden" value="0" name="free">
-                                                <input type="checkbox" name="free" value="1" data-plugin-ios-switch />
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <input type="hidden" name="free" value="0">            
+                                        <!-- <label class="control-label tab-con col-md-1"><?php echo e(trans('main.free')); ?></label>      
+                                        <br>      
+                                        <label class="custom-switch col-md-2 tab-con">
+                                            <input type="hidden" name="free" value="1">
+                                            <input type="checkbox" name="free" value="1" class="custom-switch-input"/>
+                                            <span class="custom-switch-indicator"></span>
+                                        </label>-->
+                                    </div>    
 
                                     <div class="form-group">
 
@@ -583,11 +606,11 @@
 
                                             <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video2">
                                                 <span class="input-group-text">
-                                                    <a id="video_preview" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a id="video_preview2" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 </span>
                                             </div>
                                                 <input type="text" id="upload_video2" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val())' required>
+                                                    class="form-control" onchange='$("#video_preview2").attr("href", $(this).val())' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video2"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>
@@ -1354,6 +1377,7 @@
             $('.edit-part-section').show();
             var efrom = '#step-5-form-edit-part ';
             $('#part-edit-id').val(id);
+            $(efrom + 'a#video_preview').attr("href", data.upload_video);
             $(efrom + 'input[name="upload_video"]').val(data.upload_video);
             $(efrom + 'input[name="sort"]').val(data.sort);
             $(efrom + 'input[name="size"]').val(data.size);
