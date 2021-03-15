@@ -271,7 +271,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::post('guide/store', 'UserController@guia_trabajo');
 
             Route::post('web_coach/part/store','UserController@contentPartStoreWeb_Coach');
-            Route::post('web_coach/part/edit/store/{id}', 'UserController@contentPartEditStoreWeb_Coach');
+            Route::post('web_coach/part/edit/store', 'UserController@contentPartEditStoreWeb_Coach');
 
             Route::post('part/edit/store/{id}', 'UserController@contentPartUpdate');
 
