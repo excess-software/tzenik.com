@@ -746,20 +746,6 @@
                                             <input type="time" class="form-control"
                                                 id="datetimepicker_time_edit" name="time" required>
                                         </div>
-
-                                        <label
-                                            class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
-                                        <div class="col-md-3 tab-con">
-                                            <div class="input-group">
-                                                <input type="number" min="0" name="duration"
-                                                    class="form-control text-center" required>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            {{ trans('main.minute') }}
-                                                        </span>
-                                                    </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -1406,7 +1392,6 @@
             $('#part-edit-id').val(id);
             $(efrom + 'input[name="date"]').val(data.date);
             $(efrom + 'input[name="time"]').val(data.time);
-            $(efrom + 'input[name="duration"]').val(data.size);
             $(efrom + 'input[name="mail"]').val(data.mail);
             $(efrom + 'input[name="title"]').val(data.title);
             $(efrom + 'textarea[name="description"]').html(data.description);
