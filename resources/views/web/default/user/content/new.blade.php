@@ -32,7 +32,7 @@
                             for="inputDefault">{{ trans('main.course_type') }}</label>
                         <div class="col-md-10 tab-con">
                             <select name="type" class="form-control font-s">
-                                <option value="single">{{ trans('main.single') }}</option>
+                                <!--<option value="single">{{ trans('main.single') }}</option>-->
                                 <option value="course">{{ trans('main.course') }}</option>
                                 <option value="webinar">{{ trans('main.webinar') }}</option>
                                 <option value="course+webinar">{{ trans('main.course_webinar') }}</option>

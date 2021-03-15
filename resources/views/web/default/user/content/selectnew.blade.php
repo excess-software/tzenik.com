@@ -1,6 +1,6 @@
 @extends(getTemplate().'.user.layout.sendvideolayout')
 
-@section('pages')
+@section('page')
 
 <div class="container" style="padding-top: 25%; padding-bottom: 25%;">
     <div class="row white-rounded-back">
