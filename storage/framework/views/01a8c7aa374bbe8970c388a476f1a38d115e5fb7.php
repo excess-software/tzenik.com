@@ -74,7 +74,7 @@
                     <tr>
                         <th class="text-center"><?php echo e(trans('admin.username')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.real_name')); ?></th>
-                        <th class="text-center"><?php echo e(trans('admin.reg_date')); ?></th>
+                        <th class="text-center">e-Mail</th>
                         <th class="text-center" width="100"><?php echo e(trans('admin.income')); ?></th>
                         <th class="text-center" width="100"><?php echo e(trans('admin.account_balance')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.badges_tab_courses_count')); ?></th>
@@ -90,7 +90,7 @@
                         <tr>
                             <th class="text-center"><a <?php if($user['vendor'] == 1): ?> style="color: green;font-weight: bold;" title="vendor" <?php endif; ?> target="_blank" href="/profile/<?php echo e($user->id); ?>"><?php echo e($user->username); ?></a></th>
                             <th class="text-center"><?php echo e($user->name); ?></th>
-                            <th class="text-center"><?php echo e(date('d F Y / H:i',$user->created_at)); ?></th>
+                            <th class="text-center"><?php echo e($user->email); ?></th>
                             <th class="text-center number-green" width="100" <?php if($user->income < 0): ?> style="color:red !important;" <?php endif; ?> dir="ltr"><?php echo e(number_format($user->income)); ?></th>
                             <th class="text-center number-green" width="100" <?php if($user->credit < 0): ?> style="color:red !important;" <?php endif; ?> dir="ltr"><?php echo e(number_format($user->credit)); ?></th>
                             <th class="text-center"><a href="/admin/content/user/<?php echo e($user->id); ?>"><?php echo e($user->contents_count); ?></a></th>
