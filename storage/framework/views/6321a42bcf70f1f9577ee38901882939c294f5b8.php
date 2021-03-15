@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly"><?php echo e(trans('admin.username')); ?></label>
                                 <div class="col-md-6">
-                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control" required>
+                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control" onkeypress="return /[a-zA-Z_\-0-9]/i.test(event.key)" required>
                                     <small id="UserAbout" class="form-text" style="color: red;"></small>
                                 </div>
                             </div>
