@@ -1386,7 +1386,7 @@ class UserController extends Controller
                     $material->move('bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/', $material->getClientOriginalName());
                 }
             }
-            return back();
+            return redirect('/user/content/edit/'.$request->content_id.'#parts');
             //return redirect('/user/content/part/list/' . $content->id);
         } else {
             echo 'error';
@@ -1436,7 +1436,7 @@ class UserController extends Controller
             $request->request->add(['zoom_meeting'=>$meeting]);
             $newPart = ContentPart::create($request->all());
             echo $newPart->id;
-            return back();
+            return redirect('/user/content/edit/'.$request->content_id.'#zoom');
         }else{
             //$date = $request->request->date;
             //$time = $request->request->time;

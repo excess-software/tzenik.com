@@ -33,7 +33,7 @@
                             for="inputDefault"><?php echo e(trans('main.course_type')); ?></label>
                         <div class="col-md-10 tab-con">
                             <select name="type" class="form-control font-s">
-                                <option value="single"><?php echo e(trans('main.single')); ?></option>
+                                <!--<option value="single"><?php echo e(trans('main.single')); ?></option>-->
                                 <option value="course"><?php echo e(trans('main.course')); ?></option>
                                 <option value="webinar"><?php echo e(trans('main.webinar')); ?></option>
                                 <option value="course+webinar"><?php echo e(trans('main.course_webinar')); ?></option>
@@ -56,7 +56,7 @@
                             for="inputDefault"><?php echo e(trans('main.course_title')); ?></label>
                         <div class="col-md-10 tab-con">
                             <input type="text" name="title" placeholder="30-60 Characters" class="form-control"
-                            onkeypress="return /[A-Za-z0-9 _]/i.test(event.key)" required>
+                            onkeypress="return /[a-zA-ZÀ-ÿ\u00f1\u00d1 _]/i.test(event.key)" required>
                         </div>
                     </div>
                     <div class="form-group">

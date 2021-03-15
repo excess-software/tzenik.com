@@ -6,25 +6,25 @@
         <div class="tabs">
             <ul class="nav nav-pills partes-nuevo-curso">
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link active" cstep="1" data-toggle="tab"> <?php echo e(trans('main.general')); ?> </a>
+                    <a href="#main" class="nav-link active" cstep="1" data-toggle="tab"> <?php echo e(trans('main.general')); ?> </a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" cstep="2" data-toggle="tab"><?php echo e(trans('main.category')); ?></a>
+                    <a href="#category" class="nav-link" cstep="2" data-toggle="tab"><?php echo e(trans('main.category')); ?></a>
                 </li>
                 <!--<li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="3" data-toggle="tab"><?php echo e(trans('main.extra_info')); ?></a>
                 </li>-->
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" cstep="4" data-toggle="tab"><?php echo e(trans('main.view')); ?></a>
+                    <a href="#view" class="nav-link" cstep="4" data-toggle="tab"><?php echo e(trans('main.view')); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" cstep="5" data-toggle="tab"><?php echo e(trans('main.parts')); ?></a>
+                    <a href="#parts" class="nav-link" cstep="5" data-toggle="tab"><?php echo e(trans('main.parts')); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" cstep="6" data-toggle="tab"><?php echo e(trans('main.parts')); ?> - Zoom</a>
+                    <a href="#zoom" class="nav-link" cstep="6" data-toggle="tab"><?php echo e(trans('main.parts')); ?> - Zoom</a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link" cstep="7" data-toggle="tab">Guías</a>
+                    <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Guías</a>
                 </li>
             </ul>
         </div>
@@ -708,7 +708,7 @@
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
                                             <button class="btn btn-primary tab-con pull-right" id="new-part"
-                                                type="submit"><?php echo e(trans('main.save_changes')); ?></button>
+                                                type="submit">Guardar módulo</button>
                                         </div>
                                     </div>
                                 </form>
@@ -897,9 +897,7 @@
                                 <div class="table-responsive">
                                     <table class="table ucp-table">
                                         <thead class="thead-s">
-                                            <th class="text-center" width="50"></th>
                                             <th class="cell-ta"><?php echo e(trans('main.title')); ?></th>
-                                            <th class="text-center" width="50"><?php echo e(trans('main.volume')); ?></th>
                                             <th class="text-center" width="100"><?php echo e(trans('main.duration')); ?></th>
                                             <th class="text-center" width="150"><?php echo e(trans('main.upload_date')); ?>
 
@@ -1330,6 +1328,26 @@
 <script>
     $('document').ready(function () {
         refreshContent();
+
+        var hash = location.hash.replace(/^#/, '');  // ^ means starting, meaning only match the first hash
+        if (hash) {
+            $('.nav-pills a[href="#' + hash + '"]').tab('show');
+            console.log(hash)
+
+            var current_step = $('#current_step').val();
+            $('#step' + current_step).slideUp(500);
+            var step = $('.nav-pills a[href="#' + hash + '"]').attr('cstep');
+            //$('.steps').not(this).each(function () {
+            //    $(this).slideUp(500);
+            //});
+            $('#step' + step).slideDown(1000);
+            $('#current_step').val(step);
+        } 
+
+        // Change hash for page-reload
+        $('.nav-pills a').on('click', function (e) {
+            window.location.hash = e.target.hash;
+        })
     })
 
     function refreshContent() {
@@ -1347,8 +1365,7 @@
                     '" title="Edit"></span>&nbsp;<span class="crticon mdi mdi-delete-forever" data-toggle="modal" data-target="#delete-part-modal img-icon-s" onclick="$(\'#delete-part-id\').val($(this).attr(\'pid\'));" pid="' +
                     item.id + '" title="Delete"></span></td></tr>');
                 }else{
-                    $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.size +
-                    'MB</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
+                    $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
                     '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit-zoom img-icon-s" pid="' +
                     item.id +
@@ -1393,6 +1410,10 @@
                 $('.free-edit-check-state .ios-switch').removeClass('on');
                 $('.free-edit-check-state .ios-switch').addClass('off');
             }
+
+            $('html, body').animate({
+                scrollTop: $('.edit-part-section').offset().top
+            }, 2000);
         })
         if ($('.new-part-click').next('.submenu').css('display') == 'block') {
             $('.new-part-click').click();
@@ -1428,6 +1449,10 @@
                 $('.free-edit-check-state .ios-switch').removeClass('on');
                 $('.free-edit-check-state .ios-switch').addClass('off');
             }
+
+            $('html, body').animate({
+                scrollTop: $('.edit-part-section-zoom').offset().top
+            }, 2000);
         })
         if ($('.new-part-click').next('.submenu_zoom').css('display') == 'block') {
             $('.new-part-click').click();
