@@ -1404,12 +1404,6 @@
             $('.edit-part-section-zoom').show();
             var efrom = '#step-6-form-edit-part ';
             $('#part-edit-id').val(id);
-            date
-            time
-            duration
-            mail
-            description
-            title
             $(efrom + 'input[name="date"]').val(data.date);
             $(efrom + 'input[name="time"]').val(data.time);
             $(efrom + 'input[name="duration"]').val(data.size);
