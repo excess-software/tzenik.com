@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputReadOnly">{{ trans('admin.username') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control" required>
+                                    <input type="text" value="" id="User" name="username" id="inputReadOnly" onChange="verifyUser()" class="form-control" onkeypress="return /[a-zA-ZÀ-ÿ\u00f1\u00d1 _]/i.test(event.key)" required>
                                     <small id="UserAbout" class="form-text" style="color: red;"></small>
                                 </div>
                             </div>
@@ -119,20 +119,5 @@
         }
     }
 
-</script>
-@endsection
-@section('script')
-<script>
-    $(document).ready(function(){
-        $("#User").on({
-        keydown: function(e) {
-            if (e.which === 32)
-            return false;
-        },
-        change: function() {
-            this.value = this.value.replace(/\s/g, "");
-        }
-        });
-    });
 </script>
 @endsection
