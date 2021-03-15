@@ -1501,7 +1501,9 @@ class UserController extends Controller
 
             $request->request->add(['zoom_meeting'=>$meeting]);
             //var_dump($request);
-            ContentPart::find($id)->update($request->all());
+            $part_id = $request->part_id;
+            $request->request->remove('part_id');
+            ContentPart::find($part_id)->update($request->all());
             return back();
         }else{
             return back();

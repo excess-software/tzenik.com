@@ -732,6 +732,7 @@
                                     method="post" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
+                                    <input type="hidden" name="part_id">
 
                                     <div class="form-group">
                                         <label
@@ -1404,6 +1405,7 @@
             $('.edit-part-section-zoom').show();
             var efrom = '#step-6-form-edit-part ';
             $('#part-edit-id').val(id);
+            $(efrom + 'input[name="part_id"]').val(data.id);
             $(efrom + 'input[name="date"]').val(data.date);
             $(efrom + 'input[name="time"]').val(data.time);
             $(efrom + 'input[name="duration"]').val(data.duration);
