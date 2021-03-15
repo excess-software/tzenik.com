@@ -108,7 +108,7 @@
                     <tr>
                         <td><a href="/product/{{ $item->id }}" target="_blank">{{ $item->title }}</a></td>
                         <td class="text-center" width="150">{{ date('d F Y / H:i',$item->created_at) }}</td>
-                        <td class="text-center" title="{{ $item->user->username }}"><a href="/admin/user/item/{{ $item->user->id }}">{{ $item->user->name }}</a></td>
+                        <td class="text-center" title="{{ $item->user->username }}">{{ $item->user->name }}</td>
                         <td class="text-center">{{ $item->sells_count ?? '0' }}</td>
                         <td class="text-center">{{ $item->partsactive_count ?? '0' }}</td>
                         <td class="text-center">{{ $item->transactions->sum('price') }}<br>{{ trans('admin.cur_dollar') }}</td>

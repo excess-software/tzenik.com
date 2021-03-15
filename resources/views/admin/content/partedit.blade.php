@@ -6,21 +6,21 @@
 
     <div class="tabs">
         <ul class="nav nav-pills">
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a href="#main" class="nav-link active" data-toggle="tab"> {{ trans('admin.general') }} </a>
             </li>
             <li class="nav-item">
                 <a href="#meta" class="nav-link" data-toggle="tab">{{ trans('admin.extra_info') }}</a>
-            </li>
+            </li>-->
             <li class="nav-item">
                 <a href="#parts" class="nav-link" data-toggle="tab">{{ trans('admin.parts') }}</a>
             </li>
             <li class="nav-item">
                 <a href="#part" class="nav-link" data-toggle="tab">{{ $part->title }}</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a href="#convert" class="nav-link" data-toggle="tab">{{ trans('admin.convert_shot') }}  {{ $part->title }}</a>
-            </li>
+            </li>-->
         </ul>
         <div class="card">
             <div class="card-body">

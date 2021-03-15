@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title'); ?>
     <?php echo e(trans('admin.course_list')); ?>
 
@@ -117,7 +118,7 @@
                             <td class="text-center"><?php echo $item->id; ?></td>
                             <td><a href="/product/<?php echo e($item->id); ?>" target="_blank"><?php echo e($item->title); ?></a></td>
                             <td class="text-center" width="150"><?php echo e(date('d F Y / H:i',$item->created_at)); ?></td>
-                            <td class="text-center" title="<?php echo e($item->user->username); ?>"><a href="/admin/user/item/<?php echo e($item->user->id); ?>"><?php echo e($item->user->name); ?></a></td>
+                            <td class="text-center" title="<?php echo e(isset($item->user->username)); ?>"><?php echo e(isset($item->user->name)); ?></td>
                             <td class="text-center"><?php echo e($item->sells_count ?? '0'); ?></td>
                             <td class="text-center"><?php echo e($item->partsactive_count ?? '0'); ?></td>
                             <td class="text-center"><?php echo e($item->transactions->sum('price')); ?><br><?php echo e(trans('admin.cur_dollar')); ?></td>
@@ -150,11 +151,11 @@
                                 <?php endif; ?>
                             </td>
                             <td class="text-center">
-                                <a href="/admin/notification/new?recipent_type=userone&uid=<?php echo e($item->user->id); ?>" title="Send notification to user"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
-                                <a href="/admin/ticket/new?uid=<?php echo e($item->user->id); ?>&title=Course <?php echo e($item->title); ?>" title="Send support ticket to user"><i class="fa fa-life-ring" aria-hidden="true"></i></a>
+                                <!--<a href="/admin/notification/new?recipent_type=userone&uid=<?php echo e(isset($item->user->id)); ?>" title="Send notification to user"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                                <a href="/admin/ticket/new?uid=<?php echo e(isset($item->user->id)); ?>&title=Course <?php echo e($item->title); ?>" title="Send support ticket to user"><i class="fa fa-life-ring" aria-hidden="true"></i></a>-->
                                 <a href="/admin/content/edit/<?php echo e($item->id); ?>" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                 <a href="#" data-href="/admin/content/delete/<?php echo e($item->id); ?>" title="Delete" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                <a href="/admin/content/usage/<?php echo e($item->id); ?>" title="Spend Time"><i class="fa fa-clock" aria-hidden="true"></i></a>
+                                <!-- <a href="/admin/content/usage/<?php echo e($item->id); ?>" title="Spend Time"><i class="fa fa-clock" aria-hidden="true"></i></a>-->
                             </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

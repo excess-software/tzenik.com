@@ -109,7 +109,7 @@
                     <tr>
                         <td><a href="/product/<?php echo e($item->id); ?>" target="_blank"><?php echo e($item->title); ?></a></td>
                         <td class="text-center" width="150"><?php echo e(date('d F Y / H:i',$item->created_at)); ?></td>
-                        <td class="text-center" title="<?php echo e($item->user->username); ?>"><a href="/admin/user/item/<?php echo e($item->user->id); ?>"><?php echo e($item->user->name); ?></a></td>
+                        <td class="text-center" title="<?php echo e($item->user->username); ?>"><?php echo e($item->user->name); ?></td>
                         <td class="text-center"><?php echo e($item->sells_count ?? '0'); ?></td>
                         <td class="text-center"><?php echo e($item->partsactive_count ?? '0'); ?></td>
                         <td class="text-center"><?php echo e($item->transactions->sum('price')); ?><br><?php echo e(trans('admin.cur_dollar')); ?></td>

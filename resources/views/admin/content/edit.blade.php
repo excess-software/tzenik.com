@@ -14,18 +14,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#meta" data-toggle="tab">{{ trans('admin.extra_info') }}</a>
                     </li>
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="#filter" data-toggle="tab">{{ trans('admin.item_filters') }}</a>
-                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#filter" data-toggle="tab">Tags</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#parts" data-toggle="tab">{{ trans('admin.parts') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#guides" data-toggle="tab">Guías</a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" href="#subscribe" data-toggle="tab">{{ trans('admin.subscribe') }}</a>
-                    </li>
+                    </li>-->
                 </ul>
                 <div class="tab-content">
                     <div id="main" class="tab-pane active">
@@ -238,7 +238,7 @@
 
                         </form>
                     </div>
-                    <!--<div id="filter" class="tab-pane ">
+                    <div id="filter" class="tab-pane ">
                         <form action="/admin/content/store/{{$item->id}}/tags" class="form-horizontal form-bordered" method="post">
                             {{ csrf_field() }}
                             @if(!empty($filters))
@@ -263,7 +263,7 @@
                             </div>
 
                         </form>
-                    </div>-->
+                    </div>
                     <div id="parts" class="tab-pane ">
                         <table class="table table-bordered table-striped mb-none" id="datatable-details">
                             <thead>

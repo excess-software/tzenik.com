@@ -15,14 +15,17 @@
                         <a class="nav-link" href="#meta" data-toggle="tab"><?php echo e(trans('admin.extra_info')); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#filter" data-toggle="tab"><?php echo e(trans('admin.item_filters')); ?></a>
+                        <a class="nav-link" href="#filter" data-toggle="tab">Tags</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#parts" data-toggle="tab"><?php echo e(trans('admin.parts')); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#subscribe" data-toggle="tab"><?php echo e(trans('admin.subscribe')); ?></a>
+                        <a class="nav-link" href="#guides" data-toggle="tab">Guías</a>
                     </li>
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="#subscribe" data-toggle="tab"><?php echo e(trans('admin.subscribe')); ?></a>
+                    </li>-->
                 </ul>
                 <div class="tab-content">
                     <div id="main" class="tab-pane active">
@@ -67,14 +70,14 @@
                             </div>
 
                             <div class="col-12">
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="custom-switch">
                                         <input type="hidden" value="0" name="document">
                                         <input type="checkbox" name="document" value="1" class="custom-switch-input" <?php if($item->document == 1): ?> checked="checked" <?php endif; ?> />
                                         <span class="custom-switch-indicator"></span>
                                         <label class="custom-switch-description" for="inputDefault"><?php echo e(trans('admin.item_doc')); ?></label>
                                     </label>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label class="custom-switch">
                                         <input type="hidden" name="price" value="1">
@@ -83,7 +86,7 @@
                                         <label class="custom-switch-description" for="inputDefault"><?php echo e(trans('admin.free_course')); ?></label>
                                     </label>
                                 </div>
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="custom-switch">
                                         <input type="hidden" name="support" value="0">
                                         <input type="checkbox" name="support" value="1" class="custom-switch-input" <?php if($item->support == 1): ?> checked="checked" <?php endif; ?> />
@@ -106,7 +109,7 @@
                                         <span class="custom-switch-indicator"></span>
                                         <label class="custom-switch-description" for="inputDefault"><?php echo e(trans('admin.download')); ?></label>
                                     </label>
-                                </div>
+                                </div>-->
                             </div>
 
                             <div class="form-group">
@@ -155,7 +158,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-md-2 control-label"><?php echo e(trans('admin.demo')); ?></label>
                                 <div class="col-md-8">
                                     <div class="input-group" style="display: flex">
@@ -170,7 +173,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         <!--
                             <div class="form-group">
@@ -198,7 +201,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-md-2 control-label"><?php echo e(trans('admin.postal_price')); ?></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
@@ -226,7 +229,7 @@
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label"></label>
@@ -314,6 +317,34 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="tab-pane" id="guides">
+                        <div class="accordion-off">
+                            <ul id="accordion" class="accordion off-filters-li">
+                                <li>
+                                    <div class="submenu">
+                                        <div class="table-responsive">
+                                            <table class="table ucp-table">
+                                                <thead class="thead-s">
+                                                    <th class="text-center" width="50">Fecha Inicio</th>
+                                                    <th class="text-center" width="50">Fecha Fin</th>
+                                                    <th class="text-center" width="50">Ver</th>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $__currentLoopData = $guides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $guide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr>
+                                                        <td class="text-center" width="50"><?php echo e($guide->initial_date); ?></td>
+                                                        <td class="text-center" width="50"><?php echo e($guide->final_date); ?></td>
+                                                        <td class="text-center" width="50"><a href="<?php echo e($guide->route); ?>" target="_blank"><b>Ver</b></a></td>
+                                                    </tr>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="subscribe" class="tab-pane">
                         <form action="/admin/content/store/<?php echo e($item->id); ?>/subscribe" class="form-horizontal form-bordered" method="post">
