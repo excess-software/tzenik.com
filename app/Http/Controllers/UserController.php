@@ -4785,7 +4785,7 @@ class UserController extends Controller
             }
         }
 
-        return back();
+        return redirect('/user/content/edit/'.$request->content_id.'#guides');
 
     }
 
