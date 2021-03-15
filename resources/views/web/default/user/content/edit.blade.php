@@ -728,7 +728,7 @@
                             <div class="submenu_zoom dblock">
                                 <div class="h-15"></div>
                                 <input type="hidden" id="part-edit-id">
-                                <form action="/user/content_web_coach/part/edit/store/" id="step-6-form-edit-part"
+                                <form action="/user/content/web_coach/part/edit/store/" id="step-6-form-edit-part"
                                     method="post" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
