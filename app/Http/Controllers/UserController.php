@@ -1462,7 +1462,7 @@ class UserController extends Controller
 
     }
 
-    public function contentPartEditStoreWeb_Coach(Request $request,$id)
+    public function contentPartEditStoreWeb_Coach(Request $request)
     {
         $user = auth()->user();
         $content = Content::where('user_id',$user->id)->find($request->content_id);
