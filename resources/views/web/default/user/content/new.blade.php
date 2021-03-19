@@ -55,7 +55,7 @@
                             for="inputDefault">{{ trans('main.course_title') }}</label>
                         <div class="col-md-10 tab-con">
                             <input type="text" name="title" placeholder="30-60 Characters" class="form-control"
-                            onkeypress="return /[a-zA-ZÀ-ÿ\u00f1\u00d1 _]/i.test(event.key)" required>
+                            onkeypress="return /[0-9a-zA-ZÀ-ÿ\u00f1\u00d1 _]/i.test(event.key)" required>
                         </div>
                     </div>
                     <div class="form-group">
