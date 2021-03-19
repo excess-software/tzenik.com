@@ -1412,6 +1412,10 @@ class WebController extends Controller
         if (!$product)
             return abort(404);
 
+        if($content->user_id == $user->id || $user->admin){
+            $buy = 1;
+        }
+
         if($user){
             if($buy){
                 
