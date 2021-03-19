@@ -5,25 +5,25 @@
     <div class="card-body">
         <div class="tabs">
             <ul class="nav nav-pills partes-nuevo-curso">
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#main" class="nav-link active" cstep="1" data-toggle="tab"> {{ trans('main.general') }} </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#category" class="nav-link" cstep="2" data-toggle="tab">{{ trans('main.category') }}</a>
                 </li>
                 <!--<li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="3" data-toggle="tab">{{ trans('main.extra_info') }}</a>
                 </li>-->
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#view" class="nav-link" cstep="4" data-toggle="tab">{{ trans('main.view') }}</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#parts" class="nav-link" cstep="5" data-toggle="tab">{{ trans('main.parts') }}</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#zoom" class="nav-link" cstep="6" data-toggle="tab">{{ trans('main.parts') }} - Zoom</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Guías</a>
                 </li>
             </ul>
@@ -1127,6 +1127,10 @@
         $('#current_step').val(step);
 
     })
+
+    function saveCourse(){
+        $('#draft-btn').click();
+    }
 
 </script>
 <script>
