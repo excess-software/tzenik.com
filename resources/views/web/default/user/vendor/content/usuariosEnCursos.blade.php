@@ -30,8 +30,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4>Usuarios de Fundal</h4>
-                    <div id="listado">
+                    <div>
+                        <table id="tabla_users" class="display" style="width:100%">
+                            <thead>
+                                <th></th>
+                                <th>Usuario</th>
+                            </thead>
+                            <tbody id="listado">
 
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -98,12 +106,13 @@
             success: function (data) {
                 var html = '';
                 for (i = 0; i < data.length; i++) {
-                    html += '<div class="checkbox">\
-                        <label><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"> ' + data[i][2] +
-                        ' - ' + data[i][1] + '</input></label>\
-                    </div>';
+                    html += '<tr>\
+                        <td><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"></td><td>' + data[i][2] +
+                        ' - ' + data[i][1] + '</td>\
+                    </tr>';
                 }
                 $('#listado').html(html);
+                $('#tabla_users').DataTable();
             }
         });
     }
