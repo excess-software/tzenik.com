@@ -33,7 +33,7 @@
                     <div>
                         <table id="tabla_users" class="display" style="width:100%">
                             <thead>
-                                <th></th>
+                                <th>Seleccionar</th>
                                 <th>Usuario</th>
                             </thead>
                             <tbody id="listado">
