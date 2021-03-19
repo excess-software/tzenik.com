@@ -15,18 +15,19 @@
             <div class="col-md-12">
                 <h2 class="titulo-partials">Tus Tareas</h2>
                 <div class="row">
+                    <div class="accordion" id="accordion">                
                     @foreach($courses as $course)
                         @if(!($course->homeworks)->isEmpty())
                         <div class="card">
                             <div class="card-header" id="heading-{{$course->id}}">
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
-                                        aria-expanded="true" aria-controls="collapseOne">
+                                        aria-expanded="false" aria-controls="collapseOne">
                                         {{$course->title}}
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapse-{{$course->id}}" class="collapse show" aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
+                            <div id="collapse-{{$course->id}}" class="collapse" aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
                                 <div class="card-body">
                                     @foreach($course->homeworks as $homework)
                                         <a onclick="subir({{$course->id}}, {{$homework->part_id}})"><p>{{$homework->part}} - {{$homework->title}}</p></a>
@@ -36,6 +37,7 @@
                         </div>
                         @endif
                     @endforeach
+                    </div>
                     @if($courses->isEmpty())
                     <br>
                     <div class="row">
@@ -91,6 +93,20 @@ Dropzone.options.imageUpload = {
     success: function(file, response){
       //Here you can get your response.
       console.log(response);
+      if(response == "success"){
+            $.notify({
+                message: 'Tarea subida exitosamente'
+            }, {
+                type: 'success',
+                allow_dismiss: true,
+                z_index: '99999999',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                position: 'fixed'
+            });
+      }
       this.removeFile(file);
   }
 };

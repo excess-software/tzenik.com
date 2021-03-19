@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('pages'); ?>
+<?php $__env->startSection('page'); ?>
 
 <div class="container" style="padding-top: 25%; padding-bottom: 25%;">
     <div class="row white-rounded-back">

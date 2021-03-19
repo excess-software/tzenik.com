@@ -74,26 +74,19 @@
                     </ul>
                 </form>
                 <ul class="navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown"
-                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="/assets/admin/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $Admin['username'] ?? ''; ?></div>
+                    <li><a href="/" class="nav-link nav-link-lg nav-link-user">
+                            <div class="d-sm-none d-lg-inline-block"><i class="fas fa-arrow-left"></i><b>  Volver</b> </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/" class="dropdown-item has-icon">
-                                <i class="fas fa-user"></i> Volver
-                            </a>
-                        </div>
                     </li>
                 </ul>
             </nav>
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="/vendor">Admin Panel</a>
+                        <a href="#">Admin Panel</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="/vendor">AP</a>
+                        <a href="#">AP</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Content</li>

@@ -155,7 +155,7 @@
 
                     <div class="form-group">
                         <label><?php echo e(trans('main.username')); ?></label>
-                        <input type="text" name="username" valid-title="Fill out this form."
+                        <input type="text" name="username" id="username_register" valid-title="Fill out this form."
                             class="form-control validate" required>
                         <u></u>
                     </div>
@@ -217,6 +217,16 @@
     $(document).keypress(function (e) {
         if (e.which == 13) {
             $('#loginForm').submit();
+        }
+    });
+
+    $("#username_register").on({
+        keydown: function(e) {
+            if (e.which === 32)
+            return false;
+        },
+        change: function() {
+            this.value = this.value.replace(/\s/g, "");
         }
     });
 </script>

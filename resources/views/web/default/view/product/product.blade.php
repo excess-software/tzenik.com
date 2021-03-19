@@ -115,30 +115,32 @@
                             </button>
                         </a>
                         <br>
-                        <h3>Materiales</h3>
-                        <br>
-                        @if(isset($user))
-                        <a href="{{$product_material}}">
-                            <button class="btn btn-media-descargar-leccion">
-                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                            </button>
-                        </a>
-                        @else
-                            <button class="btn btn-media-descargar-leccion">
-                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                            </button>
-                        @endif
-                        <br>
-                        @if(isset($user))
-                        <a href="/material/curso/{{$product->id}}">
-                            <button class="btn btn-media-descargar-curso">
-                                <h4>Descargar Materiales del Curso</h4>
-                            </button>
-                        </a>
-                        @else
-                            <button class="btn btn-media-descargar-curso">
-                                <h4>Descargar Materiales del Curso</h4>
-                            </button>
+                        @if(!isset($meeting))
+                            <h3>Materiales</h3>
+                            <br>
+                            @if(isset($user))
+                            <a href="{{$product_material}}">
+                                <button class="btn btn-media-descargar-leccion">
+                                    <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                                </button>
+                            </a>
+                            @else
+                                <button class="btn btn-media-descargar-leccion">
+                                    <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                                </button>
+                            @endif
+                            <br>
+                            @if(isset($user))
+                            <a href="/material/curso/{{$product->id}}">
+                                <button class="btn btn-media-descargar-curso">
+                                    <h4>Descargar Materiales del Curso</h4>
+                                </button>
+                            </a>
+                            @else
+                                <button class="btn btn-media-descargar-curso">
+                                    <h4>Descargar Materiales del Curso</h4>
+                                </button>
+                            @endif
                         @endif
                 </div>
                 <br>

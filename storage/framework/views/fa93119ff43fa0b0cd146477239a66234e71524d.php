@@ -16,19 +16,20 @@
             <div class="col-md-12">
                 <h2 class="titulo-partials">Tus Tareas</h2>
                 <div class="row">
+                    <div class="accordion" id="accordion">                
                     <?php $__currentLoopData = $courses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if(!($course->homeworks)->isEmpty()): ?>
                         <div class="card">
                             <div class="card-header" id="heading-<?php echo e($course->id); ?>">
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-<?php echo e($course->id); ?>"
-                                        aria-expanded="true" aria-controls="collapseOne">
+                                        aria-expanded="false" aria-controls="collapseOne">
                                         <?php echo e($course->title); ?>
 
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapse-<?php echo e($course->id); ?>" class="collapse show" aria-labelledby="heading-<?php echo e($course->id); ?>" data-parent="#accordion">
+                            <div id="collapse-<?php echo e($course->id); ?>" class="collapse" aria-labelledby="heading-<?php echo e($course->id); ?>" data-parent="#accordion">
                                 <div class="card-body">
                                     <?php $__currentLoopData = $course->homeworks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $homework): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <a onclick="subir(<?php echo e($course->id); ?>, <?php echo e($homework->part_id); ?>)"><p><?php echo e($homework->part); ?> - <?php echo e($homework->title); ?></p></a>
@@ -38,6 +39,7 @@
                         </div>
                         <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
                     <?php if($courses->isEmpty()): ?>
                     <br>
                     <div class="row">
@@ -93,6 +95,20 @@ Dropzone.options.imageUpload = {
     success: function(file, response){
       //Here you can get your response.
       console.log(response);
+      if(response == "success"){
+            $.notify({
+                message: 'Tarea subida exitosamente'
+            }, {
+                type: 'success',
+                allow_dismiss: true,
+                z_index: '99999999',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                position: 'fixed'
+            });
+      }
       this.removeFile(file);
   }
 };

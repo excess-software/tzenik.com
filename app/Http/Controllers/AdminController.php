@@ -400,11 +400,13 @@ class AdminController extends Controller
         $user->password = Hash::make($random_password);
         $user->save();
 
-        sendMail([
+        /*sendMail([
             'template'=>get_option('user_register_wellcome_email'),
             'recipent'=>[$user->email],
             'subject'=> 'Password: '.$random_password
-        ]);
+        ]);*/
+
+        sendMail(['template' => get_option('user_register_new_password_email'), 'recipent' => [$user->email], 'password' => $random_password]);
         
         return redirect('/admin/user/item/'.$id)->with('msg', 'La contraseña se cambió correctamente.')->with('type', 'success');
     }
@@ -1501,11 +1503,13 @@ class AdminController extends Controller
             ]);
         }
 
-        sendMail([
+        /*sendMail([
             'template'=>get_option('user_register_wellcome_email'),
             'recipent'=>[$request->email],
             'subject'=> 'Password: '.$password
-        ]);
+        ]);*/
+
+        sendMail(['template' => get_option('user_created_admin'), 'recipent' => [$request->email], 'password' => $password]);
 
         return back()->with('msg', trans('Creado exitosamente.'))->with('type', 'success');
     }

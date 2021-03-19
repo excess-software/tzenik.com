@@ -4758,7 +4758,7 @@ class UserController extends Controller
             'route' => '/bin/tareas/'.$course.'/'.$user->name.'/'.$part.'/'.$name,
         ]);
 
-        return response()->json(['success' => $name]);
+        return response()->json(['success']);
     }
 
     public function guia_trabajo(Request $request){
