@@ -107,7 +107,7 @@
                 var html = '';
                 for (i = 0; i < data.length; i++) {
                     html += '<tr>\
-                        <td><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"></td><td>' + data[i][2] +
+                        <td class="text-center"><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"></td><td>' + data[i][2] +
                         ' - ' + data[i][1] + '</td>\
                     </tr>';
                 }
