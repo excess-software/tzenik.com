@@ -1396,6 +1396,10 @@ class WebController extends Controller
             $product->price = 0;
         }
 
+        if($content->user_id == $user->id || $user->admin){
+            $buy = 1;
+        }
+
         if($buy == 0){
             return redirect('/product/' . $id)->with('msg', trans('Compra el curso para acceder a los módulos.'))->with('type', 'warning');
         }
@@ -1411,10 +1415,6 @@ class WebController extends Controller
 
         if (!$product)
             return abort(404);
-
-        if($content->user_id == $user->id || $user->admin){
-            $buy = 1;
-        }
 
         if($user){
             if($buy){
