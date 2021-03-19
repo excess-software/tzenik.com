@@ -914,7 +914,7 @@
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="date" name="fecha_inicio"
-                                                    class="form-control">
+                                                    class="form-control" required>
                                             </div>
                                         </div>
                                         <label
@@ -922,7 +922,7 @@
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="date" name="fecha_fin"
-                                                    class="form-control">
+                                                    class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
