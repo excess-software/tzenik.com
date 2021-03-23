@@ -98,15 +98,11 @@
                         <th><?php echo e(trans('admin.th_title')); ?></th>
                         <th class="text-center" width="150"><?php echo e(trans('admin.th_date')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.th_vendor')); ?></th>
-                        <th class="text-center" width="50"><?php echo e(trans('admin.sales')); ?></th>
                         <th class="text-center" width="50"><?php echo e(trans('admin.parts')); ?></th>
-                        <th class="text-center"><?php echo e(trans('admin.income')); ?></th>
                         <th class="text-center" width="50"><?php echo e(trans('admin.views')); ?></th>
                         <th class="text-center" width="50"><?php echo e(trans('admin.item_price')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.category')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.type')); ?></th>
-                        <th class="text-center"><?php echo e(trans('admin.spend_time')); ?></th>
-                        <th class="text-center"><?php echo e(trans('admin.top_viewer')); ?></th>
                         <th class="text-center" width="50"><?php echo e(trans('admin.th_status')); ?></th>
                         <th class="text-center" width="100"><?php echo e(trans('admin.th_controls')); ?></th>
                     </tr>
@@ -118,10 +114,8 @@
                             <td class="text-center"><?php echo $item->id; ?></td>
                             <td><a href="/product/<?php echo e($item->id); ?>" target="_blank"><?php echo e($item->title); ?></a></td>
                             <td class="text-center" width="150"><?php echo e(date('d F Y / H:i',$item->created_at)); ?></td>
-                            <td class="text-center" title="<?php echo e(isset($item->user->username)); ?>"><?php echo e(isset($item->user->name)); ?></td>
-                            <td class="text-center"><?php echo e($item->sells_count ?? '0'); ?></td>
+                            <td class="text-center" title="<?php echo e(isset($item->user->username)); ?>"><?php echo e(isset($item->user->name) ? $item->user->name : ''); ?></td>
                             <td class="text-center"><?php echo e($item->partsactive_count ?? '0'); ?></td>
-                            <td class="text-center"><?php echo e($item->transactions->sum('price')); ?><br><?php echo e(trans('admin.cur_dollar')); ?></td>
                             <td class="text-center"><?php echo e($item->view ?? '0'); ?></td>
                             <td class="text-center"><?php echo e($meta['price'] ?? 'Free'); ?></td>
                             <td class="text-center"><?php echo e(!empty($item->category) ? $item->category->title : ''); ?></td>
@@ -130,13 +124,6 @@
                                     <b class="c-g"><?php echo e(trans('admin.exclusive')); ?></b>
                                 <?php else: ?>
                                     <b class="c-o"><?php echo e(trans('admin.open')); ?></b>
-                                <?php endif; ?>
-                            </td>
-                            <td class="text-center"><?php echo productSpendTime($item->id); ?></td>
-                            <td class="text-center">
-                                <?php if(productTopViewer($item->id)): ?>
-                                    <?php echo productTopViewer($item->id); ?>
-
                                 <?php endif; ?>
                             </td>
                             <td class="text-center">

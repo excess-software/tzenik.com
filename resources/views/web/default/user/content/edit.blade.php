@@ -461,7 +461,7 @@
                                                 </span>
                                             </div>
                                                 <input type="text" id="upload_video" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val())' required>
+                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val()); checkmedia($(this).val());' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>
@@ -592,7 +592,7 @@
                                                 </span>
                                             </div>
                                                 <input type="text" id="upload_video2" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview2").attr("href", $(this).val())' required>
+                                                    class="form-control" onchange='$("#video_preview2").attr("href", $(this).val()); checkmedia($(this).val());' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video2"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>
@@ -969,6 +969,7 @@
         <hr>
         <div class="row">
                 <div class="col-md-12 btn-toolbar">
+                    <button class="btn btn-primary btn-lg previous"><- Anterior</button>
                     @if($item->mode != 'publish')
                     <a href="#publish-modal" data-toggle="modal"
                         class="btn btn-primary pull-left tab-con marl-s-10">{{ trans('main.publish') }}</a>
@@ -977,8 +978,9 @@
                         class="btn btn-primary pull-left tab-con marl-s-10">{{ trans('main.save_changes') }}</a>
                     @endif
                     @if($item->mode != 'publish')
-                    <input type="submit" class="btn btn-primary pull-left tab-con marl-s-10" id="draft-btn" value="Save">
+                    <input type="submit" class="btn btn-primary pull-left tab-con marl-s-10" id="draft-btn" value="Save" style="display: none;">
                     @endif
+                    <button class="btn btn-primary btn-lg next">Siguiente -></button>
                 </div>
             </div>
     </div>
@@ -1131,6 +1133,39 @@
     function saveCourse(){
         $('#draft-btn').click();
     }
+
+    function checkmedia(media){
+        var str = media;
+        var n = str.lastIndexOf('.');
+        var result = str.substring(n + 1);
+        console.log(result);
+
+        if(result != 'mp4'){
+            $('#upload_video').val('');
+            $('#upload_video2').val('');
+
+            $.notify({
+                message: 'Tipo de archivo no admitido'
+            }, {
+                type: 'danger',
+                allow_dismiss: true,
+                z_index: '99999999',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                position: 'fixed'
+            });
+        }
+    }
+
+    $('.next').click(function () {
+    $('.nav-pills > .nav-item > .active').parent().next('li').find('a').trigger('click');
+    });
+
+    $('.previous').click(function () {
+        $('.nav-pills > .nav-item > .active').parent().prev('li').find('a').trigger('click');
+    });
 
 </script>
 <script>

@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-md-6 pull-left">
                     <div class="form-group @error('content_id') has-error @enderror">
-                        <label class="control-label tab-con">{{ trans('main.course') }}</label>
+                        <label class="control-label tab-con">Módulo</label>
                         <select name="part_id" id="parts" class="form-control font-s">
                             <option selected disabled>Primero seleccione un curso</option>
                         </select>

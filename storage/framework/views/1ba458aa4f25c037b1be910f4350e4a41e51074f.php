@@ -29,7 +29,11 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($user->id == $asignado[1]): ?>
-                    <td><?php echo e($user->username.' - '.$user->name); ?></td>
+                        <?php if(isset($user->username)): ?>
+                            <td><?php echo e($user->username.' - '.$user->name); ?></td>
+                        <?php else: ?>
+                            <td>Sin username</td>
+                        <?php endif; ?>
                     <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <td><?php echo e($asignado[2].' / '.$asignado[3]); ?></td>

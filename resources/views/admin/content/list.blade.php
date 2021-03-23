@@ -96,15 +96,11 @@
                         <th>{{ trans('admin.th_title') }}</th>
                         <th class="text-center" width="150">{{ trans('admin.th_date') }}</th>
                         <th class="text-center">{{ trans('admin.th_vendor') }}</th>
-                        <th class="text-center" width="50">{{ trans('admin.sales') }}</th>
                         <th class="text-center" width="50">{{ trans('admin.parts') }}</th>
-                        <th class="text-center">{{ trans('admin.income') }}</th>
                         <th class="text-center" width="50">{{ trans('admin.views') }}</th>
                         <th class="text-center" width="50">{{ trans('admin.item_price') }}</th>
                         <th class="text-center">{{ trans('admin.category') }}</th>
                         <th class="text-center">{{ trans('admin.type') }}</th>
-                        <th class="text-center">{{ trans('admin.spend_time') }}</th>
-                        <th class="text-center">{{ trans('admin.top_viewer') }}</th>
                         <th class="text-center" width="50">{{ trans('admin.th_status') }}</th>
                         <th class="text-center" width="100">{{ trans('admin.th_controls') }}</th>
                     </tr>
@@ -116,10 +112,8 @@
                             <td class="text-center">{!! $item->id  !!}</td>
                             <td><a href="/product/{{ $item->id }}" target="_blank">{{ $item->title }}</a></td>
                             <td class="text-center" width="150">{{ date('d F Y / H:i',$item->created_at) }}</td>
-                            <td class="text-center" title="{{ isset($item->user->username) }}">{{ isset($item->user->name) }}</td>
-                            <td class="text-center">{{ $item->sells_count ?? '0' }}</td>
+                            <td class="text-center" title="{{ isset($item->user->username) }}">{{ isset($item->user->name) ? $item->user->name : '' }}</td>
                             <td class="text-center">{{ $item->partsactive_count ?? '0' }}</td>
-                            <td class="text-center">{{ $item->transactions->sum('price') }}<br>{{ trans('admin.cur_dollar') }}</td>
                             <td class="text-center">{{ $item->view ?? '0' }}</td>
                             <td class="text-center">{{ $meta['price'] ?? 'Free' }}</td>
                             <td class="text-center">{{ !empty($item->category) ? $item->category->title : '' }}</td>
@@ -128,12 +122,6 @@
                                     <b class="c-g">{{ trans('admin.exclusive') }}</b>
                                 @else
                                     <b class="c-o">{{ trans('admin.open') }}</b>
-                                @endif
-                            </td>
-                            <td class="text-center">{!! productSpendTime($item->id) !!}</td>
-                            <td class="text-center">
-                                @if(productTopViewer($item->id))
-                                    {!! productTopViewer($item->id) !!}
                                 @endif
                             </td>
                             <td class="text-center">

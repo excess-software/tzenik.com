@@ -5,25 +5,25 @@
     <div class="card-body">
         <div class="tabs">
             <ul class="nav nav-pills partes-nuevo-curso">
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#main" class="nav-link active" cstep="1" data-toggle="tab"> <?php echo e(trans('main.general')); ?> </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#category" class="nav-link" cstep="2" data-toggle="tab"><?php echo e(trans('main.category')); ?></a>
                 </li>
                 <!--<li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link" cstep="3" data-toggle="tab"><?php echo e(trans('main.extra_info')); ?></a>
                 </li>-->
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#view" class="nav-link" cstep="4" data-toggle="tab"><?php echo e(trans('main.view')); ?></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#parts" class="nav-link" cstep="5" data-toggle="tab"><?php echo e(trans('main.parts')); ?></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#zoom" class="nav-link" cstep="6" data-toggle="tab"><?php echo e(trans('main.parts')); ?> - Zoom</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="saveCourse();">
                     <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Guías</a>
                 </li>
             </ul>
@@ -476,7 +476,7 @@
                                                 </span>
                                             </div>
                                                 <input type="text" id="upload_video" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val())' required>
+                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val()); checkmedia($(this).val());' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>
@@ -610,7 +610,7 @@
                                                 </span>
                                             </div>
                                                 <input type="text" id="upload_video2" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview2").attr("href", $(this).val())' required>
+                                                    class="form-control" onchange='$("#video_preview2").attr("href", $(this).val()); checkmedia($(this).val());' required>
                                                 <button type="button" id="lfm_upload_video" data-input="upload_video2"
                                                     data-preview="holder" class="btn btn-primary">
                                                     <span class="formicon mdi mdi-arrow-up-thick"></span>
@@ -940,7 +940,7 @@
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="date" name="fecha_inicio"
-                                                    class="form-control">
+                                                    class="form-control" required>
                                             </div>
                                         </div>
                                         <label
@@ -948,7 +948,7 @@
                                         <div class="col-md-3 tab-con">
                                             <div class="input-group">
                                                 <input type="date" name="fecha_fin"
-                                                    class="form-control">
+                                                    class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -995,6 +995,7 @@
         <hr>
         <div class="row">
                 <div class="col-md-12 btn-toolbar">
+                    <button class="btn btn-primary btn-lg previous"><- Anterior</button>
                     <?php if($item->mode != 'publish'): ?>
                     <a href="#publish-modal" data-toggle="modal"
                         class="btn btn-primary pull-left tab-con marl-s-10"><?php echo e(trans('main.publish')); ?></a>
@@ -1003,8 +1004,9 @@
                         class="btn btn-primary pull-left tab-con marl-s-10"><?php echo e(trans('main.save_changes')); ?></a>
                     <?php endif; ?>
                     <?php if($item->mode != 'publish'): ?>
-                    <input type="submit" class="btn btn-primary pull-left tab-con marl-s-10" id="draft-btn" value="Save">
+                    <input type="submit" class="btn btn-primary pull-left tab-con marl-s-10" id="draft-btn" value="Save" style="display: none;">
                     <?php endif; ?>
+                    <button class="btn btn-primary btn-lg next">Siguiente -></button>
                 </div>
             </div>
     </div>
@@ -1153,6 +1155,43 @@
         $('#current_step').val(step);
 
     })
+
+    function saveCourse(){
+        $('#draft-btn').click();
+    }
+
+    function checkmedia(media){
+        var str = media;
+        var n = str.lastIndexOf('.');
+        var result = str.substring(n + 1);
+        console.log(result);
+
+        if(result != 'mp4'){
+            $('#upload_video').val('');
+            $('#upload_video2').val('');
+
+            $.notify({
+                message: 'Tipo de archivo no admitido'
+            }, {
+                type: 'danger',
+                allow_dismiss: true,
+                z_index: '99999999',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                position: 'fixed'
+            });
+        }
+    }
+
+    $('.next').click(function () {
+    $('.nav-pills > .nav-item > .active').parent().next('li').find('a').trigger('click');
+    });
+
+    $('.previous').click(function () {
+        $('.nav-pills > .nav-item > .active').parent().prev('li').find('a').trigger('click');
+    });
 
 </script>
 <script>
