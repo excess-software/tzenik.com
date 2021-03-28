@@ -1852,8 +1852,11 @@ class AdminController extends Controller
         $products = Content::where('mode', 'publish')->get();
 
         $guides = Course_guides::where('content_id', $id)->get();
+        $contentMenu = ContentCategory::with(['childs', 'filters' => function ($q) {
+            $q->with(['tags']);
+        }])->get();
 
-        return view('admin.content.edit', ['item' => $item, 'meta' => $meta, 'menus' => $contentMenu, 'filters' => $filters, 'products' => $products, 'guides' => $guides]);
+        return view('admin.content.edit', ['item' => $item, 'meta' => $meta, 'menus' => $contentMenu, 'filters' => $filters, 'products' => $products, 'guides' => $guides, 'menus'=>$contentMenu]);
     }
 
     public function contentDelete($id)
@@ -1904,11 +1907,20 @@ class AdminController extends Controller
             return Redirect::to(URL::previous() . '#meta');
         }
         if ($mode == 'tags') {
-            ContentCategoryFilterTagRelation::where('content_id', $id)->delete();
-            if ($request->tags != null) {
-                foreach ($request->tags as $tag) {
-                    ContentCategoryFilterTagRelation::create(['content_id' => $id, 'tag_id' => $tag]);
+            $content = Content::find($id);
+            //$chat_id = Content::where('id', $id)->first()->chat_id;
+            if ($content) {
+                $request = $request->all();
+                print_r($request);
+                if (isset($request['filters']) && count($request['filters']) > 0) {
+                    $content->filters()->sync($request['filters']);
                 }
+                unset($request['filters']);
+                Chat_Chats::where('id', '4')->update(['name' => $content->title]);
+                $content->update($request);
+                echo 'true';
+            } else {
+                echo 'false';
             }
             return Redirect::to(URL::previous() . '#filter');
         }

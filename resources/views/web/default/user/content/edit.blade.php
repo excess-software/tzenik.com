@@ -350,7 +350,7 @@
                                     Choose
                                 </button>
                                 <input id="cover" class="form-control" dir="ltr" type="text" name="cover"
-                                    value="{{ !empty($meta['cover']) ? $meta['cover'] : '' }}">
+                                    value="{{ !empty($meta['cover']) ? $meta['cover'] : '' }}" onchange="checkcover($(this).val());">
                                 <div class="input-group-prepend view-selected cu-p" data-toggle="modal"
                                     data-target="#ImageModal" data-whatever="cover">
                                     <span class="input-group-text">
@@ -370,7 +370,7 @@
                                     Choose
                                 </button>
                                 <input id="thumbnail" class="form-control" dir="ltr" type="text" name="thumbnail"
-                                    value="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : '' }}">
+                                    value="{{ !empty($meta['thumbnail']) ? $meta['thumbnail'] : '' }}" onchange="checkmini($(this).val());">
                                 <div class="input-group-prepend view-selected cu-p" data-toggle="modal"
                                     data-target="#ImageModal" data-whatever="thumbnail">
                                     <span class="input-group-text">
@@ -1145,7 +1145,59 @@
             $('#upload_video2').val('');
 
             $.notify({
-                message: 'Tipo de archivo no admitido'
+                message: 'Tipo de archivo no admitido. Se admite MP4.'
+            }, {
+                type: 'danger',
+                allow_dismiss: true,
+                z_index: '99999999',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                position: 'fixed'
+            });
+        }
+    }
+
+    function checkcover(media){
+        var str = media;
+        var n = str.lastIndexOf('.');
+        var result = str.substring(n + 1);
+        console.log(result);
+
+        if(result == 'jpg' || result == 'png'){
+            
+        }else{
+            $('#cover').val('');
+
+            $.notify({
+                message: 'Tipo de archivo no admitido. Se admite JPG y PNG.'
+            }, {
+                type: 'danger',
+                allow_dismiss: true,
+                z_index: '99999999',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                position: 'fixed'
+            });
+        }
+    }
+
+    function checkmini(media){
+        var str = media;
+        var n = str.lastIndexOf('.');
+        var result = str.substring(n + 1);
+        console.log(result);
+
+        if(result == 'jpg' || result == 'png'){
+            
+        }else{
+            $('#thumbnail').val('');
+
+            $.notify({
+                message: 'Tipo de archivo no admitido. Se admite JPG y PNG.'
             }, {
                 type: 'danger',
                 allow_dismiss: true,

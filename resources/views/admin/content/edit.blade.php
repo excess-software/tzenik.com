@@ -241,18 +241,39 @@
                     <div id="filter" class="tab-pane ">
                         <form action="/admin/content/store/{{$item->id}}/tags" class="form-horizontal form-bordered" method="post">
                             {{ csrf_field() }}
-                            @if(!empty($filters))
-                                @foreach($filters as $filter)
-                                    <div class="col-md-3 col-xs-12">
-                                        <fieldset>
-                                            <legend class="custom-legend" style="font-weight: bold;">{{ $filter->filter  }}</legend>
-                                            @foreach($filter->tags as $tag)
-                                                &nbsp;&nbsp;&nbsp;<input type="checkbox" value="{{ $tag->id }}" name="tags[]" style="position: relative;top: 2px;" {{ checkedInObject($tag->id,'tag_id',$item->tags) }}>&nbsp;{{ $tag->tag  }}<br>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label tab-con"
+                                    for="inputDefault">{{ trans('main.tags') }}</label>
+                                <div class="col-md-10 tab-con">
+                                    <input type="text" data-role="tagsinput" placeholder="Press enter to save tag." name="tag"
+                                        value="{{ $item->tag}}" class="form-control text-center">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label tab-con"
+                                    for="inputDefault">{{ trans('main.category') }}</label>
+                                <div class="col-md-10 tab-con">
+                                    <select name="category_id" id="category_id" class="form-control font-s" required>
+                                        <option value="0">{{ trans('main.select_category') }}</option>
+                                        @foreach($menus as $menu)
+                                        @if($menu->parent_id == 0)
+                                        <optgroup label="{{ $menu->title }}">
+                                            @if(count($menu->childs) > 0)
+                                            @foreach($menu->childs as $sub)
+                                            <option value="{{ $sub->id }}" @if($sub->id == $item->category_id) selected
+                                                @endif>{{ $sub->title }}</option>
                                             @endforeach
-                                        </fieldset>
-                                    </div>
-                                @endforeach
-                            @endif
+                                            @else
+                                            <option value="{{ $menu->id }}" @if($menu->id == $item->category_id) selected
+                                                @endif>{{ $menu->title }}</option>
+                                            @endif
+                                        </optgroup>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            
 
                             <div class="row h-25"></div>
                             <div class="form-group">

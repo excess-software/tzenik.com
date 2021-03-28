@@ -244,18 +244,39 @@
                         <form action="/admin/content/store/<?php echo e($item->id); ?>/tags" class="form-horizontal form-bordered" method="post">
                             <?php echo e(csrf_field()); ?>
 
-                            <?php if(!empty($filters)): ?>
-                                <?php $__currentLoopData = $filters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $filter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <div class="col-md-3 col-xs-12">
-                                        <fieldset>
-                                            <legend class="custom-legend" style="font-weight: bold;"><?php echo e($filter->filter); ?></legend>
-                                            <?php $__currentLoopData = $filter->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                &nbsp;&nbsp;&nbsp;<input type="checkbox" value="<?php echo e($tag->id); ?>" name="tags[]" style="position: relative;top: 2px;" <?php echo e(checkedInObject($tag->id,'tag_id',$item->tags)); ?>>&nbsp;<?php echo e($tag->tag); ?><br>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label tab-con"
+                                    for="inputDefault"><?php echo e(trans('main.tags')); ?></label>
+                                <div class="col-md-10 tab-con">
+                                    <input type="text" data-role="tagsinput" placeholder="Press enter to save tag." name="tag"
+                                        value="<?php echo e($item->tag); ?>" class="form-control text-center">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label tab-con"
+                                    for="inputDefault"><?php echo e(trans('main.category')); ?></label>
+                                <div class="col-md-10 tab-con">
+                                    <select name="category_id" id="category_id" class="form-control font-s" required>
+                                        <option value="0"><?php echo e(trans('main.select_category')); ?></option>
+                                        <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($menu->parent_id == 0): ?>
+                                        <optgroup label="<?php echo e($menu->title); ?>">
+                                            <?php if(count($menu->childs) > 0): ?>
+                                            <?php $__currentLoopData = $menu->childs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($sub->id); ?>" <?php if($sub->id == $item->category_id): ?> selected
+                                                <?php endif; ?>><?php echo e($sub->title); ?></option>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </fieldset>
-                                    </div>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
+                                            <?php else: ?>
+                                            <option value="<?php echo e($menu->id); ?>" <?php if($menu->id == $item->category_id): ?> selected
+                                                <?php endif; ?>><?php echo e($menu->title); ?></option>
+                                            <?php endif; ?>
+                                        </optgroup>
+                                        <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
 
                             <div class="row h-25"></div>
                             <div class="form-group">
