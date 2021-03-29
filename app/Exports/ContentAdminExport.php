@@ -48,7 +48,7 @@ class ContentAdminExport implements FromCollection, WithHeadings, WithMapping
         return [
             $sheet->title,
             date('d F Y | H:i', $sheet->created_at),
-            $sheet->user->username,
+            $sheet->user->name,
             $sheet->sells_count,
             $sheet->partsactive_count,
             $sheet->transactions->sum('price'),

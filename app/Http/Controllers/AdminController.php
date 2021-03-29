@@ -1860,7 +1860,8 @@ class AdminController extends Controller
     }
 
     public function contentDelete($id)
-    {
+    {   
+        ProgresoAlumno::where('content_id', $id)->delete();
         Content::find($id)->delete();
         contentCacheForget($id);
         return back();
