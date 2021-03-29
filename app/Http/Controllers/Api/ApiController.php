@@ -2439,19 +2439,26 @@ class ApiController extends Controller
         $image = $request->file('file');
         $course = $request->product;
         $part = $request->part;
+        $response_array = [];
 
         foreach($request->file('file') as $homework){
             $extension = $homework->getClientOriginalExtension();
             $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
-            $homework->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
+            $uploadHomework = $homework->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
 
-            HomeworksUser::insert([
-                'user_id' => $user['id'],
-                'content_id' => $course,
-                'part_id' => $part,
-                'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
-            ]);
+            if($uploadHomework){
+                HomeworksUser::insert([
+                    'user_id' => $user['id'],
+                    'content_id' => $course,
+                    'part_id' => $part,
+                    'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
+                ]);
+
+                array_push($response_array, 'Success');
+            }else{
+                array_push($response_array, 'Failed');
+            }
         }
         
         /*$extension = $image->getClientOriginalExtension();
@@ -2466,7 +2473,6 @@ class ApiController extends Controller
             'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
         ]);*/
     
-        return response()->json(['success' => 'success']);
-        
+        return $this->response($response_array);        
     }
 }
