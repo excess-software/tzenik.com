@@ -1,4 +1,4 @@
-@extends('admin.newlayout.layout',['breadcom'=>['Report','Courses']])
+@extends('admin.newlayout.layout',['breadcom'=>['Reportes','Contenido']])
 @section('title')
     {{  trans('admin.courses_reportpage_title') }}
 @endsection
@@ -63,7 +63,7 @@
                     @endfor
                 ],
                 datasets: [{
-                    label: 'Courses',
+                    label: 'Cursos',
                     data: [
                         @for($i=1;$i<get_option('chart_day_count',10)+1;$i++)
                         {!! groupDay($dayRegister,$i) !!},
@@ -78,7 +78,7 @@
                     borderWidth: 1
                 },
                     {
-                        label: 'Parts',
+                        label: 'Módulos',
                         data: [
                             @for($i=1;$i<get_option('chart_day_count',10)+1;$i++)
                             {!! groupDay($videoRegister,$i) !!},

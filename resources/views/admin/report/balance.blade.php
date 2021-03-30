@@ -1,11 +1,11 @@
-@extends('admin.newlayout.layout',['breadcom'=>['Reports','Financial']])
+@extends('admin.newlayout.layout',['breadcom'=>['Reportes','Financiero']])
 @section('title')
     {{  trans('admin.financial_reports_page_title') }}
 @endsection
 @section('page')
     <div class="row">
         <div class="col-md-12 col-lg-6 col-xl-6">
-            <section class="card text-center bg-primary">
+            <!--<section class="card text-center bg-primary">
                 <div class="card-body">
                     <div class="widget-summary">
                         <div class="widget-summary-col">
@@ -20,9 +20,9 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>-->
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-6">
+        <div class="col-md-12 col-lg-12 col-xl-12">
             <section class="card text-center bg-warning">
                 <div class="card-body">
                     <div class="widget-summary">
@@ -119,7 +119,7 @@
                     @endfor
                 ],
                 datasets: [{
-                    label: 'Sales',
+                    label: 'Ventas',
                     data: [
                         @for($i=1;$i<get_option('chart_day_count',10)+1;$i++)
                         {!! groupDay($dayRegister,$i) !!},
@@ -133,7 +133,7 @@
                     ],
                     borderWidth: 1
                 }, {
-                    label: 'Transactions',
+                    label: 'Transacciones',
                     data: [
                         @for($i=1;$i<get_option('chart_day_count',10)+1;$i++)
                         {!! groupDay($transactionRegister,$i) !!},

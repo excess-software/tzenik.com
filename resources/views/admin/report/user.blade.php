@@ -1,4 +1,4 @@
-@extends('admin.newlayout.layout',['breadcom'=>['Report','Users']])
+@extends('admin.newlayout.layout',['breadcom'=>['Reportes','Usuarios']])
 @section('title')
     {{  trans('admin.users_report_page_title') }}
 @endsection
@@ -61,7 +61,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-xs-6 col-md-3 col-sm-6 text-center">
+        <!--<div class="col-xs-6 col-md-3 col-sm-6 text-center">
             <section class="card bg-danger">
                 <div class="card-body">
                     <div class="widget-summary">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </section>
-        </div>
+        </div>-->
     </div>
     <section class="card">
         <div class="card-body">
@@ -100,7 +100,7 @@
                     @endfor
                 ],
                 datasets: [{
-                    label: 'Registered Users',
+                    label: 'Usuarios registrados',
                     data: [
                         @for($i=1;$i<get_option('chart_day_count',10)+1;$i++)
                         {!! groupDay($dayRegister,$i) !!},

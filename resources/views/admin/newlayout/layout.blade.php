@@ -97,10 +97,10 @@
                                 <li><a class="nav-link" href="/admin/report/user">{{  trans('admin.users_report') }}</a></li>
                                 <li><a class="nav-link" href="/admin/report/content">{{  trans('admin.products_report') }}</a></li>
                                 <li><a class="nav-link" href="/admin/report/balance">{{  trans('admin.financial_report') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Progreso Alumnos Fundal</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Informe de progreso</a></li>
                             </ul>
                         </li>@endif
-                    <li class="menu-header">CRM</li>
+                    <li class="menu-header">Usuarios</li>
                     @if(checkAccess('manager'))
                         <li class="dropdown" id="manager">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>{{  trans('admin.employees') }}</span></a>
@@ -118,11 +118,11 @@
                                 <li><a class="nav-link" href="/admin/user/crear">Crear nuevo usuario</a></li>
                                 <li><a class="nav-link" href="/admin/user/vendor">{{  trans('admin.vendor') }}</a></li>
                                 <li><a class="nav-link" href="/admin/user/category">{{  trans('admin.user_groups') }}</a></li>
-                                <li><a class="nav-link" href="/admin/user/rate">{{  trans('admin.users_badges') }}</a></li>
-                                <li><a class="nav-link" href="/admin/user/seller">{{  trans('admin.identity_verification') }}</a></li>
+                                <!--<li><a class="nav-link" href="/admin/user/rate">{{  trans('admin.users_badges') }}</a></li>
+                                <li><a class="nav-link" href="/admin/user/seller">{{  trans('admin.identity_verification') }}</a></li>-->
                             </ul>
                         </li>@endif
-                    @if(checkAccess('ticket'))
+                    <!--@if(checkAccess('ticket'))
                         <li class="dropdown" id="ticket">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-life-ring"></i> <span>{{  trans('admin.support') }}</span></a>
                             <ul class="dropdown-menu">
@@ -132,7 +132,7 @@
                                 <li><a class="nav-link" href="/admin/ticket/category">{{  trans('admin.support_departments') }}</a></li>
                                 <li><a class="nav-link" href="/admin/ticket/new">{{  trans('admin.submit_ticket') }}</a></li>
                             </ul>
-                        </li>@endif
+                        </li>@endif-->
                     @if(checkAccess('notification'))
                         <li class="dropdown" id="notification">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-bell"></i> <span>{{  trans('admin.notifications') }}</span></a>
@@ -154,8 +154,8 @@
                                 <li><a class="nav-link" href="/admin/content/private/desasignar">Desasignar contenido privado</a></li>
                                 <li><a class="nav-link @if(isset($alert['content_waiting']) and $alert['content_waiting'] > 0) beep beep-sidebar @endif" href="/admin/content/waiting">{{  trans('admin.pending_courses') }}</a></li>
                                 <li><a class="nav-link @if(isset($alert['content_draft']) and $alert['content_draft'] > 0) beep beep-sidebar @endif" href="/admin/content/draft">{{  trans('admin.unpublished_courses') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/comment">{{  trans('admin.corse_comments') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/support">{{  trans('admin.support_tickets') }}</a></li>
+                                <!--<li><a class="nav-link" href="/admin/content/comment">{{  trans('admin.corse_comments') }}</a></li>-->
+                                <!--<li><a class="nav-link" href="/admin/content/support">{{  trans('admin.support_tickets') }}</a></li>-->
                                 <li><a class="nav-link" href="/admin/content/category">{{  trans('admin.categories') }}</a></li>
                             </ul>
                         </li>@endif
@@ -167,14 +167,14 @@
                             </ul>
                         </li>
 
-                    @if(checkAccess('request'))
+                    <!--@if(checkAccess('request'))
                         <li class="dropdown" id="request">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-plus-square"></i> <span>{{  trans('admin.course_requests') }}</span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/request/list">{{  trans('admin.requests_list') }}</a></li>
                                 <li><a class="nav-link" href="/admin/request/record/list">{{  trans('admin.future_courses') }}</a></li>
                             </ul>
-                        </li>@endif
+                        </li>@endif-->
                     @if(checkAccess('blog'))
                         <li class="dropdown" id="blog">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span>{{  trans('admin.blog_articles') }}</span></a>
@@ -196,7 +196,7 @@
                         </ul>
                     </li>
                     
-                    @if(checkAccess('channel'))
+                    <!--@if(checkAccess('channel'))
                         <li class="dropdown" id="channel">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-eye"></i> <span>{{  trans('admin.channels') }}</span></a>
                             <ul class="dropdown-menu">
@@ -204,7 +204,7 @@
                                 <li><a class="nav-link @if(isset($alert['channel_request']) && $alert['channel_request'] > 0) beep beep-sidebar @endif" href="/admin/channel/request">{{  trans('admin.verification_requests') }}</a></li>
                             </ul>
                         </li>
-                    @endif
+                    @endif-->
                     @if(checkAccess('quizzes'))
                         <li class="dropdown" id="quizzes">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-pie"></i> <span>{{  trans('admin.quizzes') }}</span></a>

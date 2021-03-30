@@ -1,4 +1,4 @@
-@extends('admin.newlayout.layout',['breadcom'=>['Employees','Edit Employee',$user->name]])
+@extends('admin.newlayout.layout',['breadcom'=>['Administradores','Edit Employee',$user->name]])
 @section('title')
     {{ trans('admin.th_edit') }} {{ trans('admin.employees') }}
 @endsection
@@ -13,15 +13,15 @@
                     <li class="nav-item">
                         <a href="#profile" class="nav-link" data-toggle="tab">{{ trans('admin.profile') }}</a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a href="#information" class="nav-link" data-toggle="tab">{{ trans('admin.extra_info') }}</a>
-                    </li>
-                    <li class="nav-item">
+                    </li>-->
+                    <!--<li class="nav-item">
                         <a href="#capatibility" class="nav-link" data-toggle="tab">{{ trans('admin.permissions') }}</a>
-                    </li>
-                    <li class="nav-item">
+                    </li>-->
+                    <!--<li class="nav-item">
                         <a href="#document" class="nav-link" data-toggle="tab">{{ trans('admin.identity') }}</a>
-                    </li>
+                    </li>-->
                 </ul>
                 <div class="tab-content">
                     <div id="main" class="tab-pane active">
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.bank_name') }}</label>
                                 <div class="col-md-6">
                                     <input type="text" name="bank_name" value="{{ $meta['bank_name'] ?? '' }}" class="form-control text-center" id="inputDefault">
@@ -121,7 +121,7 @@
                                 <div class="col-md-6">
                                     <input type="text" name="bank_card" value="{{ $meta['bank_card'] ?? '' }}" class="form-control text-center" id="inputDefault">
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>

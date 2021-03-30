@@ -16,15 +16,15 @@
                     <li class="nav-item">
                         <a href="#profile" class="nav-link" data-toggle="tab">{{ trans('admin.profile') }}</a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a href="#images" class="nav-link" data-toggle="tab">{{ trans('admin.image') }}/{{ trans('admin.video') }}</a>
-                    </li>
-                    <li class="nav-item">
+                    </li>-->
+                    <!--<li class="nav-item">
                         <a href="#seller" class="nav-link" data-toggle="tab">{{ trans('admin.vendor_info') }}</a>
-                    </li>
-                    <li class="nav-item">
+                    </li>-->
+                    <!--<li class="nav-item">
                         <a href="#rate" class="nav-link" data-toggle="tab">{{ trans('admin.users_badges') }}</a>
-                    </li>
+                    </li>-->
                 </ul>
                 <div class="tab-content">
                     <div id="main" class="tab-pane active">

@@ -1,7 +1,7 @@
 @extends('admin.newlayout.layout',['breadcom'=>['Users','Rating','Admin Panel']])
 @include('admin.layout.modals')
 @section('title')
-    Vendor List
+    Instructores
 @endsection
 @section('page')
     <section class="card">
@@ -10,7 +10,7 @@
                 <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                 <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
             </div>
-            <h2 class="panel-title">Vendor List</h2>
+            <h2 class="panel-title">Instructores</h2>
         </header>
         <div class="card-body p-0">
             <div class="table-responsive">

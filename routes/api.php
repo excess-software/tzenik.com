@@ -31,7 +31,7 @@ Route::group(['prefix'=>'v1'], function (){
         Route::get('last/{last?}','Api\ApiController@contents');
     });
     Route::any('category', 'Api\ApiController@category');
-
+    Route::any('guias', 'Api\ApiController@guias_cursos');
     ## Product
     Route::group(['prefix'=>'product'],function (){
        Route::any('pay','Api\ApiController@productPay');
@@ -44,7 +44,6 @@ Route::group(['prefix'=>'v1'], function (){
        Route::any('download','Api\ApiController@productDownload');
        Route::any('support', 'Api\ApiController@productSupport');
        Route::any('{id}','Api\ApiController@product');
-       Route::any('{id}/guia', 'Api\ApiController@guia_curso');
     });
 
     ## User Section

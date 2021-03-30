@@ -581,15 +581,44 @@ class ApiController extends Controller
         return $this->response(['product'=>$data]);
     }
 
-    public function guia_curso($id, Request $request){
+    public function guias_cursos(Request $request){
 
-        $guides = Course_guides::where('content_id', $id)->get();
+        /*$guides = Course_guides::where('content_id', $id)->get();
 
         //$content = Content::find($id);
 
         //return $this->response(['guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf']);
-        return $this->response($guides);
+        return $this->response($guides);*/
+        $result = [];
+        $User = $this->checkUserToken($request);
+        if(!$User)
+            return $this->error(-1, trans('main.user_not_found'));
 
+
+        
+        $purchases = Sell::with(['content'=>function($q){
+            $q->with(['metas', 'parts']);
+        },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
+        
+        if($purchases->isEmpty()){
+            return $this->response($data, '0');
+        }else{
+
+            $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
+
+            $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'type'])->get();
+
+            foreach($courses as $course){
+                $guides = Course_guides::where('content_id', $course->id)->get();
+                if(!$guides->isEmpty()){
+                    $course->guides = $guides;
+                    array_push($result, $course);
+                }
+            }
+
+            return $this->response($result);
+
+        }
     }
 
     public function productPay(Request $request){

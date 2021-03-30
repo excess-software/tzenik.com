@@ -61,7 +61,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-xs-6 col-md-3 col-sm-6 text-center">
+        <!--<div class="col-xs-6 col-md-3 col-sm-6 text-center">
             <section class="card bg-danger">
                 <div class="card-body">
                     <div class="widget-summary">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </section>
-        </div>
+        </div>-->
     </div>
     <section class="card">
         <div class="card-body">
@@ -100,7 +100,7 @@
                     <?php endfor; ?>
                 ],
                 datasets: [{
-                    label: 'Registered Users',
+                    label: 'Usuarios registrados',
                     data: [
                         <?php for($i=1;$i<get_option('chart_day_count',10)+1;$i++): ?>
                         <?php echo groupDay($dayRegister,$i); ?>,

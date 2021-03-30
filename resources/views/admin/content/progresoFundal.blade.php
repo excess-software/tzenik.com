@@ -1,4 +1,4 @@
-@extends('admin.newlayout.layout',['breadcom'=>['Courses','Latest Courses']])
+@extends('admin.newlayout.layout',['breadcom'=>['Reportes','Progreso']])
 @section('page')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
