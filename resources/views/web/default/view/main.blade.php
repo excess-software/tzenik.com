@@ -31,16 +31,13 @@
     <div class="row text-center">
         <div class="col">
             
-                <h1 class="main">Alegr&iacute;a de Aprender</h1>
+                <h1 class="main">{{get_option('main_page_slide_title')}}</h1>
             
         </div>
     </div>
     <div class="row text-center">
         <div class="col banner-descripcion">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac laoreet ante, ut iaculis
-                purus. Donec nec eleifend ligula, id sollicitudin sem. Phasellus pharetra tellus at auctor
-                faucibus. Cras posuere nec sem a consequat. Phasellus pharetra tellus at auctor faucibus. Cras
-                posuere nec sem a consequat.</p>
+            <p>{{get_option('main_page_slide_text')}}</p>
         </div>
     </div>
 </div>

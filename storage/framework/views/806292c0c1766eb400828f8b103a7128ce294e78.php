@@ -122,30 +122,32 @@
                             </button>
                         </a>
                         <br>
-                        <h3>Materiales</h3>
-                        <br>
-                        <?php if(isset($user)): ?>
-                        <a href="<?php echo e($product_material); ?>">
-                            <button class="btn btn-media-descargar-leccion">
-                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                            </button>
-                        </a>
-                        <?php else: ?>
-                            <button class="btn btn-media-descargar-leccion">
-                                <h4>Descargar Materiales de Lecci&oacute;n</h4>
-                            </button>
-                        <?php endif; ?>
-                        <br>
-                        <?php if(isset($user)): ?>
-                        <a href="/material/curso/<?php echo e($product->id); ?>">
-                            <button class="btn btn-media-descargar-curso">
-                                <h4>Descargar Materiales del Curso</h4>
-                            </button>
-                        </a>
-                        <?php else: ?>
-                            <button class="btn btn-media-descargar-curso">
-                                <h4>Descargar Materiales del Curso</h4>
-                            </button>
+                        <?php if(!isset($meeting)): ?>
+                            <h3>Materiales</h3>
+                            <br>
+                            <?php if(isset($user)): ?>
+                            <a href="<?php echo e($product_material); ?>">
+                                <button class="btn btn-media-descargar-leccion">
+                                    <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                                </button>
+                            </a>
+                            <?php else: ?>
+                                <button class="btn btn-media-descargar-leccion">
+                                    <h4>Descargar Materiales de Lecci&oacute;n</h4>
+                                </button>
+                            <?php endif; ?>
+                            <br>
+                            <?php if(isset($user)): ?>
+                            <a href="/material/curso/<?php echo e($product->id); ?>">
+                                <button class="btn btn-media-descargar-curso">
+                                    <h4>Descargar Materiales del Curso</h4>
+                                </button>
+                            </a>
+                            <?php else: ?>
+                                <button class="btn btn-media-descargar-curso">
+                                    <h4>Descargar Materiales del Curso</h4>
+                                </button>
+                            <?php endif; ?>
                         <?php endif; ?>
                 </div>
                 <br>
@@ -448,7 +450,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <input type="hidden" id="buy_method" value="download">
-                                    <div class="radio">
+                                    <!--<div class="radio">
                                         <input type="radio" class="buy-mode" id="mode-1" value="credit" name="buyMode">
                                         &nbsp;
                                         <label class="radio-label"
@@ -461,7 +463,7 @@
                                         &nbsp;
                                         <label class="radio-label" for="mode-2"> Paypal </label>
                                     </div>
-                                    <?php endif; ?>
+                                    <?php endif; ?>-->
                                     <div class="radio">
                                         <input type="radio" class="buy-mode" id="mode-7" value="paycom" name="buyMode">
                                         &nbsp;
@@ -608,7 +610,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="buyModalLabel">Debes iniciar sesi&oacute;n o registrarte para comprar.</h5>
+                    <h4 class="modal-title" id="buyModalLabel">Debes iniciar sesi&oacute;n o registrarte para comprar.</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

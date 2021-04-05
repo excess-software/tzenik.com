@@ -7,11 +7,11 @@
         <div class="card-body">
             <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#main" data-toggle="tab"> {{ trans('admin.general') }} </a></li>
-                <li class="nav-item"><a class="nav-link" href="#withdraw" data-toggle="tab"> {{ trans('admin.financial') }} </a></li>
+                <!--<li class="nav-item"><a class="nav-link" href="#withdraw" data-toggle="tab"> {{ trans('admin.financial') }} </a></li>
                 <li class="nav-item"><a class="nav-link" href="#factor" data-toggle="tab"> {{ trans('admin.invoice') }} </a></li>
                 <li class="nav-item"><a class="nav-link" href="#gateway" data-toggle="tab"> {{ trans('admin.payment') }} </a></li>
                 <li class="nav-item"><a class="nav-link" href="#popup" data-toggle="tab"> {{ trans('admin.popup') }} </a></li>
-                <li class="nav-item"><a class="nav-link" href="#videoAds" data-toggle="tab"> {{ trans('admin.video_ads') }} </a></li>
+                <li class="nav-item"><a class="nav-link" href="#videoAds" data-toggle="tab"> {{ trans('admin.video_ads') }} </a></li>-->
                 <li class="nav-item"><a class="nav-link" href="#mainSlide" data-toggle="tab"> {{ trans('admin.home_hero') }} </a></li>
             </ul>
             <div class="tab-content">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-md-3 control-label">{{ trans('admin.videos_watermark') }}</label>
                             <div class="col-md-6">
                                 <div class="input-group" style="display: flex">
@@ -266,7 +266,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
@@ -644,7 +644,7 @@
                                 <textarea rows="5" class="form-control text-center" name="main_page_slide_text">{{ $_setting['main_page_slide_text'] ?? '' }}</textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.first_button') }}</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control text-center" name="main_page_slide_btn_1_text" value="{{ $_setting['main_page_slide_btn_1_text'] ?? '' }}"/>
@@ -667,7 +667,7 @@
                             <div class="col-md-6">
                                 <input type="text" class="form-control text-center" name="main_page_slide_btn_2_url" value="{{ $_setting['main_page_slide_btn_2_url'] ?? '' }}"/>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-6">

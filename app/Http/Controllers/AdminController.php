@@ -4039,7 +4039,6 @@ class AdminController extends Controller
     }
     public function forumcategoryStore(Request $request)
     {
-
         if($request->edit != '') {
             $category = ForumCategory::find($request->edit);
             $category->title = $request->title;

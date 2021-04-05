@@ -287,7 +287,7 @@
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span><?php echo e(trans('admin.settings')); ?></span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/setting/main"><?php echo e(trans('admin.general_settings')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/setting/display"><?php echo e(trans('admin.custom_codes')); ?></a></li>
+                                <!--<li><a class="nav-link" href="/admin/setting/display"><?php echo e(trans('admin.custom_codes')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/setting/user"><?php echo e(trans('admin.users_settings')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/setting/content"><?php echo e(trans('admin.course_settings')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/setting/term"><?php echo e(trans('admin.rules')); ?></a></li>
@@ -297,7 +297,7 @@
                                 <li><a class="nav-link" href="/admin/setting/footer"><?php echo e(trans('admin.footer_settings')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/setting/pages"><?php echo e(trans('admin.custom_pages')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/setting/default"><?php echo e(trans('admin.default_placeholders')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/setting/view_templates"><?php echo e(trans('admin.view_templates')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/setting/view_templates"><?php echo e(trans('admin.view_templates')); ?></a></li>-->
                             </ul>
                         </li><?php endif; ?>
                     <li>

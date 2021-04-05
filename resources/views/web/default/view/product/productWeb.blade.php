@@ -17,7 +17,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2><b>{{ $product->title }}</b></h2>
+                        <h2><b style="color: white;">{{ $product->title }}</b></h2>
                     </div>
                     <!--<div class="col-md-4">
                         @if($product->support == 1)
@@ -90,11 +90,11 @@
                                 
                                 @else
                                 @if(isset($meta['price']) && $product->price != 0)
-                                <h2>Precio:
+                                <h3>Precio:
                                     {{ currencySign() }}{{ price($product->id,$product->category_id,$meta['price'])['price']  }}
-                                </h2>
+                                </h3>
                                 @else
-                                <h2>{{ trans('main.free') }}</h2>
+                                <h3>{{ trans('main.free') }}</h3>
                                 <br>
                                 <a class="btn btn-success" href="/inscribirse/product/{{$product->id}}">Inscribirse</a>
                                 @endif
@@ -103,7 +103,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Enlace de Zoom:</h2>
+                                <h3>Enlace de Zoom:</h3>
                                 <br>
                                 <span><a
                                         href="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Comparte en tus redes sociales:</h2>
+                                <h3>Comparte en tus redes sociales:</h3>
                                 <br>
                                 <div class="addthis_inline_share_toolbox"></div>
                             </div>
@@ -119,7 +119,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Etiquetas</h2>
+                                <h3>Etiquetas</h3>
                                 <br>
                                 @foreach(explode(',', $product->tag) as $tag)
                                 <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
@@ -130,7 +130,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Categor&iacute;a</h2>
+                                <h3>Categor&iacute;a</h3>
                                 <br>
                                 <h4><span class="label label-tag-media-categoria"> <span
                                             class="circle-tag-media-categoria"></span>

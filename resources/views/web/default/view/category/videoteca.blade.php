@@ -4,39 +4,35 @@
 {{ get_option('site_title','') }} - {{ !empty($category->title) ? $category->title : 'Categories' }}
 @endsection
 @section('content')
-@include(getTemplate() . '.user.parts.navigation')
-<div class="row">
-    <div class="container">
-        <div class="col titulo-cursos-destacados">
-            <span>
-                <h2><img src="https://image.flaticon.com/icons/png/512/2989/2989835.png" width="30px" height="30px" /><b> Videoteca </b></h2>
-            </span>
-        </div>
-    </div>
-</div>
-<br>
-<div class="container">
-<div class="row ultimos-blogs">
 
-    @foreach($contents as $content)
-    <div class="col-md-6">
-        <a href="/product/{{ $content['id'] }}" title="{{ $content['title'] }}" class="enlace-tabs">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <img class="img-responsive img-ultimos-blogs"
-                                src="{{ !empty($content['metas']['thumbnail']) ? $content['metas']['thumbnail'] : '' }}"
-                                alt="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel-description vertical-center">
-                                <div class="row ultimos-blogs-titulo">
-                                    <h4><b>{{ $content['title'] }}</b></h4>
-                                </div>
-                                <!--<div class="row ultimos-blogs-contenido">
+<div class="">
+    @include(getTemplate() . '.user.parts.navigation')
+
+    <div class="row ">
+        <div class="">
+            <div class="col-md-12">
+                <h2 class="titulo-partials">Videoteca</h2>
+                <div class="row">
+
+                    @foreach($contents as $content)
+                    <div class="col-md-6 dash-content-user">
+                        <a href="/product/{{ $content['id'] }}" title="{{ $content['title'] }}" class="enlace-tabs">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img class="img-responsive img-ultimos-blogs"
+                                                src="{{ !empty($content['metas']['thumbnail']) ? $content['metas']['thumbnail'] : '' }}"
+                                                alt="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-description vertical-center">
+                                                <div class="row ultimos-blogs-titulo">
+                                                    <h3>{{ $content['title'] }}</h3>
+                                                </div>
+                                                <!--<div class="row ultimos-blogs-contenido">
                                     <div class="col">
                                         <span class="ultimos-blogs-contenido-interno">
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
@@ -52,27 +48,32 @@
                                         </span>
                                     </div>
                                 </div>-->
-                                <div class="row ultimos-blogs-contenido">
-                                    <div class="col">
-                                        <span class="ultimos-blogs-contenido-interno">
-                                            <h4><span class="label label-tag-cursos"> <span
-                                                        class="circle-tag-cursos"></span> Video</span></h4>
-                                        </span>
+                                                <div class="row ultimos-blogs-contenido">
+                                                    <div class="col">
+                                                        <span class="ultimos-blogs-contenido-interno">
+                                                            <h4><span class="label label-tag-cursos"> <span
+                                                                        class="circle-tag-cursos"></span> Video</span>
+                                                            </h4>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="panel-footer">
+                                    <button class="btn btn-cursos-listado btn-block">
+                                        <h4><b>Continuar</b></h4>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-cursos-listado btn-block">
-                        <h4><b>Continuar</b></h4>
-                    </button>
+                    @endforeach
                 </div>
             </div>
-        </a>
+        </div>
     </div>
-    @endforeach
 </div>
-</div>
+
 @endsection

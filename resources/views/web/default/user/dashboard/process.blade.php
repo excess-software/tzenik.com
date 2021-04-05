@@ -100,7 +100,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <h4><b>Aún no has comprado cursos!!!</b></h4>
+                                    <h4><b>Aún no has iniciado un curso.</b></h4>
                                 </div>
                             </div>
                             <br>

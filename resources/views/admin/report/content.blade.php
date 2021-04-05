@@ -78,7 +78,7 @@
                     borderWidth: 1
                 },
                     {
-                        label: 'Módulos',
+                        label: 'Partes',
                         data: [
                             @for($i=1;$i<get_option('chart_day_count',10)+1;$i++)
                             {!! groupDay($videoRegister,$i) !!},

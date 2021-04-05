@@ -35,13 +35,13 @@
             <thead>
                 <tr>
                     <th scope="col">
-                        <h3><b>Curso</b> </h3>
+                        <h3><b style="color: white;">Curso</b> </h3>
                     </th>
                     <th scope="col">
-                        <h3><b>Nota</b> </h3>
+                        <h3><b style="color: white;">Nota</b> </h3>
                     </th>
                     <th scope="col">
-                        <h3><b>Extras</b> </h3>
+                        <h3><b style="color: white;">Extras</b> </h3>
                     </th>
                 </tr>
             </thead>

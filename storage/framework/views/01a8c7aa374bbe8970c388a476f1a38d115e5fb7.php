@@ -11,7 +11,7 @@
                 <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
             </div>
 
-            <h2 class="panel-title"><?php echo e(trans('admin.filter_items')); ?></h2>
+            <h2 class="panel-title">Filtrar usuarios</h2>
         </header>
         <div class="card-body">
             <form>
@@ -75,8 +75,8 @@
                         <th class="text-center"><?php echo e(trans('admin.username')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.real_name')); ?></th>
                         <th class="text-center">e-Mail</th>
-                        <th class="text-center" width="100"><?php echo e(trans('admin.income')); ?></th>
-                        <th class="text-center" width="100"><?php echo e(trans('admin.account_balance')); ?></th>
+                        <!--<th class="text-center" width="100"><?php echo e(trans('admin.income')); ?></th>
+                        <th class="text-center" width="100"><?php echo e(trans('admin.account_balance')); ?></th>-->
                         <th class="text-center"><?php echo e(trans('admin.badges_tab_courses_count')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.purchases')); ?></th>
                         <th class="text-center"><?php echo e(trans('admin.sales')); ?></th>
@@ -88,11 +88,11 @@
                     <tbody>
                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <th class="text-center"><a <?php if($user['vendor'] == 1): ?> style="color: green;font-weight: bold;" title="vendor" <?php endif; ?> target="_blank" href="/profile/<?php echo e($user->id); ?>"><?php echo e($user->username); ?></a></th>
+                            <th class="text-center"><?php echo e($user->username); ?></th>
                             <th class="text-center"><?php echo e($user->name); ?></th>
                             <th class="text-center"><?php echo e($user->email); ?></th>
-                            <th class="text-center number-green" width="100" <?php if($user->income < 0): ?> style="color:red !important;" <?php endif; ?> dir="ltr"><?php echo e(number_format($user->income)); ?></th>
-                            <th class="text-center number-green" width="100" <?php if($user->credit < 0): ?> style="color:red !important;" <?php endif; ?> dir="ltr"><?php echo e(number_format($user->credit)); ?></th>
+                            <!--<th class="text-center number-green" width="100" <?php if($user->income < 0): ?> style="color:red !important;" <?php endif; ?> dir="ltr"><?php echo e(number_format($user->income)); ?></th>
+                            <th class="text-center number-green" width="100" <?php if($user->credit < 0): ?> style="color:red !important;" <?php endif; ?> dir="ltr"><?php echo e(number_format($user->credit)); ?></th>-->
                             <th class="text-center"><a href="/admin/content/user/<?php echo e($user->id); ?>"><?php echo e($user->contents_count); ?></a></th>
                             <th class="text-center"><a href="/admin/buysell/list/?buyer=<?php echo e($user->id); ?>"><?php echo e($user->buys_count); ?></a></th>
                             <th class="text-center"><a href="/admin/buysell/list/?user=<?php echo e($user->id); ?>"><?php echo e($user->sells_count); ?></a></th>

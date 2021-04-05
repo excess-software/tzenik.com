@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-md-2 control-label" for="inputDefault">{{{ trans('admin.thumbnail') }}}</label>
                     <div class="col-md-10">
                         <div class="input-group">
@@ -44,7 +44,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <div class="col-md-12">
@@ -52,12 +52,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-md-2 control-label" for="inputDefault">{{{ trans('admin.tags') }}}</label>
                     <div class="col-md-10">
                         <input type="text" name="tags" value="{{{ $item->tags ?? '' }}}" data-role="tagsinput" data-tag-class="label label-primary" class="form-control">
                     </div>
-                </div>
+                </div>-->
 
                 <div class="custom-switches-stacked col-md-12">
                     <label class="custom-switch">

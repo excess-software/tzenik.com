@@ -434,7 +434,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <input type="hidden" id="buy_method" value="download">
-                                    <div class="radio">
+                                    <!--<div class="radio">
                                         <input type="radio" class="buy-mode" id="mode-1" value="credit" name="buyMode">
                                         &nbsp;
                                         <label class="radio-label"
@@ -447,7 +447,7 @@
                                         &nbsp;
                                         <label class="radio-label" for="mode-2"> Paypal </label>
                                     </div>
-                                    @endif
+                                    @endif-->
                                     <div class="radio">
                                         <input type="radio" class="buy-mode" id="mode-7" value="paycom" name="buyMode">
                                         &nbsp;

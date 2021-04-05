@@ -41,7 +41,7 @@
                     <div id="newitem" class="tab-pane ">
                         <form method="post" action="/admin/forum/category/store" class="form-horizontal form-bordered">
 
-
+                            @csrf
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputDefault">{{{ trans('admin.th_title') }}}</label>
                                 <div class="col-md-6">
