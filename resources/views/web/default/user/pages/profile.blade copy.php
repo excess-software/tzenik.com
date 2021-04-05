@@ -272,7 +272,7 @@
                         </ul>
                     </li>
                     @if($user['vendor'] == 1)
-                        <li>
+                        <!--<li>
                             <div class="link"><h2><span class="usericon mdi mdi-video"></span> {{ trans('main.meeting') }} </h2><i class="mdi mdi-chevron-down"></i></div>
                             <ul class="submenu">
                                 <div class="h-10"></div>
@@ -288,7 +288,7 @@
                                     <div class="h-10"></div>
                                 </form>
                             </ul>
-                        </li>
+                        </li>-->
                     @endif
                 </ul>
             </div>

@@ -143,7 +143,7 @@
                                 <li><a class="nav-link" href="/admin/notification/new">{{  trans('admin.new_notification') }}</a></li>
                             </ul>
                         </li>@endif
-                    <li class="menu-header">Content</li>
+                    <li class="menu-header">Contenido</li>
                     @if(checkAccess('content'))
                         <li class="dropdown" id="content">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i> <span>{{  trans('admin.courses') }}</span></a>
@@ -182,8 +182,8 @@
                                 <li><a class="nav-link" href="/admin/blog/posts">{{  trans('admin.blog_posts') }}</a></li>
                                 <li><a class="nav-link" href="/admin/blog/post/new">{{  trans('admin.new_post') }}</a></li>
                                 <li><a class="nav-link" href="/admin/blog/category">{{  trans('admin.contents_categories') }}</a></li>
-                                <li><a class="nav-link" href="/admin/blog/comments">{{  trans('admin.blog_comments') }}</a></li>
-                                <li><a class="nav-link" href="/admin/blog/article">{{  trans('admin.articles') }}</a></li>
+                                <!--<li><a class="nav-link" href="/admin/blog/comments">{{  trans('admin.blog_comments') }}</a></li>
+                                <li><a class="nav-link" href="/admin/blog/article">{{  trans('admin.articles') }}</a></li>-->
                             </ul>
                         </li>@endif
 
@@ -227,12 +227,12 @@
                         </li>
                     @endif
 
-                    <li class="menu-header">Financial</li>
+                    <li class="menu-header">Finanzas</li>
                     @if(checkAccess('buysell'))
                         <li id="buysell">
                             <a href="/admin/buysell/list" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>{{  trans('admin.sales') }}</span></a>
                         </li>@endif
-                    @if(checkAccess('balance'))
+                    <!--@if(checkAccess('balance'))
                         <li class="dropdown" id="balance">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-pie"></i> <span>{{  trans('admin.financial') }}</span></a>
                             <ul class="dropdown-menu">
@@ -243,8 +243,8 @@
                                 <li><a class="nav-link" href="/admin/balance/transaction">{{  trans('admin.transactions_report') }}</a></li>
                             </ul>
                         </li>
-                    @endif
-                    <li class="menu-header">Marketing</li>
+                    @endif-->
+                    <!--<li class="menu-header">Marketing</li>
                     @if(checkAccess('email'))
                         <li class="dropdown" id="email">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-envelope"></i> <span>{{  trans('admin.emails') }}</span></a>
@@ -275,15 +275,15 @@
                                 <li><a class="nav-link" href="/admin/ads/newbox">{{  trans('admin.new_banner') }}</a></li>
                                 <li><a class="nav-link" href="/admin/ads/vip">{{  trans('admin.featured_products') }}</a></li>
                             </ul>
-                        </li>@endif
+                        </li>@endif-->
                     @if(checkAccess('setting'))
-                        <li class="menu-header">Setting & Profile</li>@endif
+                        <li class="menu-header">Configuraci&oacute;n</li>@endif
                     @if(checkAccess('setting'))
                         <li class="dropdown" id="setting">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span>{{  trans('admin.settings') }}</span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/setting/main">{{  trans('admin.general_settings') }}</a></li>
-                                <li><a class="nav-link" href="/admin/setting/display">{{  trans('admin.custom_codes') }}</a></li>
+                                <!--<li><a class="nav-link" href="/admin/setting/display">{{  trans('admin.custom_codes') }}</a></li>
                                 <li><a class="nav-link" href="/admin/setting/user">{{  trans('admin.users_settings') }}</a></li>
                                 <li><a class="nav-link" href="/admin/setting/content">{{  trans('admin.course_settings') }}</a></li>
                                 <li><a class="nav-link" href="/admin/setting/term">{{  trans('admin.rules') }}</a></li>
@@ -293,7 +293,7 @@
                                 <li><a class="nav-link" href="/admin/setting/footer">{{  trans('admin.footer_settings') }}</a></li>
                                 <li><a class="nav-link" href="/admin/setting/pages">{{  trans('admin.custom_pages') }}</a></li>
                                 <li><a class="nav-link" href="/admin/setting/default">{{  trans('admin.default_placeholders') }}</a></li>
-                                <li><a class="nav-link" href="/admin/setting/view_templates">{{  trans('admin.view_templates') }}</a></li>
+                                <li><a class="nav-link" href="/admin/setting/view_templates">{{  trans('admin.view_templates') }}</a></li>-->
                             </ul>
                         </li>@endif
                     <li>

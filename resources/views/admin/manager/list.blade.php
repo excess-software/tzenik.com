@@ -1,4 +1,4 @@
-@extends('admin.newlayout.layout',['breadcom'=>['Administradores','List']])
+@extends('admin.newlayout.layout',['breadcom'=>['Administradores','Lista']])
 @section('title')
     {{ trans('admin.employees_list') }}
 @endsection

@@ -128,4 +128,4 @@
     </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Report','Users']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/report/user.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Reportes','Usuarios']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/report/user.blade.php ENDPATH**/ ?>

@@ -104,7 +104,7 @@
                                 <li><a class="nav-link" href="/admin/content/private/progresoFundal">Informe de progreso</a></li>
                             </ul>
                         </li><?php endif; ?>
-                    <li class="menu-header">CRM</li>
+                    <li class="menu-header">Usuarios</li>
                     <?php if(checkAccess('manager')): ?>
                         <li class="dropdown" id="manager">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span><?php echo e(trans('admin.employees')); ?></span></a>
@@ -122,11 +122,11 @@
                                 <li><a class="nav-link" href="/admin/user/crear">Crear nuevo usuario</a></li>
                                 <li><a class="nav-link" href="/admin/user/vendor"><?php echo e(trans('admin.vendor')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/user/category"><?php echo e(trans('admin.user_groups')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/user/rate"><?php echo e(trans('admin.users_badges')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/user/seller"><?php echo e(trans('admin.identity_verification')); ?></a></li>
+                                <!--<li><a class="nav-link" href="/admin/user/rate"><?php echo e(trans('admin.users_badges')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/user/seller"><?php echo e(trans('admin.identity_verification')); ?></a></li>-->
                             </ul>
                         </li><?php endif; ?>
-                    <?php if(checkAccess('ticket')): ?>
+                    <!--<?php if(checkAccess('ticket')): ?>
                         <li class="dropdown" id="ticket">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-life-ring"></i> <span><?php echo e(trans('admin.support')); ?></span></a>
                             <ul class="dropdown-menu">
@@ -136,7 +136,7 @@
                                 <li><a class="nav-link" href="/admin/ticket/category"><?php echo e(trans('admin.support_departments')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/ticket/new"><?php echo e(trans('admin.submit_ticket')); ?></a></li>
                             </ul>
-                        </li><?php endif; ?>
+                        </li><?php endif; ?>-->
                     <?php if(checkAccess('notification')): ?>
                         <li class="dropdown" id="notification">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-bell"></i> <span><?php echo e(trans('admin.notifications')); ?></span></a>
@@ -147,7 +147,7 @@
                                 <li><a class="nav-link" href="/admin/notification/new"><?php echo e(trans('admin.new_notification')); ?></a></li>
                             </ul>
                         </li><?php endif; ?>
-                    <li class="menu-header">Content</li>
+                    <li class="menu-header">Contenido</li>
                     <?php if(checkAccess('content')): ?>
                         <li class="dropdown" id="content">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i> <span><?php echo e(trans('admin.courses')); ?></span></a>
@@ -158,8 +158,8 @@
                                 <li><a class="nav-link" href="/admin/content/private/desasignar">Desasignar contenido privado</a></li>
                                 <li><a class="nav-link <?php if(isset($alert['content_waiting']) and $alert['content_waiting'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/content/waiting"><?php echo e(trans('admin.pending_courses')); ?></a></li>
                                 <li><a class="nav-link <?php if(isset($alert['content_draft']) and $alert['content_draft'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/content/draft"><?php echo e(trans('admin.unpublished_courses')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/content/comment"><?php echo e(trans('admin.corse_comments')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/content/support"><?php echo e(trans('admin.support_tickets')); ?></a></li>
+                                <!--<li><a class="nav-link" href="/admin/content/comment"><?php echo e(trans('admin.corse_comments')); ?></a></li>-->
+                                <!--<li><a class="nav-link" href="/admin/content/support"><?php echo e(trans('admin.support_tickets')); ?></a></li>-->
                                 <li><a class="nav-link" href="/admin/content/category"><?php echo e(trans('admin.categories')); ?></a></li>
                             </ul>
                         </li><?php endif; ?>
@@ -171,14 +171,14 @@
                             </ul>
                         </li>
 
-                    <?php if(checkAccess('request')): ?>
+                    <!--<?php if(checkAccess('request')): ?>
                         <li class="dropdown" id="request">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-plus-square"></i> <span><?php echo e(trans('admin.course_requests')); ?></span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/request/list"><?php echo e(trans('admin.requests_list')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/request/record/list"><?php echo e(trans('admin.future_courses')); ?></a></li>
                             </ul>
-                        </li><?php endif; ?>
+                        </li><?php endif; ?>-->
                     <?php if(checkAccess('blog')): ?>
                         <li class="dropdown" id="blog">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-word"></i> <span><?php echo e(trans('admin.blog_articles')); ?></span></a>
@@ -186,8 +186,8 @@
                                 <li><a class="nav-link" href="/admin/blog/posts"><?php echo e(trans('admin.blog_posts')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/blog/post/new"><?php echo e(trans('admin.new_post')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/blog/category"><?php echo e(trans('admin.contents_categories')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/blog/comments"><?php echo e(trans('admin.blog_comments')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/blog/article"><?php echo e(trans('admin.articles')); ?></a></li>
+                                <!--<li><a class="nav-link" href="/admin/blog/comments"><?php echo e(trans('admin.blog_comments')); ?></a></li>
+                                <li><a class="nav-link" href="/admin/blog/article"><?php echo e(trans('admin.articles')); ?></a></li>-->
                             </ul>
                         </li><?php endif; ?>
 
@@ -200,7 +200,7 @@
                         </ul>
                     </li>
                     
-                    <?php if(checkAccess('channel')): ?>
+                    <!--<?php if(checkAccess('channel')): ?>
                         <li class="dropdown" id="channel">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-eye"></i> <span><?php echo e(trans('admin.channels')); ?></span></a>
                             <ul class="dropdown-menu">
@@ -208,7 +208,7 @@
                                 <li><a class="nav-link <?php if(isset($alert['channel_request']) && $alert['channel_request'] > 0): ?> beep beep-sidebar <?php endif; ?>" href="/admin/channel/request"><?php echo e(trans('admin.verification_requests')); ?></a></li>
                             </ul>
                         </li>
-                    <?php endif; ?>
+                    <?php endif; ?>-->
                     <?php if(checkAccess('quizzes')): ?>
                         <li class="dropdown" id="quizzes">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-pie"></i> <span><?php echo e(trans('admin.quizzes')); ?></span></a>
@@ -231,12 +231,12 @@
                         </li>
                     <?php endif; ?>
 
-                    <li class="menu-header">Financial</li>
+                    <li class="menu-header">Finanzas</li>
                     <?php if(checkAccess('buysell')): ?>
                         <li id="buysell">
                             <a href="/admin/buysell/list" class="nav-link"><i class="fas fa-shopping-cart"></i> <span><?php echo e(trans('admin.sales')); ?></span></a>
                         </li><?php endif; ?>
-                    <?php if(checkAccess('balance')): ?>
+                    <!--<?php if(checkAccess('balance')): ?>
                         <li class="dropdown" id="balance">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-pie"></i> <span><?php echo e(trans('admin.financial')); ?></span></a>
                             <ul class="dropdown-menu">
@@ -247,8 +247,8 @@
                                 <li><a class="nav-link" href="/admin/balance/transaction"><?php echo e(trans('admin.transactions_report')); ?></a></li>
                             </ul>
                         </li>
-                    <?php endif; ?>
-                    <li class="menu-header">Marketing</li>
+                    <?php endif; ?>-->
+                    <!--<li class="menu-header">Marketing</li>
                     <?php if(checkAccess('email')): ?>
                         <li class="dropdown" id="email">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-envelope"></i> <span><?php echo e(trans('admin.emails')); ?></span></a>
@@ -279,9 +279,9 @@
                                 <li><a class="nav-link" href="/admin/ads/newbox"><?php echo e(trans('admin.new_banner')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/ads/vip"><?php echo e(trans('admin.featured_products')); ?></a></li>
                             </ul>
-                        </li><?php endif; ?>
+                        </li><?php endif; ?>-->
                     <?php if(checkAccess('setting')): ?>
-                        <li class="menu-header">Setting & Profile</li><?php endif; ?>
+                        <li class="menu-header">Configuraci&oacute;n</li><?php endif; ?>
                     <?php if(checkAccess('setting')): ?>
                         <li class="dropdown" id="setting">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i> <span><?php echo e(trans('admin.settings')); ?></span></a>
