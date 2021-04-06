@@ -690,7 +690,7 @@ return [
 	'site_name' => 'Nombre del sitio',
 	'site_email' => 'Correo electrónico del sitio',
 	'site_description' => 'Descripción',
-    'vendor'=>'Proveedor',
+    'vendor'=>'Instructor',
     'subscribe'=>'Suscribirse',
 	'site_language'=>'Idioma predeterminado',
 	'preloader'=>'Habilitar Precargador',
