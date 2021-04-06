@@ -1529,6 +1529,8 @@ class AdminController extends Controller
                 'transaction_id' => '0',
                 'remain_time' => NULL
             ]);
+
+            Chat_UsersInChat::where('chat_id', $getCurso->chat_id)->insert(['user_id' => $usuario, 'chat_id' => $getCurso->chat_id]);
         }
         return back();
     }
