@@ -589,14 +589,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="buyModalLabel">Debes iniciar sesi&oacute;n o registrarte para comprar.</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                         <div class="text-center" style="margin-top: 15%; margin-bottom: 15%;">
-                            <h1><b><a href="/login">Debes iniciar sesi&oacute;n</a> o <a href="/login">registrarte</a> para comprar.</b></h1>
+                            <h3><b><a href="/login">Debes iniciar sesi&oacute;n</a> o <a href="/login">registrarte</a> para comprar.</b></h3>
                         </div>
                 </div>
                 <div class="modal-footer">

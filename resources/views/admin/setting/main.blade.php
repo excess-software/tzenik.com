@@ -616,7 +616,7 @@
                 <div id="mainSlide" class="tab-pane">
                     <form method="post" action="/admin/setting/store" class="form-horizontal form-bordered">
                         {{ csrf_field() }}
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-md-3 control-label">{{ trans('admin.hero_bg') }}</label>
                             <div class="col-md-6">
                                 <div class="input-group" style="display: flex">
@@ -631,7 +631,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.th_title') }}</label>
                             <div class="col-md-6">

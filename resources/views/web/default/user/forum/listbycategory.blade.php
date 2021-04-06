@@ -31,7 +31,7 @@
                     @foreach($posts as $item)
                         <tr>
                             <td><a style="text-decoration: none; color: white;" href="/user/forum/post/read/{{{ $item->id }}}">{{{ $item->title }}}</a></td>
-                            <td class="text-center" title="{{{ $item->username or '' }}}">{{{ $item->name or '' }}}</td>
+                            <td class="text-center" style="color: white;" title="{{{ $item->username or '' }}}">{{{ $item->name or '' }}}</td>
                             <td class="text-center" width="150">{{{ date('d F Y : H:i',$item->create_at) }}}</td>
                             <!--<td class="text-center">{{{ count($item->comments) or '0' }}}</td>-->
                         </tr>

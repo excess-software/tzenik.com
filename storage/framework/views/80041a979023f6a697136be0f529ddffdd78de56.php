@@ -44,7 +44,7 @@
                     </div>
                     <div id="newitem" class="tab-pane ">
                         <form method="post" action="/admin/forum/category/store" class="form-horizontal form-bordered">
-
+                            <?php echo csrf_field(); ?>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="inputDefault"><?php echo e(trans('admin.th_title')); ?></label>

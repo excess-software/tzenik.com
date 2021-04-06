@@ -1,15 +1,95 @@
+    
+
 <?php $__env->startSection('title'); ?>
 <?php echo e(get_option('site_title','')); ?> - <?php echo e(!empty($category->title) ? $category->title : 'Categories'); ?>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-    <div class="h-20"></div>
-    <div class="container-fluid">
         <div class="container">
-            <div class="accordion-off col-xs-12">
-                <ul id="accordion" class="accordion off-filters-li">
-                    <li class="open">
-                        <div class="link"><h2><span class="usericon mdi mdi-account"></span><?php echo e(trans('main.account_info')); ?></h2><i class="mdi mdi-chevron-down"></i></div>
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <h2 class="titulo-cursos-destacados">Configuración</h2>
+                    <div class="panel panel-top panel-default">
+                        <div class="panel-body">
+                            <div class="panel-description">
+                                <h3>Información de Cuenta</h3>
+                                <form method="post" action="/user/profile/store">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <div class="field-bottom">
+                                        <label class="control-label "><?php echo e(trans('main.realname')); ?></label>
+                                        <input type="text" name="name" value="<?php echo e(!empty($user['name']) ? $user['name'] : ''); ?>" class="form-control">
+                                    </div>
+                                    <div class="field-bottom">
+                                        <label class="control-label"><?php echo e(trans('main.email')); ?></label>
+                                        <input type="text" value="<?php echo e(!empty($user['email']) ? $user['email'] : ''); ?>" class="form-control text-left disabled" disabled>
+                                    </div>
+                                    <div class="field-bottom">
+                                        <label class="control-label"><?php echo e(trans('main.fontsize')); ?></label>
+                                        <select name="fontsize" class="form-control">
+                                            <?php if($user['fontsize'] == 40): ?>
+                                                <option disabled selected><?php echo e(trans('main.biggest')); ?></option>
+                                            <?php elseif($user['fontsize'] == 32): ?>
+                                                <option disabled selected><?php echo e(trans('main.bigger')); ?></option>
+                                            <?php elseif($user['fontsize'] == 24): ?>
+                                                <option disabled selected><?php echo e(trans('main.big')); ?></option>
+                                            <?php elseif(!$user['fontsize']): ?>
+                                                <option disabled selected><?php echo e(trans('main.normal')); ?></option>
+                                            <?php endif; ?>
+                                            <option value="40" style="font-size: 40px">Biggest</option>
+                                            <option value="32" style="font-size: 32px">Bigger</option>
+                                            <option value="24" style="font-size: 24px">Big</option>
+                                            <option value="" style="">Normal</option>
+                                        </select>
+                                    </div>
+                                    <input type="submit" value="Guardar" class="btn btn-custom">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div class="panel panel-top panel-default">
+                        <div class="panel-body">
+                            <div class="panel-description">
+                                <h3>Cambia tu contraseña</h3>
+                                <form method="post" action="/user/security/change">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <div class="form-group">
+                                        <div class="field-bottom">
+                                            <label class="control-label">Nueva contraseña</label>
+                                            <input type="password" name="password" class="form-control text-center">
+                                        </div>
+                                        <div class="field-bottom">
+                                            <label class="control-label ">Reescriba su nueva contraseña</label>
+                                            <input type="password" name="repassword" class="form-control text-center">
+                                        </div>
+                                        <input type="submit" value="Guardar" class="btn btn-custom">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+            <!--<div class="accordion-off col-xs-12">
+                <ul id="accordion" class="accordion off-filters-li">-->
+                    <!--<li class="open">
+                        <div class="link">
+                            <h2><span class="usericon mdi mdi-account"></span>Información de Cuenta</h2>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </div>
                         <ul class="submenu dblock">
                             <div class="h-10"></div>
                             <form method="post" class="form-horizontal" action="/user/profile/store">
@@ -279,9 +359,9 @@
                             </form>
                             <div class="h-10"></div>
                         </ul>
-                    </li>
+                    </li>-->
                     <?php if($user['vendor'] == 1): ?>
-                        <li>
+                        <!--<li>
                             <div class="link"><h2><span class="usericon mdi mdi-video"></span> <?php echo e(trans('main.meeting')); ?> </h2><i class="mdi mdi-chevron-down"></i></div>
                             <ul class="submenu">
                                 <div class="h-10"></div>
@@ -298,13 +378,10 @@
                                     <div class="h-10"></div>
                                 </form>
                             </ul>
-                        </li>
+                        </li>-->
                     <?php endif; ?>
-                </ul>
-            </div>
+            
         </div>
-    </div>
-    <div class="h-10"></div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>

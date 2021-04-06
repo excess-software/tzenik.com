@@ -51,7 +51,7 @@
                     <ul class="comment-box">
                         <?php $__currentLoopData = $post->comments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li>
-                                <a href="/profile/<?php echo e($comment->user_id or ''); ?>"><?php echo e($comment->user->name); ?></a>
+                                <label><?php echo e($comment->user->name); ?></label>
                                 <label><?php echo e(date('d F Y | H:i',$comment->create_at)); ?></label>
                                 <span><?php echo e($comment->comment); ?></span>
                                 <span><a href="javascript:void(0);" answer-id="<?php echo e($comment->id); ?>" answer-title="<?php echo e($comment->name or ''); ?>" class="pull-left answer-btn"><?php echo e(trans('main.reply')); ?></a> </span>
@@ -59,7 +59,7 @@
                                     <ul class="col-md-11 col-md-offset-1 answer-comment">
                                         <?php $__currentLoopData = $comment->childs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li>
-                                                <a href="/profile/<?php echo e($child->user_id or ''); ?>"><?php echo e($child->name); ?></a>
+                                                <label><?php echo e($child->name); ?></label>
                                                 <label><?php echo e(date('d F Y | H:i',$child->create_at)); ?></label>
                                                 <span><?php echo e($child->comment); ?></span>
                                             </li>

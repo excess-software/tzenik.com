@@ -157,4 +157,4 @@
     </section>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Courses','Latest Courses']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/content/list.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Courses','Todos']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/content/list.blade.php ENDPATH**/ ?>

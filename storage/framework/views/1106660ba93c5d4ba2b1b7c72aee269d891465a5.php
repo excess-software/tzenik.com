@@ -48,4 +48,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Employees','List']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/manager/list.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Administradores','Lista']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/manager/list.blade.php ENDPATH**/ ?>

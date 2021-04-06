@@ -174,6 +174,7 @@
                 $('a').css('font-size', '' + 32 + 'px');
                 $('.at-label').css('font-size', '' + 24 + 'px');
                 $('input[type=\'text\']').css('font-size', '', + 32 + 'px');
+                $('#btn-bigFont').prop('disabled', true);
             }else if(<?php echo e($user['fontsize']); ?> == 32){
                 $('h1').css('font-size', '' + 32 + 'px');
                 $('h2').css('font-size', '' + 28 + 'px');
@@ -189,8 +190,9 @@
                 $('a').css('font-size', '' + 24 + 'px');
                 $('.at-label').css('font-size', '' + 24 + 'px');
                 $('input[type=\'text\']').css('font-size', '', + 24 + 'px');
+                $('#btn-bigFont').prop('disabled', true);
             }else if(<?php echo e($user['fontsize']); ?> == 24){
-                
+                $('#btn-smallFont').prop('disabled', true);
             }
         });
     </script>
@@ -213,6 +215,7 @@
                         $('a').css('font-size', '' + 32 + 'px');
                         $('.at-label').css('font-size', '' + 24 + 'px');
                         $('input[type=\'text\']').css('font-size', '', + 32 + 'px');
+                        $('#btn-bigFont').prop('disabled', true);
                 } else if (localStorage.getItem("font") == 32) {
                     $('h1').css('font-size', '' + 32 + 'px');
                     $('h2').css('font-size', '' + 28 + 'px');
@@ -228,8 +231,9 @@
                     $('a').css('font-size', '' + 24 + 'px');
                     $('.at-label').css('font-size', '' + 24 + 'px');
                     $('input[type=\'text\']').css('font-size', '', + 24 + 'px');
+                    $('#btn-bigFont').prop('disabled', true);
                 } else {
-                
+                    $('#btn-smallFont').prop('disabled', true);
                 }
             } else {
                 

@@ -4043,12 +4043,16 @@ class AdminController extends Controller
             $category = ForumCategory::find($request->edit);
             $category->title = $request->title;
             $category->desc = $request->desc;
+            $category->published = "true";
+            $category->type = "public";
             $category->save();
         }
         else {
             $category = new ForumCategory;
             $category->title = $request->title;
             $category->desc = $request->desc;
+            $category->published = "true";
+            $category->type = "public";
             $category->save();
         }
         return redirect('/admin/forum/category');

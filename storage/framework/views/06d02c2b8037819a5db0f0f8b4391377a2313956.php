@@ -63,7 +63,7 @@
                     <?php endfor; ?>
                 ],
                 datasets: [{
-                    label: 'Courses',
+                    label: 'Cursos',
                     data: [
                         <?php for($i=1;$i<get_option('chart_day_count',10)+1;$i++): ?>
                         <?php echo groupDay($dayRegister,$i); ?>,
@@ -78,7 +78,7 @@
                     borderWidth: 1
                 },
                     {
-                        label: 'Parts',
+                        label: 'Partes',
                         data: [
                             <?php for($i=1;$i<get_option('chart_day_count',10)+1;$i++): ?>
                             <?php echo groupDay($videoRegister,$i); ?>,
@@ -106,4 +106,4 @@
     </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Report','Courses']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/report/content.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.newlayout.layout',['breadcom'=>['Reportes','Contenido']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/admin/report/content.blade.php ENDPATH**/ ?>

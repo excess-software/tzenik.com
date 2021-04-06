@@ -56,7 +56,7 @@
                                     <select name="mode" class="form-control" required>
                                         <option value="publish" @if($item->mode=='publish') selected @endif>{{ trans('admin.published') }}</option>
                                         <option value="request" @if($item->mode=='request') selected @endif>{{ trans('admin.review_request') }}</option>
-                                        <option value="waiting" @if($item->mode=='delete') selected @endif>{{ trans('admin.unpublish_request') }}</option>
+                                        <!--<option value="waiting" @if($item->mode=='delete') selected @endif>{{ trans('admin.unpublish_request') }}</option>-->
                                         <option value="draft" @if($item->mode=='draft') selected @endif>{{ trans('admin.pending') }}</option>
                                     </select>
                                 </div>

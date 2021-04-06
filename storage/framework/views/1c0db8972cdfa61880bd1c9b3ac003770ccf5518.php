@@ -4,7 +4,7 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('page'); ?>
     <div class="row">
-        <div class="col-xs-6 col-md-3 col-sm-6 text-center">
+        <div class="col-xs-6 col-md-4 col-sm-6 text-center">
             <section class="card bg-warning">
                 <div class="card-body">
                     <div class="widget-summary">
@@ -23,7 +23,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-xs-6 col-md-3 col-sm-6 text-center">
+        <div class="col-xs-6 col-md-4 col-sm-6 text-center">
             <section class="card bg-info">
                 <div class="card-body">
                     <div class="widget-summary">
@@ -42,7 +42,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-xs-6 col-md-3 col-sm-6 text-center">
+        <div class="col-xs-6 col-md-4 col-sm-6 text-center">
             <section class="card bg-success">
                 <div class="card-body">
                     <div class="widget-summary">

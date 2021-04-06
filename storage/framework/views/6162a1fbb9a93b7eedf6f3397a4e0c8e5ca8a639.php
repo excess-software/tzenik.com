@@ -101,7 +101,7 @@
                                 <li><a class="nav-link" href="/admin/report/user"><?php echo e(trans('admin.users_report')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/report/content"><?php echo e(trans('admin.products_report')); ?></a></li>
                                 <li><a class="nav-link" href="/admin/report/balance"><?php echo e(trans('admin.financial_report')); ?></a></li>
-                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Informe de progreso</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Informe de Progreso</a></li>
                             </ul>
                         </li><?php endif; ?>
                     <li class="menu-header">Usuarios</li>

@@ -396,14 +396,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 text-center">
-                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)">
+                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)" id="btn-smallFont">
                                                 <b>A</b>
                                                 <br>
                                                 <b>Smaller</b>
                                             </button>
                                         </div>
                                         <div class="col-md-6 text-center">
-                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)">
+                                            <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)" id="btn-bigFont">
                                                 <b>A</b>
                                                 <br>
                                                 <b>Larger</b>

@@ -20,8 +20,8 @@
                         <th class="text-center">{{ trans('admin.username') }}</th>
                         <th class="text-center">{{ trans('admin.real_name') }}</th>
                         <th class="text-center">{{ trans('admin.reg_date') }}</th>
-                        <th class="text-center" width="100">{{ trans('admin.income') }}</th>
-                        <th class="text-center" width="100">{{ trans('admin.account_balance') }}</th>
+                        <!--<th class="text-center" width="100">{{ trans('admin.income') }}</th>-->
+                        <!--<th class="text-center" width="100">{{ trans('admin.account_balance') }}</th>-->
                         <th class="text-center">{{ trans('admin.badges_tab_courses_count') }}</th>
                         <th class="text-center">{{ trans('admin.purchases') }}</th>
                         <th class="text-center">{{ trans('admin.sales') }}</th>
@@ -33,11 +33,11 @@
                     <tbody>
                     @foreach($users as $user)
                         <tr>
-                            <th class="text-center"><a target="_blank" href="/profile/{{ $user->id }}">{{ $user->username }}</a></th>
+                            <th class="text-center">{{ $user->username }}</th>
                             <th class="text-center">{{ $user->name }}</th>
                             <th class="text-center">{{ date('d F Y / H:i',$user->created_at) }}</th>
-                            <th class="text-center number-green" width="100" @if($user->income < 0) style="color:red !important;" @endif dir="ltr">{{ number_format($user->income) }}</th>
-                            <th class="text-center number-green" width="100" @if($user->credit < 0) style="color:red !important;" @endif dir="ltr">{{ number_format($user->credit) }}</th>
+                            <!--<th class="text-center number-green" width="100" @if($user->income < 0) style="color:red !important;" @endif dir="ltr">{{ number_format($user->income) }}</th>-->
+                            <!--<th class="text-center number-green" width="100" @if($user->credit < 0) style="color:red !important;" @endif dir="ltr">{{ number_format($user->credit) }}</th>-->
                             <th class="text-center"><a href="/admin/content/user/{{ $user->id }}">{{ $user->contents_count ?? 0 }}</a></th>
                             <th class="text-center"><a href="/admin/buysell/list/?buyer={{ $user->id }}">{{ $user->buys_count ?? 0 }}</a></th>
                             <th class="text-center"><a href="/admin/buysell/list/?user={{ $user->id }}">{{ $user->sells_count ?? 0 }}</a></th>

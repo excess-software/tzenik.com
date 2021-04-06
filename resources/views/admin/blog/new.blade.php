@@ -57,12 +57,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-md-2 control-label" for="inputDefault">{{ trans('admin.tags') }}</label>
                     <div class="col-md-10">
                         <input type="text" name="tags" class="form-control inputtags">
                     </div>
-                </div>
+                </div>-->
 
                 <div class="col-12">
                     <div class="custom-switches-stacked">

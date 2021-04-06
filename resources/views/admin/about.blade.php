@@ -6,7 +6,7 @@
             <img src="{!! get_option('site_logo') !!}">
             <div class="h-10"></div>
             <h3>Tzenik LMS</h3>
-            <h4>Version: 1.0</h4>
+            <h4>Version: 0.1</h4>
             <div class="h-10"></div>
         </div>
     </div>

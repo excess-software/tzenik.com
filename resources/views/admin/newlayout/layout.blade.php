@@ -97,7 +97,7 @@
                                 <li><a class="nav-link" href="/admin/report/user">{{  trans('admin.users_report') }}</a></li>
                                 <li><a class="nav-link" href="/admin/report/content">{{  trans('admin.products_report') }}</a></li>
                                 <li><a class="nav-link" href="/admin/report/balance">{{  trans('admin.financial_report') }}</a></li>
-                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Informe de progreso</a></li>
+                                <li><a class="nav-link" href="/admin/content/private/progresoFundal">Informe de Progreso</a></li>
                             </ul>
                         </li>@endif
                     <li class="menu-header">Usuarios</li>

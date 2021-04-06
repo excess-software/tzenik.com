@@ -47,7 +47,7 @@
                     <ul class="comment-box">
                         @foreach($post->comments as $comment)
                             <li>
-                                <a href="/profile/{{{ $comment->user_id or '' }}}">{{{ $comment->user->name}}}</a>
+                                <label>{{{ $comment->user->name}}}</label>
                                 <label>{{{ date('d F Y | H:i',$comment->create_at) }}}</label>
                                 <span>{{{$comment->comment}}}</span>
                                 <span><a href="javascript:void(0);" answer-id="{{{ $comment->id }}}" answer-title="{{{ $comment->name or '' }}}" class="pull-left answer-btn">{{{ trans('main.reply') }}}</a> </span>
@@ -55,7 +55,7 @@
                                     <ul class="col-md-11 col-md-offset-1 answer-comment">
                                         @foreach($comment->childs as $child)
                                             <li>
-                                                <a href="/profile/{{{ $child->user_id or '' }}}">{{{ $child->name}}}</a>
+                                                <label>{{{ $child->name}}}</label>
                                                 <label>{{{ date('d F Y | H:i',$child->create_at) }}}</label>
                                                 <span>{{{$child->comment}}}</span>
                                             </li>

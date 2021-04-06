@@ -6,15 +6,10 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="container-full">
+<div class="">
     <?php echo $__env->make(getTemplate() . '.user.parts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-    <div class="row contenido-cursos-dash">
-        <div class="container-fluid">
-            <div class="col-md-10">
-                <div class="row">
                     <div class="col-md-3">
-                        <h2><b>Filtros</b></h2>
+                        <h2 class="titulo-partials">Filtros</h2>
                         <ul class="list-group">
                             <a href="/user/dashboard/all" style="text-decoration: none;">
                                 <li class="list-group-item list-content-media"><b>Todos los cursos</b></li>
@@ -28,7 +23,7 @@
                                 <li class="list-group-item list-content-media"><b>Cursos terminados</b></li>
                             </a>
                             <br>
-                            <a href="/user/user/quizzes" style="text-decoration: none;">
+                            <a href="/user/quizzes" style="text-decoration: none;">
                                 <li class="list-group-item list-content-media"><b>Calificaciones</b></li>
                             </a>
                         </ul>
@@ -36,7 +31,7 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col">
-                                <h2><b>Tus Cursos</b></h2>
+                                <h2 class="titulo-partials">Tus Cursos</h2>
                             </div>
                         </div>
                         <div class="row">
@@ -60,7 +55,7 @@
                                                 <div class="col-md-12">
                                                     <div class="panel-description vertical-center">
                                                         <div class="row ultimos-blogs-titulo">
-                                                            <h4><b><?php echo e($item[0]->content->title); ?></b></h4>
+                                                            <h3><?php echo e($item[0]->content->title); ?></h3>
                                                         </div>
                                                         <!--<div class="row ultimos-blogs-contenido">
                                     <div class="col">
@@ -106,7 +101,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <h1><b>Aún no has comprado cursos</b></h1>
+                                    <h4><b>Aún no has iniciado un curso.</b></h4>
                                 </div>
                             </div>
                             <br>
@@ -119,5 +114,4 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make(getTemplate().'.view.layout.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/web/default/user/dashboard/process.blade.php ENDPATH**/ ?>
