@@ -2470,9 +2470,7 @@ class ApiController extends Controller
         $part = $request->part;
         $response_array = [];
 
-        return $image->getClientOriginalExtension();
-
-        foreach($request->file('file') as $homework){
+        /*foreach($request->file('file') as $homework){
             $extension = $homework->getClientOriginalExtension();
             $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
@@ -2490,6 +2488,24 @@ class ApiController extends Controller
             }else{
                 array_push($response_array, 'Failed');
             }
+        }*/
+
+        $extension = $image->getClientOriginalExtension();
+        $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
+
+        $uploadHomework = $image->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
+
+        if($uploadHomework){
+            HomeworksUser::insert([
+                'user_id' => $user['id'],
+                'content_id' => $course,
+                'part_id' => $part,
+                'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
+            ]);
+
+            array_push($response_array, 'Success');
+        }else{
+            array_push($response_array, 'Failed');
         }
         
         /*$extension = $image->getClientOriginalExtension();
