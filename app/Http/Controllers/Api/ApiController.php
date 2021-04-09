@@ -2470,6 +2470,8 @@ class ApiController extends Controller
         $part = $request->part;
         $response_array = [];
 
+        return $image->getClientOriginalExtension();
+
         foreach($request->file('file') as $homework){
             $extension = $homework->getClientOriginalExtension();
             $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
@@ -2502,7 +2504,6 @@ class ApiController extends Controller
             'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
         ]);*/
     
-        //return $this->response($response_array);     
-        return $this->error(-1, trans('main.user_not_found'));   
+        return $this->response($response_array);        
     }
 }
