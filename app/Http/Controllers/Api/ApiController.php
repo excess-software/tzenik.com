@@ -62,8 +62,6 @@ use App\Models\Homeworks;
 use App\Models\HomeworksUser;
 use App\Models\Course_guides;
 
-use Illuminate\Support\Str;
-
 class ApiController extends Controller
 {
 
