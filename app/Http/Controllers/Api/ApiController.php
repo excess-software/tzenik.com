@@ -2502,6 +2502,7 @@ class ApiController extends Controller
             'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
         ]);*/
     
-        return $this->response($response_array);        
+        //return $this->response($response_array);     
+        return $this->error(-1, trans('main.user_not_found'));   
     }
 }
