@@ -62,6 +62,8 @@ use App\Models\Homeworks;
 use App\Models\HomeworksUser;
 use App\Models\Course_guides;
 
+use Illuminate\Support\Str;
+
 class ApiController extends Controller
 {
 
@@ -2491,8 +2493,7 @@ class ApiController extends Controller
         }*/
 
         $extension = $image->getClientOriginalExtension();
-        $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
-
+        $name = $user['name'].'-'.$course.'-'.$part.'-('.time().')-'.Str::random(10).'.'.$extension;
         $uploadHomework = $image->move(public_path().'/bin/tareas/'.$course.'/'.$user['name'].'/'.$part, $name);
 
         if($uploadHomework){
