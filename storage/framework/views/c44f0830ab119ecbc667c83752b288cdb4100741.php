@@ -32,7 +32,7 @@
                     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td><a style="text-decoration: none; color: white;" href="/user/forum/post/read/<?php echo e($item->id); ?>"><?php echo e($item->title); ?></a></td>
-                            <td class="text-center" title="<?php echo e($item->username or ''); ?>"><?php echo e($item->name or ''); ?></td>
+                            <td class="text-center" style="color: white;" title="<?php echo e(isset($item->user->username) ? $item->user->username : ''); ?>"><?php echo e(isset($item->user->name) ? $item->user->name : ''); ?></td>
                             <td class="text-center" width="150"><?php echo e(date('d F Y : H:i',$item->create_at)); ?></td>
                             <!--<td class="text-center"><?php echo e(count($item->comments) or '0'); ?></td>-->
                         </tr>

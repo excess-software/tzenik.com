@@ -149,13 +149,13 @@
                     <div class="form-group">
                         <label>{{ trans('main.username') }}</label>
                         <input type="text" name="username" id="username_register" valid-title="Fill out this form."
-                            class="form-control validate" required>
+                            class="form-control validate" required autocomplete="off">
                         <u></u>
                     </div>
                     <div class="form-group">
                         <label>{{ trans('main.password') }}</label>
                         <input type="password" id="r-password" valid-title="Fill out this form." name="password"
-                            class="form-control validate" required>
+                            class="form-control validate" required autocomplete="off">
                         <u></u>
                     </div>
                     <div class="form-group">
@@ -173,7 +173,7 @@
                     <div class="form-group last" style="margin-bottom: 20px;">
                         <label>{{ trans('main.email') }}</label>
                         <input type="email" name="email" class="form-control validate"
-                            valid-title="Enter your email address" required>
+                            valid-title="Enter your email address" required autocomplete="off">
                         <u></u>
                     </div>
                     <div class="form-group tab-con">

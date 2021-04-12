@@ -63,7 +63,7 @@ Route::group(['prefix'=>'v1'], function (){
         Route::any('chatSendMessage', 'Api\ApiController@chat_sendMessage');
         Route::any('videoteca', 'Api\ApiController@videoteca');
         Route::any('homeworks', 'Api\ApiController@homeworks');
-        Route::post('uploadHomeworks', 'Api\ApiController@subirTarea');
+        Route::any('uploadHomeworks', 'Api\ApiController@subirTarea');
 
         ## Calendar
         Route::group(['prefix'=>'calendar'], function (){

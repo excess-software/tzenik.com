@@ -86,63 +86,65 @@
     </section>
     <section class="card">
         <div class="card-body">
-            <table class="table table-bordered table-striped mb-none" id="datatable-details">
-                <thead>
-                <tr>
-                    <th><?php echo e(trans('admin.th_title')); ?></th>
-                    <th class="text-center" width="150"><?php echo e(trans('admin.th_date')); ?></th>
-                    <th class="text-center"><?php echo e(trans('admin.th_vendor')); ?></th>
-                    <th class="text-center" width="50"><?php echo e(trans('admin.sales')); ?></th>
-                    <th class="text-center" width="50"><?php echo e(trans('admin.parts')); ?></th>
-                    <th class="text-center"><?php echo e(trans('admin.income')); ?></th>
-                    <th class="text-center" width="50"><?php echo e(trans('admin.views')); ?></th>
-                    <th class="text-center" width="50"><?php echo e(trans('admin.price')); ?></th>
-                    <th class="text-center"><?php echo e(trans('admin.category')); ?></th>
-                    <th class="text-center"><?php echo e(trans('admin.type')); ?></th>
-                    <th class="text-center" width="50"><?php echo e(trans('admin.th_status')); ?></th>
-                    <th class="text-center" width="100"><?php echo e(trans('admin.th_controls')); ?></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php $__currentLoopData = $lists; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php $meta = arrayToList($item->metas, 'option', 'value'); ?>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mb-none" id="datatable-details">
+                    <thead>
                     <tr>
-                        <td><a href="/product/<?php echo e($item->id); ?>" target="_blank"><?php echo e($item->title); ?></a></td>
-                        <td class="text-center" width="150"><?php echo e(date('d F Y / H:i',$item->created_at)); ?></td>
-                        <td class="text-center" title="<?php echo e($item->user->username); ?>"><?php echo e($item->user->name); ?></td>
-                        <td class="text-center"><?php echo e($item->sells_count ?? '0'); ?></td>
-                        <td class="text-center"><?php echo e($item->partsactive_count ?? '0'); ?></td>
-                        <td class="text-center"><?php echo e($item->transactions->sum('price')); ?><br><?php echo e(trans('admin.cur_dollar')); ?></td>
-                        <td class="text-center"><?php echo e($item->view ?? '0'); ?></td>
-                        <td class="text-center"><?php echo e($meta['price'] ?? 'Free'); ?></td>
-                        <td class="text-center"><?php echo e(!empty($item->category) ? $item->category->title : ''); ?></td>
-                        <td class="text-center">
-                            <?php if($item->private==1): ?>
-                                <b class="c-g"><?php echo e(trans('admin.exclusive')); ?></b>
-                            <?php else: ?>
-                                <b class="c-o"><?php echo e(trans('admin.open')); ?></b>
-                            <?php endif; ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if($item->parts_request_count > 0): ?>
-                                <b class="c-o"><?php echo e(trans('admin.pending')); ?></b>
-                            <?php endif; ?>
-                            <?php if($item->mode == 'request'): ?>
-                                <b class="c-r"><?php echo e(trans('admin.review_request')); ?></b>
-                            <?php elseif($item->mode == 'delete'): ?>
-                                <b class="c-r"><?php echo e(trans('admin.unpublish_request')); ?></b>
-                            <?php endif; ?>
-                        </td>
-                        <td class="text-center">
-                            <a href="/admin/notification/new?recipent_type=userone&uid=<?php echo e($item->user->id); ?>" title="Send notification to user"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
-                            <a href="/admin/ticket/new?uid=<?php echo e($item->user->id); ?>&title=Course <?php echo e($item->title); ?>" title="Send support ticket to user"><i class="fa fa-life-ring" aria-hidden="true"></i></a>
-                            <a href="/admin/content/edit/<?php echo e($item->id); ?>" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                            <a href="#" data-href="/admin/content/delete/<?php echo e($item->id); ?>" title="Delete" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                        </td>
+                        <th><?php echo e(trans('admin.th_title')); ?></th>
+                        <th class="text-center" width="150"><?php echo e(trans('admin.th_date')); ?></th>
+                        <th class="text-center"><?php echo e(trans('admin.th_vendor')); ?></th>
+                        <th class="text-center" width="50"><?php echo e(trans('admin.sales')); ?></th>
+                        <th class="text-center" width="50"><?php echo e(trans('admin.parts')); ?></th>
+                        <th class="text-center"><?php echo e(trans('admin.income')); ?></th>
+                        <th class="text-center" width="50"><?php echo e(trans('admin.views')); ?></th>
+                        <th class="text-center" width="50"><?php echo e(trans('admin.price')); ?></th>
+                        <th class="text-center"><?php echo e(trans('admin.category')); ?></th>
+                        <th class="text-center"><?php echo e(trans('admin.type')); ?></th>
+                        <th class="text-center" width="50"><?php echo e(trans('admin.th_status')); ?></th>
+                        <th class="text-center" width="100"><?php echo e(trans('admin.th_controls')); ?></th>
                     </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <?php $__currentLoopData = $lists; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $meta = arrayToList($item->metas, 'option', 'value'); ?>
+                        <tr>
+                            <td><a href="/product/<?php echo e($item->id); ?>" target="_blank"><?php echo e($item->title); ?></a></td>
+                            <td class="text-center" width="150"><?php echo e(date('d F Y / H:i',$item->created_at)); ?></td>
+                            <td class="text-center" title="<?php echo e($item->user->username); ?>"><?php echo e($item->user->name); ?></td>
+                            <td class="text-center"><?php echo e($item->sells_count ?? '0'); ?></td>
+                            <td class="text-center"><?php echo e($item->partsactive_count ?? '0'); ?></td>
+                            <td class="text-center"><?php echo e($item->transactions->sum('price')); ?><br><?php echo e(trans('admin.cur_dollar')); ?></td>
+                            <td class="text-center"><?php echo e($item->view ?? '0'); ?></td>
+                            <td class="text-center"><?php echo e($meta['price'] ?? 'Free'); ?></td>
+                            <td class="text-center"><?php echo e(!empty($item->category) ? $item->category->title : ''); ?></td>
+                            <td class="text-center">
+                                <?php if($item->private==1): ?>
+                                    <b class="c-g"><?php echo e(trans('admin.exclusive')); ?></b>
+                                <?php else: ?>
+                                    <b class="c-o"><?php echo e(trans('admin.open')); ?></b>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if($item->parts_request_count > 0): ?>
+                                    <b class="c-o"><?php echo e(trans('admin.pending')); ?></b>
+                                <?php endif; ?>
+                                <?php if($item->mode == 'request'): ?>
+                                    <b class="c-r"><?php echo e(trans('admin.review_request')); ?></b>
+                                <?php elseif($item->mode == 'delete'): ?>
+                                    <b class="c-r"><?php echo e(trans('admin.unpublish_request')); ?></b>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                                <!--<a href="/admin/notification/new?recipent_type=userone&uid=<?php echo e($item->user->id); ?>" title="Send notification to user"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                                <a href="/admin/ticket/new?uid=<?php echo e($item->user->id); ?>&title=Course <?php echo e($item->title); ?>" title="Send support ticket to user"><i class="fa fa-life-ring" aria-hidden="true"></i></a>-->
+                                <a href="/admin/content/edit/<?php echo e($item->id); ?>" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                <a href="#" data-href="/admin/content/delete/<?php echo e($item->id); ?>" title="Delete" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer text-center">
             <?php echo $lists->appends($_GET)->links('pagination.default'); ?>

@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label class="col-md-2 control-label" for="inputDefault" style="float: left; margin-left: 0px; padding-left: 0px;">{{{ trans('admin.description') }}}</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" id="" rows="3"></textarea>
+                    <textarea name="content" class="form-control" id="" rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group">

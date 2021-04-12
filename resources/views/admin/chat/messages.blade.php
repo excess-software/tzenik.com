@@ -4,7 +4,7 @@
 @endsection
 @section('page')
 <link rel="stylesheet" href="/assets/default/vendor/font-awesome/css/font-awesome.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+<script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
 <style>
     <style>
 
@@ -296,7 +296,7 @@
 <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
 <script type="application/javascript" src="/assets/default/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-    var socket = io.connect('https://tzenik.com:8890');
+    var socket = io.connect('https://www.tzenik.com/', {path: '/socket.io/'});
     var host = window.location.origin;
 
     //Recepción desde Socket.io

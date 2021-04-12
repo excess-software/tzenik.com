@@ -57,7 +57,7 @@
                                     <select name="mode" class="form-control" required>
                                         <option value="publish" <?php if($item->mode=='publish'): ?> selected <?php endif; ?>><?php echo e(trans('admin.published')); ?></option>
                                         <option value="request" <?php if($item->mode=='request'): ?> selected <?php endif; ?>><?php echo e(trans('admin.review_request')); ?></option>
-                                        <option value="waiting" <?php if($item->mode=='delete'): ?> selected <?php endif; ?>><?php echo e(trans('admin.unpublish_request')); ?></option>
+                                        <!--<option value="waiting" <?php if($item->mode=='delete'): ?> selected <?php endif; ?>><?php echo e(trans('admin.unpublish_request')); ?></option>-->
                                         <option value="draft" <?php if($item->mode=='draft'): ?> selected <?php endif; ?>><?php echo e(trans('admin.pending')); ?></option>
                                     </select>
                                 </div>
