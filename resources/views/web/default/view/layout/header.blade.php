@@ -400,14 +400,14 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6 text-center">
+                                        <div class="col-md-6 text-center mb-5">
                                             <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(24)" id="btn-smallFont">
                                                 <b>A</b>
                                                 <br>
                                                 <b>Smaller</b>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 text-center">
+                                        <div class="col-md-6 text-center mt-2">
                                             <button class="btn btn-menu-accesibilidad btn-block" onclick="changeFont(32)" id="btn-bigFont">
                                                 <b>A</b>
                                                 <br>
@@ -425,7 +425,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6  mb-5">
                                             <button class="btn btn-whiteTxtBlack btn-block"
                                                 onclick="changeColor('white')">
                                                 <b>Black Text</b>
@@ -448,7 +448,7 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6  mb-5">
                                             <button class="btn btn-blackTxtWhite btn-block"
                                                 onclick="changeColor('black')">
                                                 <b>White Text</b>

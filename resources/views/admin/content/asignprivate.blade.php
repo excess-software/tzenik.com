@@ -45,7 +45,7 @@
                             <tr>
                                 <th>Select</th>
                                 <th>Name</th>
-                                <th>Position</th>
+                                <th>Username</th>
                               
                             </tr>
                         </thead>
