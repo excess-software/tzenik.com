@@ -46,8 +46,10 @@
                                                     @php
                                                     $meta = arrayToList($item->content['metas'], 'option', 'value')
                                                     @endphp
-                                                    <img class="img-responsive img-ultimos-blogs"
-                                                        src="{{ $meta['thumbnail']}}" alt="">
+                                                    @if($meta)
+                                                    <img class="img-responsive img-ultimos-blogs" src="{{ $meta['thumbnail']}}" alt="">
+                                                    @endif
+
                                                 </div>
                                             </div>
                                             <div class="row">

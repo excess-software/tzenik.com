@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 volver-atras-media ">
-                    <a href="javascript: history.go(-1)"><h4><i class="fa fa-arrow-left"></i> Cursos</h4></a>
+                    <a href="/user/dashboard/all"><h4><i class="fa fa-arrow-left"></i> Cursos</h4></a>
                     <h2 class="titulo-curso">{{ $product->title }}</h2>
                     <!--<div class="col-md-4">
                         @if($product->support == 1)
@@ -24,7 +24,7 @@
                         scrolling="no">
                     </iframe>
                 @else
-                    <video id="myDiv" class="media-cursos" controls>
+                    <video id="myDiv" class="media-cursos" controls style="height: 600px !important;">
                         <source src="{{ !empty($partVideo) ? $partVideo : $meta['video'] }}" type="video/mp4" />
                     </video>
                 @endif
