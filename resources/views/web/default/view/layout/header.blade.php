@@ -381,8 +381,13 @@
                 </a>
             </div>
             <div class="navbar-collapse collapse" id="searchbar">
-
+                 @if(isset($user))
+                        <div class="visible-xs">
+                            @include(getTemplate() . '.user.parts.navigation-mobile')
+                        </div>
+                    @endif
                 <ul class="nav navbar-nav navbar-right">
+                   
                     <li class="dropdown navbar-accesibilidad">
                         <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-universal-access"> </i> <i class="fas fa-angle-down"></i></a>

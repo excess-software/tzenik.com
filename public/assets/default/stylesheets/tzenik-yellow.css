@@ -1207,7 +1207,7 @@ a:hover {
 }
 
 .formBox .forgetbox {
-    background-color: #343871;
+    background-color: black;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -1233,7 +1233,7 @@ a:hover {
 
 .formBox .forgetbox .f_row label,
 .formBox .forgetbox .f_row input {
-    color: #fff;
+    color: yellow;
 }
 
 .formBox .forgetbox .f_row u {
@@ -1906,3 +1906,4 @@ img {
     margin: 0;
     padding: 0;
 }
+.restag{color: yellow !important}

@@ -1202,7 +1202,7 @@ a:hover {
 }
 
 .formBox .forgetbox {
-    background-color: #343871;
+    background-color: #fff;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -1228,7 +1228,7 @@ a:hover {
 
 .formBox .forgetbox .f_row label,
 .formBox .forgetbox .f_row input {
-    color: #fff;
+    color: #000;
 }
 
 .formBox .forgetbox .f_row u {
@@ -1236,7 +1236,7 @@ a:hover {
 }
 
 .formBox .forgetbox .f_row u:before {
-    background-color: #fff;
+    background-color: #000;
 }
 
 .formBox .forgetbox .f_row.last {
@@ -1254,7 +1254,7 @@ a:hover {
 }
 
 .formBox .forgetbox h2 {
-    color: #fff;
+    color: #000;
     border-left-color: #fff;
     visibility: hidden;
     opacity: 0;
@@ -1269,9 +1269,9 @@ a:hover {
     transform: translate(0px, 20px);
     transition-delay: 0.15s;
 }
-
+ 
 .formBox .forgetbox p {
-    color: #fff;
+    color: #000;
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.48, 0.55, 0.69, 0.9);
@@ -1900,3 +1900,12 @@ img {
     margin: 0;
     padding: 0;
 }
+
+.accordion .card-header{
+    background-color: black !important;
+}
+.bg-accordin h5{padding:10px !important;color: #fff !important;cursor: pointer;}
+.bg-accordin .bg-light{background-color: #f4f4f4 !important}
+.nav-custom-bg .nav-home{color: #fff !important;text-align: left !important}
+/*.nav-custom-bg >  a{color: #fff !important; }*/
+.navbar-inverse .navbar-toggle{margin-top: 22px;}

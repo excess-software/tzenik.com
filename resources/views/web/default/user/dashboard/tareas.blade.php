@@ -11,7 +11,7 @@
     @include(getTemplate() . '.user.parts.navigation')
 
     <div class="row ">
-        <div class="">
+        <div class="container">
             <div class="col-md-12">
                 <h2 class="titulo-partials">Tus Tareas</h2>
                 <div class="row">
@@ -19,16 +19,16 @@
                     @foreach($courses as $course)
                         @if(!($course->homeworks)->isEmpty())
                         <div class="card">
-                            <div class="card-header" id="heading-{{$course->id}}">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
+                            <div class="card-header bg-accordin" id="heading-{{$course->id}}">
+                                
+                                    <div class="" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
                                         aria-expanded="false" aria-controls="collapseOne">
-                                        {{$course->title}}
-                                    </button>
-                                </h5>
+                                       <h5 class="mb-2 text-white p-3">{{$course->title}}</h5>
+                                    </div>
+                                
                             </div>
                             <div id="collapse-{{$course->id}}" class="collapse" aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
-                                <div class="card-body">
+                                <div class="card-body bg-light">
                                     @foreach($course->homeworks as $homework)
                                         <a onclick="subir({{$course->id}}, {{$homework->part_id}})"><p>{{$homework->part}} - {{$homework->title}}</p></a>
                                     @endforeach
