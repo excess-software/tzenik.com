@@ -1517,8 +1517,10 @@ class AdminController extends Controller
     public function asignarCurso(Request $request){
         $curso = $request->curso;
         $getCurso = Content::find($curso);
-
+        // echo "<pre>";
+        // print_r($_POST);
         foreach($request->usuarios as $usuario){
+
             Sell::insert([
                 'user_id' => $getCurso->user_id,
                 'buyer_id' => $usuario,
@@ -1530,9 +1532,11 @@ class AdminController extends Controller
                 'remain_time' => NULL
             ]);
 
-            Chat_UsersInChat::where('chat_id', $getCurso->chat_id)->insert(['user_id' => $usuario, 'chat_id' => $getCurso->chat_id]);
+           Chat_UsersInChat::where('chat_id', $getCurso->chat_id)->insert(['user_id' => $usuario, 'chat_id' => $getCurso->chat_id]);
         }
-        return back();
+
+        return Redirect::to('admin/content/private/asignar');
+        // return back();
     }
     public function desasignarCurso(Request $request){
         $curso = $request->curso;
@@ -1561,6 +1565,31 @@ class AdminController extends Controller
         }
         echo json_encode($array_disponibles);
     }
+    public function getUsersPrivateDT($curso){
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $userList = User::where('category_id', $fundal_category[0]->id)->get();
+
+        $array_disponibles = array();
+
+        foreach($userList as $usuario){
+            $asignados = Sell::where('buyer_id', $usuario->id)->where('content_id', $curso)->get();
+            if($asignados->isEmpty()){
+                $array_curso = array($usuario->id, $usuario->name, $usuario->username);
+                array_push($array_disponibles, $array_curso);
+            }
+        }
+
+
+
+         $data['draw'] = 1;
+         $data['recordsTotal'] = count($array_disponibles);
+         $data['data'] = $array_disponibles;
+         return response()->json($data, 200);
+        // echo json_encode($array_disponibles);
+    }
+
 
     public function getAsignedUsersPrivate($curso){
         

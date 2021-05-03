@@ -149,6 +149,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('asignar', 'AdminController@asignarCurso');
             Route::post('desasignar', 'AdminController@desasignarCurso');
             Route::get('private/getUsers/{curso}', 'AdminController@getUsersPrivate');
+            Route::get('private/getUsers_dt/{curso}', 'AdminController@getUsersPrivateDT');
             Route::get('private/unasign/getUsers/{curso}', 'AdminController@getAsignedUsersPrivate');
             Route::get('waiting', 'AdminController@contentWaitingList');
             Route::get('draft', 'AdminController@contentDraftList');
