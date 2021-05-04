@@ -13,7 +13,7 @@
     <div class="row ">
         <div class="container">
             <div class="col-md-12">
-                <h2 class="titulo-partials">Tus Tareas</h2>
+                <h2 class="titulo-partials">Tareas</h2>
                 <div class="row">
                     <div class="accordion" id="accordion">                
                     @foreach($courses as $course)
@@ -56,10 +56,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Subir Tarea</h5>
+        
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h5 class="modal-title" id="exampleModalLongTitle">Subir Tarea</h5>
       </div>
       <div class="modal-body">
         <form action="/user/subirTarea" method="post" enctype="multipart/form-data" id="image-upload" class="dropzone">
@@ -71,9 +72,9 @@
             </div>
         </form>
       </div>
-      <div class="modal-footer">
+     <!--  <div class="modal-footer">
         <button type="button" class="btn btn-warning">Salir</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

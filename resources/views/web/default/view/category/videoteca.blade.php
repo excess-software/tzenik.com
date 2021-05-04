@@ -11,7 +11,7 @@
     <div class="row ">
         <div class="">
             <div class="col-md-12">
-                <h2 class="titulo-partials">Videoteca</h2>
+                <h2 class="titulo-partials">Aprendo+</h2>
                 <div class="row">
 
                     @foreach($contents as $content)

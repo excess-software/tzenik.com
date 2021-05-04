@@ -7,7 +7,8 @@
 
     <div class="row">
         <div class="col-md-12 ">
-            <h2 class="titulo-partials-forum ">{{{ trans('main.forum_category_title') }}}</h2>
+            <!-- <h2 class="titulo-partials-forum ">{{{ trans('main.forum_category_title') }}}</h2> -->
+            <h2 class="titulo-partials-forum ">Foro</h2>
             <a href="/user/forum/post/new" class="">
                 <button class="btn btn-custom-forum ">Crear Nueva Discución</button>
             </a>

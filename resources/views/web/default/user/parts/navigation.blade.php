@@ -7,7 +7,7 @@
     
     
    <!--  <li role="presentation" class="{{ request()->is('user/calendar') ? 'active' : ''  }}"><a class="nav-home" href="/user/calendar"><i class="fa fa-calendar"></i> Calendario</a></li> -->
-    <li role="presentation" class="{{ request()->is('user/quizzes') || request()->is('user/dashboard/*') ? 'active' : ''  }}"><a class="nav-home" href="/user/quizzes"><i class="fa fa-book"></i> Mis Cursos</a>
+    <li role="presentation" class="{{ request()->is('user/dashboard/all') || request()->is('user/dashboard/all/*') ? 'active' : ''  }}"><a class="nav-home" href="/user/dashboard/all"><i class="fa fa-book"></i> Mis Cursos</a>
     </li>
 </ul>
 @if($user->category_id == 9)

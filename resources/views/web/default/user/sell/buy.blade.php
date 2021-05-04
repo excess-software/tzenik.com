@@ -11,7 +11,7 @@
     <div class="row ">
         <div class="">
             <div class="col-md-12">
-                <h2 class="titulo-partials">Tus Cursos</h2>
+                <h2 class="titulo-partials">Videos</h2>
                 <div class="row">
                     @foreach($list as $item)
                     @if(isset($item->content))

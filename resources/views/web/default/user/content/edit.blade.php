@@ -906,7 +906,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2 tab-con"
                                             for="inputDefault">Guía de trabajo</label>
-                                        <input type="file" name="guia_trabajo" id="guia_trabajo" class="form-control">
+                                            <input type="file" name="guia_trabajo" id="guia_trabajo" class="form-control" accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
 
                                     <div class="form-group">
@@ -1116,6 +1116,7 @@
         $('#lfm_document,#lfm_video,#lfm_thumbnail,#lfm_cover,#lfm_upload_video').filemanager('file', {prefix: '/user/laravel-filemanager'});
     </script>
 <script>
+
     $('.partes-nuevo-curso li a').click(function () {
         $('.partes-nuevo-curso li a').removeClass('active');
         $(this).addClass('active');
@@ -1453,6 +1454,8 @@
 
 </script>
 <script>
+    
+
     $('body').on('click', 'span.i-part-edit', function () {
         console.log('edit');
         var id = $(this).attr('pid');

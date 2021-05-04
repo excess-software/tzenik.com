@@ -111,11 +111,11 @@
                         <!-- <a href="/user/sociliate/google" class="btn btn-custom btn-check-form pull-left"><i class="fa fa-google-plus icon-rs"></i><span>{{ trans('main.sign_in_google') }}</span></a> -->
                     </div>
                     <br>
-                    <div class="register-container">
+                   <!--  <div class="register-container">
                         <a href="#" class="regTag register-link">
                             <h3><strong class="">Registrarse</strong></h3>
                         </a>
-                    </div>
+                    </div> -->
                 </form>
                 
             </div>
@@ -142,7 +142,7 @@
                     <button class="btn btn-primary pull-left white-c"><span>{{ trans('main.reset') }}</span></button>
                 </form>
             </div>
-            <div class="box registerBox" style="height: 650px">
+           <!--  <div class="box registerBox" style="height: 650px">
                 <span class="reg_bg"></span>
                 <form class="form" method="post" action="/registerUser" style="text-align: left">
                     {{ csrf_field() }}
@@ -197,7 +197,7 @@
                     </div>
                 </form>
                 
-            </div>
+            </div> -->
         </div>
         
     </div>
@@ -223,23 +223,23 @@
     });
 </script>
 <script>
-    $('.btn-register-user').on('click', function (e) {
-        if ($('#r-password').val() != $('#r-re-password').val()) {
-            $.notify({
-                message: 'Password & its confirmation are not the same.'
-            }, {
-                type: 'danger',
-                allow_dismiss: false,
-                z_index: '99999999',
-                placement: {
-                    from: "bottom",
-                    align: "right"
-                },
-                position: 'fixed'
-            });
-            e.preventDefault();
-        }
-    })
+    // $('.btn-register-user').on('click', function (e) {
+    //     if ($('#r-password').val() != $('#r-re-password').val()) {
+    //         $.notify({
+    //             message: 'Password & its confirmation are not the same.'
+    //         }, {
+    //             type: 'danger',
+    //             allow_dismiss: false,
+    //             z_index: '99999999',
+    //             placement: {
+    //                 from: "bottom",
+    //                 align: "right"
+    //             },
+    //             position: 'fixed'
+    //         });
+    //         e.preventDefault();
+    //     }
+    // })
 </script>
 <script>
     $('.regTag').click(function () {
