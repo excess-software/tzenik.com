@@ -1677,9 +1677,9 @@ class ApiController extends Controller
 
             $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
 
-            //$now = Carbon::now();
-            //$weekStartDate = $now->startOfWeek()->format('Y-m-d');
-            //$weekEndDate = $now->endOfWeek()->format('Y-m-d');
+            $now = Carbon::now();
+            $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+            $weekEndDate = $now->endOfWeek()->format('Y-m-d');
             //return $weekStartDate.' -- '.$weekEndDate;
 
             $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
@@ -1687,7 +1687,7 @@ class ApiController extends Controller
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
 
             foreach($courses as $course){
-                $parts = ContentPart::where('content_id', $course->id)->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time', 'upload_video as video'])->get();
+                $parts = ContentPart::where('content_id', $course->id)->whereBetween('initial_date', [$weekStartDate, $weekEndDate])->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time', 'upload_video as video'])->get();
                 foreach($parts as $part){
                     $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
