@@ -1795,7 +1795,7 @@ class ApiController extends Controller
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Videoteca')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
 
             foreach($courses as $course){
-                $parts = ContentPart::where('content_id', $course->id)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time'])->get();
+                $parts = ContentPart::where('content_id', $course->id)->whereNotIn('id', $ya_realizado)->select(['id as part_id', 'title as part_title', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time', 'upload_video as video'])->get();
                 foreach($parts as $part){
                     $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
