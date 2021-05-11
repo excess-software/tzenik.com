@@ -1137,6 +1137,7 @@
 
     function checkmedia(media){
         var str = media;
+        var newstr = str.replace('///', '/');
         var n = str.lastIndexOf('.');
         var result = str.substring(n + 1);
         console.log(result);
@@ -1157,6 +1158,9 @@
                 },
                 position: 'fixed'
             });
+        }else{
+            $('#upload_video').val(newstr);
+            $('#upload_video2').val(newstr);
         }
     }
 
@@ -1188,12 +1192,13 @@
 
     function checkmini(media){
         var str = media;
+        var newstr = str.replace('///', '/');
         var n = str.lastIndexOf('.');
         var result = str.substring(n + 1);
         console.log(result);
 
         if(result == 'jpg' || result == 'png'){
-            
+            $('#thumbnail').val(newstr);
         }else{
             $('#thumbnail').val('');
 
