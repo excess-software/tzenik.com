@@ -41,14 +41,13 @@
                 <div class="col-md-12">
                     <div id="table_datatable">
                         <table id="assignment_user_tbl" class="display table table-bordered" >
-                               <thead>
-                            <tr>
-                                <th>Select</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                              
-                            </tr>
-                        </thead>
+                            <thead>
+                              <tr>
+                                  <th>Select</th>
+                                  <th>Name</th>
+                                  <th>Username</th>
+                              </tr>
+                            </thead>
                         </table>
 
                     </div>
@@ -84,16 +83,20 @@
             <tbody>
                 @foreach($asignados as $asignado)
                 <tr>
+                    <td>
                     @foreach($lists as $item)
-                    @if($item->id == $asignado[0])
-                    <td>{{$item->title}}</td>
-                    @endif
+                      @if($item->id == $asignado[0])
+                        {{$item->title}}
+                      @endif
                     @endforeach
+                    </td>
+                     <td>
                     @foreach($users as $user)
-                    @if($user->id == $asignado[1])
-                    <td>{{$user->username.' - '.$user->name}}</td>
-                    @endif
+                      @if($user->id == $asignado[1])
+                        {{$user->username.' - '.$user->name}}
+                      @endif
                     @endforeach
+                     </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -101,24 +104,19 @@
     </div>
     <div class="card-footer text-center">
     </div>
+
+
 </section>
 <script>
-    /*function setLink(curso, user) {
-        $('#asignar').attr('href', '/admin/content/asignar/' + curso + '/' + user);
-    }
-
-    function setData() {
-        var curso = $('#curso').val();
-        var user = $('#usuario').val();
-        console.log(user);
-        setLink(curso, user);
-    }*/
-    let _datatable = null;
-    $(document).ready( function () {
-       // DataTable
-       
-    });
  
+    let _datatable = null;
+
+    $(document).ready(function() {
+        $('#tabla').DataTable({
+            // "paging": true,
+        });
+    } );
+
     function loadUserTable(curso){
          _datatable = $('#assignment_user_tbl').DataTable({
               "dataSrc": "",
@@ -182,9 +180,9 @@
         // });
     }
 
-    $(document).ready(function () {
-        $('#tabla').DataTable();
-    });
+    // $(document).ready(function () {
+    //     $('#tabla').DataTable();
+    // });
 
 </script>
 @endsection
