@@ -95,8 +95,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/user/vendor/content/list">{{  trans('admin.list') }}</a>
                                 </li>
-                                <li><a class="nav-link" href="/user/vendor/content/private/asignar">Usuarios en tus
-                                        cursos</a></li>
+                                <li><a class="nav-link" href="/user/vendor/content/private/asignar">Asignar usuarios a curso</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/progreso">Progreso de tus alumnos</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/tareas">Tareas</a></li>      
                                 <li><a class="nav-link" href="/user/content/new">Crear nuevo curso</a></li>
