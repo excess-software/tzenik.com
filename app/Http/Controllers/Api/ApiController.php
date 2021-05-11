@@ -2408,6 +2408,11 @@ class ApiController extends Controller
 
             foreach($courses as $course){
                 $homework = Homeworks::where('content_id', $course->id)->get();
+                foreach($homework as $hmwrk){
+                    $part_dates = ContentPart::where('id', $hmwrk->part_id)->select(['initial_date', 'limit_date'])->get()->first();
+                    $hmwrk->initial_date = $part_dates->inicital_date;
+                    $hmwrk->limit_date = $part_dates->limit_date;
+                }
                 $course->homeworks = $homework;
             }
 
