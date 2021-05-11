@@ -186,7 +186,7 @@ Route::group(['prefix' => 'user'], function () {
             });
 
             Route::group(['prefix' => 'request'], function () {
-                Route::get('/', 'UserController@requests');
+            //    Route::get('/', 'UserController@requests');
                 Route::post('store', 'UserController@requestStore');
                 Route::get('edit/{id}', 'UserController@requestEdit');
                 Route::post('edit/store/{id}', 'UserController@requestUpdate');
@@ -243,7 +243,7 @@ Route::group(['prefix' => 'user'], function () {
         #### Content ####
         #################
         Route::group(['prefix' => 'content'], function () {
-            Route::get('', 'UserController@contentList');
+         //   Route::get('', 'UserController@contentList');
             Route::get('delete/{id}', 'UserController@contentDelete');
             Route::get('request/{id}', 'UserController@contentRequest');
             Route::get('draft/{id}', 'UserController@contentDraft');
@@ -290,7 +290,7 @@ Route::group(['prefix' => 'user'], function () {
         #### Tickets ####
         #################
         Route::group(['prefix' => 'ticket'], function () {
-            Route::get('', 'UserController@tickets');
+      //      Route::get('', 'UserController@tickets');
             Route::post('store', 'UserController@ticketStore');
             Route::get('reply/{id}', 'UserController@ticketReply');
             Route::post('reply/store', 'UserController@ticketReplyStore');
@@ -313,7 +313,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('', 'UserController@sellDownload');
             Route::get('sell/post', 'UserController@sellPost');
             Route::post('sell/post/setPostalCode', 'UserController@setPostalCode');
-            Route::get('log', 'UserController@balanceLogs');
+        //    Route::get('log', 'UserController@balanceLogs');
             Route::get('charge', 'UserController@balanceCharge');
             Route::post('charge/pay', 'UserController@balanceChargePay');
             Route::get('report', 'UserController@balanceReport');
