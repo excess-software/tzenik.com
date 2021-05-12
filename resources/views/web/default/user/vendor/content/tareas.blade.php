@@ -6,24 +6,34 @@
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
 <section class="card">
-    <header class="card-header">
+    <div class="clearfix">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="card-title pl-4">Tareas de tus cursos</h2>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-info float-right" data-toggle="modal" data-target="#nuevaTarea">Nueva tarea</button>
+        </div>
+    </div>
+   <!--  <header class="card-header">
         <h2 class="card-title">Tareas de tus cursos</h2>
-    </header>
+    </header> -->
     <div class="card-body">
-        <button class="btn btn-info" data-toggle="modal" data-target="#nuevaTarea">Nueva tarea</button>
-        <div id="accordion">
+        
+        <div class="clearfix">&nbsp;</div>
+         <div id="accordion">
             @foreach($courses as $course)
                 @if(!($course->homeworks)->isEmpty())
                     <div class="card">
-                        <div class="card-header" id="heading-{{$course->id}}">
+                        <div class="card-header bg-light" id="heading-{{$course->id}}">
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
+                                <button class="btn btn-primary" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
                                     aria-expanded="true" aria-controls="collapseOne">
                                     {{$course->title}}
                                 </button>
                             </h5>
                         </div>
-                        <div id="collapse-{{$course->id}}" class="collapse show" aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
+                        <div id="collapse-{{$course->id}}" class="collapse show"aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
                             <div class="card-body">
                                 @foreach($course->homeworks as $homework)
                                     <a href="tareas/{{$homework->content_id}}/{{$homework->part_id}}"><p>{{$homework->part}} - {{$homework->title}}</p></a>
