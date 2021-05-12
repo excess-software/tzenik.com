@@ -68,16 +68,20 @@
             <tbody>
                 @foreach($asignados as $asignado)
                 <tr>
+                    <td>
                     @foreach($lists as $item)
                     @if($item->id == $asignado[0])
-                    <td>{{$item->title}}</td>
+                    {{$item->title}}
                     @endif
                     @endforeach
+                    </td>
+                    <td>
                     @foreach($users as $user)
                     @if($user->id == $asignado[1])
-                    <td>{{$user->username.' - '.$user->name}}</td>
+                    {{$user->username.' - '.$user->name}}
                     @endif
                     @endforeach
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

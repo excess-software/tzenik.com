@@ -113,7 +113,6 @@
 
     $(document).ready(function() {
         $('#tabla').DataTable({
-            // "paging": true,
         });
     } );
 
@@ -131,25 +130,10 @@
                    }
                }, {
                    "aTargets": [1],
-                   //"mData": "download_link",
-                   // "mRender": function (data, type, full) {
-                   //     if (data == "1") {
-                   //         return '<input type=\"checkbox\" checked value="' + data + '">';
-                   //     } else {
-                   //         return '<input type=\"checkbox\" value="' + data + '">';
-                   //     }
-                   // }
+                  
                }, {
                    "aTargets": [2],
-                   // "visible": false
-                   //"mData": "download_link",
-                   // "mRender": function (data, type, full) {
-                   //     if (data == "1") {
-                   //         return '<input type=\"checkbox\" checked value="' + data + '">';
-                   //     } else {
-                   //         return '<input type=\"checkbox\" value="' + data + '">';
-                   //     }
-                   // }
+                
                }
             ],
 
@@ -161,28 +145,10 @@
     function getUsers(curso) {
 
          loadUserTable(curso);
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "/admin/content/private/getUsers/" + curso,
-        //     dataType: "json",
-        //     success: function (data) {
-        //         var html = '';
-        //         for (i = 0; i < data.length; i++) {
-        //             html += '<div class="checkbox">\
-        //                 <label><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"> ' + data[i][2] +
-        //                 ' - ' + data[i][1] + '</input></label>\
-        //             </div>';
-        //         }
-        //          loadUserTable(curso);
-        //          $('#listado').html(html);
-               
-        //     }
-        // });
+     
     }
 
-    // $(document).ready(function () {
-    //     $('#tabla').DataTable();
-    // });
+ 
 
 </script>
 @endsection
