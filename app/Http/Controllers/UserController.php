@@ -1450,10 +1450,12 @@ class UserController extends Controller
 
     public function contentPartUpdate(Request $request, $id)
     {
+        // print_r($request->all());
+        // die;
         $user = auth()->user();
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
-            $request->request->add(['mode' => 'request']);
+            $request->request->add(['mode' => 'publish']);
             ContentPart::find($id)->update($request->all());
             return back();
         } else {
