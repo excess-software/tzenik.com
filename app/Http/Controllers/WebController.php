@@ -1296,9 +1296,11 @@ class WebController extends Controller
             return redirect('/product/' . $id)->with('msg', trans('admin.login_to_play_video'))->with('type', 'warning');
         }
 
-        $content = Content::where('id', $id)->where('mode', 'publish')->find($id);
+        $content = Content::where('id', $id)->where('mode', 'publish')->first();
 
         $content_pending = Content::where('id', $id)->where('mode', 'request')->first();
+
+        $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
         if($user->admin == 1){
             if (empty($content)) {
@@ -1319,8 +1321,6 @@ class WebController extends Controller
                 }
             }    
         }
-
-        $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
         $product = $content->find($id)->withCount(['comments' => function ($q) {
             $q->where('mode', 'publish');
@@ -1356,9 +1356,7 @@ class WebController extends Controller
             $q->with(['user.usermetas', 'supporter.usermetas', 'sender.usermetas'])->where('sender_id', $user->id)->where('mode', 'publish')->orderBy('id', 'DESC');
         }, 'quizzes' => function ($q) {
             $q->where('status', 'active');
-        }])->where(function ($where) {
-            $where->where('mode', 'publish');
-        })->find($id);
+        }])->find($id);
 
         if ($user) {
             $quizzes = $product->quizzes;
@@ -1412,9 +1410,6 @@ class WebController extends Controller
 
         if ($product->price == 0 and $user)
             $buy = 1;
-
-        if (!$product)
-            return abort(404);
 
         if($user){
             if($buy){
@@ -1526,21 +1521,29 @@ class WebController extends Controller
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
 
         if($product->content_type == 'Fundal' || $product->content_type == 'fundal'){
-            if($user->category_id == $fundal_category[0]->id){
+            if($user->category_id == $fundal_category[0]->id || $user->admin == 1 || $user->vendor == 1){
                 $product->price = 0;
                 if($product->type == 'webinar'){
-                    return view(getTemplate() . '.view.product.productWeb', $data);
+                    if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
+                        return view(getTemplate() . '.view.product.productWeb', $data);   
+                    }else{
+                        return view(getTemplate() . '.view.error.limit');
+                    }
                 }elseif($product->type == 'coaching'){
                     return view(getTemplate() . '.view.product.productCoach', $data);
                 }else{
                     return view(getTemplate() . '.view.product.product', $data);
                 }
             }else{
-                return abort(404);
+                return view(getTemplate() . '.view.error.403');
             }
         }else{
             if($product->type == 'webinar'){
-                return view(getTemplate() . '.view.product.productWeb', $data);
+                if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
+                    return view(getTemplate() . '.view.product.productWeb', $data);   
+                }else{
+                    return view(getTemplate() . '.view.error.limit');
+                }
             }elseif($product->type == 'coaching'){
                 return view(getTemplate() . '.view.product.productCoach', $data);
             }else{

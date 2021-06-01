@@ -96,14 +96,18 @@
                     </div>
                     <div class="form-group last">
                         <label>{{ trans('main.password') }}</label>
-                        <input type="password" name="password" class="form-control input-field validate"
-                            valid-title="Fill out this form" autocomplete="new-password" required>
-                        <u></u>
+                    
+                        <div class="input-group" id="show_hide_password">
+                            <input class="form-control input-field validate" type="password" name="password" valid-title="Fill out this form" autocomplete="new-password" required>
+                            <div class="input-group-addon">
+                                <a href=""><i class="fa fa-eye-slash" style="color: white !important;" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
                     </div>
                     <input type="hidden" name="remember" value="0">
                     <!--<input class="input-rem" type="checkbox" name="remember" value="1" style="display:block;position: relative;top: 16px;width: auto;height: auto"><label style="margin-left: 15px;">{{ trans('main.remember') }}</label>-->
                     <button
-                        class="btn btn-custom pull-left btn-register-user btn-register-user-r"><span>{{ trans('main.login') }}</span></button>
+                        class="btn btn-custom pull-left btn-register-user btn-register-user-r" style="background-color: #00D3B8 !important;"><span>{{ trans('main.login') }}</span></button>
                     <div class="h-10"></div>
                     <div class="f_link">
                         <a href="" class="resetTag restag pull-right"
@@ -221,6 +225,21 @@
             this.value = this.value.replace(/\s/g, "");
         }
     });
+
+    $(document).ready(function() {
+    $("#show_hide_password div").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+});
 </script>
 <script>
     // $('.btn-register-user').on('click', function (e) {
