@@ -44,9 +44,9 @@
                             for="inputDefault">{{ trans('main.publish_type') }}</label>
                         <div class="col-md-10 tab-con">
                             <select name="private" class="form-control font-s">
-                                <option value="2">Fundal</option>
-                                <option value="0">{{ trans('main.open') }}</option>
-                                <option value="3">Videoteca</option>
+                                <option value="2">Fundal students</option>
+                                <option value="0">External trainings<!-- {{ trans('main.open') }} --></option>
+                                <option value="3">I learn +</option>
                             </select>
                         </div>
                     </div>

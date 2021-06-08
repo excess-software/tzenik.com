@@ -93,12 +93,13 @@
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i>
                                 <span>{{  trans('admin.courses') }}</span></a>
                             <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/user/content/new_course">Crear nuevo curso</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/list">{{  trans('admin.list') }}</a>
                                 </li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/asignar">Asignar usuarios a curso</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/progreso">Progreso de tus alumnos</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/tareas">Tareas</a></li>      
-                                <li><a class="nav-link" href="/user/content/new">Crear nuevo curso</a></li>
+                                
                             </ul>
                         </li>
 

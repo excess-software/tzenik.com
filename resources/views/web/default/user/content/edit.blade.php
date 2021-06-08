@@ -24,7 +24,7 @@
                     <a href="#zoom" class="nav-link" cstep="6" data-toggle="tab">{{ trans('main.parts') }} - Zoom</a>
                 </li>
                 <li class="nav-item" onclick="saveCourse();">
-                    <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Guías</a>
+                    <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Weekly Guides</a>
                 </li>
             </ul>
         </div>
@@ -58,9 +58,9 @@
                             for="inputDefault">{{ trans('main.publish_type') }}</label>
                         <div class="col-md-10 tab-con">
                             <select name="private" class="form-control font-s">
-                                <option value="2" {{$item->private == 2 ? 'selected' : ''}}>Fundal</option>
-                                <option value="0" {{$item->private == 0 ? 'selected' : ''}}>{{ trans('main.open') }}</option>
-                                <option value="3" {{$item->private == 3 ? 'selected' : ''}}>Videoteca</option>
+                                <option value="2" {{$item->private == 2 ? 'selected' : ''}}>Fundal students</option>
+                                <option value="0" {{$item->private == 0 ? 'selected' : ''}}>External trainings<!-- {{ trans('main.open') }} --></option>
+                                <option value="3" {{$item->private == 3 ? 'selected' : ''}}>I learn +</option>
                             </select>
                         </div>
                     </div>
@@ -93,17 +93,17 @@
                         <p>{{ trans('main.tags_header') }}</p>
                     </div>-->
                     <div class="form-group">
-                        <label class="col-md-2 control-label tab-con"
-                            for="inputDefault">{{ trans('main.tags') }}</label>
-                        <div class="col-md-10 tab-con">
+                        <label class="col-md-4 control-label tab-con"
+                            for="inputDefault">{{ trans('main.tags') }} (optional)</label>
+                        <div class="col-md-8 tab-con">
                             <input type="text" data-role="tagsinput" placeholder="Press enter to save tag." name="tag"
                                 value="{{ $item->tag}}" class="form-control text-center">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label tab-con"
-                            for="inputDefault">{{ trans('main.category') }}</label>
-                        <div class="col-md-10 tab-con">
+                        <label class="col-md-4 control-label tab-con"
+                            for="inputDefault">{{ trans('main.category') }}  (optional)</label>
+                        <div class="col-md-8 tab-con">
                             <select name="category_id" id="category_id" class="form-control font-s" required>
                                 <option value="0">{{ trans('main.select_category') }}</option>
                                 @foreach($menus as $menu)
@@ -341,7 +341,7 @@
             <div class="steps dnone" id="step4">
                 <form method="post" class="form-horizontal" id="step-4-form-meta">
                     {{ csrf_field() }}
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="control-label col-md-2 tab-con">{{ trans('main.course_cover') }}</label>
                         <div class="col-md-10 tab-con">
                             <div class="input-group" style="display: flex">
@@ -359,11 +359,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
-                        <label class="control-label col-md-2 tab-con">{{ trans('main.course_thumbnail') }}</label>
-                        <div class="col-md-10 tab-con">
+                        <label class="control-label col-md-3 tab-con">{{ trans('main.course_thumbnail') }}</label>
+                        <div class="col-md-9 tab-con">
                             <div class="input-group" style="display: flex">
                                 <button type="button" id="lfm_thumbnail" data-input="thumbnail" data-preview="holder"
                                     class="btn btn-primary">
@@ -455,19 +455,19 @@
                                             </style>
                                             <div class="input-group asdf">
 
-                                            <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video">
-                                                <span class="input-group-text">
-                                                    <a id="video_preview" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                </span>
+                                                    <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video">
+                                                        <span class="input-group-text">
+                                                            <a id="video_preview" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                        </span>
+                                                    </div>
+                                                        <input type="text" id="upload_video" name="upload_video" dir="ltr"
+                                                            class="form-control" onchange='$("#video_preview").attr("href", $(this).val()); checkmedia($(this).val());' required>
+                                                        <button type="button" id="lfm_upload_video" data-input="upload_video"
+                                                            data-preview="holder" class="btn btn-primary">
+                                                            <span class="formicon mdi mdi-arrow-up-thick"></span>
+                                                        </button>
+                                                    </div>
                                             </div>
-                                                <input type="text" id="upload_video" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview").attr("href", $(this).val()); checkmedia($(this).val());' required>
-                                                <button type="button" id="lfm_upload_video" data-input="upload_video"
-                                                    data-preview="holder" class="btn btn-primary">
-                                                    <span class="formicon mdi mdi-arrow-up-thick"></span>
-                                                </button>
-                                            </div>
-                                        </div>
 
 
                                         <!--<label class="control-label col-md-1 tab-con">{{ trans('main.sort') }}</label>
@@ -479,7 +479,7 @@
 
                                     <div class="form-group">
                                         <label class="control-label col-md-2 tab-con"
-                                            for="inputDefault">{{ trans('main.description') }}</label>
+                                            for="inputDefault">{{ trans('main.description') }}bbb</label>
                                         <div class="col-md-10 tab-con te-10">
                                             <textarea class="form-control editor-te oflows" rows="12"
                                                 placeholder="Description..." name="description" required></textarea>
@@ -570,6 +570,22 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" name="content_id" value="{{ $item->id }}">
 
+
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">{{ trans('main.title') }}</label>
+                                        <div class="col-md-10 tab-con">
+                                            <input type="text" name="title" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label tab-con col-md-2"
+                                            for="inputDefault">{{ trans('main.description') }}</label>
+                                        <div class="col-md-10 tab-con">
+                                            <textarea class="form-control" rows="4" name="description"></textarea>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="control-label col-md-2 tab-con">{{ trans('main.video_file') }}</label>
                                         <div class="col-md-7 tab-con">
@@ -584,20 +600,23 @@
                                                 }
 
                                             </style>
+
+
+
                                             <div class="input-group asdf">
 
-                                            <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video2">
-                                                <span class="input-group-text">
-                                                    <a id="video_preview2" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                </span>
-                                            </div>
-                                                <input type="text" id="upload_video2" name="upload_video" dir="ltr"
-                                                    class="form-control" onchange='$("#video_preview2").attr("href", $(this).val()); checkmedia($(this).val());' required>
-                                                <button type="button" id="lfm_upload_video" data-input="upload_video2"
-                                                    data-preview="holder" class="btn btn-primary">
-                                                    <span class="formicon mdi mdi-arrow-up-thick"></span>
-                                                </button>
-                                            </div>
+                                                <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_video2">
+                                                    <span class="input-group-text">
+                                                        <a id="video_preview2" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    </span>
+                                                </div>
+                                                    <input type="text" id="upload_video2" name="upload_video" dir="ltr"
+                                                        class="form-control" onchange='$("#video_preview2").attr("href", $(this).val()); checkmedia($(this).val());' required>
+                                                    <button type="button" id="lfm_upload_video" data-input="upload_video2"
+                                                        data-preview="holder" class="btn btn-primary">
+                                                        <span class="formicon mdi mdi-arrow-up-thick"></span>
+                                                    </button>
+                                                </div>
                                         </div>
                                         <!--<label class="control-label tab-con col-md-1">{{ trans('main.sort') }}</label>
                                         <div class="col-md-2 tab-con">
@@ -608,13 +627,6 @@
 
                                     
 
-                                    <div class="form-group">
-                                        <label class="control-label tab-con col-md-2"
-                                            for="inputDefault">{{ trans('main.description') }}</label>
-                                        <div class="col-md-10 tab-con">
-                                            <textarea class="form-control" rows="4" name="description"></textarea>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group">
                                         <!--<label class="control-label tab-con col-md-2">{{ trans('main.volume') }}</label>
@@ -651,13 +663,15 @@
                                             <span class="custom-switch-indicator"></span>
                                         </label>-->
                                     </div>           
+                                    
                                     <div class="form-group">
                                         <label class="control-label tab-con col-md-2"
-                                            for="inputDefault">{{ trans('main.title') }}</label>
+                                            for="inputDefault">Materiales del módulo</label>
                                         <div class="col-md-8 tab-con">
-                                            <input type="text" name="title" class="form-control" required>
+                                            <input type="file" name="material" id="material-modulo" class="form-control">
                                         </div>
                                     </div>
+
 
                                     <div class="form-group">
                                         <label class="control-label tab-con col-md-3">Fecha de inicio</label>
@@ -677,13 +691,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label tab-con col-md-2"
-                                            for="inputDefault">Materiales del módulo</label>
-                                        <div class="col-md-8 tab-con">
-                                            <input type="file" name="material" id="material-modulo" class="form-control">
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
@@ -770,6 +778,16 @@
                                             <input class="form-control" type="text" name="mail" required>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label tab-con col-md-2">{{{ trans('main.webinar_zoom_link') }}}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <input class="form-control" type="text" name="zoom_link" required>
+                                        </div>
+                                    </div>
+
+                                    
+
 
                                     <div class="form-group">
                                         <label class="control-label tab-con col-md-2"
@@ -786,7 +804,8 @@
                                             <input type="text" name="title" class="form-control" required>
                                         </div>
                                         <div class="col-md-2 tab-con">
-                                            <button class="btn btn-custom tab-con pull-left" id="edit-part-submit"
+                                            <div class="clearfix">&nbsp;</div>
+                                            <button class="btn btn-custom  btn-warning tab-con pull-left" id="edit-part-submit"
                                                 type="submit">{{{ trans('main.save_changes') }}}</button>
                                         </div>
                                     </div>
@@ -842,6 +861,14 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label
+                                            class="control-label tab-con col-md-2">{{{ trans('main.webinar_zoom_link') }}}</label>
+                                        <div class="col-md-3 tab-con">
+                                            <input class="form-control" type="text" name="zoom_link" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="control-label tab-con col-md-2"
                                             for="inputDefault">{{{ trans('main.description') }}}</label>
                                         <div class="col-md-10 tab-con">
@@ -858,7 +885,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
-                                            <button class="btn btn-custom tab-con pull-right" id="new-part"
+                                            <button class="btn btn-warning tab-con pull-right" id="new-part"
                                                 type="submit">{{ trans('main.save_changes') }}</button>
                                         </div>
                                     </div>
@@ -894,7 +921,7 @@
                     <ul id="accordion" class="accordion off-filters-li">
                         <li class="open">
                             <div class="link new-part-click">
-                                <h2>Guías </h2><i class="mdi mdi-chevron-down"></i>
+                                <h2>Weekly Guides </h2><i class="mdi mdi-chevron-down"></i>
                             </div>
                             <div class="submenu dblock">
                                 <div class="h-15"></div>
@@ -929,7 +956,7 @@
 
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
-                                            <button class="btn btn-custom tab-con pull-left" id="new-guide"
+                                            <button class="btn btn-custom btn-warning tab-con pull-left" id="new-guide" onclick="return confirm('Are you sure, you want overwrite?')"
                                                 type="submit">{{ trans('main.save_changes') }}</button>
                                         </div>
                                     </div>
@@ -939,7 +966,7 @@
                         </li>
                         <li>
                             <div class="link list-part-click-zoom">
-                                <h2>Guías</h2><i class="mdi mdi-chevron-down"></i>
+                                <h2>Weekly Guides</h2><i class="mdi mdi-chevron-down"></i>
                             </div>
                             <div class="submenu">
                                 <div class="table-responsive">
@@ -971,16 +998,16 @@
                 <div class="col-md-12 btn-toolbar">
                     <button class="btn btn-primary btn-lg previous"><- Anterior</button>
                     @if($item->mode != 'publish')
-                    <a href="#publish-modal" data-toggle="modal"
+                    &nbsp;<a href="#publish-modal" data-toggle="modal"
                         class="btn btn-primary pull-left tab-con marl-s-10">{{ trans('main.publish') }}</a>
                     @else
-                    <a href="#re-publish-modal" data-toggle="modal"
+                    &nbsp;<a href="#re-publish-modal" data-toggle="modal"
                         class="btn btn-primary pull-left tab-con marl-s-10">{{ trans('main.save_changes') }}</a>
                     @endif
                     @if($item->mode != 'publish')
                     <input type="submit" class="btn btn-primary pull-left tab-con marl-s-10" id="draft-btn" value="Save" style="display: none;">
                     @endif
-                    <button class="btn btn-primary btn-lg next">Siguiente -></button>
+                    &nbsp;<button class="btn btn-primary btn-lg next">Siguiente -></button>
                 </div>
             </div>
     </div>
@@ -1509,6 +1536,7 @@
             $(efrom + 'input[name="time"]').val(data.time);
             $(efrom + 'input[name="duration"]').val(data.duration);
             $(efrom + 'input[name="mail"]').val(data.mail);
+            $(efrom + 'input[name="zoom_link"]').val(data.zoom_link);
             $(efrom + 'input[name="title"]').val(data.title);
             $(efrom + 'textarea[name="description"]').html(data.description);
             if (data.free == 1) {
