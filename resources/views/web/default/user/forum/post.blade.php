@@ -43,28 +43,32 @@
                             <input type="submit" class="btn btn-custom pull-left" value="Send">
                         </div>
                     </form>
-
-                    <ul class="comment-box">
-                        @foreach($post->comments as $comment)
-                            <li>
-                                <label>{{{ $comment->user->name}}}</label>
-                                <label>{{{ date('d F Y | H:i',$comment->create_at) }}}</label>
-                                <span>{{{$comment->comment}}}</span>
-                                <span><a href="javascript:void(0);" answer-id="{{{ $comment->id }}}" answer-title="{{{ $comment->name or '' }}}" class="pull-left answer-btn">{{{ trans('main.reply') }}}</a> </span>
-                                @if(count($comment->childs)>0)
-                                    <ul class="col-md-11 col-md-offset-1 answer-comment">
-                                        @foreach($comment->childs as $child)
-                                            <li>
-                                                <label>{{{ $child->name}}}</label>
-                                                <label>{{{ date('d F Y | H:i',$child->create_at) }}}</label>
-                                                <span>{{{$child->comment}}}</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="comment-box">
+                                @foreach($post->comments as $comment)
+                                    <li>
+                                        <label>{{{ $comment->user->name}}}</label>
+                                        <label>{{{ date('d/m/Y | H:i',$comment->create_at) }}}</label>
+                                        <span>{{{$comment->comment}}}</span>
+                                        <span><a href="javascript:void(0);" answer-id="{{{ $comment->id }}}" answer-title="{{ $comment->name }}" class="pull-left answer-btn">{{{ trans('main.reply') }}}</a> </span>
+                                        @if(count($comment->childs)>0)
+                                            <ul class="col-md-11 col-md-offset-1 answer-comment">
+                                                @foreach($comment->childs as $child)
+                                                    <li>
+                                                        <label>{{{ $child->name}}}</label>
+                                                        <label>{{{ date('d/m/Y | H:i',$child->create_at) }}}</label>
+                                                        <span>{{{$child->comment}}}</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>    
+                        </div>
+                    </div>
+                    
                 </div>
         </div>
     </div>

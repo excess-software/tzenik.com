@@ -58,9 +58,9 @@
                             for="inputDefault">{{ trans('main.publish_type') }}</label>
                         <div class="col-md-10 tab-con">
                             <select name="private" class="form-control font-s">
-                                <option value="2" {{$item->private == 2 ? 'selected' : ''}}>Fundal students</option>
-                                <option value="0" {{$item->private == 0 ? 'selected' : ''}}>External trainings<!-- {{ trans('main.open') }} --></option>
-                                <option value="3" {{$item->private == 3 ? 'selected' : ''}}>I learn +</option>
+                                <option value="2" {{$item->private == 2 ? 'selected' : ''}}>Estudiantes de Fundal</option>
+                                <option value="3" {{$item->private == 3 ? 'selected' : ''}}>Aprendo +</option>
+                                <option value="0" {{$item->private == 0 ? 'selected' : ''}}>Capacitaciones Externas</option>
                             </select>
                         </div>
                     </div>
