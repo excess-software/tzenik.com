@@ -273,7 +273,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::post('web_coach/part/store','UserController@contentPartStoreWeb_Coach');
             Route::post('web_coach/part/edit/store', 'UserController@contentPartEditStoreWeb_Coach');
 
-            Route::post('part/edit/store/{id}', 'UserController@contentPartUpdate');
+            Route::post('part/edit/store', 'UserController@contentPartUpdate');
 
             Route::get('part/json/{id}', 'UserController@contentPartsJson');
 

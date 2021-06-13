@@ -25,12 +25,12 @@
             @foreach($courses as $course)
                 @if(!($course->homeworks)->isEmpty())
                     <div class="card">
-                        <div class="card-header bg-light" id="heading-{{$course->id}}">
-                            <h5 class="mb-0">
-                                <button class="btn btn-primary" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
+                        <div class="card-header bg-light" id="heading-{{$course->id}}" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
                                     aria-expanded="true" aria-controls="collapseOne">
-                                    {{$course->title}}
-                                </button>
+                            <h5 class="mb-0">
+                                <span>
+                                    {{$course->title}} <i class="fas fa-caret-down"></i>
+                                </span>
                             </h5>
                         </div>
                         <div id="collapse-{{$course->id}}" class="collapse show"aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
@@ -65,7 +65,7 @@
                 <div class="modal-body modst">
                     <div class="form-group">
                         <label for="curso" class="col-form-label">Curso</label>
-                        <select class="form-control" id="idcurso" name="curso" onchange="getPartes(this.value)">
+                        <select class="form-control" id="idcurso" name="curso" onchange="getPartes(this.value)" required>
                             <option disabled selected>-- Seleccione el curso --</option>
                             @foreach($courses as $course)
                                 <option value="{{$course->id}}">{{$course->title}}</option>
@@ -74,21 +74,21 @@
                     </div>
                     <div class="form-group">
                         <label for="modulo" class="col-form-label">Modulo</label>
-                        <select name="modulo" id="idmodulo" class="form-control">
+                        <select name="modulo" id="idmodulo" class="form-control" required>
                             <option disabled selected>-- Seleccione un curso primero --</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-form-label">Título</label>
-                        <input type="text" class="form-control" name="title">
+                        <input type="text" class="form-control" name="title" required>
                     </div>
                     <div class="form-group">
                         <label for="description" class="col-form-label">Descripci&oacute;n</label>
-                        <textarea class="form-control" name="description"></textarea>
+                        <textarea class="form-control" name="description" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary">{{ trans('main.save') }}</button>
+                    <button class="btn btn-primary" id="btnTareasSubmit">{{ trans('main.save') }}</button>
                 </div>
             </form>
         </div>
@@ -102,8 +102,14 @@ function getPartes(curso) {
         dataType: "json",
         success: function (data) {
             var html = '';
-            for (i = 0; i < data.length; i++) {
+            if(data.length > 0) {
+                for (i = 0; i < data.length; i++) {
                 html += '<option value="'+data[i].id+'">'+data[i].title+'</option>';
+                $('#btnTareasSubmit').prop('disabled', false);
+                }
+            }else{
+                html += '<option> -- Curso sin módulos -- </option>';
+                $('#btnTareasSubmit').prop('disabled', true);
             }
             $('#idmodulo').html(html);
         }

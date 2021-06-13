@@ -24,7 +24,7 @@
                     <a href="#zoom" class="nav-link" cstep="6" data-toggle="tab">{{ trans('main.parts') }} - Zoom</a>
                 </li>
                 <li class="nav-item" onclick="saveCourse();">
-                    <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Weekly Guides</a>
+                    <a href="#guides" class="nav-link" cstep="7" data-toggle="tab">Guías semanales</a>
                 </li>
             </ul>
         </div>
@@ -94,7 +94,7 @@
                     </div>-->
                     <div class="form-group">
                         <label class="col-md-4 control-label tab-con"
-                            for="inputDefault">{{ trans('main.tags') }} (optional)</label>
+                            for="inputDefault">{{ trans('main.tags') }} (opcional)</label>
                         <div class="col-md-8 tab-con">
                             <input type="text" data-role="tagsinput" placeholder="Press enter to save tag." name="tag"
                                 value="{{ $item->tag}}" class="form-control text-center">
@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label tab-con"
-                            for="inputDefault">{{ trans('main.category') }}  (optional)</label>
+                            for="inputDefault">{{ trans('main.category') }}  (opcional)</label>
                         <div class="col-md-8 tab-con">
                             <select name="category_id" id="category_id" class="form-control font-s" required>
                                 <option value="0">{{ trans('main.select_category') }}</option>
@@ -433,11 +433,29 @@
                                     </div>
                                     <div class="submenu dblock">
                                         <div class="h-15"></div>
-                                        <input type="hidden" id="part-edit-id">
-                                        <form action="/user/content/part/edit/store/" id="step-5-form-edit-part" method="post"
+                                        <form action="/user/content/part/edit/store" enctype="multipart/form-data" id="step-5-form-edit-part" method="post"
                                             class="form-horizontal">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="content_id" value="{{ $item->id }}">
+                                            <input type="hidden" id="part-edit-id" name="part_id">
+
+                                            <div class="form-group">
+
+                                                <label class="control-label tab-con col-md-2"
+                                                    for="inputDefault">{{ trans('main.title') }}</label>
+                                                <div class="col-md-8 tab-con">
+                                                    <input type="text" name="title" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2 tab-con"
+                                                    for="inputDefault">{{ trans('main.description') }}bbb</label>
+                                                <div class="col-md-10 tab-con te-10">
+                                                    <textarea class="form-control editor-te oflows" rows="12"
+                                                        placeholder="Description..." name="description" required></textarea>
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
 
@@ -478,15 +496,6 @@
                                                         maxlength="3" min="0" max="100" required>
                                                 </div>-->
                                             </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2 tab-con"
-                                                    for="inputDefault">{{ trans('main.description') }}bbb</label>
-                                                <div class="col-md-10 tab-con te-10">
-                                                    <textarea class="form-control editor-te oflows" rows="12"
-                                                        placeholder="Description..." name="description" required></textarea>
-                                                </div>
-                                            </div>
                                             
                                             <div class="form-group">
                                                 <!--<label class="control-label tab-con col-md-2">{{ trans('main.volume') }}</label>
@@ -503,7 +512,7 @@
                                                 </div>-->
                                                 <label
                                                     class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
-                                                <div class="col-md-3 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <div class="input-group">
                                                         <input type="number" min="0" name="duration"
                                                             class="form-control text-center" required>
@@ -525,11 +534,10 @@
                                             </div>    
 
                                             <div class="form-group">
-
-                                                <label class="control-label tab-con col-md-2"
-                                                    for="inputDefault">{{ trans('main.title') }}</label>
-                                                <div class="col-md-8 tab-con">
-                                                    <input type="text" name="title" class="form-control" required>
+                                                <label class="control-label tab-con col-md-4"
+                                                    for="inputDefault">Materiales del módulo</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <input type="file" name="material" id="material-modulo" class="form-control">
                                                 </div>
                                             </div>
                                             
@@ -553,8 +561,8 @@
 
                                             <div class="form-group">
                                                 <div class="col-md-2 tab-con">
-                                                    <button class="btn btn-custom pull-left" id="edit-part-submit"
-                                                        type="submit">{{ trans('main.edit_part') }}</button>
+                                                    <button class="btn btn-custom pull-left"
+                                                        type="submit">{{ trans('main.save') }}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -763,12 +771,27 @@
                                     </div>
                                     <div class="submenu_zoom dblock">
                                         <div class="h-15"></div>
-                                        <input type="hidden" id="part-edit-id">
+                                        <input type="hidden" id="part-edit-id" name="part_id">
                                         <form action="/user/content/web_coach/part/edit/store/" id="step-6-form-edit-part"
                                             method="post" class="form-horizontal">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
-                                            <input type="hidden" name="part_id">
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label tab-con col-md-2"
+                                                    for="inputDefault">{{{ trans('main.title') }}}</label>
+                                                <div class="col-md-8 tab-con">
+                                                    <input type="text" name="title" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label tab-con col-md-2"
+                                                    for="inputDefault">{{{ trans('main.description') }}}</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <textarea class="form-control" rows="4" name="description"></textarea>
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label
@@ -799,41 +822,23 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label
                                                     class="control-label tab-con col-md-2">{{{ trans('main.webinar_coach_mail') }}}</label>
                                                 <div class="col-md-3 tab-con">
                                                     <input class="form-control" type="text" name="mail" required>
                                                 </div>
-                                            </div>
+                                            </div>-->
+
                                             <div class="form-group">
                                                 <label
                                                     class="control-label tab-con col-md-2">{{{ trans('main.webinar_zoom_link') }}}</label>
-                                                <div class="col-md-3 tab-con">
-                                                    <input class="form-control" type="text" name="zoom_link" required>
-                                                </div>
-                                            </div>
-
-                                            
-
-
-                                            <div class="form-group">
-                                                <label class="control-label tab-con col-md-2"
-                                                    for="inputDefault">{{{ trans('main.description') }}}</label>
                                                 <div class="col-md-10 tab-con">
-                                                    <textarea class="form-control" rows="4" name="description"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label tab-con col-md-2"
-                                                    for="inputDefault">{{{ trans('main.title') }}}</label>
-                                                <div class="col-md-8 tab-con">
-                                                    <input type="text" name="title" class="form-control" required>
+                                                    <input class="form-control" type="text" name="zoom_meeting" required>
                                                 </div>
                                                 <div class="col-md-2 tab-con">
                                                     <div class="clearfix">&nbsp;</div>
-                                                    <button class="btn btn-custom  btn-warning tab-con pull-left" id="edit-part-submit"
+                                                    <button class="btn btn-custom  btn-warning tab-con pull-left"
                                                         type="submit">{{{ trans('main.save_changes') }}}</button>
                                                 </div>
                                             </div>
@@ -851,6 +856,30 @@
                                             method="post" class="form-horizontal">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
+
+                                            <div class="form-group">
+                                                <label class="control-label tab-con col-md-2"
+                                                    for="inputDefault">{{{ trans('main.title') }}}</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <input type="text" name="title" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label tab-con col-md-2"
+                                                    for="inputDefault">{{{ trans('main.description') }}}</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <textarea class="form-control" rows="4" name="description"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label
+                                                    class="control-label tab-con col-md-4">{{{ trans('main.webinar_zoom_link') }}}</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <input class="form-control" type="text" name="zoom_meeting" required>
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label
@@ -880,37 +909,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label
                                                     class="control-label tab-con col-md-4">{{{ trans('main.webinar_coach_mail') }}}</label>
                                                 <div class="col-md-10 tab-con">
                                                     <input class="form-control" type="text" name="mail" required>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
-                                            <div class="form-group">
-                                                <label
-                                                    class="control-label tab-con col-md-4">{{{ trans('main.webinar_zoom_link') }}}</label>
-                                                <div class="col-md-10 tab-con">
-                                                    <input class="form-control" type="text" name="zoom_link" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label tab-con col-md-2"
-                                                    for="inputDefault">{{{ trans('main.description') }}}</label>
-                                                <div class="col-md-10 tab-con">
-                                                    <textarea class="form-control" rows="4" name="description"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label tab-con col-md-2"
-                                                    for="inputDefault">{{{ trans('main.title') }}}</label>
-                                                <div class="col-md-10 tab-con">
-                                                    <input type="text" name="title" class="form-control" required>
-                                                </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="col-md-12 tab-con">
                                                     <button class="btn btn-warning tab-con pull-right" id="new-part"
@@ -973,7 +979,7 @@
                     <ul id="accordion" class="accordion off-filters-li">
                         <li class="open">
                             <div class="link new-part-click">
-                                <h2>Weekly Guides </h2><i class="mdi mdi-chevron-down"></i>
+                                <h2>Guías semanales </h2><i class="mdi mdi-chevron-down"></i>
                             </div>
                             <div class="submenu dblock">
                                 <div class="h-15"></div>
@@ -1008,8 +1014,8 @@
 
                                     <div class="row">
                                         <div class="col-md-12 tab-con">
-                                            <button class="btn btn-custom btn-warning tab-con pull-left" id="new-guide" onclick="return confirm('Are you sure, you want overwrite?')"
-                                                type="submit">{{ trans('main.save_changes') }}</button>
+                                            <button class="btn btn-custom btn-warning tab-con pull-left" id="new-guide" data-toggle="modal" data-target="#guiaModal"
+                                                type="button">{{ trans('main.save_changes') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -1018,7 +1024,7 @@
                         </li>
                         <li>
                             <div class="link list-part-click-zoom">
-                                <h2>Weekly Guides</h2><i class="mdi mdi-chevron-down"></i>
+                                <h2>Guías semanales</h2><i class="mdi mdi-chevron-down"></i>
                             </div>
                             <div class="submenu">
                                 <div class="table-responsive">
@@ -1134,6 +1140,25 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="guiaModal" tabindex="-1" role="dialog" aria-labelledby="guiaModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="guiaModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            Si las fechas conciden con una guía ya existente, esta será reemplazada, ¿estás de acuerdo?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="submit" form="step-7-form-new-part" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal fade" id="publish-modal">
     <div class="modal-dialog">
@@ -1514,15 +1539,15 @@
                     '</td><td>' + item.mode +
                     '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit img-icon-s" pid="' +
                     item.id +
-                    '" title="Edit"></span>&nbsp;<a href="javascript:void(0)" onclick="deletPartModal('+item.id+')" data-toggle="modal" data-target="#delete-part-modal img-icon-s"><span class="crticon mdi mdi-delete-forever delete_part_class"   pid="' +
-                    item.id + '" title="Delete"></span></a></td></tr>');
+                    '" title="Edit"></span>&nbsp;<span onclick="deletePartModal('+item.id+')" data-toggle="modal" data-target="#delete-part-modal img-icon-s"><span class="crticon mdi mdi-delete-forever delete_part_class"   pid="' +
+                    item.id + '" title="Delete"></span></span></td></tr>');
                 }else{
                     $('#part-video-table-body-zoom').append('<tr class="text-center"><td class="cell-ta">' + item.title + '</td><td>' + item.duration + '&nbsp;Minutes</td><td>' + item.created_at +
                     '</td><td>' + item.mode +
                     '</td><td><span class="crticon mdi mdi-lead-pencil i-part-edit-zoom img-icon-s" pid="' +
                     item.id +
-                    '" title="Edit"></span>&nbsp;<a href="javascript:void(0)" onclick="deletPartModal('+item.id+')" data-toggle="modal" data-target="#delete-part-modal img-icon-s"><span class="crticon mdi mdi-delete-forever" pid="' +
-                    item.id + '" title="Delete"></span></a></td></tr>');
+                    '" title="Edit"></span>&nbsp;<span onclick="deletePartModal('+item.id+')" data-toggle="modal" data-target="#delete-part-modal img-icon-s"><span class="crticon mdi mdi-delete-forever" pid="' +
+                    item.id + '" title="Delete"></span></span></td></tr>');
                 }
             })
         })
@@ -1531,7 +1556,7 @@
 </script>
 <script>
 
-   function deletPartModal(part_id){
+   function deletePartModal(part_id){
     $("#hnd_temp_part_id").val(part_id);
         $('#delete-part-modal').modal('show');
 
@@ -1566,6 +1591,7 @@
             $(efrom + 'textarea[name="description"]').html(data.description);
             $(efrom + 'input[name="initial_date"]').val(data.initial_date);
             $(efrom + 'input[name="limit_date"]').val(data.limit_date);
+            
             if (data.free == 1) {
                 $('.free-edit-check-state .ios-switch').removeClass('off');
                 $('.free-edit-check-state .ios-switch').addClass('on');
@@ -1598,7 +1624,7 @@
             $(efrom + 'input[name="time"]').val(data.time);
             $(efrom + 'input[name="duration"]').val(data.duration);
             $(efrom + 'input[name="mail"]').val(data.mail);
-            $(efrom + 'input[name="zoom_link"]').val(data.zoom_link);
+            $(efrom + 'input[name="zoom_meeting"]').val(data.zoom_meeting);
             $(efrom + 'input[name="title"]').val(data.title);
             $(efrom + 'textarea[name="description"]').html(data.description);
             if (data.free == 1) {

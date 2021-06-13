@@ -5,40 +5,40 @@
 				<div class="col-xs-12 col-sm-3 col-md-3">
 					
 					<ul class="list-unstyled quick-links">
-						<li><a href="https://www.fiverr.com/share/qb8D02">Home</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">About</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">FAQ</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">Get Started</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">Videos</a></li>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Get Started</a></li>
+						<li><a href="#">Videos</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-12 col-sm-3 col-md-3">
 					
 					<ul class="list-unstyled quick-links">
-						<li><a href="https://www.fiverr.com/share/qb8D02">Home</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">About</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">FAQ</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">Get Started</a></li>
-						<li><a href="https://www.fiverr.com/share/qb8D02">Videos</a></li>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Get Started</a></li>
+						<li><a href="#">Videos</a></li>
 					</ul>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3">
 					
 					<ul class="list-unstyled quick-links">
-						<li><a href="https://www.fiverr.com/share/qb8D02">Home</a></li>
-                        <li><a href="https://www.fiverr.com/share/qb8D02">About</a></li>
-                        <li><a href="https://www.fiverr.com/share/qb8D02">FAQ</a></li>
+						<li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">FAQ</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-12 col-sm-3 col-md-3">
 					<ul class="list-unstyled text-center">
-                        <li><a href="https://www.fiverr.com/share/qb8D02"><img class="img-responsive " alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}"/></a></li>
+                        <li><a href="#"><img class="img-responsive " alt="Brand" src="{{ get_option('site_logo_type') }}" alt="{{ get_option('site_title') }}"/></a></li>
                     </ul>
                     <ul class="list-unstyled list-inline social">
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-facebook"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-twitter"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-instagram"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-envelope"></i></a></li>
 					</ul>
 				</div>
 			</div>

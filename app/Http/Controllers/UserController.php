@@ -1404,7 +1404,7 @@ class UserController extends Controller
             $request->request->remove('create_at');
             $request->request->add(['created_at'=>$create]);
             //Zoom api
-            $date = $request->date;
+            /*$date = $request->date;
             $time = $request->time;
             $duration = $request->duration;
             $title = $request->title;
@@ -1431,9 +1431,19 @@ class UserController extends Controller
 
             $data = json_decode($res->getBody(), true);
             //var_dump($data);
-            $meeting = $data['id'];
+            $meeting = $data['id'];*/
 
-            $request->request->add(['zoom_meeting'=>$meeting]);
+            //$request->request->add(['zoom_meeting'=>$meeting]);
+            
+            $url_pos = strpos($request->zoom_meeting, '/j/');
+            $pwd_pos = strpos($request->zoom_meeting, '?pwd');
+            $calc_id_qan = $pwd_pos - $url_pos;
+            $meeting_id = substr($request->zoom_meeting, $url_pos+3, $calc_id_qan-3);
+            
+            $request->request->remove('zoom_meeting');
+            $request->request->add(['zoom_meeting'=>$meeting_id]);
+            $request->zoom_meeting = $meeting_id;
+
             $newPart = ContentPart::create($request->all());
             echo $newPart->id;
             return redirect('/user/content/edit/'.$request->content_id.'#zoom');
@@ -1448,7 +1458,7 @@ class UserController extends Controller
 
     }
 
-    public function contentPartUpdate(Request $request, $id)
+    public function contentPartUpdate(Request $request)
     {
         // print_r($request->all());
         // die;
@@ -1456,10 +1466,16 @@ class UserController extends Controller
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
             $request->request->add(['mode' => 'publish']);
-            ContentPart::find($id)->update($request->all());
-            return back();
+            ContentPart::find($request->part_id)->update($request->except(['part_id', 'material']));
+            $material = $request->material;
+            if(isset($material)){
+                if($material->isValid()){
+                    $material->move('bin/contenido-cursos/'.$request->content_id.'/'.$request->part_id.'/', $material->getClientOriginalName());
+                }
+            }
+            return redirect('/user/content/edit/'.$request->content_id.'#parts');
         } else {
-            return back();
+            return redirect('/user/content/edit/'.$request->content_id.'#parts');
         }
 
     }
@@ -4119,8 +4135,8 @@ class UserController extends Controller
         //$message = $data['message'];
         //$redis = LRedis::connection();
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
-        $message_id = Chat_Messages::insertGetId($data);
-        return $message_id;
+        $message_id = Chat_Messages::create($data);
+        return $message_id->id;
         
     }
     public function chat_getOwner($chat_id){

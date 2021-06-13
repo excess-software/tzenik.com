@@ -756,8 +756,8 @@ hr {
 }
 
 .btn-custom:hover{
-    text-decoration: none;
-    background-color: black;
+    /*text-decoration: none;*/
+    background-color: #c58b0e !important;
     font-weight: 500;
     color: white;
 }
@@ -1905,6 +1905,7 @@ img {
     padding: 0;
 }
 
+<<<<<<< Updated upstream
 .accordion .card-header{
     background-color: black !important;
 }
@@ -1925,3 +1926,62 @@ img {
     .mb-5{margin-bottom: 5px}
 }
 
+=======
+.blog-comment-section .comment-box {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.blog-comment-section .comment-box li {
+    list-style: none;
+    display: block;
+    background: #F0F0F0;
+    padding: 12px;
+    border-radius: 4px;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.blog-comment-section .comment-box li img {
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+    border: 3px solid #BEBEBE;
+    margin-right: 5px;
+}
+
+.blog-comment-section .comment-box li label {
+    padding-right: 5px;
+    display: inline-block;
+}
+
+.blog-comment-section .comment-box li span {
+    display: block;
+    margin-top: 10px;
+    margin-right: 50px;
+}
+.blog-comment-section .comment-box li label {
+    float: right !important;
+    color: #9c9c9c;
+}
+
+.blog-comment-section .comment-box li {
+    box-shadow: 0px 2px 2px 0px #aeaeae;
+}
+
+.blog-comment-section .comment-box li span {
+    font-size: 1.1em;
+    color: #5a5a5a;
+}
+
+.blog-comment-section .comment-box li img {
+    border: none;
+    box-shadow: 0px 2px 11px 0 rgba(14, 14, 14, 0.2);
+    padding: 1px;
+}
+.blog-comment-section .comment-box li {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+>>>>>>> Stashed changes
