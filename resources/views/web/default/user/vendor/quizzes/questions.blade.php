@@ -1,6 +1,6 @@
 @extends(getTemplate() . '.user.vendor.layout.layout')
 @section('title')
-{{{ trans('admin.edit_post') }}}
+{{{ trans('Editar Examen') }}}
 @endsection
 @section('page')
 
@@ -82,7 +82,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="multipleAnswerSubmit"
-                    class="btn btn-primary">{{ trans('main.save') }}</button>
+                    class="btn btn-primary" disabled>{{ trans('main.save') }}</button>
             </div>
         </div>
     </div>

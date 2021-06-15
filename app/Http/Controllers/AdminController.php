@@ -4031,6 +4031,13 @@ class AdminController extends Controller
     }
     public function forumstore(Request $request){
         global $admin;
+
+        $rules = [
+            'title' => 'required',
+            'off' => 'required',
+            'commision' => 'required',
+        ];
+        $this->validate($request, $rules);
         //$request->request->add(['user_id'=>$admin['id']]);
         if($request->id){
             $request->request->add(['update_at'=>time()]);

@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="form-group">
-                        <button type="submit" class="text-center btn btn-primary w-50">Asignar</button>
+                        <button type="submit" id="submit_btn" class="text-center btn btn-primary w-50">Asignar</button>
                     </div>
                 </div>
             </div>

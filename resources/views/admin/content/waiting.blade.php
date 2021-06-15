@@ -58,7 +58,7 @@
                             <input type="text" class="form-control text-center" name="title" value="{!! request()->get('title') ?? '' !!}" placeholder="Course Title">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!--<div class="col-md-3">
                         <div class="form-group">
                             <select name="order" class="form-control">
                                 <option value="">{{ trans('admin.filter_type') }}</option>
@@ -73,7 +73,7 @@
                                 <option value="datea" @if(!empty(request()->get('order')) and request()->get('order') == 'datea') selected @endif>{{ trans('admin.th_date') }}-{{ trans('admin.ascending') }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-md-3">
                         <div class="form-group">
                             <input type="submit" class="text-center btn btn-primary w-100" value="Apply Filter">

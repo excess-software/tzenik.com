@@ -10,7 +10,7 @@
             <input type="text"
                 name="answers[{{ (empty($answer) or (!empty($loop) and $loop->iteration == 1)) ? 'record' : $answer->id }}][title]"
                 value="{{ !empty($answer) ? $answer->title : '' }}" placeholder="{{ trans('main.add_answer') }}"
-                class="form-control">
+                class="form-control" onchange="$('#multipleAnswerSubmit').prop('disabled', false);">
             <div class="help-block"></div>
         </div>
         <div class="row">

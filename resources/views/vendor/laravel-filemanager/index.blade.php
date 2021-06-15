@@ -267,10 +267,11 @@
     Dropzone.options.uploadForm = {
       paramName: "upload[]", // The name that will be used to transfer the file
       uploadMultiple: false,
-      parallelUploads: 5,
       timeout:0,
       clickable: '#upload-button',
       dictDefaultMessage: lang['message-drop'],
+      parallelUploads: 1000,
+      maxFilesize: 500,
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {
@@ -285,7 +286,6 @@
         'Authorization': 'Bearer ' + getUrlParam('token')
       },
       acceptedFiles: "{{ implode(',', $helper->availableMimeTypes()) }}",
-      maxFilesize: 500
     }
   </script>
 </body>

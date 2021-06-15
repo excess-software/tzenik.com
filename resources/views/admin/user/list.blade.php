@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!--<div class="col-md-3">
                         <div class="form-group">
                             <select name="order" class="form-control">
                                 <option value="">{{ trans('admin.filter_type') }}</option>
@@ -49,7 +49,7 @@
                                 <option value="disabled" @if(!empty(request()->get('order')) and request()->get('order') == 'disabled') selected @endif>{{ trans('admin.disabled_users') }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-md-3">
                         <div class="form-group">
                             <input type="submit" class="text-center btn btn-primary w-100" value="Filter Items">

@@ -14,13 +14,14 @@
     <div class="col-lg-12">
         <form action="/user/forum/post/store" class="form-horizontal form-bordered" method="post">
             @csrf
-            <div class="form-group">
+            <div class="form-group @error('title') has-error @enderror">
                 <label class="col-md-2 control-label" for="inputDefault" style="float: left;">{{{ trans('admin.th_title') }}}</label>
                 <div class="col-md-10">
                     <input type="text" name="title" class="form-control" required>
+                    <div class="help-block">@error('title') {{ $message }} @enderror</div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group @error('category_id') has-error @enderror">
                 <label class="col-md-2 control-label" for="inputDefault" style="float: left;">{{{ trans('admin.category') }}}</label>
                 <div class="col-md-10">
                     <select id="category_id" name="category_id" class="form-control">
@@ -35,12 +36,14 @@
                             @endforeach
                         @endif
                     </select>
+                    <div class="help-block">@error('category_id') {{ $message }} @enderror</div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group @error('content') has-error @enderror">
                 <label class="col-md-2 control-label" for="inputDefault" style="float: left; margin-left: 0px; padding-left: 0px;">{{{ trans('admin.description') }}}</label>
                 <div class="col-md-10">
                     <textarea name="content" class="form-control" id="" rows="3"></textarea>
+                    <div class="help-block">@error('content') {{ $message }} @enderror</div>
                 </div>
             </div>
             <div class="form-group">

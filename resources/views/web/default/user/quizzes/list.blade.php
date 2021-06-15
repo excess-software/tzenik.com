@@ -49,7 +49,7 @@
                 @if($quiz->comprado == true)
                 <tr>
                     <td>
-                        <a href="/product/{{$quiz->content->id}}">
+                        <a href="/product/{{$quiz->content->id}}" style="color: white !important;">
                             <h4>{{ $quiz->content->title }}</h4>
                         </a>
                     </td>

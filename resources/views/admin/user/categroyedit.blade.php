@@ -62,14 +62,14 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.th_discount') }}</label>
                         <div class="col-md-6">
-                            <input type="number" name="off" value="{{ $edit->off }}" placeholder="%" class="form-control text-center">
+                            <input type="number" name="off" oninput="validity.valid||(value='');" min=0 value="{{ $edit->off }}" placeholder="%" class="form-control text-center">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="inputDefault">{{ trans('admin.th_commission') }}</label>
                         <div class="col-md-6">
-                            <input type="number" name="commision" value="{{ $edit->commision }}" placeholder="%" class="form-control text-center">
+                            <input type="number" name="commision" oninput="validity.valid||(value='');" min=0 value="{{ $edit->commision }}" placeholder="%" class="form-control text-center">
                         </div>
                     </div>
 

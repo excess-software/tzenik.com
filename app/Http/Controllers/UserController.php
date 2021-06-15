@@ -3216,6 +3216,7 @@ class UserController extends Controller
             'name' => 'required',
             'content_id' => 'required|numeric',
             'pass_mark' => 'required|numeric',
+            'part_id' => 'required|numeric',
         ];
         $this->validate($request, $rules);
 
@@ -3974,6 +3975,14 @@ class UserController extends Controller
         $user = auth()->user();
         $data = $request->except('_token');
         $data['user_id'] = $user->id;
+
+        $rules = [
+            'title' => 'required',
+            'category_id' => 'required|numeric',
+            'content' => 'required',
+        ];
+        $this->validate($request, $rules);
+
         if($request->id){
             $data['update_at'] = time();
             if(isset($request->comment))
@@ -4512,6 +4521,12 @@ class UserController extends Controller
 
     public function vendorforumstore(Request $request){
         global $admin;
+        $rules = [
+            'title' => 'required',
+            'category_id' => 'required|numeric',
+            'content' => 'required',
+        ];
+        $this->validate($request, $rules);
         //$request->request->add(['user_id'=>$admin['id']]);
         if($request->id){
             $request->request->add(['update_at'=>time()]);
@@ -4559,6 +4574,10 @@ class UserController extends Controller
     public function vendorAsignarCurso(Request $request){
         $curso = $request->curso;
         $getCurso = Content::find($curso);
+
+        if(empty($request->usuarios)){
+            return back();
+        }
 
         foreach($request->usuarios as $usuario){
             Sell::insert([
