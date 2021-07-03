@@ -240,7 +240,7 @@ class ApiController extends Controller
             $data['content']['popular'][] = [
                 'id'        => $popularContent->id,
                 'title'     => $popularContent->title,
-                'thumbnail' => $meta['thumbnail'],
+                'thumbnail' => isset($meta['thumbnail']) ? $meta['thumbnail'] : '',
                 'price'     => isset($meta['price'])?$meta['price']:0,
                 'currency'  => currencySign(),
                 'duration'  => isset($meta['duration'])?convertToHoursMins($meta['duration']):0
@@ -1684,7 +1684,7 @@ class ApiController extends Controller
 
             $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
 
-            $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
+            $courses = Content::with(['metas'])->whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
 
             foreach($courses as $course){
                 $parts = ContentPart::where('content_id', $course->id)->whereBetween('initial_date', [$weekStartDate, $weekEndDate])->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time', 'upload_video as video'])->get();
