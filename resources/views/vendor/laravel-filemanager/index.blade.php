@@ -271,7 +271,7 @@
       clickable: '#upload-button',
       dictDefaultMessage: lang['message-drop'],
       parallelUploads: 1000,
-      maxFilesize: 500,
+      maxFilesize: 1024,
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {
