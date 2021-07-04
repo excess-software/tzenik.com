@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="70960f4e-9557-41bf-9841-1981e77047ee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Chat_Messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chat_Messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/web/default/user/vendor/chat/chat.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/user/vendor/chat/chat.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -355,7 +355,7 @@
       <workItem from="1595576575788" duration="1384000" />
       <workItem from="1595595912709" duration="1907000" />
       <workItem from="1595597830798" duration="3762000" />
-      <workItem from="1625438353178" duration="1426000" />
+      <workItem from="1625438353178" duration="1624000" />
     </task>
     <servers />
   </component>

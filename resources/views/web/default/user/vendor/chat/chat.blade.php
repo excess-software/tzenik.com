@@ -260,35 +260,42 @@
 
     <section class="card">
         <div class="card-body">
-            <div id="chat-test2">
-                <input type="hidden" value="" id="chat_id">
-                <div class="messaging">
-                    <div class="inbox_msg">
-                        <div class="inbox_people">
-                            <div class="headind_srch">
-                                <div class="recent_heading">
-                                    <h4>Chats</h4>
-                                </div>
-                            </div>
-                            <div class="inbox_chat">
-                            </div>
-                        </div>
-                        <div class="mesgs">
-                            <button type="button" id="btn-users" class="btn btn-warning" data-toggle="modal"
-                                    data-target="#UsersInChat"><i class="fa fa-users"></i></button>
-                            </button>
-                            <div class="msg_history">
-                            </div>
-                            <div class="type_msg">
-                                <div class="input_msg_write">
-                                    <input type="text" class="write_msg" placeholder="Type a message" />
-                                    <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            <div class="row ">
+                    <div class="col-md-12">
+                                <input type="hidden" value="" id="chat_id">
+                                <div class="messaging">
+                                    <div class="inbox_msg">
+                                        <div class="inbox_people">
+                                            <div class="headind_srch">
+                                                <div class="recent_heading">
+                                                    <h4>Recent</h4>
+                                                </div>
+                                            </div>
+                                            <div class="inbox_chat">
+                                            </div>
+                                        </div>
+                                        <div class="mesgs">
+                                            <button type="button" id="btn-users" class="btn btn-chatCustom" data-toggle="modal"
+                                                    data-target="#UsersInChat" disabled><i class="fa fa-users"></i></button>
+                                            <button type="button" id="btn-close" class="btn btn-chatCustom">X
+                                            </button>
+                                            <div class="msg_history">
+                                            </div>
+                                            <div class="type_msg">
+                                                <div class="input_msg_write">
+                                                    <form method="post" id="sendForm">
+                                                        @csrf
+                                                        <input type="text" class="write_msg" placeholder="Type a message" name="message">
+                                                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"
+                                                                                                      aria-hidden="true"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
     </section>
 
