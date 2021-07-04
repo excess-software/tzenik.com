@@ -89,6 +89,9 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Content</li>
+                        <li id="buysell">
+                            <a href="/user/vendor" class="nav-link"><i class="fa fa-dashboard"></i> <span>Tablero</span></a>
+                        </li>
                         <li class="dropdown" id="content">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-video"></i>
                                 <span>{{  trans('admin.courses') }}</span></a>
@@ -98,8 +101,8 @@
                                 </li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/asignar">Asignar usuarios a curso</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/progreso">Progreso de tus alumnos</a></li>
-                                <li><a class="nav-link" href="/user/vendor/content/tareas">Tareas</a></li>      
-                                
+                                <li><a class="nav-link" href="/user/vendor/content/tareas">Tareas</a></li>
+
                             </ul>
                         </li>
 

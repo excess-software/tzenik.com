@@ -224,7 +224,7 @@ class UserController extends Controller
     }
     public function inscribirse($product_id){
         $user = auth()->user();
-        $content = Content::with('metas')->where('mode', 'publish')->find($product_id);        
+        $content = Content::with('metas')->where('mode', 'publish')->find($product_id);
 
         $inscrito = CalendarEvents::where('product_id', $product_id)->where('user_id', $user->id)->get();
 
@@ -232,7 +232,7 @@ class UserController extends Controller
             if($content->type == 'coaching' || $content->type == 'webinar'){
                 $part_date = ContentPart::where('content_id', $content->id)->first();
                 $date = Carbon::createFromFormat('d/m/Y', $part_date->date)->toDateString();
-                CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id, 
+                CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id,
                 'date' => $date, 'type' => $content->type, 'content' => 'Horario: '.$part_date->time]);
             }
             return back()->with('msg', trans('¡Inscrito exitosamente!'))->with('type', 'success');
@@ -1182,7 +1182,7 @@ class UserController extends Controller
         $newContent['created_at'] = time();
         $newContent['mode'] = 'draft';
         $newContent['user_id'] = $user->id;
-        
+
         if($newContent['private'] == 2 ){
             $newContent['content_type'] = 'Fundal';
         }elseif($newContent['private'] == 3){
@@ -1269,7 +1269,7 @@ class UserController extends Controller
     }
 
     public function contentUpdateRequest($id, Request $request)
-    {   
+    {
         $user = auth()->user();
         $request->request->add(['mode' => 'request']);
         $content = Content::where('user_id', $user->id)->find($id);
@@ -1372,7 +1372,7 @@ class UserController extends Controller
     }
 
     public function contentPartStore(Request $request)
-    {  
+    {
         $user = auth()->user();
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
@@ -1395,7 +1395,7 @@ class UserController extends Controller
     }
 
     public function contentPartStoreWeb_Coach(Request $request)
-    {   
+    {
         $user = auth()->user();
         $content = Content::where('user_id',$user->id)->find($request->content_id);
         if($content){
@@ -1409,7 +1409,7 @@ class UserController extends Controller
             $duration = $request->duration;
             $title = $request->title;
             $usuario = $request->mail;
-            
+
             $Complete_Time = $date.'T'.$time.'Z';
             $params = [
                 'duration' => $duration,
@@ -1434,12 +1434,12 @@ class UserController extends Controller
             $meeting = $data['id'];*/
 
             //$request->request->add(['zoom_meeting'=>$meeting]);
-            
+
             $url_pos = strpos($request->zoom_meeting, '/j/');
             $pwd_pos = strpos($request->zoom_meeting, '?pwd');
             $calc_id_qan = $pwd_pos - $url_pos;
             $meeting_id = substr($request->zoom_meeting, $url_pos+3, $calc_id_qan-3);
-            
+
             $request->request->remove('zoom_meeting');
             $request->request->add(['zoom_meeting'=>$meeting_id]);
             $request->zoom_meeting = $meeting_id;
@@ -1495,7 +1495,7 @@ class UserController extends Controller
             $duration = $request->duration;
             $title = $request->title;
             $usuario = $request->mail;
-            
+
             $Complete_Time = $date.'T'.$time.'Z';
             $params = [
                 'duration' => $duration,
@@ -2041,7 +2041,7 @@ class UserController extends Controller
                     <script
                         src="https://checkout.razorpay.com/v1/checkout.js"
                         data-key="' . env('RAZORPAY_KEY_ID') . '" // Enter the Test API Key ID generated from Dashboard → Settings → API Keys
-                        data-amount="' . $Transaction->price . '" 
+                        data-amount="' . $Transaction->price . '"
                         data-currency="INR"
                         data-order_id="' . $order['id'] . '"
                         data-buttontext="Pay with Razorpay"
@@ -2141,6 +2141,7 @@ class UserController extends Controller
     ## Become Vendor ##
     public function becomeVendor()
     {
+
         return redirect('/user/ticket?type=become_vendor');
     }
 
@@ -2853,7 +2854,7 @@ class UserController extends Controller
                     <script
                         src="https://checkout.razorpay.com/v1/checkout.js"
                         data-key="' . env('RAZORPAY_KEY_ID') . '"
-                        data-amount="' . $Transaction->price . '" 
+                        data-amount="' . $Transaction->price . '"
                         data-currency="INR"
                         data-order_id="' . $order['id'] . '"
                         data-buttontext="Pay with Razorpay"
@@ -2868,7 +2869,7 @@ class UserController extends Controller
     }
 
     public function paycomPay(Request $request, $id)
-    {   
+    {
         $user = (auth()->check()) ? auth()->user() : false;
 
         $time = $request->time;
@@ -2900,13 +2901,13 @@ class UserController extends Controller
         $send = $client->request('POST', $url, [
             'form_params' => $params,
         ]);
-        
+
         $get_url = ltrim($send->getbody(), '?');
         parse_str($get_url, $url_toJson);
-        
+
         //return $url_toJson;
         if($url_toJson['response'] == 1){
-            
+
             if (!$user)
                 return Redirect::to('/user?redirect=/product/' . $id);
 
@@ -2965,7 +2966,7 @@ class UserController extends Controller
 
             if($content->type == 'coaching' || $content->type == 'webinar'){
                 $part_date = ContentPart::where('content_id', $content->id)->first();
-                CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id, 
+                CalendarEvents::create(['user_id' => $user->id, 'product_id' => $content->id,
                 'date' => $part_date->date, 'type' => $content->type, 'content' => 'Horario: '.$part_date->time]);
             }
 
@@ -2975,7 +2976,7 @@ class UserController extends Controller
         }
 
     }
-    
+
 
     ## Credit Section
     public function creditPay($id, $mode = 'download')
@@ -4106,7 +4107,7 @@ class UserController extends Controller
         ]);
         return redirect('admin/Forum/comment/edit/'.$comment->id);
     }
-    
+
     ##################
     ###### Chat ######
     ##################
@@ -4146,7 +4147,7 @@ class UserController extends Controller
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
         $message_id = Chat_Messages::create($data);
         return $message_id->id;
-        
+
     }
     public function chat_getOwner($chat_id){
         $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
@@ -4172,8 +4173,10 @@ class UserController extends Controller
     ##### Vendor #####
     ##################
 
-    public function vendor(){
-        return view('web.default.user.vendor.content.main');
+    public function vendor(Request $request){
+        $data = $this->getHomeProgreso($request);
+
+        return view('web.default.user.vendor.content.main', $data);
     }
 
     public function vendorcontentLists(Request $request){
@@ -4189,7 +4192,7 @@ class UserController extends Controller
         }, 'transactions' => function ($q) {
             $q->where('mode', 'deliver');
         }])->withCount('sells', 'partsactive')->where(function ($w) {
-            
+
         })->where('user_id', $user->id);
 
 
@@ -4356,7 +4359,7 @@ class UserController extends Controller
             $sell = Sell::where('content_id', $item->id)->where('user_id', $user->id)->get();
             if(!$sell->isEmpty()){
                 foreach($sell as $venta){
-                    array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id));   
+                    array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id));
                 }
             }
         }
@@ -4371,7 +4374,8 @@ class UserController extends Controller
         return view('web.default.user.vendor.content.usuariosEnCursos', $data);
     }
 
-    public function vendorProgresoAlumnosFundal(Request $request){
+    public function getHomeProgreso(Request $request){
+
         $fdate = strtotime($request->get('fdate', null)) + 12600;
         $ldate = strtotime($request->get('ldate', null)) + 12600;
 
@@ -4388,7 +4392,6 @@ class UserController extends Controller
         }])->withCount('sells', 'partsactive')->where(function ($w) {
             $w->where('mode', 'publish');
         })->where('content_type', 'Fundal')->where('user_id', $user->id);
-
 
         if ($fdate > 12601)
             $lists->where('created_at', '>', $fdate);
@@ -4460,7 +4463,7 @@ class UserController extends Controller
         //return $lists;
 
         $usuarios_cursos = array();
-
+        $usuarios_unicos = [];
         foreach($lists as $item){
 
             $sell = Sell::where('content_id', $item->id)->get();
@@ -4472,27 +4475,36 @@ class UserController extends Controller
                     if(!$parts->isEmpty()){
                         foreach($parts as $part){
                             $parts_done = ProgresoAlumno::where('content_id', $item->id)->where('part_id', $part->id)->where('user_id', $venta->buyer_id)->get();
+                            $usuarios_unicos[] = $venta->buyer_id;
                             if(!$parts_done->isEmpty()){
                                 $duration_done = $duration_done + $part->duration;
                             }
                             $duration = $duration + $part->duration;
                         }
-    
+
                         $progress = (100 * $duration_done) / $duration;
-    
-                        array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id, $duration_done, $duration, $progress)); 
-                    }  
+
+                        array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id, $duration_done, $duration, $progress));
+                    }
                 }
             }
         }
+
+        $cursos_activos = Content::where('user_id', $user->id)->where('mode', 'publish')->count();
 
         $data = [
             'lists' => $lists,
             'users' => $users,
             'category' => $category,
-            'asignados' => $usuarios_cursos
+            'asignados' => $usuarios_cursos,
+            'cursos_activos' => $cursos_activos,
+            'total_estudiantes' => count(array_unique($usuarios_unicos))
         ];
+        return $data;
+    }
+    public function vendorProgresoAlumnosFundal(Request $request){
 
+        $data = $this->getHomeProgreso($request);
         return view('web.default.user.vendor.content.progresoAlumnos', $data);
     }
 
@@ -4616,7 +4628,7 @@ class UserController extends Controller
         $parts = ContentPart::where('content_id', $curso)->orderBy('id', 'desc')->get()->toJson();
 
         echo $parts;
-        
+
     }
 
     public function videoteca(Request $request, $id = null){
@@ -4707,7 +4719,7 @@ class UserController extends Controller
                 foreach($homework as $hmwrk){
                     $part = ContentPart::where('id', $hmwrk->part_id)->value('title');
                     $hmwrk->part = $part;
-                }   
+                }
             }
             $course->homeworks = $homework;
         }
@@ -4771,7 +4783,7 @@ class UserController extends Controller
             foreach($homework as $hmwrk){
                 $part = ContentPart::where('id', $hmwrk->part_id)->value('title');
                 $hmwrk->part = $part;
-            } 
+            }
         }
 
         return view(getTemplate() . '.user.dashboard.tareas', ['courses' => $courses]);

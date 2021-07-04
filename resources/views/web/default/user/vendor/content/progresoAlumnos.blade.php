@@ -5,6 +5,43 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
+
+<div class="row">
+    <div class="col-md-12 col-lg-6 col-xl-6">
+        <section class="card text-center bg-info">
+            <div class="card-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">Cursos activos</h4>
+                            <div class="info">
+                                <strong class="amount">{{$cursos_activos}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-12 col-lg-6 col-xl-6">
+        <section class="card text-center bg-info">
+            <div class="card-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">Total de estudiantes</h4>
+                            <div class="info">
+                                <strong class="amount">{{$total_estudiantes}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+
 <section class="card">
     <header class="card-header">
         <h2 class="card-title">Progreso de los alumnos</h2>
