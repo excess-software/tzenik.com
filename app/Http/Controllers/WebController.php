@@ -594,6 +594,8 @@ class WebController extends Controller
     }
 
 
+
+
     public function blog()
     {
         $posts = Blog::where('mode', 'publish')->orderBy('id', 'DESC')->get();

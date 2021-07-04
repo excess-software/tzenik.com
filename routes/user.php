@@ -43,6 +43,8 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::get('tareas', 'UserController@tareas');
 
+        Route::get('chats', 'UserController@chatUser');
+
         Route::post('subirTarea', 'UserController@subirTarea');
 
         ###################

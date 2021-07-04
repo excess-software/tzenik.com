@@ -84,7 +84,7 @@
     <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
     @if(isset($user))
-    <script>
+   {{-- <script>
         var socket = io.connect('https://www.tzenik.com/', {path: '/socket.io/'});
         $(document).ready(function () {
             var host = window.location.origin;
@@ -247,7 +247,7 @@
                 location.reload();
             })
         }
-    </script>
+    </script>--}}
     @endif
     <title>@yield('title'){!! $title ?? '' !!}</title>
     <script>
