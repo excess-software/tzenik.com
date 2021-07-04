@@ -346,10 +346,19 @@ class UserController extends Controller
 
         } else {
             $buyList = $buyListQuery->with(['content' => function ($q) {
+
                 $q->with(['metas', 'category', 'user']);
+
             }, 'transaction.balance', 'rate' => function ($r) use ($user) {
                 $r->where('user_id', $user->id)->first();
-            }])->where('type', '<>', 'subscribe')
+            }])
+                ->whereHas('content.parts', function($query){
+                    $start_date = Carbon::now()->startOfWeek()->toDateString();
+                    $end_date = Carbon::now()->endOfWeek()->toDateString();
+                    $query->whereBetween('initial_date', [$start_date, $end_date])
+                        ->orWhereBetween('limit_date', [$start_date, $end_date]);
+                })
+                ->where('type', '<>', 'subscribe')
                 ->get();
 
         }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
@@ -113,4 +114,6 @@ class Content extends Model
     public function meetings(){
         return $this->hasMany('App\Models\MeetingDate');
     }
+
+
 }
