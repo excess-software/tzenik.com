@@ -8,6 +8,7 @@ class Chat_Messages extends Model
 {
     protected $table = 'chat_messages';
     public $fillable = ['id', 'chat_id', 'sender', 'message'];
+    public $timestamps = false;
 
     public function chat(){
         return $this->belongsTo('App\Models\Chat_Chats', 'id');

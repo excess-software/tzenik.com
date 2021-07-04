@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70960f4e-9557-41bf-9841-1981e77047ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/todogfilter.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/view/chat/chats.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/view/chat/chats.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/view/layout/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/view/layout/footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/view/layout/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/view/layout/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Chat_Messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chat_Messages.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +355,7 @@
       <workItem from="1595576575788" duration="1384000" />
       <workItem from="1595595912709" duration="1907000" />
       <workItem from="1595597830798" duration="3762000" />
-      <workItem from="1625438353178" duration="1052000" />
+      <workItem from="1625438353178" duration="1426000" />
     </task>
     <servers />
   </component>
