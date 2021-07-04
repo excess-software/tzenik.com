@@ -322,7 +322,7 @@
         </div>
     </div>
 
-    <div id="chat-test">
+<!--    <div id="chat-test">
         <input type="hidden" value="" id="chat_id">
         <div class="messaging">
             <div class="inbox_msg">
@@ -355,7 +355,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div id="preloaders" class="preloader"></div>
 

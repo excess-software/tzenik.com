@@ -152,8 +152,9 @@
         })
         var preloader = {!! get_option('site_preloader',0) !!};
     </script>
+
     <script type="application/javascript" src="/assets/default/javascripts/view-custom.js"></script>
-    @stack('scripts')
+
     @if(isset($user))
 
     @if(!is_null($user['fontsize']))
@@ -254,6 +255,7 @@
         @php session(['popup'=>1]) @endphp
     @endif
     @yield('script')
+@stack('scripts')
 
     @if(session('msg') != null)
         <script>

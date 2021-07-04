@@ -20,22 +20,27 @@
                                     <div class="inbox_people">
                                         <div class="headind_srch">
                                             <div class="recent_heading">
-                                                <h4>Chats</h4>
+                                                <h4>Recent</h4>
                                             </div>
                                         </div>
                                         <div class="inbox_chat">
                                         </div>
                                     </div>
                                     <div class="mesgs">
-                                        <button type="button" id="btn-users" class="btn btn-warning" data-toggle="modal"
-                                                data-target="#UsersInChat"><i class="fa fa-users"></i></button>
+                                        <button type="button" id="btn-users" class="btn btn-chatCustom" data-toggle="modal"
+                                                data-target="#UsersInChat" disabled><i class="fa fa-users"></i></button>
+                                        <button type="button" id="btn-close" class="btn btn-chatCustom">X
                                         </button>
                                         <div class="msg_history">
                                         </div>
                                         <div class="type_msg">
                                             <div class="input_msg_write">
-                                                <input type="text" class="write_msg" placeholder="Type a message" />
-                                                <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                                <form method="post" id="sendForm">
+                                                    @csrf
+                                                    <input type="text" class="write_msg" placeholder="Type a message" name="message">
+                                                    <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"
+                                                                                                  aria-hidden="true"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -46,11 +51,11 @@
             </div>
         </div>
     </div>
+    </div>
 
 @endsection
-@push('scripts')
+@section('script')
             <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
-            <script type="application/javascript" src="/assets/default/vendor/jquery/jquery.min.js"></script>
             @if(isset($user))
                 <script>
                     var socket = io.connect('https://www.tzenik.com/', {path: '/socket.io/'});
@@ -217,4 +222,4 @@
                     }
                 </script>
     @endif
-@endpush
+@endsection
