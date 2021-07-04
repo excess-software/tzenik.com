@@ -3,13 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="70960f4e-9557-41bf-9841-1981e77047ee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/user/parts/navigation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/user/parts/navigation.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/view/layout/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/view/layout/footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/view/layout/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/view/layout/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/0e/c3/0ec34907ee452855b0d0c10c648ad2df9cab085c" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/0e/c3/0ec34907ee452855b0d0c10c648ad2df9cab085c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/10/0c/100c27dd90830adb5d222260dd12cb8ac948f465" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/10/0c/100c27dd90830adb5d222260dd12cb8ac948f465" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/37/7b/377b357ce000197bd9fa4267ffa6244039e80ae4" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/37/7b/377b357ce000197bd9fa4267ffa6244039e80ae4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/fe/82/fe8261fa2aeaffb6a3f4cedd6109b3cceb020fc9" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/fe/82/fe8261fa2aeaffb6a3f4cedd6109b3cceb020fc9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

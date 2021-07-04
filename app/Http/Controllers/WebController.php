@@ -359,7 +359,7 @@ class WebController extends Controller
             return view(getTemplate() . '.view.category.category_base', $data);
     }
 
-    
+
 
     private static function orderPrice($a, $b)
     {
@@ -694,7 +694,7 @@ class WebController extends Controller
                 }]);
             }])->withCount(['contents'])
             ->first();
-        
+
         if($username == 'Fundal'){
             if($user_Category == $username){
                 if (!empty($chanel)) {
@@ -705,7 +705,7 @@ class WebController extends Controller
                             ->where('follower', $chanel->user_id)
                             ->count();
                     }
-        
+
                     $duration = 0;
                     foreach ($chanel->contents as $c) {
                         if (!empty($c->content->metas)) {
@@ -715,7 +715,7 @@ class WebController extends Controller
                             }
                         }
                     }
-        
+
                     return view(getTemplate() . '.view.chanel.chanel', ['chanel' => $chanel, 'follow' => $follow, 'duration' => $duration]);
                 }
                 abort(404);
@@ -807,9 +807,9 @@ class WebController extends Controller
                 }else{
                     $content = $content_pending;
                 }
-            }    
+            }
         }
-        
+
         $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
         $product = $content->withCount(['comments' => function ($q) {
@@ -823,7 +823,13 @@ class WebController extends Controller
                 $cQuery->where('mode', 'publish')->limit(3);
             }]);
         }, 'metas', 'parts' => function ($query) {
-            $query->where('mode', 'publish')->orderBy('sort');
+            $start_date = Carbon::now()->startOfWeek()->toDateString();
+            $end_date = Carbon::now()->endOfWeek()->toDateString();
+
+            $query->where('mode', 'publish')->orderBy('sort')
+                ->whereBetween('initial_date', [$start_date, $end_date])
+                ->orWhereBetween('limit_date', [$start_date, $end_date]);
+
         }, 'favorite' => function ($fquery) use ($user) {
             $fquery->where('user_id', $user->id);
         }, 'comments' => function ($ccquery) use ($id) {
@@ -1042,7 +1048,7 @@ class WebController extends Controller
                 $product->price = 0;
                 if($product->type == 'webinar'){
                     if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
-                        return view(getTemplate() . '.view.product.productWeb', $data);   
+                        return view(getTemplate() . '.view.product.productWeb', $data);
                     }else{
                         return view(getTemplate() . '.view.error.limit');
                     }
@@ -1057,7 +1063,7 @@ class WebController extends Controller
         }else{
             if($product->type == 'webinar'){
                 if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
-                    return view(getTemplate() . '.view.product.productWeb', $data);   
+                    return view(getTemplate() . '.view.product.productWeb', $data);
                 }else{
                     return view(getTemplate() . '.view.error.limit');
                 }
@@ -1074,7 +1080,7 @@ class WebController extends Controller
         $fileName = 'material-modulo.zip';
 
         if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE){
-                
+
             $files = File::files(public_path('bin/contenido-cursos/'.$id.'/'.$pid.'/'));
             foreach ($files as $key => $value){
                 $relativeName = basename($value);
@@ -1101,7 +1107,7 @@ class WebController extends Controller
                             $zip->addFile($value, $relativeName);
                         }
                     }
-                
+
             }
             $zip->close();
         }
@@ -1319,7 +1325,7 @@ class WebController extends Controller
                 }else{
                     $content = $content_pending;
                 }
-            }    
+            }
         }
 
         $product = $content->find($id)->withCount(['comments' => function ($q) {
@@ -1413,7 +1419,7 @@ class WebController extends Controller
 
         if($user){
             if($buy){
-                
+
                 $progreso_parte = ProgresoAlumno::where('user_id', $user->id)->where('content_id', $id)->where('part_id', $pid)->get();
                 if($progreso_parte->isEmpty()){
                     $registrar_progreso = ProgresoAlumno::create(['user_id' => $user->id, 'content_id' => $id, 'part_id' => $pid, 'date' => Carbon::now()->format('Y-m-d'), 'time' => Carbon::now()->format('H:i')]);
@@ -1517,7 +1523,7 @@ class WebController extends Controller
             'guia' => $product_guide->route,
         ];
 
-        
+
         $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
 
         if($product->content_type == 'Fundal' || $product->content_type == 'fundal'){
@@ -1525,7 +1531,7 @@ class WebController extends Controller
                 $product->price = 0;
                 if($product->type == 'webinar'){
                     if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
-                        return view(getTemplate() . '.view.product.productWeb', $data);   
+                        return view(getTemplate() . '.view.product.productWeb', $data);
                     }else{
                         return view(getTemplate() . '.view.error.limit');
                     }
@@ -1540,7 +1546,7 @@ class WebController extends Controller
         }else{
             if($product->type == 'webinar'){
                 if($enabled == 1 || ($enabled == 0 && !$inscrito->isEmpty())){
-                    return view(getTemplate() . '.view.product.productWeb', $data);   
+                    return view(getTemplate() . '.view.product.productWeb', $data);
                 }else{
                     return view(getTemplate() . '.view.error.limit');
                 }
@@ -2663,7 +2669,7 @@ class WebController extends Controller
     }
 
     public function testForm(){
-        return view(getTemplate() . '.view.product.testForm'); 
+        return view(getTemplate() . '.view.product.testForm');
     }
 
 }
