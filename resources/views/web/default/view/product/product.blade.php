@@ -86,7 +86,7 @@
                         </form>
 
                     @endif
-                </div> 
+                </div>
                 <div class="lesson-section">
                         @if(isset($meeting))
                         <h4><b>Fecha de inicio:</b>
@@ -104,17 +104,22 @@
                         <br>
                         <span>{!! !empty($partDesc->description) ? $partDesc->description :
                             $partDesc[0]->description !!}</span>
-                </div>    
+                </div>
                 <br>
                 <div class="lesson-section">
-                        <h3>Guía</h3>
-                        <br>
-                        <a href="{{$guia}}">
+                    <h3>Guía </h3>
+                    <br>
+                    @if(count($guias) > 0)
+                        @foreach($guias as $guia)
+                        <a href="{{$guia->route}}">
                             <button class="btn btn-media-descargar-leccion">
                                 <h4>Descargar guía</h4>
+                                <small>{{\Carbon\Carbon::parse($guia->initial_date)->toFormattedDateString()}} - {{\Carbon\Carbon::parse($guia->final_date)->toFormattedDateString()}}</small>
                             </button>
                         </a>
+                        @endforeach
                         <br>
+                    @endif
                         @if(!isset($meeting))
                             <h3>Materiales</h3>
                             <br>
@@ -146,47 +151,47 @@
                 <br>
                 @if(isset($meeting))
                 <div class="lesson-section">
-                    
+
                         <h3>Enlace de Zoom:</h3>
                         <br>
                         <span><a
                                 href="https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz">https://zoom.us/wc/{{{ $meeting->zoom_meeting ?? $meeting }}}/join?prefer=0&un=TWluZGF1Z2Fz</a></span>
-                    
+
                 </div>
                 @endif
                 <div class="lesson-section">
-                    
+
                         <h3>Comparte en tus redes sociales:</h3>
                         <br>
                         <div class="addthis_inline_share_toolbox"></div>
-                    
+
                 </div>
                 <div class="lesson-section">
-                    
+
                         <h3>Etiquetas</h3>
                         <br>
                         @foreach(explode(',', $product->tag) as $tag)
                         <h4><span class="label label-tag-cursos"> <span class="circle-tag-cursos"></span>
                                 {{$tag}}</span></h4>
                         @endforeach
-                    
+
                 </div>
                 <br>
                 <div class="lesson-section">
-                    
+
                         <h3>Categor&iacute;a</h3>
                         <br>
                         <h4><span class="label label-tag-media-categoria"> <span
                                     class="circle-tag-media-categoria"></span>
                                 {{ $product->category->title }}</span></h4>
-                    
+
                 </div>
                 <br>
             </div>
-        
-        
+
+
             <div class="col-md-6">
-                
+
                     <h3>Lista</h3>
                     <ul class="list-group partes-curso">
                         <!--@foreach($parts as $part)

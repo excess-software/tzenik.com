@@ -4792,17 +4792,33 @@ class UserController extends Controller
 
         $purchases_array = $purchases->toArray();
 
-        $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
+        $start_date = Carbon::now()->startOfWeek()->toDateString();
+        $end_date = Carbon::now()->endOfWeek()->toDateString();
 
-        //return $courses;
+        $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->whereHas('parts', function($query) use ($start_date, $end_date){
+            $query->whereBetween('initial_date', [$start_date, $end_date])
+                ->orWhereBetween('limit_date', [$start_date, $end_date]);
+        })->get();
+
 
         foreach($courses as $course){
             $homework = Homeworks::where('content_id', $course->id)->get();
+
             $course->homeworks = $homework;
+            $actualHomeworks = [];
             foreach($homework as $hmwrk){
-                $part = ContentPart::where('id', $hmwrk->part_id)->value('title');
-                $hmwrk->part = $part;
+
+                $part = ContentPart::where('id', $hmwrk->part_id)->where(function($q) use ($start_date, $end_date){
+                    $q->whereBetween('initial_date', [$start_date, $end_date])
+                        ->orWhereBetween('limit_date', [$start_date, $end_date]);
+                })->first();
+
+                if($part) {
+                    $hmwrk->part = $part->title;
+                    $actualHomeworks[] = $hmwrk;
+                }
             }
+            $course->homeworks = $actualHomeworks;
         }
 
         return view(getTemplate() . '.user.dashboard.tareas', ['courses' => $courses]);

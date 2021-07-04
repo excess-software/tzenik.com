@@ -5,6 +5,27 @@
 @endsection
 
 @section('content')
+    <style>
+        .br-1{
+            border-radius: 5px;
+            min-width: 100px;
+            display: inline-block;
+            color: #000000;
+        }
+        .task-name{
+            display: inline-block;
+        }
+        .task-card{
+            height: auto;
+            padding: 20px;
+            display: block;
+            border: 3px solid #000000;
+            border-radius: 5px;
+        }
+        .task-card:not(:first-child){
+            margin-bottom: 10px;
+        }
+    </style>
 <div class="">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
@@ -15,30 +36,27 @@
             <div class="col-md-12">
                 <h2 class="titulo-partials">Tareas</h2>
                 <div class="row">
-                    <div class="accordion" id="accordion">                
+                    <div class="accordion2" id="accordion2">
                     @foreach($courses as $course)
-                        @if(!($course->homeworks)->isEmpty())
-                        <div class="card">
-                            <div class="card-header bg-accordin" id="heading-{{$course->id}}">
-                                
-                                    <div class="" data-toggle="collapse" data-target="#collapse-{{$course->id}}"
-                                        aria-expanded="false" aria-controls="collapseOne">
-                                       <h5 class="mb-2 text-white p-3">{{$course->title}}</h5>
+                        @if(count($course->homeworks)>0)
+                       <h3 class="mb-2 text-white p-3">{{$course->title}}</h3>
+                            @foreach($course->homeworks as $homework)
+                                <div class="task-card">
+                                    <div class="row">
+                                    <div class="col-sm-12">
+                                        <span class="task-name">{{$homework->part}} - {{$homework->title}}</span>
+
+                                        <a class="btn btn-warning br-1 pull-right" onclick="subir({{$course->id}}, {{$homework->part_id}})">
+                                            Subir
+                                        </a>
+                                        </div>
                                     </div>
-                                
-                            </div>
-                            <div id="collapse-{{$course->id}}" class="collapse" aria-labelledby="heading-{{$course->id}}" data-parent="#accordion">
-                                <div class="card-body bg-light">
-                                    @foreach($course->homeworks as $homework)
-                                        <a onclick="subir({{$course->id}}, {{$homework->part_id}})"><p>{{$homework->part}} - {{$homework->title}}</p></a>
-                                    @endforeach
                                 </div>
-                            </div>
-                        </div>
+                            @endforeach
                         @endif
                     @endforeach
                     </div>
-                    @if($courses->isEmpty())
+                    @if(count($courses)==0)
                     <br>
                     <div class="row">
                         <div class="col-md-12 text-center" style="margin-top: 15%; margin-bottom: 15%;">
@@ -56,7 +74,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -814,6 +814,11 @@ class WebController extends Controller
 
         $buy = Sell::where('buyer_id', $user->id)->where('content_id', $id)->count();
 
+        //FECHAS PARA FILTRAR SEMANAS Y GUIAS
+        $start_date = Carbon::now()->startOfWeek()->toDateString();
+        $end_date = Carbon::now()->endOfWeek()->toDateString();
+
+
         $product = $content->withCount(['comments' => function ($q) {
             $q->where('mode', 'publish');
         }])->with(['meetings','discount', 'category' => function ($c) use ($content, $id) {
@@ -824,9 +829,7 @@ class WebController extends Controller
             $u->with(['usermetas', 'point', 'contents' => function ($cQuery) {
                 $cQuery->where('mode', 'publish')->limit(3);
             }]);
-        }, 'metas', 'parts' => function ($query) {
-            $start_date = Carbon::now()->startOfWeek()->toDateString();
-            $end_date = Carbon::now()->endOfWeek()->toDateString();
+        }, 'metas', 'parts' => function ($query)  use($start_date, $end_date) {
 
             $query->where('mode', 'publish')->orderBy('sort')
                 ->whereBetween('initial_date', [$start_date, $end_date])
@@ -1017,7 +1020,9 @@ class WebController extends Controller
 
         $video_first_module = ContentPart::where('content_id', $id)->first();
 
-        $product_firts_guide = Course_guides::where('content_id', $id)->first();
+        $guias = Course_guides::where('content_id', $id)->where(function($q) use ($start_date, $end_date){
+            $q->whereBetween('initial_date', [$start_date, $end_date])->orWhereBetween('final_date', [$start_date, $end_date]);
+        })->orderBy('initial_date', 'desc')->get();
 
         $data = [
             'product'               => $product,
@@ -1038,7 +1043,7 @@ class WebController extends Controller
             'meeting'               => $meeting,
             'meeting_date'          => $meeting_date,
             'product_material'      => $product_material,
-            'guia' => $product_firts_guide->route,
+            'guias' =>               $guias,
         ];
 
         //return File::exists('/bin/contenido-cursos/'.$id.'/guia');
