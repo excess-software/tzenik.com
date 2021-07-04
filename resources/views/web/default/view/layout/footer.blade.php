@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row text-left">
 				<div class="col-xs-12 col-sm-3 col-md-3">
-					
+
 					<ul class="list-unstyled quick-links">
 						<li><a href="#">Home</a></li>
 						<li><a href="#">About</a></li>
@@ -13,7 +13,7 @@
 					</ul>
 				</div>
 				<div class="col-xs-12 col-sm-3 col-md-3">
-					
+
 					<ul class="list-unstyled quick-links">
 						<li><a href="#">Home</a></li>
 						<li><a href="#">About</a></li>
@@ -23,7 +23,7 @@
 					</ul>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3">
-					
+
 					<ul class="list-unstyled quick-links">
 						<li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
@@ -51,9 +51,9 @@
                     <p>Tzenik.com © Derechos Reservados. <u><a href="https://www.fundal.org.gt/">|  Fundal Guatemala</a></u></p>
                 </div>
             <hr>
-        </div>	
+        </div>
     </div>
-    
+
     <!--<div class="footer">
         <div class="container">
             <div class="row">
@@ -153,6 +153,7 @@
         var preloader = {!! get_option('site_preloader',0) !!};
     </script>
     <script type="application/javascript" src="/assets/default/javascripts/view-custom.js"></script>
+    @stack('scripts')
     @if(isset($user))
 
     @if(!is_null($user['fontsize']))
@@ -235,7 +236,7 @@
                     $('#btn-smallFont').prop('disabled', true);
                 }
             } else {
-                
+
             }
     </script>
     @endif
@@ -253,6 +254,7 @@
         @php session(['popup'=>1]) @endphp
     @endif
     @yield('script')
+
     @if(session('msg') != null)
         <script>
             $.notify({

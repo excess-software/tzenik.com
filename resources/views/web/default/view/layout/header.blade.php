@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
     <link rel="icon" href="{!! get_option('site_fav','/assets/default/404/images/favicon.png') !!}" type="image/png"
         sizes="32x32">
     <meta charset="UTF-8">
@@ -64,7 +64,7 @@
     <!--<link rel="stylesheet" href="/assets/default/stylesheets/view-responsive.css" />-->
     @if(get_option('main_css')!='')
     <style>
-        .preloader 
+        .preloader
         {
             position: fixed;
             left: 0px;
@@ -106,12 +106,7 @@
                     }
                 });
             });
-            $('#btn-chat').click(function () {
-                $('#chat-test').fadeIn();
-            });
-            $('#btn-close').click(function () {
-                $('#chat-test').fadeOut();
-            });
+
             $('#btn-users').hide();
             //Funciones Socket.io
             $('.msg_send_btn').click(function () {
@@ -256,11 +251,11 @@
     @endif
     <title>@yield('title'){!! $title ?? '' !!}</title>
     <script>
-        $(window).load(function() 
-        {          
+        $(window).load(function()
+        {
             $("#preloaders").fadeOut(1000);
         });
-        
+
         function changeFont(font) {
             @if(isset($user))
             $.ajax({
@@ -361,10 +356,7 @@
             </div>
         </div>
     </div>
-    @if(isset($user))
-    <button type="button" id="btn-chat" class="btn btn-chatCustom btn-circle btn-xl"><i class="fa fa-comment"></i>
-    </button>
-    @endif
+
     <div id="preloaders" class="preloader"></div>
 
     <div class="navbar navbar-inverse">
@@ -387,7 +379,7 @@
                         </div>
                     @endif
                 <ul class="nav navbar-nav navbar-right">
-                   
+
                     <li class="dropdown navbar-accesibilidad">
                         <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-universal-access"> </i> <i class="fas fa-angle-down"></i></a>
