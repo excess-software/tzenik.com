@@ -89,7 +89,7 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Content</li>
-                        <li id="buysell">
+                        <li>
                             <a href="/user/vendor" class="nav-link"><i class="fa fa-dashboard"></i> <span>Tablero</span></a>
                         </li>
                         <li class="dropdown" id="content">
@@ -123,6 +123,9 @@
                                 <li><a class="nav-link" href="/user/vendor/forum/posts">Posts</a></li>
                                 <li><a class="nav-link" href="/user/vendor/forum/comments">Comments</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="/user/vendor/chat" class="nav-link"><i class="fa fa-comment"></i> <span>Chat</span></a>
                         </li>
                     </ul>
                 </aside>

@@ -4120,6 +4120,11 @@ class UserController extends Controller
     ##################
     ###### Chat ######
     ##################
+    public function chatVendor()
+    {
+
+        return view(getTemplate() . '.user.vendor.chat.chat');
+    }
 
     public function chat_Index()
     {

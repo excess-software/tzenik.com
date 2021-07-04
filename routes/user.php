@@ -36,7 +36,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('deactive', 'UserController@tripModeDeActive');
             Route::post('active', 'UserController@tripModeActive');
         });
-    
+
         #### Routes added to meet Tzenik needs ####
 
         Route::get('videoteca', 'UserController@videoteca');
@@ -58,12 +58,19 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('post/category/{id}', 'UserController@forum_postcategory');
 
             Route::post('post/comment/store', 'UserController@forum_commentstore');
-        }); 
+        });
 
         Route::group(['prefix'=>'vendor'], function () {
 
             Route::get('', 'UserController@vendor');
-            
+
+            ##################
+            ###### Vendor Chat ######
+            ##################
+            Route::group(['prefix'=>'chat'], function () {
+                Route::get('', 'UserController@chatVendor');
+            });
+
             #####################
             ### Vendor Forum  ###
             #####################
@@ -73,7 +80,7 @@ Route::group(['prefix' => 'user'], function () {
                 Route::get('post/edit/{id}','UserController@vendorforumeditPost');
                 Route::get('post/delete/{id}','UserController@vendorforumpostDelete');
                 Route::post('post/store', 'UserController@vendorforumstore');
-                
+
                 Route::get('category', 'UserController@forumcategorys');
                 Route::get('category/edit/{id}','UserController@forumcategoryEdit');
                 Route::get('category/delete/{id}','UserController@forumcategoryDelete');
@@ -129,7 +136,7 @@ Route::group(['prefix' => 'user'], function () {
                 Route::post('/results/reviewed', 'UserController@QuizzesResultsReviewed');
             });
 
-        }); 
+        });
 
         ##################
         ###### Chat ######
