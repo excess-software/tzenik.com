@@ -1,1 +1,0 @@
-<?php echo $content; ?><?php /**PATH C:\Users\Samuel\Local Sites\proacademydos\app\resources\views/email/content.blade.php ENDPATH**/ ?>
