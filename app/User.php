@@ -85,4 +85,12 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isInstructor()
+    {
+        if ($this->category_id == env('INSTRUCTOR_CATEGORY_ID',4)) {
+            return true;
+        }
+        return false;
+    }
+
 }

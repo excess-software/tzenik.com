@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -128,6 +129,9 @@ class LoginController extends Controller
 
         if ($user->isAdmin()) {
             return redirect('/admin');
+        } else if($user->isInstructor()){
+
+            return redirect('/user/vendor');
         } else {
             if ($request->session()->has('redirect')) {
                 if($user->first_login == 'false'){
@@ -141,7 +145,7 @@ class LoginController extends Controller
                 }else{
                     return redirect('/user/dashboard');
                 }
-                
+
             }
         }
     }

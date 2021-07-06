@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -84,6 +85,7 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
+
         $credentials = [
             $this->username() => $request->get('username'),
             'password' => $request->get('password')
@@ -97,6 +99,7 @@ class LoginController extends Controller
 
     public function afterLogged(Request $request)
     {
+
         $user = auth()->user();
         $userBlock = userMeta($user->id, 'blockDate');
 
@@ -119,9 +122,12 @@ class LoginController extends Controller
             'type' => 'Login Page',
             'ip' => $request->ip()
         ]);
-
+        Log::info($user->category_id);
         if ($user->isAdmin()) {
             return redirect('/admin');
+        } else if($user->isInstructor()){
+
+            return redirect('/user/vendor');
         } else {
             if ($request->session()->has('redirect')) {
                 return redirect($request->session()->has('redirect'));
