@@ -76,6 +76,8 @@ Route::group(['middleware' => 'notification'], function () {
     Route::group(['prefix' => 'material'], function () {
         Route::get('curso/{id}/modulo/{pid}', 'WebController@downloadMaterial');
         Route::get('curso/{id}', 'WebController@downloadAllMaterial');
+        Route::get('{id}/{pid}/{filename}', 'Api\ApiController@downloadMaterial');
+        Route::get('{id}/{filename}', 'Api\ApiController@downloadAllMaterial');
     });
 
     ## Article Section
