@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="70960f4e-9557-41bf-9841-1981e77047ee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/es/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/es/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/es/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/es/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/user/vendor/content/contentlist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/user/vendor/content/contentlist.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/web/default/user/vendor/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/web/default/user/vendor/layout/layout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ApiController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -363,7 +358,9 @@
       <workItem from="1595595912709" duration="1907000" />
       <workItem from="1595597830798" duration="3762000" />
       <workItem from="1625438353178" duration="1914000" />
-      <workItem from="1625607208091" duration="4978000" />
+      <workItem from="1625607208091" duration="5560000" />
+      <workItem from="1625674548328" duration="676000" />
+      <workItem from="1625689419274" duration="1895000" />
     </task>
     <servers />
   </component>

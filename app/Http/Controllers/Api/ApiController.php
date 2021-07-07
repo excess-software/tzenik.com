@@ -345,7 +345,7 @@ class ApiController extends Controller
         $content = Content::with(['metas','category','parts','rates','user.usermetas','comments.user'])->with(['quizzes' => function ($q) {
             $q->where('status', 'active');
         }])->find($id);
-        
+
         $hasCertificate = false;
         $canDownloadCertificate = false;
 
@@ -539,13 +539,13 @@ class ApiController extends Controller
                 'title'     => $part->title,
                 'video' => $part->upload_video,
                 'video_duration' => $part->duration,
-                'description' => $part->description, 
+                'description' => $part->description,
                 'initial_date' => $part->initial_date,
                 'limit_date' => $part->limit_date,
-                'part_material' => url('/').'/bin/contenido-cursos/'.$id.'/'.$part->id.'/materiales.zip',
+                'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
                 'status' => $partStatus,
                 'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values()
-                
+
             ];
         }
 
@@ -595,11 +595,11 @@ class ApiController extends Controller
             return $this->error(-1, trans('main.user_not_found'));
 
 
-        
+
         $purchases = Sell::with(['content'=>function($q){
             $q->with(['metas', 'parts']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
-        
+
         if($purchases->isEmpty()){
             return $this->response($data, '0');
         }else{
@@ -1634,11 +1634,11 @@ class ApiController extends Controller
 
         //return $dates;
 
-        
+
         $purchases = Sell::with(['content'=>function($q){
             $q->with(['metas', 'parts']);
         },'transaction.balance'])->where('buyer_id',$User['id'])->orderBy('id','DESC')->get();
-        
+
         if($purchases->isEmpty()){
             return $this->response($data, '0');
         }else{
@@ -1714,7 +1714,7 @@ class ApiController extends Controller
             }*/
 
             /*$parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
-            
+
             if(!$parts_data->isEmpty()){
                 $dates[] = ["title" => Carbon::parse($weekStartDate)->format('d-m-Y').' al '.Carbon::parse($weekEndDate)->format('d-m-Y'), "data" => $parts_data];
             }*/
@@ -1748,7 +1748,7 @@ class ApiController extends Controller
         //return $dates;
 
         $content = Content::where('mode', 'publish')->where('content_type', 'Videoteca')->with(['metas', 'parts'])->get();
-        
+
         if($content->isEmpty()){
             return $this->response($data, '0');
         }else{
@@ -1822,7 +1822,7 @@ class ApiController extends Controller
             }*/
 
             /*$parts_dates = ContentPart::whereIn('content_id', $purchases_array)->distinct('initial_date')->pluck('initial_date');
-            
+
             if(!$parts_data->isEmpty()){
                 $dates[] = ["title" => Carbon::parse($weekStartDate)->format('d-m-Y').' al '.Carbon::parse($weekEndDate)->format('d-m-Y'), "data" => $parts_data];
             }*/
@@ -2183,9 +2183,9 @@ class ApiController extends Controller
                 $content = Content::find($evento->product_id);
                 $evento->title = $content->title;
             }
-            
+
             $event->selected = true;
-            
+
             $dates_array[$date] = ['marked' => true, 'eventos' => $event];
             //array_push($events_by_date, array($date => $events));
         }
@@ -2384,7 +2384,7 @@ class ApiController extends Controller
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
         $message_id = Chat_Messages::insertGetId(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
         return $message_id;
-        
+
     }
 
     public function homeworks(Request $request){
@@ -2511,7 +2511,7 @@ class ApiController extends Controller
         }else{
             array_push($response_array, 'Failed');
         }
-        
+
         /*$extension = $image->getClientOriginalExtension();
         $name = $user['name'].'-'.$course.'-'.$part.'-('.time().').'.$extension;
 
@@ -2523,7 +2523,44 @@ class ApiController extends Controller
             'part_id' => $part,
             'route' => '/bin/tareas/'.$course.'/'.$user['name'].'/'.$part.'/'.$name,
         ]);*/
-    
-        return $this->response($response_array);        
+
+        return $this->response($response_array);
+    }
+
+    public function downloadMaterial($id, $pid, $filename){
+        $zip = new \ZipArchive();
+        if ($zip->open(public_path($filename), \ZipArchive::CREATE)== TRUE){
+
+            $files = File::files(public_path('bin/contenido-cursos/'.$id.'/'.$pid.'/'));
+            foreach ($files as $key => $value){
+                $relativeName = basename($value);
+                $zip->addFile($value, $relativeName);
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($filename))->deleteFileAfterSend(true);
+    }
+
+    public function downloadAllMaterial($id, $filename){
+        $zip = new \ZipArchive();
+
+        $content = Content::with('parts')->find($id);
+
+        if ($zip->open(public_path($filename), \ZipArchive::CREATE)== TRUE){
+            foreach($content->parts as $part){
+                if(is_dir(public_path('bin/contenido-cursos/'.$id.'/'.$part->id.'/'))){
+                    $files = File::files(public_path('bin/contenido-cursos/'.$id.'/'.$part->id.'/'));
+                    foreach ($files as $key => $value){
+                        $relativeName = basename($value);
+                        $zip->addFile($value, $relativeName);
+                    }
+                }
+
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($filename))->deleteFileAfterSend(true);
     }
 }

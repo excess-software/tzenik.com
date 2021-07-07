@@ -32,6 +32,11 @@ Route::group(['prefix'=>'v1'], function (){
     });
     Route::any('category', 'Api\ApiController@category');
     Route::any('guias', 'Api\ApiController@guias_cursos');
+
+    Route::group(['prefix'=>'material'], function(){
+        Route::get('curso/{id}/{pid}/{filename}', 'Api\ApiController@downloadMaterial');
+        Route::get('curso/{id}/{filename}', 'Api\ApiController@downloadAllMaterial');
+    });
     ## Product
     Route::group(['prefix'=>'product'],function (){
        Route::any('pay','Api\ApiController@productPay');
