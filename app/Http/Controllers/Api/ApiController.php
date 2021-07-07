@@ -41,6 +41,7 @@ use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Unicodeveloper\Paystack\Facades\Paystack;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Hash;
@@ -2530,20 +2531,26 @@ class ApiController extends Controller
 
     public function downloadMaterial($id, $pid, $filename){
         $zip = new \ZipArchive();
-        if ($zip->open(public_path($filename), \ZipArchive::CREATE)== TRUE){
+        try {
+            if ($zip->open(public_path($filename), \ZipArchive::CREATE) == TRUE) {
 
-            $files = File::files(public_path('bin/contenido-cursos/'.$id.'/'.$pid.'/'));
-            foreach ($files as $key => $value){
-                $relativeName = basename($value);
-                $zip->addFile($value, $relativeName);
+                $files = File::files(public_path('bin/contenido-cursos/' . $id . '/' . $pid . '/'));
+                foreach ($files as $key => $value) {
+                    $relativeName = basename($value);
+                    $zip->addFile($value, $relativeName);
+                }
+                $zip->close();
             }
-            $zip->close();
+
+            return response()->download(public_path($filename))->deleteFileAfterSend(true);
+        }catch(DirectoryNotFoundException $e){
+            return abort(404);
         }
 
-        return response()->download(public_path($filename))->deleteFileAfterSend(true);
     }
 
     public function downloadAllMaterial($id, $filename){
+        try{
         $zip = new \ZipArchive();
 
         $content = Content::with('parts')->find($id);
@@ -2561,7 +2568,10 @@ class ApiController extends Controller
             }
             $zip->close();
         }
-
         return response()->download(public_path($filename))->deleteFileAfterSend(true);
+
+        }catch(DirectoryNotFoundException $e){
+            return abort(404);
+        }
     }
 }
