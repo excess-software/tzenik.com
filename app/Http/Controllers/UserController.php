@@ -4393,6 +4393,111 @@ class UserController extends Controller
         return view('web.default.user.vendor.content.usuariosEnCursos', $data);
     }
 
+    public function desasignarPrivate(Request $request){
+        $fdate = strtotime($request->get('fdate', null)) + 12600;
+        $ldate = strtotime($request->get('ldate', null)) + 12600;
+
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $users = User::where('category_id', $fundal_category[0]->id)->get();
+        $category = ContentCategory::get();
+        $lists = Content::with(['category', 'user', 'metas' => function ($qm) {
+            $qm->get()->pluck('option', 'value');
+        }, 'transactions' => function ($q) {
+            $q->where('mode', 'deliver');
+        }])->withCount('sells', 'partsactive')->where(function ($w) {
+            $w->where('mode', 'publish');
+        })->where('content_type', 'Fundal');
+
+
+        if ($fdate > 12601)
+            $lists->where('created_at', '>', $fdate);
+        if ($ldate > 12601)
+            $lists->where('created_at', '<', $ldate);
+        if ($request->get('user', null) !== null)
+            $lists->where('user_id', $request->get('user', null));
+        if ($request->get('cat', null) !== null)
+            $lists->where('category_id', $request->get('cat', null));
+        if ($request->get('id', null) !== null)
+            $lists->where('id', $request->get('id', null));
+        if ($request->get('title', null) !== null)
+            $lists->where('title', 'like', '%' . $request->get('title', null) . '%');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'sella':
+                    $lists->orderBy('sells_count');
+                    break;
+                case 'selld':
+                    $lists->orderBy('sells_count', 'DESC');
+                    break;
+                case 'viewa':
+                    $lists->orderBy('view');
+                    break;
+                case 'viewd':
+                    $lists->orderBy('view', 'DESC');
+                    break;
+                case 'datea':
+                    $lists->orderBy('id');
+                    break;
+
+            }
+        } else
+            $lists->orderBy('id', 'DESC');
+
+
+        if ($request->get('order', null) != null) {
+            switch ($request->get('order', null)) {
+                case 'priced':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'pricea':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->metas->where('option', 'price')->pluck('value');
+                    });
+                    break;
+                case 'suma':
+                    $lists = $lists->sortBy(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+                case 'sumd':
+                    $lists = $lists->sortByDesc(function ($item) {
+                        return $item->transactions->sum('price');
+                    });
+                    break;
+            }
+        }
+
+        $lists = $lists->paginate(10);
+
+        $usuarios_cursos = array();
+
+        foreach($lists as $item){
+
+            $sell = Sell::where('content_id', $item->id)->get();
+            if(!$sell->isEmpty()){
+                foreach($sell as $venta){
+                    array_push($usuarios_cursos, array($venta->content_id, $venta->buyer_id));
+                }
+            }
+        }
+
+        $data = [
+            'lists' => $lists,
+            'users' => $users,
+            'category' => $category,
+            'asignados' => $usuarios_cursos
+        ];
+
+        return view('web.default.user.vendor.content.unasignprivate', $data);
+        return view('admin.content.unasignprivate', $data);
+    }
+
+
     public function getHomeProgreso(Request $request){
 
         $fdate = strtotime($request->get('fdate', null)) + 12600;
@@ -4634,13 +4739,25 @@ class UserController extends Controller
 
         foreach($userList as $usuario){
             $asignados = Sell::where('buyer_id', $usuario->id)->where('content_id', $curso)->get();
-            if($asignados->isEmpty()){
+            if(!$asignados->isEmpty()){
                 $array_curso = array($usuario->id, $usuario->name, $usuario->username);
                 array_push($array_disponibles, $array_curso);
             }
         }
-        echo json_encode($array_disponibles);
+
+        return $array_disponibles;
     }
+
+    public function desasignarCurso(Request $request){
+        $curso = $request->curso;
+
+        foreach($request->usuarios as $usuario){
+            Sell::where('buyer_id', $usuario)->where('content_id', $curso)->delete();
+            ProgresoAlumno::where('content_id', $curso)->where('user_id', $usuario)->delete();
+        }
+        return back();
+    }
+
 
     public function vendorGetModulos($curso){
 

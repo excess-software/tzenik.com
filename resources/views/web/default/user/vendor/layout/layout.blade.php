@@ -100,6 +100,7 @@
                                 <li><a class="nav-link" href="/user/vendor/content/list">{{  trans('admin.list') }}</a>
                                 </li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/asignar">Asignar usuarios a curso</a></li>
+                                <li><a class="nav-link" href="/user/vendor/content/private/desasignar">Desasignar usuarios a curso</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/private/progreso">Progreso de tus alumnos</a></li>
                                 <li><a class="nav-link" href="/user/vendor/content/tareas">Tareas</a></li>
 

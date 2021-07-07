@@ -295,7 +295,7 @@ return [
     'exclusive' => 'Exclusivo',
     'published' => 'Publicado',
     'draft' => 'Borrador',
-    'unpublish_request' => 'Solicitud de no publicación',
+    'unpublish_request' => 'Eliminado',
     //admin/content/category.blade.php---
     'new_category' => 'Nueva Categoría',
     'link_title' => 'Título Enlace',

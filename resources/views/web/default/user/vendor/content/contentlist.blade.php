@@ -149,6 +149,7 @@
                             </td>
                             <td class="text-center">
                                 <a href="/user/content/edit/{{ $item->id }}" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                <a href="/user/content/delete/{{ $item->id }}" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach
