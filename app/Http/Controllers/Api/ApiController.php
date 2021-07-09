@@ -62,7 +62,9 @@ use App\Models\Chat_UsersInChat;
 use App\Models\Homeworks;
 use App\Models\HomeworksUser;
 use App\Models\Course_guides;
+use App\Models\AppTokens;
 use File;
+use App\Helpers\Helper;
 
 class ApiController extends Controller
 {
@@ -1332,6 +1334,80 @@ class ApiController extends Controller
             return $this->error(-2,trans('main.incorrect_login'));
         }
     }
+    public function appUserLogin(Request $request){
+        $User = $this->checkUserToken($request);
+        $token = $request->apptoken;
+
+        if($User){
+
+            $checkToken = AppTokens::where('user_id', $User['id'])->value('token');
+
+            if($checkToken){
+                AppTokens::where('user_id', $User['id'])->update(['status' => 0]);
+            }
+
+            $data = [
+                'user_id' => $User['id'],
+                'token' => $token,
+                'status' => 1,
+            ];
+
+            AppTokens::create($data);
+
+            return $this->response($data);
+
+        }else{
+            return $this->error(-2,trans('main.user_not_found'));
+        }
+    }
+    public function appUserLogout(Request $request){
+        $User = $this->checkUserToken($request);
+        $token = $request->apptoken;
+
+        if($User){
+
+            AppTokens::where('user_id', $User['id'])->where('token', $token)->update(['status' => 0]);
+
+            return $this->response(['token_status' => 0]);
+
+        }else{
+            return $this->error(-2,trans('main.user_not_found'));
+        }
+    }
+    public function getMondayUsers(){
+
+        $now = Carbon::now();
+        $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+        $weekEndDate = $now->endOfWeek()->format('Y-m-d');
+
+        $courses_parts = ContentPart::whereBetween('initial_date', [$weekStartDate, $weekEndDate])->select(['content_id'])->get();
+
+        $users = array();
+
+        foreach($courses_parts as $course){
+            $getUser = Sell::where('content_id', $course->content_id)->pluck('buyer_id');
+            if(!$getUser->isEmpty()){
+                array_push($users, $getUser);
+            }            
+        }
+
+        foreach ($users as $users_array){
+            if(!$users_array->isEmpty()){
+                $app_tokens = AppTokens::whereIn('user_id', $users_array)->where('status', 1)->orderBy('created_at', 'desc')->get();
+
+                foreach($app_tokens as $token){
+                    $data = array(
+                        'body' => 'Tienes cursos con nuevos módulos esta semana.',
+                        'title' => 'Nuevos módulos.'
+                    );
+
+                    appnotify($token->token, $data);
+                }
+            }
+        }
+
+        return $this->response(['notified_users' => $users]);
+    }
     public function userInformation(Request $request){
         $User = $this->checkUserToken($request);
         if($User){
@@ -2384,8 +2460,8 @@ class ApiController extends Controller
         //$message = $data['message'];
         //$redis = LRedis::connection();
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
-        $message_id = Chat_Messages::insertGetId(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
-        return $message_id;
+        $message_created = Chat_Messages::create(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
+        return $message_created;
 
     }
 
