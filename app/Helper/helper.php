@@ -1,5 +1,10 @@
 <?php
 
+define('METHOD', "aes-128-cbc");
+define('KEY', "51C9D6DF37741DF8");
+define('KEY_SMART', "2327E7E13A9A254C");
+define('IV', "H12H34H90HABHEFH");
+
 function returnCaptibiliy($array)
 {
 
@@ -1414,4 +1419,51 @@ function languages(){
 function checkQuiz(){
     return true;
 }
+
+function appnotify($token, $data){   
+            # Our new data
+            $link = isset($data['link']) ? $data['link'] : null;
+            
+            $body = array(
+                'to' => $token,
+                'data' => $data
+            );
+
+            if(!isset($data['link'])){
+                $body = array(
+                    'to' => $token,
+                    'notification' => $data
+                );
+            }
+
+            $payload = json_encode($body);
+
+            // Prepare new cURL resource
+            $ch = curl_init('https://fcm.googleapis.com/fcm/send');
+
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+            // Set HTTP Header for POST request 
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Authorization: key=AAAA8vIwoRA:APA91bFthSwXnCrTRZqJQytpzNWAulVvIx6g2UKuN1u59rRwsyRIQM8DrlCI5o-fSSZQT2A7nVDqmph0dlCAIH52GJtyyB64JQnOL9pYE0PniS7EDN16hNkdh-pXS7o9_hdy_1-ajfwv',
+                'Content-Type: application/json',
+                'Host: fcm.googleapis.com',
+                'Content-Length: ' . strlen($payload)
+            ));
+
+            // Submit the POST request
+            $result = curl_exec($ch);
+
+            /*if ($result === false) {
+                throw new Exception(curl_error($ch), curl_errno($ch));
+            }*/
+
+            // Close cURL session handle
+            curl_close($ch);
+
+            return $result;
+    }
 

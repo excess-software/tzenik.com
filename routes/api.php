@@ -51,6 +51,9 @@ Route::group(['prefix'=>'v1'], function (){
     ## User Section
     Route::group(['prefix'=>'user'], function (){
         Route::any('login','Api\ApiController@userLogin');
+        Route::any('applogin','Api\ApiController@appUserLogin');
+        Route::any('applogout','Api\ApiController@appUserLogout');
+        Route::any('usersmonday','Api\ApiController@getMondayUsers');
         Route::any('info','Api\ApiController@userInformation');
         Route::any('register','Api\ApiController@userRegister');
         Route::any('remember','Api\ApiController@userRemember');

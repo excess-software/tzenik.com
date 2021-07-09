@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call('App\Http\Controllers\Api\ApiController@getMondayUsers')->weekly()->mondays()->timezone('America/Guatemala')->at('08:00');
     }
 
     /**

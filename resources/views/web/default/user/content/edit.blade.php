@@ -1199,8 +1199,8 @@
         <div class="modal-content">
             <input type="hidden" name="hnd_temp_part_id" id="hnd_temp_part_id">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{{ trans('main.delete_course') }}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <p>{{ trans('main.delete_alert') }}</p>
