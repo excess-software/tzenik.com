@@ -4152,7 +4152,7 @@ class UserController extends Controller
         $name = $user->name;
         $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
         //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
-        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name', 'chat_messages.created_at')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
         //return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $name]);
         return $messages;
     }
@@ -4165,7 +4165,8 @@ class UserController extends Controller
         //$redis = LRedis::connection();
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
         $message_id = Chat_Messages::create($data);
-        return $message_id->id;
+
+        return $message_id;
 
     }
     public function chat_getOwner($chat_id){

@@ -87,11 +87,11 @@
                             if ($('.write_msg').val() != '') {
                                 var message = $('.write_msg').val();
                                 $.post(host + '/user/chat/send_Message/' + this_chat_id, $('#sendForm').serialize(),
-                                    function (id) {
-                                        message_id = id;
-                                        console.log(message);
-                                        console.log('message_id='+id);
-                                        socket.emit('sendMessage', message, "{{ $user['name'] }}", this_chat_id, id);
+                                    function (return_message) {
+                                        return_message = return_message;
+                                        console.log(return_message);
+                                        console.log('message_id='+return_message.id);
+                                        socket.emit('sendMessage', message, "{{ $user['name'] }}", this_chat_id, return_message.id, return_message.created_at);
                                     });
                                 $('.write_msg').val('');
                             } else {
@@ -99,8 +99,19 @@
                             }
                             return false;
                         });
-                        socket.on('receiveMessage', function (message, sender, chat_id, message_id) {
+                        socket.on('receiveMessage', function (message, sender, chat_id, message_id, created_at) {
                             var this_chat_id = $('#chat_id').val();
+
+                            let date_ob = new Date(created_at);
+                            let date = ("0" + date_ob.getDate()).slice(-2);
+                            let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                            let year = date_ob.getFullYear();
+                            let hours = date_ob.getHours();
+                            let minutes = date_ob.getMinutes();
+                            let seconds = date_ob.getSeconds();
+
+                            let messagedate = date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+
                             if (chat_id == this_chat_id) {
                                 if (sessionStorage.ownerid == "{{ $user['id'] }}") {
                                     $('.msg_history').append('<div class="incoming_msg" id="Msg_' + message_id + '">\
@@ -108,7 +119,7 @@
                         <div class="received_msg">\
                             <div class="received_withd_msg">\
                                 <p>' + message + '</p>\
-                                <span class="time_date">' + sender + '</span>\
+                                <span class="time_date">' + sender + ' - ' + messagedate + '</span>\
                                 <a href="javascript:void(0);" onclick="deleteMessage(' + message_id + ');">X</a>\
                             </div>\
                         </div>\
@@ -119,7 +130,7 @@
                         <div class="received_msg">\
                             <div class="received_withd_msg">\
                                 <p>' + message + '</p>\
-                                <span class="time_date">' + sender + '</span>\
+                                <span class="time_date">' + sender + ' - ' + messagedate + '</span>\
                             </div>\
                         </div>\
                     <br></div>');
@@ -172,13 +183,24 @@
                         });
                         $.get(host + '/user/chat/Chat/' + id, function (data) {
                             $.each(data, function (key, value) {
+
+                                let date_ob = new Date(value.created_at);
+                                let date = ("0" + date_ob.getDate()).slice(-2);
+                                let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                                let year = date_ob.getFullYear();
+                                let hours = date_ob.getHours();
+                                let minutes = date_ob.getMinutes();
+                                let seconds = date_ob.getSeconds();
+
+                                let messagedate = date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+
                                 if (ownerid == "{{ $user['id'] }}") {
                                     $('.msg_history').append('<div class="incoming_msg" id="Msg_' + value.id + '">\
                         <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
                         <div class="received_msg">\
                             <div class="received_withd_msg">\
                                 <p>' + value.message + '</p>\
-                                <span class="time_date">' + value.name + '</span>\
+                                <span class="time_date">' + value.name + ' - ' + messagedate + '</span>\
                                 <a href="javascript:void(0);" onclick="deleteMessage(' + value.id + ');">X</a>\
                             </div>\
                         </div>\
@@ -189,7 +211,7 @@
                         <div class="received_msg">\
                             <div class="received_withd_msg">\
                                 <p>' + value.message + '</p>\
-                                <span class="time_date">' + value.name + '</span>\
+                                <span class="time_date">' + value.name + ' - ' + messagedate + '</span>\
                             </div>\
                         </div>\
                     <br></div>');
