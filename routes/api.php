@@ -66,6 +66,8 @@ Route::group(['prefix'=>'v1'], function (){
         Route::any('chatRooms', 'Api\ApiController@chatRooms');
         Route::any('chatMessages', 'Api\ApiController@chat_getMessages');
         Route::any('chatSendMessage', 'Api\ApiController@chat_sendMessage');
+        Route::any('chatNewRoom', 'Api\ApiController@chat_newRoom');
+        Route::any('chatGetUsers', 'Api\ApiController@chat_getAllUsers');
         Route::any('videoteca', 'Api\ApiController@videoteca');
         Route::any('homeworks', 'Api\ApiController@homeworks');
         Route::any('uploadHomeworks', 'Api\ApiController@subirTarea');

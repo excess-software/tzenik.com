@@ -2445,7 +2445,7 @@ class ApiController extends Controller
         $chat_id = $request->chat_id;
         $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
         //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
-        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'chat_messages.created_at', 'users.name')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
         //return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $name]);
         return $messages;
     }
@@ -2463,6 +2463,38 @@ class ApiController extends Controller
         $message_created = Chat_Messages::create(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
         return $message_created;
 
+    }
+
+    public function chat_newRoom(Request $request){
+        $owner = $this->checkUserToken($request);
+        $owner_name = $owner['name'];
+        //$owner_name = User::where('id', $owner)->value('name');
+        $guest_name = User::where('id', $request->guest)->value('name');
+
+        $room_name = $owner_name.'-'.$guest_name;
+
+        $chat_id = Chat_Chats::insertGetId([
+            'name' => $room_name,
+            'creator' => $owner['id'],
+            'published' => 'true',
+        ]);
+
+        Chat_UsersInChat::insert([[
+            'chat_id' => $chat_id,
+            'user_id' => $owner['id'],
+        ], [
+            'chat_id' => $chat_id,
+            'user_id' => $request->guest,
+        ]]);
+
+        Chat_Messages::create(['chat_id' => $chat_id, 'sender' => $owner['id'], 'message' => 'El usuario '.$owner_name.' ha iniciado un chat contigo.']);
+
+        return $this->response(['chat_id' => $chat_id]);
+    }
+    public function chat_getAllUsers(){
+        $users = User::select(['id', 'username', 'name'])->orderBy('name')->get();
+
+        return $this->response($users);
     }
 
     public function homeworks(Request $request){
