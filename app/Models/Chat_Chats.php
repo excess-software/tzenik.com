@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chat_Chats extends Model
 {
     protected $table = 'chat_chats';
-    public $fillable = ['id', 'creator', 'name'];
+    public $fillable = ['id', 'creator', 'name', 'published'];
     public $timestamps = false;
 
     public function owner(){

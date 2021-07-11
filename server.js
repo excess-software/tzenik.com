@@ -20,6 +20,11 @@ io.on('connection', function(socket){
         }
     });
 
+    socket.on('newChat', function(chat_name, owner, guest, chat_id){
+        console.log(chat_name, owner, guest, chat_id);
+        io.sockets.emit('receivedNewChat', chat_name, owner, guest, chat_id);
+    });
+
     socket.on('deleteMessage', function(message_id){
         console.log('delete message: '+message_id);
         io.sockets.emit('messageDeleted', message_id);
