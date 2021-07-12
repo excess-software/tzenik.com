@@ -1334,6 +1334,30 @@ class ApiController extends Controller
             return $this->error(-2,trans('main.incorrect_login'));
         }
     }
+
+    public function changePassword(Request $request){
+        $User = $this->checkUserToken($request);
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+        $confirm_password = $request->confirm_password;
+        $old_db_password = User::where('id', $User['id'])->value('password');
+
+        //return Hash::check($old_password, $old_db_password);
+
+        if(Hash::check($old_password, $old_db_password)){
+            if($new_password == $confirm_password){
+                User::where('id', $User['id'])->update(['password' => Hash::make($new_password)]);
+
+                return $this->response(['changed_password' => 'done']);
+            }else{
+                return $this->error(-1, 'La contraseña nueva y la confirmación no coinciden');
+            }
+        }else{
+            return $this->error(-1, 'La antigua contraseña no coincide');
+        }
+
+    }
+
     public function appUserLogin(Request $request){
         $User = $this->checkUserToken($request);
         $token = $request->apptoken;
@@ -2535,6 +2559,14 @@ class ApiController extends Controller
                 $homework = Homeworks::where('content_id', $course->id)->get();
                 foreach($homework as $hmwrk){
                     $part_dates = ContentPart::where('id', $hmwrk->part_id)->select(['initial_date', 'limit_date'])->get()->first();
+                    $done_homework = HomeworksUser::where('user_id', $User['id'])->where('part_id', $hmwrk->part_id)->get();
+
+                    if(!$done_homework->isEmpty()){
+                        $hmwrk->recibida = true;
+                    }else{
+                        $hmwrk->recibida = false;
+                    }
+
                     $hmwrk->initial_date = $part_dates->initial_date;
                     $hmwrk->limit_date = $part_dates->limit_date;
                 }

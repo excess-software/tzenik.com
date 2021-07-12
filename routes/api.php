@@ -71,6 +71,7 @@ Route::group(['prefix'=>'v1'], function (){
         Route::any('videoteca', 'Api\ApiController@videoteca');
         Route::any('homeworks', 'Api\ApiController@homeworks');
         Route::any('uploadHomeworks', 'Api\ApiController@subirTarea');
+        Route::any('changePassword', 'Api\ApiController@changePassword');
 
         ## Calendar
         Route::group(['prefix'=>'calendar'], function (){
