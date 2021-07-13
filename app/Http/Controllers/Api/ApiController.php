@@ -539,20 +539,42 @@ class ApiController extends Controller
                     $hasCertificate = true;
                 }
             }
+            
+            //$part->thumbnail = isset($part->zoom_meeting) ? (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'https://checkmybroadbandspeed.online/wp-content/uploads/Zoom-icon-logo1.png') : (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail');
 
-            $parts[] = [
-                'id'        => $part->id,
-                'title'     => $part->title,
-                'video' => $part->upload_video,
-                'video_duration' => $part->duration,
-                'description' => $part->description,
-                'initial_date' => $part->initial_date,
-                'limit_date' => $part->limit_date,
-                'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
-                'status' => $partStatus,
-                'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values()
-
-            ];
+            if(isset($part->zoom_meeting)){
+                $parts[] = [
+                    'id'        => $part->id,
+                    'title'     => $part->title,
+                    'video' => $part->upload_video,
+                    'video_duration' => $part->duration,
+                    'description' => $part->description,
+                    'initial_date' => $part->initial_date,
+                    'limit_date' => $part->limit_date,
+                    'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
+                    'status' => $partStatus,
+                    'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values(),
+                    'type' => 'zoom',
+                    'zoom_meeting' => $part->zoom_meeting,
+    
+                ];
+            }else{
+                $parts[] = [
+                    'id'        => $part->id,
+                    'title'     => $part->title,
+                    'video' => $part->upload_video,
+                    'video_duration' => $part->duration,
+                    'description' => $part->description,
+                    'initial_date' => $part->initial_date,
+                    'limit_date' => $part->limit_date,
+                    'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
+                    'status' => $partStatus,
+                    'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values(),
+                    'type' => 'course',
+                    'zoom_meeting' => $part->zoom_meeting,
+    
+                ];
+            }
         }
 
         ## Check User Purchase
