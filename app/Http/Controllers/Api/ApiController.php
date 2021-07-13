@@ -1790,7 +1790,8 @@ class ApiController extends Controller
 
             foreach($courses as $course){
                 $parts = ContentPart::whereBetween('initial_date', [$weekStartDate, $weekEndDate])->orWhereBetween('date', [$weekStartDate, $weekEndDate])->select(['id as part_id', 'title as part_title', 'initial_date', 'limit_date', 'content_id', 'zoom_meeting', 'date as zoom_date', 'time as zoom_time', 'upload_video as video'])->get();
-                $parts = $parts->where('content_id', $course->id)->where('mode', 'publish');
+                $parts = $parts->where('content_id', $course->id);
+                $parts = $parts->where('mode', 'publish');
                 foreach($parts as $part){
                     $descargado = RegistroDescargas::where('user_id', $User['id'])->where('content_id', $part->content_id)->get();
                     $content = Content::where('id', $part->content_id)->with('metas')->first();
