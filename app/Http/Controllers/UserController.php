@@ -4767,7 +4767,7 @@ class UserController extends Controller
 
         foreach($userList as $usuario){
             $asignados = Sell::where('buyer_id', $usuario->id)->where('content_id', $curso)->get();
-            if(!$asignados->isEmpty()){
+            if($asignados->isEmpty()){
                 $array_curso = array($usuario->id, $usuario->name, $usuario->username);
                 array_push($array_disponibles, $array_curso);
             }
