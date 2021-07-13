@@ -640,7 +640,6 @@ class ApiController extends Controller
             $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
 
             $courses = Content::whereIn('id', $purchases_array)->select(['id', 'title', 'content', 'type'])->get();
-            echo $weekStartDate;
             foreach($courses as $course){
                 $guides = Course_guides::where('content_id', $course->id)->whereBetween('initial_date', [$weekStartDate, $weekEndDate])->get();
                 if(!$guides->isEmpty()){
