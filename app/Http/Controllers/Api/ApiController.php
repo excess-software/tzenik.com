@@ -472,6 +472,8 @@ class ApiController extends Controller
         ## Parts
         $parts = [];
 
+        $content->parts = $content->parts->where('mode', 'publish');
+
         foreach ($content->parts as $part){
 
             $progreso_alumno = ProgresoAlumno::where('user_id', $User['id'])->where('content_id', $id)->where('part_id', $part->id)->get();
@@ -537,8 +539,6 @@ class ApiController extends Controller
                     $hasCertificate = true;
                 }
             }
-
-            $content->parts = $content->parts->where('mode', 'publish');
 
             $parts[] = [
                 'id'        => $part->id,
