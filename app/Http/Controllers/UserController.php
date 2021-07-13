@@ -4322,7 +4322,7 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->orWhere('title', 'FUNDAL')->get();
 
         $users = User::where('category_id', $fundal_category[0]->id)->get();
         $category = ContentCategory::get();
@@ -4425,7 +4425,7 @@ class UserController extends Controller
         $fdate = strtotime($request->get('fdate', null)) + 12600;
         $ldate = strtotime($request->get('ldate', null)) + 12600;
 
-        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->orWhere('title', 'FUNDAL')->get();
 
         $users = User::where('category_id', $fundal_category[0]->id)->get();
         $category = ContentCategory::get();
@@ -4533,7 +4533,7 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->orWhere('title', 'FUNDAL')->get();
 
         $users = User::where('category_id', $fundal_category[0]->id)->get();
         $category = ContentCategory::get();
@@ -4759,7 +4759,7 @@ class UserController extends Controller
     }
     public function vendorGetUsersPrivate($curso){
 
-        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->first();
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->orWhere('title', 'FUNDAL')->first();
 
         $userList = User::where('category_id', $fundal_category->id)->get();
 
