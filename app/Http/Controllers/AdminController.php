@@ -1533,6 +1533,17 @@ class AdminController extends Controller
             ]);
 
            Chat_UsersInChat::where('chat_id', $getCurso->chat_id)->insert(['user_id' => $usuario, 'chat_id' => $getCurso->chat_id]);
+
+           $app_tokens = AppTokens::where('user_id', $usuario)->where('status', 1)->orderBy('created_at', 'desc')->get();
+
+            foreach($app_tokens as $token){
+                $data = array(
+                    'body' => 'Se te ha asignado un curso nuevo.',
+                    'title' => 'Curso nuevo.'
+                );
+
+                appnotify($token->token, $data);
+            }
         }
 
         return Redirect::to('admin/content/private/asignar');

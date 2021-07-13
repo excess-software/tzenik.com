@@ -4756,6 +4756,8 @@ class UserController extends Controller
                 'remain_time' => NULL
             ]);
 
+            Chat_UsersInChat::where('chat_id', $getCurso->chat_id)->insert(['user_id' => $usuario, 'chat_id' => $getCurso->chat_id]);
+
             $app_tokens = AppTokens::where('user_id', $usuario)->where('status', 1)->orderBy('created_at', 'desc')->get();
 
             foreach($app_tokens as $token){
@@ -4766,6 +4768,11 @@ class UserController extends Controller
 
                 appnotify($token->token, $data);
             }
+
+            $chat_id = Chat_Chats::insertGetId($newChat);
+
+            $insert_intoChat = ['chat_id' => $chat_id, 'user_id' => $user->id];
+            Chat_UsersInChat::insert($insert_intoChat);
         }
         return back();
     }
