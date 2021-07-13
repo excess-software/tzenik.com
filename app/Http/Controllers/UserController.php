@@ -82,6 +82,7 @@ use Razorpay\Api\Api;
 use App\Models\Homeworks;
 use App\Models\HomeworksUser;
 use App\Models\Course_guides;
+use App\Models\AppTokens;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
@@ -4754,6 +4755,17 @@ class UserController extends Controller
                 'transaction_id' => '0',
                 'remain_time' => NULL
             ]);
+
+            $app_tokens = AppTokens::where('user_id', $usuario)->where('status', 1)->orderBy('created_at', 'desc')->get();
+
+            foreach($app_tokens as $token){
+                $data = array(
+                    'body' => 'Se te ha asignado un curso nuevo.',
+                    'title' => 'Curso nuevo.'
+                );
+
+                appnotify($token->token, $data);
+            }
         }
         return back();
     }
