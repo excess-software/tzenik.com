@@ -634,7 +634,7 @@ class ApiController extends Controller
 
             $purchases_array = Sell::where('buyer_id',$User['id'])->pluck('content_id')->toArray();
 
-            $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'type'])->get();
+            $courses = Content::whereIn('id', $purchases_array)->select(['id', 'title', 'content', 'type'])->get();
 
             foreach($courses as $course){
                 $guides = Course_guides::where('content_id', $course->id)->get();
