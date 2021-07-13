@@ -617,6 +617,11 @@ class ApiController extends Controller
 
         //return $this->response(['guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf']);
         return $this->response($guides);*/
+
+        $now = Carbon::now();
+        $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+        $weekEndDate = $now->endOfWeek()->format('Y-m-d');
+
         $result = [];
         $User = $this->checkUserToken($request);
         if(!$User)
@@ -637,7 +642,7 @@ class ApiController extends Controller
             $courses = Content::whereIn('id', $purchases_array)->select(['id', 'title', 'content', 'type'])->get();
 
             foreach($courses as $course){
-                $guides = Course_guides::where('content_id', $course->id)->get();
+                $guides = Course_guides::where('content_id', $course->id)->whereBetween('initial_date', [$weekStartDate, $weekEndDate])->get();
                 if(!$guides->isEmpty()){
                     $course->guides = $guides;
                     array_push($result, $course);
