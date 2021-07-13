@@ -148,6 +148,9 @@
                             }
                             $('#liUser_' + user_id).remove();
                         });
+                        socket.on('receivedNewChat', name, owner, guest, chat_id){
+                            
+                        }
                     });
                     function callChat(id) {
                         var host = window.location.origin;

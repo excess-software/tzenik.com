@@ -4169,6 +4169,33 @@ class UserController extends Controller
         return $message_id;
 
     }
+    public function chat_newRoom($owner, $guest){
+        $owner = auth()->user();
+        $owner_name = $owner->name;
+        //$owner_name = User::where('id', $owner)->value('name');
+        $guest_name = User::where('id', $guest)->value('name');
+
+        $room_name = $owner_name.'-'.$guest_name;
+
+        $chat_id = Chat_Chats::insertGetId([
+            'name' => $room_name,
+            'creator' => $owner->id,
+            'published' => 'true',
+        ]);
+
+        Chat_UsersInChat::insert([[
+            'chat_id' => $chat_id,
+            'user_id' => $owner->id,
+        ], [
+            'chat_id' => $chat_id,
+            'user_id' => $guest,
+        ]]);
+
+        return $chat_id;
+    }
+    public function chat_getAllUsers(){
+        
+    }
     public function chat_getOwner($chat_id){
         $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
         return $chat_owner;
@@ -4732,9 +4759,9 @@ class UserController extends Controller
     }
     public function vendorGetUsersPrivate($curso){
 
-        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->first();
 
-        $userList = User::where('category_id', $fundal_category[0]->id)->get();
+        $userList = User::where('category_id', $fundal_category->id)->get();
 
         $array_disponibles = array();
 
