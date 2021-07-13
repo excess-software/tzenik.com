@@ -538,6 +538,8 @@ class ApiController extends Controller
                 }
             }
 
+            $content->parts = $content->parts->where('mode', 'publish');
+
             $parts[] = [
                 'id'        => $part->id,
                 'title'     => $part->title,
