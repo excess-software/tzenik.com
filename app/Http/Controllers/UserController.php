@@ -4769,10 +4769,6 @@ class UserController extends Controller
                 appnotify($token->token, $data);
             }
 
-            $chat_id = Chat_Chats::insertGetId($newChat);
-
-            $insert_intoChat = ['chat_id' => $chat_id, 'user_id' => $user->id];
-            Chat_UsersInChat::insert($insert_intoChat);
         }
         return back();
     }
