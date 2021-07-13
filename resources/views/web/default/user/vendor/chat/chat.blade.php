@@ -428,27 +428,38 @@
                 });
                 $.get(host + '/user/chat/Chat/' + id, function (data) {
                     $.each(data, function (key, value) {
+
+                        let date_ob = new Date(value.created_at);
+                        let date = ("0" + date_ob.getDate()).slice(-2);
+                        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                        let year = date_ob.getFullYear();
+                        let hours = date_ob.getHours();
+                        let minutes = date_ob.getMinutes();
+                        let seconds = date_ob.getSeconds();
+
+                        let messagedate = date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+
                         if (ownerid == "{{ $user['id'] }}") {
                             $('.msg_history').append('<div class="incoming_msg" id="Msg_' + value.id + '">\
-                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
-                        <div class="received_msg">\
-                            <div class="received_withd_msg">\
-                                <p>' + value.message + '</p>\
-                                <span class="time_date">' + value.name + '</span>\
-                                <a href="javascript:void(0);" onclick="deleteMessage(' + value.id + ');">X</a>\
-                            </div>\
-                        </div>\
-                    <br></div>');
+                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+                <div class="received_msg">\
+                    <div class="received_withd_msg">\
+                        <p>' + value.message + '</p>\
+                        <span class="time_date">' + value.name + ' - ' + messagedate + '</span>\
+                        <a href="javascript:void(0);" onclick="deleteMessage(' + value.id + ');">X</a>\
+                    </div>\
+                </div>\
+            <br></div>');
                         } else {
                             $('.msg_history').append('<div class="incoming_msg" id="Msg_' + value.id + '">\
-                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
-                        <div class="received_msg">\
-                            <div class="received_withd_msg">\
-                                <p>' + value.message + '</p>\
-                                <span class="time_date">' + value.name + '</span>\
-                            </div>\
-                        </div>\
-                    <br></div>');
+                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+                <div class="received_msg">\
+                    <div class="received_withd_msg">\
+                        <p>' + value.message + '</p>\
+                        <span class="time_date">' + value.name + ' - ' + messagedate + '</span>\
+                    </div>\
+                </div>\
+            <br></div>');
                         }
                     });
                     $('.msg_history').scrollTop($(".msg_history")[0].scrollHeight);
