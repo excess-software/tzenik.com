@@ -382,7 +382,7 @@
 
                     <li class="dropdown navbar-accesibilidad">
                         <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-universal-access"> </i> <i class="fas fa-angle-down"></i></a>
+                            aria-haspopup="true" aria-expanded="false">Accesibilidad <i class="fas fa-universal-access"> </i> <i class="fas fa-angle-down"></i></a>
                         <ul class="dropdown-menu accesibilidad-menu">
                             <li>
                                 <div class="container" style="width: 100%;">
@@ -467,7 +467,7 @@
                     @if(isset($user))
                     <li class="dropdown navbar-perfil">
                         <a href="#" class="dropdown-toggle navbar-item-title" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false">Perfil</a>
+                            aria-haspopup="true" aria-expanded="false">Perfil <i class="far fa-user"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="/user/video/buy">
                                     <p>Dashboard</p>
@@ -491,7 +491,7 @@
                     </li>
                     @else
                     <li class="navbar-perfil">
-                        <a href="/user?redirect={{ Request::path() }}"><i class="far fa-user"></i></a>
+                        <a href="/user?redirect={{ Request::path() }}">Iniciar sesión<i class="far fa-user"></i></a>
                     </li>
                     @endif
                 </ul>
