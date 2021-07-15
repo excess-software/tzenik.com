@@ -1448,7 +1448,7 @@ class UserController extends Controller
             $url_pos = strpos($request->zoom_meeting, '/j/');
             $pwd_pos = strpos($request->zoom_meeting, '?pwd');
             $calc_id_qan = $pwd_pos - $url_pos;
-            $meeting_id = substr($request->zoom_meeting, $url_pos+3, $calc_id_qan-3);
+            $meeting_id = substr($request->zoom_meeting, $url_pos+3);
 
             $request->request->remove('zoom_meeting');
             $request->request->add(['zoom_meeting'=>$meeting_id]);
