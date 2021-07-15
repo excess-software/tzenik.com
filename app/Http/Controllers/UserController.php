@@ -4775,6 +4775,7 @@ class UserController extends Controller
             return back();
         }
 
+        return $request->usuarios;
         foreach($request->usuarios as $usuario){
             Sell::insert([
                 'user_id' => $getCurso->user_id,
@@ -4791,13 +4792,15 @@ class UserController extends Controller
 
             $app_tokens = AppTokens::where('user_id', $usuario)->where('status', 1)->orderBy('created_at', 'desc')->get();
 
-            foreach($app_tokens as $token){
-                $data = array(
-                    'body' => 'Se te ha asignado un curso nuevo.',
-                    'title' => 'Curso nuevo.'
-                );
-
-                appnotify($token->token, $data);
+            if(!$app_tokens->isEmpty()){
+                foreach($app_tokens as $token){
+                    $data = array(
+                        'body' => 'Se te ha asignado un curso nuevo.',
+                        'title' => 'Curso nuevo.'
+                    );
+    
+                    appnotify($token->token, $data);
+                }
             }
 
         }

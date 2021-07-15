@@ -1520,6 +1520,7 @@ class AdminController extends Controller
         $getCurso = Content::find($curso);
         // echo "<pre>";
         // print_r($_POST);
+
         foreach($request->usuarios as $usuario){
 
             Sell::insert([
@@ -1537,13 +1538,15 @@ class AdminController extends Controller
 
            $app_tokens = AppTokens::where('user_id', $usuario)->where('status', 1)->orderBy('created_at', 'desc')->get();
 
-            foreach($app_tokens as $token){
-                $data = array(
-                    'body' => 'Se te ha asignado un curso nuevo.',
-                    'title' => 'Curso nuevo.'
-                );
-
-                appnotify($token->token, $data);
+            if(!$app_tokens->isEmpty()){
+                foreach($app_tokens as $token){
+                    $data = array(
+                        'body' => 'Se te ha asignado un curso nuevo.',
+                        'title' => 'Curso nuevo.'
+                    );
+    
+                    appnotify($token->token, $data);
+                }
             }
         }
 
