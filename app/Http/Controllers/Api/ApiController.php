@@ -553,6 +553,7 @@ class ApiController extends Controller
                     'description' => $part->description,
                     'initial_date' => $part->initial_date,
                     'limit_date' => $part->limit_date,
+                    'thumbnail' => $part->image,
                     'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
                     'status' => $partStatus,
                     'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values(),

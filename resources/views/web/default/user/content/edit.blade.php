@@ -461,7 +461,7 @@
 
                                                 <label
                                                     class="control-label tab-con col-md-2">{{ trans('main.video_file') }}</label>
-                                                <div class="col-md-7 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <style>
                                                         .asdf span {
                                                             width: 44px;
@@ -493,6 +493,46 @@
                                                 <!--<label class="control-label col-md-1 tab-con">{{ trans('main.sort') }}</label>
                                                 <div class="col-md-2 tab-con">
                                                     <input name="sort" type="number" class="spinner-input form-control"
+                                                        maxlength="3" min="0" max="100" required>
+                                                </div>-->
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4 tab-con">Miniatura</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <style>
+                                                        .asdf span {
+                                                            width: 44px;
+                                                            height: 44px;
+                                                        }
+
+                                                        .asdf input {
+                                                            height: 44px;
+                                                        }
+
+                                                    </style>
+
+
+
+                                                    <div class="input-group asdf">
+
+                                                        <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_thumbnail">
+                                                            <span class="input-group-text">
+                                                                <a id="thumbnail_preview" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                            </span>
+                                                        </div>
+                                                            <input type="text" id="upload_thumbnail" name="image" dir="ltr"
+                                                                class="form-control" onchange='$("#thumbnail_preview").attr("href", $(this).val()); checkcover($(this).val());' required>
+                                                            <button type="button" id="lfm_upload_video" data-input="upload_thumbnail"
+                                                                data-preview="holder" class="btn btn-primary">
+                                                                <span class="formicon mdi mdi-arrow-up-thick"></span>
+                                                            </button>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <!--<label class="control-label tab-con col-md-1">{{ trans('main.sort') }}</label>
+                                                <div class="col-md-2 tab-con">
+                                                    <input type="number" name="sort" class="spinner-input form-control"
                                                         maxlength="3" min="0" max="100" required>
                                                 </div>-->
                                             </div>
@@ -626,7 +666,48 @@
                                                                 data-preview="holder" class="btn btn-primary">
                                                                 <span class="formicon mdi mdi-arrow-up-thick"></span>
                                                             </button>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <!--<label class="control-label tab-con col-md-1">{{ trans('main.sort') }}</label>
+                                                <div class="col-md-2 tab-con">
+                                                    <input type="number" name="sort" class="spinner-input form-control"
+                                                        maxlength="3" min="0" max="100" required>
+                                                </div>-->
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4 tab-con">Miniatura</label>
+                                                <div class="col-md-10 tab-con">
+                                                    <style>
+                                                        .asdf span {
+                                                            width: 44px;
+                                                            height: 44px;
+                                                        }
+
+                                                        .asdf input {
+                                                            height: 44px;
+                                                        }
+
+                                                    </style>
+
+
+
+                                                    <div class="input-group asdf">
+
+                                                        <div class="input-group-prepend view-selected cu-p" data-toggle="modal" data-target="#VideoModal" data-whatever="upload_thumbnail2">
+                                                            <span class="input-group-text">
+                                                                <a id="thumbnail_preview2" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                            </span>
                                                         </div>
+                                                            <input type="text" id="upload_thumbnail2" name="image" dir="ltr"
+                                                                class="form-control" onchange='$("#thumbnail_preview2").attr("href", $(this).val()); checkcover($(this).val());' required>
+                                                            <button type="button" id="lfm_upload_video" data-input="upload_thumbnail2"
+                                                                data-preview="holder" class="btn btn-primary">
+                                                                <span class="formicon mdi mdi-arrow-up-thick"></span>
+                                                            </button>
+                                                    </div>
+                                                    
                                                 </div>
                                                 <!--<label class="control-label tab-con col-md-1">{{ trans('main.sort') }}</label>
                                                 <div class="col-md-2 tab-con">
@@ -1583,7 +1664,9 @@
             var efrom = '#step-5-form-edit-part ';
             $('#part-edit-id').val(id);
             $(efrom + 'a#video_preview').attr("href", data.upload_video);
+            $(efrom + 'a#thumbnail_preview').attr("href", data.image);
             $(efrom + 'input[name="upload_video"]').val(data.upload_video);
+            $(efrom + 'input[name="image"]').val(data.image);
             $(efrom + 'input[name="sort"]').val(data.sort);
             $(efrom + 'input[name="size"]').val(data.size);
             $(efrom + 'input[name="duration"]').val(data.duration);
@@ -1592,6 +1675,8 @@
             $(efrom + 'input[name="initial_date"]').val(data.initial_date);
             $(efrom + 'input[name="limit_date"]').val(data.limit_date);
             
+            console.log(data);
+
             if (data.free == 1) {
                 $('.free-edit-check-state .ios-switch').removeClass('off');
                 $('.free-edit-check-state .ios-switch').addClass('on');
