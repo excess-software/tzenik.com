@@ -1391,10 +1391,9 @@ class UserController extends Controller
             $request->request->remove('material');
             $newPart = ContentPart::create($request->except('material'));
 
-            $newPartEdit = ContentPart::where('id', $newPart->id)->update(['material' => '/bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/'.$material->getClientOriginalName()]);
-
             if(isset($material)){
                 if($material->isValid()){
+                    $newPartEdit = ContentPart::where('id', $newPart->id)->update(['material' => '/bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/'.$material->getClientOriginalName()]);
                     $material->move('bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/', $material->getClientOriginalName());
                 }
             }
@@ -1481,10 +1480,9 @@ class UserController extends Controller
             ContentPart::find($request->part_id)->update($request->except(['part_id', 'material']));
             $material = $request->material;            
 
-            $PartEdit = ContentPart::where('id', $request->part_id)->update(['material' => '/bin/contenido-cursos/'.$request->content_id.'/'.$request->part_id.'/'.$material->getClientOriginalName()]);
-
             if(isset($material)){
                 if($material->isValid()){
+                    $PartEdit = ContentPart::where('id', $request->part_id)->update(['material' => '/bin/contenido-cursos/'.$request->content_id.'/'.$request->part_id.'/'.$material->getClientOriginalName()]);
                     $material->move('bin/contenido-cursos/'.$request->content_id.'/'.$request->part_id.'/', $material->getClientOriginalName());
                 }
             }

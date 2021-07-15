@@ -346,8 +346,10 @@ class ApiController extends Controller
     public function product($id,Request $request){
         $data = [];
         $User   = $this->checkUserToken($request);
-        $content = Content::with(['metas','category','parts','rates','user.usermetas','comments.user'])->with(['quizzes' => function ($q) {
+        $content = Content::with(['metas','category','rates','user.usermetas','comments.user'])->with(['quizzes' => function ($q) {
             $q->where('status', 'active');
+        }])->with(['parts' => function ($q) {
+            $q->orderBy('id', 'ASC');
         }])->find($id);
 
         $hasCertificate = false;
@@ -475,6 +477,7 @@ class ApiController extends Controller
         $parts = [];
 
         $content->parts = $content->parts->where('mode', 'publish');
+        //$content->parts = $content->parts->orderBy('id', 'DESC');
 
         foreach ($content->parts as $part){
 
