@@ -4778,7 +4778,7 @@ class UserController extends Controller
             return back();
         }
 
-        return $request->usuarios;
+        //return $request->usuarios;
         foreach($request->usuarios as $usuario){
             Sell::insert([
                 'user_id' => $getCurso->user_id,
