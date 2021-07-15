@@ -48,6 +48,9 @@
                                   <th>Username</th>
                               </tr>
                             </thead>
+                            <tbody id="listado">
+
+                            </tbody>
                         </table>
 
                     </div>
