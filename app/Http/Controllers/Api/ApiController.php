@@ -1818,7 +1818,7 @@ class ApiController extends Controller
 
             $ya_realizado = ProgresoAlumno::where('user_id', $User['id'])->whereIn('content_id', $purchases_array)->pluck('part_id')->toArray();
 
-            $courses = Content::with(['metas'])->whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
+            $courses = Content::with(['metas'])->where('mode', 'publish')->whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title', 'content', 'category_id', 'type'])->get();
 
             foreach($courses as $course){
                 $parts_id = ContentPart::whereBetween('initial_date', [$weekStartDate, $weekEndDate])->orWhereBetween('date', [$weekStartDate, $weekEndDate])->pluck('id')->toArray();
