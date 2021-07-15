@@ -2618,7 +2618,7 @@ class ApiController extends Controller
                         $courses_array[] = array(
                             'id' => $course->id,
                             'title' => $course->title,
-                            'homeworks' => $hmwrk,
+                            'homeworks' => [$hmwrk],
                         );
                     }
                     
