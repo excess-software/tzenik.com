@@ -1352,12 +1352,14 @@
 
     function checkcover(media){
         var str = media;
+        var newstr = str.replace('///', '/');
         var n = str.lastIndexOf('.');
         var result = str.substring(n + 1);
         console.log(result);
 
         if(result == 'jpg' || result == 'png'){
-            
+            $('#upload_thumbnail').val(newstr);
+            $('#upload_thumbnail2').val(newstr);
         }else{
             $('#cover').val('');
 
