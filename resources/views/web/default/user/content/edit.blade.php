@@ -852,16 +852,16 @@
                                     </div>
                                     <div class="submenu_zoom dblock">
                                         <div class="h-15"></div>
-                                        <input type="hidden" id="part-edit-id" name="part_id">
-                                        <form action="/user/content/web_coach/part/edit/store/" id="step-6-form-edit-part"
+                                        <form action="/user/content/web_coach/part/edit/store" id="step-6-form-edit-part"
                                             method="post" class="form-horizontal">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="content_id" value="{{{ $item->id ?? '' }}}">
+                                            <input type="hidden" id="part-edit-id" name="part_id">
                                             
                                             <div class="form-group">
                                                 <label class="control-label tab-con col-md-2"
                                                     for="inputDefault">{{{ trans('main.title') }}}</label>
-                                                <div class="col-md-8 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <input type="text" name="title" class="form-control" required>
                                                 </div>
                                             </div>
@@ -877,20 +877,20 @@
                                             <div class="form-group">
                                                 <label
                                                     class="control-label col-md-2 tab-con">{{{ trans('main.date_webinar_coach') }}}</label>
-                                                <div class="col-md-3 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <input type="date" class="form-control"
                                                         id="datetimepicker_date_edit" name="date" required>
                                                 </div>
                                                 <label
                                                     class="control-label tab-con col-md-1">{{{ trans('main.time_webinar_coach') }}}</label>
-                                                <div class="col-md-2 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <input type="time" class="form-control"
                                                         id="datetimepicker_time_edit" name="time" required>
                                                 </div>
 
                                                 <label
                                                     class="control-label tab-con col-md-1">{{ trans('main.duration') }}</label>
-                                                <div class="col-md-3 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <div class="input-group">
                                                         <input type="number" min="0" name="duration"
                                                             class="form-control text-center" required>

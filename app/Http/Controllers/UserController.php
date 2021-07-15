@@ -1500,10 +1500,9 @@ class UserController extends Controller
         $user = auth()->user();
         $content = Content::where('user_id',$user->id)->find($request->content_id);
         if($content){
-            $request->request->add(['mode'=>'request']);
+            $request->request->add(['mode'=>'publish']);
             $create = $content->created_at;
-            $request->request->remove('create_at');
-            $request->request->add(['created_at'=>$create]);
+            $request->request->remove('created_at');
             //Zoom api
             /*$date = $request->date;
             $time = $request->time;
@@ -1542,8 +1541,9 @@ class UserController extends Controller
             //var_dump($request);
             $part_id = $request->part_id;
             $request->request->remove('part_id');
-            ContentPart::find($part_id)->update($request->all());
-            return back();
+            //return $request->except(['_token', 'content_id', 'created_at']);
+            $test = ContentPart::where('id', $part_id)->update($request->except(['_token', 'content_id']));
+            return redirect('/user/content/edit/'.$request->content_id.'#zoom');
         }else{
             return back();
         }
