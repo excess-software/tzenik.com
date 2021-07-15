@@ -4791,6 +4791,25 @@ class UserController extends Controller
         return $array_disponibles;
     }
 
+    public function getAsignedUsersPrivate($curso){
+        
+        $fundal_category = Usercategories::where('title', 'Fundal')->orWhere('title', 'fundal')->get();
+
+        $userList = User::where('category_id', $fundal_category[0]->id)->get();
+
+        $array_asignados = array();
+
+        foreach($userList as $usuario){
+            $asignados = Sell::where('buyer_id', $usuario->id)->where('content_id', $curso)->get();
+            if(!$asignados->isEmpty()){
+                $array_curso = array($usuario->id, $usuario->name, $usuario->username);
+                array_push($array_asignados, $array_curso);
+            }
+        }
+        
+        return $array_asignados;
+    }
+
     public function desasignarCurso(Request $request){
         $curso = $request->curso;
 

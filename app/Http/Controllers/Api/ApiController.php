@@ -2571,6 +2571,10 @@ class ApiController extends Controller
 
         $User = $this->checkUserToken($request);
 
+        $now = Carbon::now();
+        $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+        $weekEndDate = $now->endOfWeek()->format('Y-m-d');
+
         if(!$User)
             return $this->error(-1, trans('main.user_not_found'));
 
@@ -2581,16 +2585,19 @@ class ApiController extends Controller
         }else{
 
             $purchases_array = $purchases->toArray();
-
+            
+            $courses_array = array();
             $courses = Content::whereIn('id', $purchases_array)->where('content_type', 'Fundal')->select(['id', 'title'])->get();
 
             //return $courses;
 
             foreach($courses as $course){
+                $homeworks_array = array();
                 $homework = Homeworks::where('content_id', $course->id)->get();
                 foreach($homework as $hmwrk){
-                    $part_dates = ContentPart::where('id', $hmwrk->part_id)->select(['initial_date', 'limit_date'])->get()->first();
+                    $part_dates = ContentPart::where('id', $hmwrk->part_id)->select(['initial_date', 'limit_date', 'date'])->get()->first();
                     $done_homework = HomeworksUser::where('user_id', $User['id'])->where('part_id', $hmwrk->part_id)->get();
+                    $homeworks_qty = HomeworksUser::where('user_id', $User['id'])->where('part_id', $hmwrk->part_id)->count();
 
                     if(!$done_homework->isEmpty()){
                         $hmwrk->recibida = true;
@@ -2598,13 +2605,28 @@ class ApiController extends Controller
                         $hmwrk->recibida = false;
                     }
 
-                    $hmwrk->initial_date = $part_dates->initial_date;
+                    if($part_dates->initial_date){
+                        $hmwrk->initial_date = $part_dates->initial_date;
+                    }else{
+                        $hmwrk->initial_date = $part_dates->date;
+                    }
                     $hmwrk->limit_date = $part_dates->limit_date;
+                    $hmwrk->homeworks = $homeworks_qty;
+
+                    if(($hmwrk->initial_date >= $weekStartDate) && ($hmwrk->initial_date <= $weekEndDate)){
+                        array_push($homeworks_array, $hmwrk);
+                        $courses_array[] = array(
+                            'id' => $course->id,
+                            'title' => $course->title,
+                            'homeworks' => $hmwrk,
+                        );
+                    }
+                    
                 }
-                $course->homeworks = $homework;
+                $course->homeworks = $homeworks_array;
             }
 
-            return $this->response($courses);
+            return $this->response($courses_array);
         }
 
     }
