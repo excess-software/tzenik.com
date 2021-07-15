@@ -347,6 +347,8 @@
                 socket.on('receiveMessage', function (message, sender, chat_id, message_id, created_at, instructor) {
                             var this_chat_id = $('#chat_id').val();
 
+                            console.log(message, sender, chat_id, message_id, created_at, instructor);
+
                             let date_ob = new Date(created_at);
                             let date = ("0" + date_ob.getDate()).slice(-2);
                             let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);

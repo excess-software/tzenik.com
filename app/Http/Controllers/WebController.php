@@ -1042,7 +1042,7 @@ class WebController extends Controller
             'live'                  => $live,
             'meeting'               => $meeting,
             'meeting_date'          => $meeting_date,
-            'product_material'      => $product_material,
+            'product_material'      => $video_first_module->material,
             'guias' =>               $guias,
         ];
 
@@ -1505,7 +1505,7 @@ class WebController extends Controller
         }*/
         $partDesc = ContentPart::find($pid, ['title', 'description', 'initial_date', 'limit_date', 'zoom_meeting', 'date', 'time']);
         $partVideo = ContentPart::where('id', $pid)->value('upload_video');
-        $product_material = '/material/curso/'.$id.'/modulo/'.$pid.'/';
+        $product_material = ContentPart::where('id', $pid)->value('material');
 
         $part_dates = ContentPart::where('id', $pid)->first();
 
