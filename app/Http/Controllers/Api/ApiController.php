@@ -2542,15 +2542,23 @@ class ApiController extends Controller
     public function chat_sendMessage(Request $request){
         $user = $this->checkUserToken($request);
         $chat_id = $request->chat_id;
-        $message = $request->message;
+        $sent_message = $request->message;
+        $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
         //$data = $request->except('_token');
         //$data['sender'] = $user->id;
         //$data['chat_id'] = $chat_id;
         //$message = $data['message'];
         //$redis = LRedis::connection();
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
-        $message_created = Chat_Messages::create(['message' => $message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
-        return $message_created;
+        $message = Chat_Messages::create(['message' => $sent_message, 'chat_id' => $chat_id, 'sender' => $user['id']]);
+
+        if($message->sender == $chat_owner){
+            $message->instructor = 1;
+        }else{
+            $message->instructor = 0;
+        }
+
+        return $message;
 
     }
 
