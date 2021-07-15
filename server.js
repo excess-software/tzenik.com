@@ -9,14 +9,14 @@ var io = require('socket.io')(8890);
 io.on('connection', function(socket){
     console.log('Connected');
 
-    socket.on('sendMessage', function(message, sender, chat_id, message_id, created_at){
+    socket.on('sendMessage', function(message, sender, chat_id, message_id, created_at, instructor){
         if(typeof message == "object"){
           console.log('from react');
           console.log(Object.values(message)[0]+', from: '+Object.values(message)[1]+', to chat: '+Object.values(message)[2]+', message: '+Object.values(message)[3]+', created_at: '+Object.values(message)[4]);
-          io.sockets.emit('receiveMessage', Object.values(message)[0], Object.values(message)[1], Object.values(message)[2], Object.values(message)[3], Object.values(message)[4]);    
+          io.sockets.emit('receiveMessage', Object.values(message)[0], Object.values(message)[1], Object.values(message)[2], Object.values(message)[3], Object.values(message)[4],, Object.values(message)[5]);    
         }else{
-          console.log(message+', from: '+sender+', to chat: '+chat_id+', message: '+message_id+', created_at: '+created_at);
-          io.sockets.emit('receiveMessage', message, sender, chat_id, message_id, created_at); 
+          console.log(message+', from: '+sender+', to chat: '+chat_id+', message: '+message_id+', created_at: '+created_at+', instructor: '+instructor);
+          io.sockets.emit('receiveMessage', message, sender, chat_id, message_id, created_at, instructor); 
         }
     });
 

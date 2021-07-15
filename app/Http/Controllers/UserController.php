@@ -1387,9 +1387,11 @@ class UserController extends Controller
         $content = Content::where('user_id', $user->id)->find($request->content_id);
         if ($content) {
             $request->request->add(['created_at' => time(), 'mode' => 'publish']);
+            $material = $request->material;
+            $request->request->remove('material');
             $newPart = ContentPart::create($request->except('material'));
 
-            $material = $request->material;
+            $newPartEdit = ContentPart::where('id', $newPart->id)->update(['material' => '/bin/contenido-cursos/'.$content->id.'/'.$newPart->id.'/'.$material->getClientOriginalName()]);
 
             if(isset($material)){
                 if($material->isValid()){
@@ -4151,10 +4153,25 @@ class UserController extends Controller
         $user = auth()->user();
         $id = $user->id;
         $name = $user->name;
+
+        $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
+
         $chats = Chat_Chats::leftjoin('chat_users_in_chat', 'chat_chats.id', '=', 'chat_users_in_chat.chat_id')->where('chat_users_in_chat.user_id', $id)->select('chat_chats.id', 'chat_chats.name')->orderBy('chat_chats.id', 'DESC')->get();
         //$messages = Chat_Messages::with('message_owner')->where('chat_id', $chat_id)->orderBy('id', 'DESC')->get();
-        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'users.name', 'chat_messages.created_at')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
+        $messages = Chat_Messages::join('users', 'users.id', '=', 'chat_messages.sender')->select('chat_messages.message', 'chat_messages.id', 'chat_messages.created_at', 'users.name', 'users.id as user_id')->where('chat_messages.chat_id', $chat_id)->orderBy('chat_messages.id', 'ASC')->get();
         //return view(getTemplate() . '.user.chat.chat', ['chats' => $chats, 'messages' => $messages, 'this_chat' => $chat_id, 'this_user' => $name]);
+
+        foreach($messages as $message){
+            $user_role = 'guest';
+            if($message->user_id == $chat_owner){
+                $userIsVendor = User::where('id', $chat_owner)->value('vendor');
+                if($userIsVendor == 1){
+                    $user_role = 'instructor';
+                }
+            }
+            $message->user_role = $user_role;
+        }
+
         return $messages;
     }
     public function chat_sendMessage($chat_id, Request $request){
@@ -4162,12 +4179,19 @@ class UserController extends Controller
         $data = $request->except('_token');
         $data['sender'] = $user->id;
         $data['chat_id'] = $chat_id;
+        $chat_owner = Chat_Chats::where('id', $chat_id)->value('creator');
         //$message = $data['message'];
         //$redis = LRedis::connection();
         //$redis->publish('messageData', ['message' => $message, 'chat_id' => $chat_id, 'sender' => $user->id]);
-        $message_id = Chat_Messages::create($data);
+        $message = Chat_Messages::create($data);
 
-        return $message_id;
+        if($message->sender == $chat_owner){
+            $message->instructor = 1;
+        }else{
+            $message->instructor = 0;
+        }
+
+        return $message;
 
     }
     public function chat_newRoom($owner, $guest){

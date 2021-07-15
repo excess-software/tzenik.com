@@ -544,6 +544,19 @@ class ApiController extends Controller
             
             //$part->thumbnail = isset($part->zoom_meeting) ? (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'https://checkmybroadbandspeed.online/wp-content/uploads/Zoom-icon-logo1.png') : (isset($meta['thumbnail']) ? checkUrl($meta['thumbnail']) : 'sin thumbnail');
 
+            $material_type = '';
+            if(isset($part->material)){
+                $extension_pos = strrpos($part->material, '.');
+                $extension_str = substr($part->material, $extension_pos+1);
+                if($extension_str == 'pdf'){
+                    $material_type = 'pdf';
+                }else{
+                    $material_type = 'image';
+                }
+            }else{
+                $material_type = null;
+            }
+
             if(isset($part->zoom_meeting)){
                 $parts[] = [
                     'id'        => $part->id,
@@ -554,7 +567,8 @@ class ApiController extends Controller
                     'initial_date' => $part->initial_date,
                     'limit_date' => $part->limit_date,
                     'thumbnail' => $part->image,
-                    'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
+                    'part_material' => isset($part->material) ? url('/').$part->material : null,
+                    'material_type' => $material_type,
                     'status' => $partStatus,
                     'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values(),
                     'type' => 'zoom',
@@ -571,7 +585,8 @@ class ApiController extends Controller
                     'initial_date' => $part->initial_date,
                     'limit_date' => $part->limit_date,
                     'thumbnail' => $part->image,
-                    'part_material' => url('/').'/material/'.$id.'/'.$part->id.'/materiales.zip',
+                    'part_material' => isset($part->material) ? url('/').$part->material : null,
+                    'material_type' => $material_type,
                     'status' => $partStatus,
                     'quizzes' => $quizzes->isEmpty() ? null : $quizzes->values(),
                     'type' => 'course',
