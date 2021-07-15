@@ -491,7 +491,7 @@
                     </li>
                     @else
                     <li class="navbar-perfil">
-                        <a href="/user?redirect={{ Request::path() }}">Iniciar sesión<i class="far fa-user"></i></a>
+                        <a href="/user?redirect={{ Request::path() }}">Iniciar sesión <i class="far fa-user"></i></a>
                     </li>
                     @endif
                 </ul>

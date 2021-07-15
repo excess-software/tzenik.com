@@ -4454,6 +4454,9 @@ class UserController extends Controller
     }
 
     public function desasignarPrivate(Request $request){
+
+        $user = auth()->user();
+
         $fdate = strtotime($request->get('fdate', null)) + 12600;
         $ldate = strtotime($request->get('ldate', null)) + 12600;
 
@@ -4467,7 +4470,7 @@ class UserController extends Controller
             $q->where('mode', 'deliver');
         }])->withCount('sells', 'partsactive')->where(function ($w) {
             $w->where('mode', 'publish');
-        })->where('content_type', 'Fundal');
+        })->where('content_type', 'Fundal')->where('user_id', $user->id);
 
 
         if ($fdate > 12601)

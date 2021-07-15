@@ -1357,14 +1357,14 @@
         var result = str.substring(n + 1);
         console.log(result);
 
-        if(result == 'jpg' || result == 'png'){
+        if(result == 'jpg' || result == 'png' || result == 'jpeg'){
             $('#upload_thumbnail').val(newstr);
             $('#upload_thumbnail2').val(newstr);
         }else{
             $('#cover').val('');
 
             $.notify({
-                message: 'Tipo de archivo no admitido. Se admite JPG y PNG.'
+                message: 'Tipo de archivo no admitido. Se admite JPG, JPEG y PNG.'
             }, {
                 type: 'danger',
                 allow_dismiss: true,
@@ -1385,13 +1385,13 @@
         var result = str.substring(n + 1);
         console.log(result);
 
-        if(result == 'jpg' || result == 'png'){
+        if(result == 'jpg' || result == 'png' || result == 'jpeg'){
             $('#thumbnail').val(newstr);
         }else{
             $('#thumbnail').val('');
 
             $.notify({
-                message: 'Tipo de archivo no admitido. Se admite JPG y PNG.'
+                message: 'Tipo de archivo no admitido. Se admite JPG, JPEG y PNG.'
             }, {
                 type: 'danger',
                 allow_dismiss: true,
