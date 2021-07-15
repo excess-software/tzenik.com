@@ -583,7 +583,7 @@
                                             
                                             <div class="form-group">
                                                 <label class="control-label tab-con col-md-3">Fecha de inicio</label>
-                                                <div class="col-md-3 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <div class="input-group">
                                                         <input type="date" name="initial_date"
                                                             class="form-control">
@@ -591,7 +591,7 @@
                                                 </div>
                                                 <label
                                                     class="control-label tab-con col-md-3">Fecha de finalizaci&oacute;n</label>
-                                                <div class="col-md-3 tab-con">
+                                                <div class="col-md-10 tab-con">
                                                     <div class="input-group">
                                                         <input type="date" name="limit_date"
                                                             class="form-control">
