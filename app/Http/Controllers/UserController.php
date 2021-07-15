@@ -1479,7 +1479,10 @@ class UserController extends Controller
         if ($content) {
             $request->request->add(['mode' => 'publish']);
             ContentPart::find($request->part_id)->update($request->except(['part_id', 'material']));
-            $material = $request->material;
+            $material = $request->material;            
+
+            $PartEdit = ContentPart::where('id', $request->part_id)->update(['material' => '/bin/contenido-cursos/'.$request->content_id.'/'.$request->part_id.'/', $material->getClientOriginalName()]);
+
             if(isset($material)){
                 if($material->isValid()){
                     $material->move('bin/contenido-cursos/'.$request->content_id.'/'.$request->part_id.'/', $material->getClientOriginalName());
