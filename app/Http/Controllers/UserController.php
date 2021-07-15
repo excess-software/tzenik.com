@@ -1505,7 +1505,7 @@ class UserController extends Controller
             $request->request->remove('create_at');
             $request->request->add(['created_at'=>$create]);
             //Zoom api
-            $date = $request->date;
+            /*$date = $request->date;
             $time = $request->time;
             $duration = $request->duration;
             $title = $request->title;
@@ -1530,9 +1530,15 @@ class UserController extends Controller
 
             $data = \json_decode($res->getBody(), true);
             //var_dump($data);
-            $meeting = $data['id'];
+            $meeting = $data['id'];*/
 
-            $request->request->add(['zoom_meeting'=>$meeting]);
+            $url_pos = strpos($request->zoom_meeting, '/j/');
+            $pwd_pos = strpos($request->zoom_meeting, '?pwd');
+            $calc_id_qan = $pwd_pos - $url_pos;
+            $meeting_id = substr($request->zoom_meeting, $url_pos+3);
+
+            $request->request->remove('zoom_meeting');
+            $request->request->add(['zoom_meeting'=>$meeting_id]);
             //var_dump($request);
             $part_id = $request->part_id;
             $request->request->remove('part_id');
