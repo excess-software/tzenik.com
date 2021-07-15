@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="table_datatable">
-                        <table id="assignment_user_tbl" class="display table table-bordered" >
+                        <table id="tabla_users" class="display table table-bordered" >
                             <thead>
                               <tr>
                                   <th>Select</th>
@@ -116,7 +116,7 @@
         });
     } );
 
-    function loadUserTable(curso){
+    /*function loadUserTable(curso){
          _datatable = $('#assignment_user_tbl').DataTable({
               "dataSrc": "",
               "paging": false,
@@ -139,14 +139,32 @@
 
             
           });
-    }
-
+    }*/
 
     function getUsers(curso) {
+        $.ajax({
+            type: 'GET',
+            url: "/admin/content/private/getUsers_dt/" + curso,
+            dataType: "json",
+            success: function (data) {
+                var html = '';
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>\
+                        <td class="text-center"><input type="checkbox" name="usuarios[]" value="' + data[i][0] + '"></td><td>' + data[i][2] +
+                        ' - ' + data[i][1] + '</td>\
+                    </tr>';
+                }
+                $('#listado').html(html);
+                $('#tabla_users').DataTable();
+            }
+        });
+    }
+
+    /* function getUsers(curso) {
 
          loadUserTable(curso);
      
-    }
+    } */
 
  
 
