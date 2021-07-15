@@ -44,8 +44,7 @@
                             <thead>
                               <tr>
                                   <th>Select</th>
-                                  <th>Name</th>
-                                  <th>Username</th>
+                                  <th>Name - Username</th>
                               </tr>
                             </thead>
                             <tbody id="listado">

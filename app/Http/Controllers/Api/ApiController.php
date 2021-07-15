@@ -387,6 +387,8 @@ class ApiController extends Controller
 
         $meta    = arrayToList($content->metas, 'option','value');
 
+        $thumbnail_course = $meta['thumbnail'];
+
         $MB = 0;
         foreach($content->parts as $part)
             $MB = $MB + $part['size'];
@@ -599,8 +601,8 @@ class ApiController extends Controller
             'material'      => url('/').'/bin/contenido-cursos/'.$id.'/materiales.zip',
             'guia' => url('/').'/bin/contenido-cursos/'.$id.'/guia/guia-'.$content->title.'.pdf',
             'category'      => isset($content->category) ? ['id'=>$content->category->id,'title'=>$content->category->title] : null,
-            'cover'         => isset($meta['cover'])?checkUrl($meta['cover']):'',
-            'thumbnail'     => isset($meta['thumbnail'])?checkUrl($meta['thumbnail']):'',
+            //'cover'         => isset($meta['cover'])?checkUrl($meta['cover']):'',
+            'thumbnail'     => isset($thumbnail_course)?$thumbnail_course:'',
             'date'          => date('Y-m-d', $content->created_at),
             'parts'         => $parts,
             //'quizzes'       => $content->quizzes
