@@ -144,7 +144,7 @@
     function getUsers(curso) {
         $.ajax({
             type: 'GET',
-            url: "/admin/content/private/getUsers_dt/" + curso,
+            url: "/admin/content/private/getUsers/" + curso,
             dataType: "json",
             success: function (data) {
                 var html = '';
