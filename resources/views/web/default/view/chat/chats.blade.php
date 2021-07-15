@@ -21,6 +21,11 @@
                                         <div class="headind_srch">
                                             <div class="recent_heading">
                                                 <h4>Recent</h4>
+                                                <br>
+                                                <a href="#"><b>Crear nuevo</b></a> 
+                                            </div>
+                                            <div class="recent_heading">
+                                                
                                             </div>
                                         </div>
                                         <div class="inbox_chat">
@@ -91,7 +96,7 @@
                                         return_message = return_message;
                                         console.log(return_message);
                                         console.log('message_id='+return_message.id);
-                                        socket.emit('sendMessage', message, "{{ $user['name'] }}", this_chat_id, return_message.id, return_message.created_at);
+                                        socket.emit('sendMessage', message, "{{ $user['name'] }}", this_chat_id, return_message.id, return_message.created_at, return_message.instructor);
                                     });
                                 $('.write_msg').val('');
                             } else {
@@ -99,7 +104,7 @@
                             }
                             return false;
                         });
-                        socket.on('receiveMessage', function (message, sender, chat_id, message_id, created_at) {
+                        socket.on('receiveMessage', function (message, sender, chat_id, message_id, created_at, instructor) {
                             var this_chat_id = $('#chat_id').val();
 
                             let date_ob = new Date(created_at);
@@ -148,9 +153,8 @@
                             }
                             $('#liUser_' + user_id).remove();
                         });
-                        socket.on('receivedNewChat', name, owner, guest, chat_id){
-                            
-                        }
+                        socket.on('receivedNewChat', name, owner, guest, chat_id);
+                    
                     });
                     function callChat(id) {
                         var host = window.location.origin;
