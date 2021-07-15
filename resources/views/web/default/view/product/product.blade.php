@@ -135,7 +135,7 @@
                                 </button>
                             @endif
                             <br>
-                            @if(isset($user))
+                            <!--@if(isset($user))
                             <a href="/material/curso/{{$product->id}}">
                                 <button class="btn btn-media-descargar-curso">
                                     <h4>Descargar Materiales del Curso</h4>
@@ -145,7 +145,7 @@
                                 <button class="btn btn-media-descargar-curso">
                                     <h4>Descargar Materiales del Curso</h4>
                                 </button>
-                            @endif
+                            @endif -->
                         @endif
                 </div>
                 <br>
