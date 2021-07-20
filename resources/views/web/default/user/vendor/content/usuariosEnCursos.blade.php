@@ -13,7 +13,7 @@
         <h2 class="card-title">Asignar usuarios a cursos privados</h2>
     </header>
     <div class="card-body">
-        <form action="/user/vendor/content/asignar" method="post">
+        <form method="post" id="myForm">
             @csrf
             <div class="row">
                 <div class="col-md-12">
@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="form-group">
-                        <button type="submit" id="submit_btn" class="text-center btn btn-primary w-50">Asignar</button>
+                        <button type="button" id="submit_btn" class="text-center btn btn-primary w-50">Asignar</button>
                     </div>
                 </div>
             </div>
@@ -91,6 +91,9 @@
     </div>
 </section>
 <script>
+
+    var table = '';
+
     /*function setLink(curso, user) {
         $('#asignar').attr('href', '/admin/content/asignar/' + curso + '/' + user);
     }
@@ -116,13 +119,60 @@
                     </tr>';
                 }
                 $('#listado').html(html);
-                $('#tabla_users').DataTable();
+                //$('#tabla_users').DataTable().clear().destroy();
+                /*table = $('#tabla_users').DataTable({
+                    pageLength : 5,
+                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+                    destroy: true
+                });*/
+                //table.clear().destroy();
+                table = $('#tabla_users').DataTable();
+                //$('#tabla_users').DataTable().ajax.reload();
+                //table.draw();
+                //table.clear();
+                //table.rows.add(data.data);
+                //table.draw(); 
             }
         });
     }
 
     $(document).ready(function () {
-        $('#tabla').DataTable();
+        var tableUsers = $('#tabla').DataTable({
+            
+        });
+
+        /*var selectedRowIds = [];
+        $('#submit_btn').click(function(){
+            $('#tabla_users tbody tr:has(input:checkbox:checked)').each(function(){
+                //Collecting the row values of the checked rows in an array.
+                selectedRowIds.push($(this).val());
+            });
+        });*/
+
+        $("#submit_btn").on('click', function(e){
+            e.preventDefault();
+
+            var data = table.$('input[name="usuarios[]"]').serializeArray();
+            data.push({'name': 'curso', 'value': $('#curso').val()});
+            data.push({'name': '_token', 'value': "{{ csrf_token() }}"});
+            //var data = $('#myForm').serialize();
+
+            //var datas = table.$('input,select,textarea').serialize();
+            //console.log(datas);
+
+            console.log(data);
+
+            $.post({
+                url: "/user/vendor/content/cursos/asignar",
+                data: data,
+            }).done(function(data){
+                if(data == 'done'){
+                    window.location.reload();
+                }else{
+                    window.alert('Seleccione usuarios para poder asignar');
+                }
+            });
+        });
     });
 
 </script>

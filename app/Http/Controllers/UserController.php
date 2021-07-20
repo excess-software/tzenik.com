@@ -4771,11 +4771,12 @@ class UserController extends Controller
     }
 
     public function vendorAsignarCurso(Request $request){
+
         $curso = $request->curso;
         $getCurso = Content::find($curso);
 
         if(empty($request->usuarios)){
-            return back();
+            return 'no data';
         }
 
         //return $request->usuarios;
@@ -4807,7 +4808,7 @@ class UserController extends Controller
             }
 
         }
-        return back();
+        return 'done';
     }
     public function vendorGetUsersPrivate($curso){
 

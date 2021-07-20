@@ -1521,6 +1521,10 @@ class AdminController extends Controller
         // echo "<pre>";
         // print_r($_POST);
 
+        if(empty($request->usuarios)){
+            return 'no data';
+        }
+
         foreach($request->usuarios as $usuario){
 
             Sell::insert([
@@ -1550,7 +1554,8 @@ class AdminController extends Controller
             }
         }
 
-        return Redirect::to('admin/content/private/asignar');
+        return 'done';
+        //return Redirect::to('admin/content/private/asignar');
         // return back();
     }
     public function desasignarCurso(Request $request){

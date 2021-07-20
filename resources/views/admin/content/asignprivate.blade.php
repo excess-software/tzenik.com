@@ -14,7 +14,7 @@
         <h2 class="card-title">Asignar usuarios a cursos privados</h2>
     </header>
     <div class="card-body">
-        <form action="/admin/content/asignar" method="post">
+        <form method="post">
             @csrf
             <div class="row">
                 <div class="col-md-12">
@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="form-group">
-                        <button type="submit" class="text-center btn btn-primary w-50">Asignar</button>
+                        <button type="button" class="text-center btn btn-primary w-50">Asignar</button>
                     </div>
                 </div>
             </div>
@@ -113,8 +113,35 @@
  
     let _datatable = null;
 
+    var table = '';
+
     $(document).ready(function() {
         $('#tabla').DataTable({
+        });
+
+        $("#submit_btn").on('click', function(e){
+            e.preventDefault();
+
+            var data = table.$('input[name="usuarios[]"]').serializeArray();
+            data.push({'name': 'curso', 'value': $('#curso').val()});
+            data.push({'name': '_token', 'value': "{{ csrf_token() }}"});
+            //var data = $('#myForm').serialize();
+
+            //var datas = table.$('input,select,textarea').serialize();
+            //console.log(datas);
+
+            console.log(data);
+
+            $.post({
+                url: "/admin/content/asignar",
+                data: data,
+            }).done(function(data){
+                if(data == 'done'){
+                    window.location.reload();
+                }else{
+                    window.alert('Seleccione usuarios para poder asignar');
+                }
+            });
         });
     } );
 
@@ -157,7 +184,7 @@
                     </tr>';
                 }
                 $('#listado').html(html);
-                $('#tabla_users').DataTable();
+                table = $('#tabla_users').DataTable();
             }
         });
     }

@@ -101,7 +101,7 @@ Route::group(['prefix' => 'user'], function () {
                 Route::get('private/progreso', 'UserController@vendorProgresoAlumnosFundal');
                 Route::get('private/desasignar', 'UserController@desasignarPrivate');
                 Route::get('private/progresoFundal', 'UserController@progresoAlumnosFundal');
-                Route::post('asignar', 'UserController@vendorAsignarCurso');
+                Route::post('cursos/asignar', 'UserController@vendorAsignarCurso');
                 Route::post('desasignar', 'UserController@desasignarCurso');
                 Route::get('private/getUsers/{curso}', 'UserController@vendorGetUsersPrivate');
                 Route::get('private/getUsers_dt/{curso}', 'UserController@getAsignedUsersPrivate');
